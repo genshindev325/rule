@@ -26,7 +26,7 @@ const events = [
 
 const UpcomingEvents = () => {
   return (
-    <div className="p-4 bg-white shadow-md rounded-md">
+    <div className="p-10 bg-white shadow-md rounded-md g-4">
       <table className="w-full">
         <thead>
           <tr>
