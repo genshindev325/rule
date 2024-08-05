@@ -52,6 +52,11 @@ const RecentReviews = () => {
             <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">reply</div>
           </li>
         ))}
+        <div className='text-center mt-8 mb-2'>
+          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300'>
+            See more
+          </button>
+        </div>
       </ul>
     </div>
   );

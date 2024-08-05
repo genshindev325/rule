@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import vercel from '../public/vercel.svg';
+import Link from 'next/link';
 import { FaHome, FaCalendarAlt, FaComments, FaChartBar, FaBell, FaCog } from 'react-icons/fa';
 
 const Navbar = () => {
