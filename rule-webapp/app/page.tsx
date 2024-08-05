@@ -3,6 +3,6 @@ import SignUp from '@/pages/signUp';
 
 export default function Home() {
   return (
-    <SignIn/>
+    <SignUp/>
   );
 }
