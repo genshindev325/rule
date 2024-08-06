@@ -22,7 +22,7 @@ const ChatInput: React.FC<{ sendMessage: (message: string) => void }> = ({
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="flex-1 p-2 border rounded bg-gray-100"
-        placeholder="Type a message..."
+        placeholder="メッセージ"
       />
       <button
         onClick={handleSend}

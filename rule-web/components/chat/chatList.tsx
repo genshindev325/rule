@@ -13,13 +13,13 @@ const chats: Chat[] = [
   {
     name: 'Taro Sato',
     date: '2023/09/16',
-    lastMessage: 'Thank you again!',
+    lastMessage: 'ありがとうございました！',
     avatar: '/image/minion.png'
   },
   {
-    name: 'Hana',
+    name: '仕事',
     date: '2023/09/15',
-    lastMessage: 'Thank you for your time!',
+    lastMessage: 'お時間をいただきありがとうございました！',
     avatar: '/image/minion.png'
   },
 ]
@@ -33,11 +33,11 @@ const ChatList: React.FC = () => {
 
   return (
     <div className="w-1/3 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid">
-      <h2 className="text-2xl font-bold mb-4 ml-6">Inquiry</h2>
+      <h2 className="text-2xl font-bold mb-4 ml-6">問い合わせ</h2>
       <input
         type="text"
         className="w-auto p-2 m-2 rounded bg-gray-200 focus:outline-none"
-        placeholder="search"
+        placeholder="検索"
       />
       {/* chat list */}
       <ul>
