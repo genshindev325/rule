@@ -5,16 +5,6 @@ import React from 'react';
 const ChatMessages: React.FC = () => {
   return (
     <div className="flex-1 bg-gray-100">
-      <div className="flex items-center p-4 mb-4 border-gray-300 border-b-2 border-solid">
-        <img
-          src="/image/minion.png"
-          alt="Taro Sato"
-          className="w-10 h-10 rounded-full mr-4"
-        />
-        <div>
-          <div className='text-lg'>Taro Sato</div>
-        </div>
-      </div>
       <div className="flex flex-col space-y-2 p-4">
         {/* conversations */}
         <div className="self-start bg-gray-300 py-2 pl-4 pr-36 rounded-2xl rounded-bl-none">
