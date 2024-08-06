@@ -19,17 +19,21 @@ const Navbar = () => {
             <FaHome className="w-8 h-8" />
           </button>
         </Link>
-        {/* <Link href="/eventSettings"> */}
+        <Link href="/eventSettings">
           <button className='hover:text-blue-400 active:text-blue-800'>
             <FaCalendarAlt className="w-8 h-8" />
           </button>
-        {/* </Link> */}
-        <button className='hover:text-blue-400 active:text-blue-800'>
-          <FaComments className="w-8 h-8" />
-        </button>
-        <button className='hover:text-blue-400 active:text-blue-800'>
-          <FaChartBar className="w-8 h-8" />
-        </button>
+        </Link>
+        <Link href="/chat">
+          <button className='hover:text-blue-400 active:text-blue-800'>
+            <FaComments className="w-8 h-8" />
+          </button>
+        </Link>
+        <Link href="/salesManagement">
+          <button className='hover:text-blue-400 active:text-blue-800'>
+            <FaChartBar className="w-8 h-8" />
+          </button>
+        </Link>
       </div>
       <div className='flex flex-col items-end space-y-8 mt-auto text-black'>
         <button className='hover:text-blue-400 active:text-blue-800'>

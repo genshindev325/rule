@@ -26,7 +26,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen min-w-full flex bg-gray-100">
       <div className="w-20 bg-gray-800">
         <Navbar />
       </div>
