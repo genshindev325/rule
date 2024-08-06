@@ -1,4 +1,5 @@
-// components/setting/creditCardSettings.tsx
+// app/(store)/setting/creditCardSettings/page.tsx
+
 'use client';
 
 import React, { useState } from 'react';

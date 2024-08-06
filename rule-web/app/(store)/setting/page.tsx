@@ -1,4 +1,4 @@
-// pages/setting.tsx
+// app/(store)/setting/page.tsx
 
 'use client';
 

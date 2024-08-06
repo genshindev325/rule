@@ -1,4 +1,5 @@
-// components/setting/transferAccountSetting.tsx
+// app/(store)/setting/transferAccountSettings/page.tsx
+
 'use client';
 
 import React, { useState } from 'react';

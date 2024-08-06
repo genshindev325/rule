@@ -1,4 +1,5 @@
-// components/setting/passwordSetting.tsx
+// app/(store)/setting/passwordSetting/page.tsx
+
 'use client';
 
 import React, { useState } from 'react';

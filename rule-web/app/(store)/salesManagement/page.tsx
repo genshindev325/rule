@@ -1,3 +1,5 @@
+// app/(store)/salesManagement/page.tsx
+
 'use client';
 
 import React from 'react';
