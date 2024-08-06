@@ -11,6 +11,6 @@ import EventSettings from '@/pages/eventSettings';
 
 export default function Home() {
   return (
-    <EventSettings/>
+    <Dashboard/>
   );
 }

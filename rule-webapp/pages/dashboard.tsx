@@ -1,12 +1,30 @@
+// pages/dashboard.tsx
+
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/navbar';
 import RecentReviews from '../components/dashboard/recentReviews';
+import ReviewModal from '@/components/dashboard/reviewModal';
 import UpcomingEvents from '../components/dashboard/upcomingEvents';
 import MainPanel from '../components/dashboard/mainPanel';
 
 const Dashboard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<string[]>([]);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddReview = (review: string) => {
+    setReviews([...reviews, review]);
+  };
+
   return (
     <div className="min-h-screen flex bg-gray-100">
       <div className="w-20 bg-gray-800">
@@ -21,8 +39,13 @@ const Dashboard = () => {
         </div>
       </div>
       <div className='w-auto p-10 mt-4'>
-        <RecentReviews />        
+        <RecentReviews onSeeMore={handleOpenModal} />        
       </div>
+      <ReviewModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleAddReview}
+      />
     </div>
   );
 };

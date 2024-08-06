@@ -1,7 +1,13 @@
+// components/dashboard/recentReviews.tsx
+
 'use client';
 
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
+
+interface RecentReviewsProps {
+  onSeeMore: () => void;
+}
 
 const reviews = [
   {
@@ -28,7 +34,7 @@ const reviews = [
   // Add more reviews as needed
 ];
 
-const RecentReviews = () => {
+const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore }) => {
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
       <h3 className="text-lg font-semibold mb-4">Recent Reviews</h3>
@@ -53,7 +59,7 @@ const RecentReviews = () => {
           </li>
         ))}
         <div className='text-center mt-8 mb-2'>
-          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300'>
+          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300' onClick={onSeeMore}>
             See more
           </button>
         </div>
