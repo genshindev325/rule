@@ -11,7 +11,7 @@ const TransferAccountSetting = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add Password setting logic here
+    // Add transfer account setting logic here
   }
 
   return (

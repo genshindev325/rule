@@ -7,9 +7,10 @@ import StoreProfileSettings from '@/components/setting/storeProfileSettings';
 import CreditCardSettins from '@/components/setting/creditCardSettings';
 import PasswordSetting from '@/components/setting/passwordSetting';
 import TransferAccountSetting from '@/components/setting/transferAccountSettings';
+import EventSettings from '@/pages/eventSettings';
 
 export default function Home() {
   return (
-    <TransferAccountSetting/>
+    <EventSettings/>
   );
 }
