@@ -16,7 +16,7 @@ const Setting = () => {
             Store profile settings
           </div>
           <div className="rounded-lg border-2 w-40 sm:w-48 md:w-56 h-28 sm:h-32 md:h-36 bg-white hover:bg-gray-200 text-center flex flex-col justify-center">
-            Password settings
+            Password setting
           </div>
           <div className="rounded-lg border-2 w-40 sm:w-48 md:w-56 h-28 sm:h-32 md:h-36 bg-white hover:bg-gray-200 text-center flex flex-col justify-center">
             Credit card settings

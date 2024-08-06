@@ -1,3 +1,4 @@
+// components/salesManagement/eventHistory.tsx
 'use client';
 
 import React from 'react';
