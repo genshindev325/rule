@@ -55,7 +55,7 @@ const ChatList: React.FC = () => {
               <div className='flex flex-col gap-2'>
                 <div className='flex flex-row gap-4'>
                   <div>{chat.name}</div>
-                  <div className="text-sm text-gray-400">{chat.date}</div>
+                  <div className="text-sm text-gray-500">{chat.date}</div>
                 </div>
                 <div>{chat.lastMessage}</div>
               </div>
