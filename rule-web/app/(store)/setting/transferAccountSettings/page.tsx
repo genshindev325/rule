@@ -24,39 +24,39 @@ const TransferAccountSetting = () => {
       <div className='w-auto mx-auto'>
         <div className="min-h-screen flex items-start py-20 justify-center bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-6">Transfer account setting</h2>
+            <h2 className="text-2xl font-bold mb-6">振替口座設定</h2>
             <form onSubmit={handleSubmit}>
               {/* Transfer account setting */}
-              <h3 className='text-gray-600 py-2'>Bank name</h3>
+              <h3 className='text-gray-600 py-2'>銀行名</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="Bank name"
+                  placeholder="銀行名"
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>Branch name</h3>
+              <h3 className='text-gray-600 py-2'>支店名</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="Branch name"
+                  placeholder="支店名"
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>Account number</h3>
+              <h3 className='text-gray-600 py-2'>口座番号</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="Account number"
+                  placeholder="口座番号"
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>Account holder</h3>
+              <h3 className='text-gray-600 py-2'>口座名義人</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="Account holder"
+                  placeholder="口座名義人"
                 />
               </div>
               {/* buttons */}
