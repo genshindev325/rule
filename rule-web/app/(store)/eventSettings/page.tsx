@@ -21,7 +21,7 @@ const EventSettings = () => {
 
   return (
     <div className="min-h-screen min-w-full flex bg-gray-100">
-      <div className="w-20 bg-gray-800">
+      <div className="w-20">
         <Navbar />
       </div>
       <div className="min-h-screen w-auto pt-20 mx-auto bg-gray-100">
