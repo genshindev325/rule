@@ -19,9 +19,11 @@ const Navbar = () => {
             <FaHome className="w-8 h-8" />
           </button>
         </Link>
-        <button className='hover:text-blue-400 active:text-blue-800'>
-          <FaCalendarAlt className="w-8 h-8" />
-        </button>
+        {/* <Link href="/eventSettings"> */}
+          <button className='hover:text-blue-400 active:text-blue-800'>
+            <FaCalendarAlt className="w-8 h-8" />
+          </button>
+        {/* </Link> */}
         <button className='hover:text-blue-400 active:text-blue-800'>
           <FaComments className="w-8 h-8" />
         </button>
