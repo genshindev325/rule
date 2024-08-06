@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import Navbar from '../components/navbar';
+import Navbar from '../../../components/navbar';
 
 const Setting = () => {
   return (

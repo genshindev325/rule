@@ -14,11 +14,11 @@ const Navbar = () => {
           <div className="w-8 h-8 rounded-full bg-gray-200" />
           {/* <div className="w-8 h-8 rounded-full bg-[url('../public/vercel.svg')] bg-gray-200" /> */}
         </button>
-        {/* <Link href="/dashboard"> */}
+        <Link href="/dashboard">
           <button className='hover:text-blue-400 active:text-blue-800'>
             <FaHome className="w-8 h-8" />
           </button>
-        {/* </Link> */}
+        </Link>
         <button className='hover:text-blue-400 active:text-blue-800'>
           <FaCalendarAlt className="w-8 h-8" />
         </button>
@@ -33,11 +33,11 @@ const Navbar = () => {
         <button className='hover:text-blue-400 active:text-blue-800'>
           <FaBell className="w-8 h-8" />
         </button>        
-        {/* <Link href="/setting"> */}
+        <Link href="/setting">
           <button className='hover:text-blue-400 active:text-blue-800'>
             <FaCog className="w-8 h-8" />
           </button>
-        {/* </Link> */}
+        </Link>
       </div>
     </div>
   );

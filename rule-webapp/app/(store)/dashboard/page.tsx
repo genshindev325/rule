@@ -3,11 +3,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navbar from '../components/navbar';
-import RecentReviews from '../components/dashboard/recentReviews';
+import Navbar from '@/components/navbar';
+import RecentReviews from '@/components/dashboard/recentReviews';
 import ReviewModal from '@/components/dashboard/reviewModal';
-import UpcomingEvents from '../components/dashboard/upcomingEvents';
-import MainPanel from '../components/dashboard/mainPanel';
+import UpcomingEvents from '@/components/dashboard/upcomingEvents';
+import MainPanel from '@/components/dashboard/mainPanel';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

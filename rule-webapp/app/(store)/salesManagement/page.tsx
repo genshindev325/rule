@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Navbar from '../components/navbar';
-import TotalSales from '../components/salesManagement/totalSales';
-import EventHistory from '../components/salesManagement/eventHistory';
+import Navbar from '@/components/navbar';
+import TotalSales from '@/components/salesManagement/totalSales';
+import EventHistory from '@/components/salesManagement/eventHistory';
 
 const SalesManagement = () => {
   return (
