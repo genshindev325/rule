@@ -31,10 +31,10 @@ const Dashboard = () => {
         <Navbar />
       </div>
       <div className="w-3/4 p-10">
-        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-6">ダッシュボード</h1>
         <MainPanel />
         <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">Upcoming Events</h3>
+          <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
           <UpcomingEvents />
         </div>
       </div>

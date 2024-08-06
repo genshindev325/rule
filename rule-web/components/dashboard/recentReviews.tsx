@@ -11,24 +11,24 @@ interface RecentReviewsProps {
 
 const reviews = [
   {
-    user: 'Hashimoto Banana',
+    user: '橋本バナナ',
     date: '昨日',
-    content: 'It was a lot of fun! I\'d love to participate again if I have the opportunity.',
-    conclusion: 'The food was also delicious.',
+    content: 'とても楽しかったです！機会があればまた参加したいです。',
+    conclusion: '食事も美味しかったです。',
     rating: 5
   },
   {
-    user: 'Hashimoto Banana',
+    user: '橋本バナナ',
     date: '昨日',
-    content: 'It was a lot of fun! I\'d love to participate again if I have the opportunity.',
-    conclusion: 'The food was also delicious.',
+    content: 'とても楽しかったです！機会があればまた参加したいです。',
+    conclusion: '食事も美味しかったです。',
     rating: 4
   },
   {
-    user: 'Hashimoto Banana',
+    user: '橋本バナナ',
     date: '昨日',
-    content: 'It was a lot of fun! I\'d love to participate again if I have the opportunity.',
-    conclusion: 'The food was also delicious.',
+    content: 'とても楽しかったです！機会があればまた参加したいです。',
+    conclusion: '食事も美味しかったです。',
     rating: 5
   },
   // Add more reviews as needed
@@ -37,7 +37,7 @@ const reviews = [
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore }) => {
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
-      <h3 className="text-lg font-semibold mb-4">Recent Reviews</h3>
+      <h3 className="text-lg font-semibold mb-4">最近のレビュー</h3>
       <ul>
         {reviews.map((review, index) => (
           <li key={index} className="mb-4">
@@ -55,12 +55,12 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore }) => {
             </div>
             <p>{review.content}</p>
             <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
-            <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">reply</div>
+            <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">返事</div>
           </li>
         ))}
         <div className='text-center mt-8 mb-2'>
           <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300' onClick={onSeeMore}>
-            See more
+            続きを見る
           </button>
         </div>
       </ul>

@@ -30,10 +30,10 @@ const UpcomingEvents = () => {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="text-left">Event Name</th>
-            <th className="text-left">Date and Time</th>
-            <th className="text-left">Male</th>
-            <th className="text-left">Female</th>
+            <th className="text-left">イベント名</th>
+            <th className="text-left">日時</th>
+            <th className="text-left">男</th>
+            <th className="text-left">女</th>
           </tr>
         </thead>
         <tbody>

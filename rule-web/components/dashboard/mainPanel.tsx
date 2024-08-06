@@ -7,38 +7,38 @@ const MainPanel = () => {
     <div className="p-4 bg-white shadow-md rounded-md flex flex-wrap">
       <div className="w-full md:w-1/3 p-4">
         <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
-          <div className="text-2xl font-bold">123,45 yen</div>
-          <div className="text-sm text-gray-600">Previous month's sales</div>
+          <div className="text-2xl font-bold">123,45 円</div>
+          <div className="text-sm text-gray-600">前月の売上</div>
         </div>
       </div>
       <div className="w-full md:w-1/3 p-4">
       <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
-          <div className="text-2xl font-bold">234,567 yen</div>
-          <div className="text-sm text-gray-600">This month's sales</div>
+          <div className="text-2xl font-bold">234,567 円</div>
+          <div className="text-sm text-gray-600">今月の売上</div>
         </div>
       </div>
       <div className="w-full md:w-1/3 p-4">
       <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
-          <div className="text-2xl font-bold">3 pieces</div>
-          <div className="text-sm text-gray-600">Number of planned events</div>
+          <div className="text-2xl font-bold">3個</div>
+          <div className="text-sm text-gray-600">予定イベント数</div>
         </div>
       </div>
       <div className="w-full md:w-1/3 p-4">
       <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
-          <div className="text-2xl font-bold">1 item</div>
-          <div className="text-sm text-gray-600">Cases not reached</div>
+          <div className="text-2xl font-bold">1 アイテム</div>
+          <div className="text-sm text-gray-600">未到達のケース</div>
         </div>
       </div>
       <div className="w-full md:w-1/3 p-4">
       <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
-          <div className="text-2xl font-bold">12 pieces</div>
-          <div className="text-sm text-gray-600">Number of reviews</div>
+          <div className="text-2xl font-bold">12個</div>
+          <div className="text-sm text-gray-600">レビュー数</div>
         </div>
       </div>
       <div className="w-full md:w-1/3 p-4">
       <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
           <div className="text-2xl font-bold">80%</div>
-          <div className="text-sm text-gray-600">Review response rate</div>
+          <div className="text-sm text-gray-600">レビュー回答率</div>
         </div>
       </div>
     </div>
