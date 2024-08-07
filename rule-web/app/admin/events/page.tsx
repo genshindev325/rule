@@ -18,7 +18,7 @@ const Events = () => {
           <div className='flex flex-row gap-8 pb-4 items-center'>
             <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
             <button type='button' className='rounded-lg bg-blue-500 text-white text-md p-2 w-36 hover:bg-blue-600'>
-              Event creation
+              イベント作成
             </button>
           </div>
           <UpcomingEvents />

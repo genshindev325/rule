@@ -91,7 +91,7 @@ const UserList: React.FC = () => {
             <tr>
               <th className='text-left'>ID</th>
               <th className='text-left px-4'>ユーザー名</th>
-              <th className='text-left px-4'>登録日</th>
+              <th className='text-left px-4'>登録日時</th>
               <th className='text-left px-4'>アクション</th>
             </tr>
           </thead>
@@ -104,7 +104,7 @@ const UserList: React.FC = () => {
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
                     <button className="text-blue-600">設定</button>
-                    <button className="text-red-600">消去</button>
+                    <button className="text-red-600">削除</button>
                   </div>
                 </td>
               </tr>

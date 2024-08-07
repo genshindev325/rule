@@ -33,10 +33,10 @@ const UpcomingEvents = () => {
         <thead>
           <tr>
             <th className="text-left">イベント名</th>
-            <th className="text-left">日時</th>
-            <th className="text-left">男</th>
-            <th className="text-left">女</th>
-            <th className="text-left">action</th>
+            <th className="text-left">開催日時</th>
+            <th className="text-left">男性</th>
+            <th className="text-left">女性</th>
+            <th className="text-left">アクション</th>
           </tr>
         </thead>
         <tbody>
