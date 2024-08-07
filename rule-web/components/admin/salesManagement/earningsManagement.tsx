@@ -55,7 +55,7 @@ const EarningsManagement: React.FC = () => {
           一日の開催合コン数
         </a>
       </div>
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-white rounded-lg shadow-md p-4">
         <Chart options={chartOptions} series={chartSeries} type="area" height="350" />
       </div>
     </div>
