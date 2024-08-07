@@ -1,4 +1,4 @@
-// components/store/chat/chatMessages.tsx
+// components/admin/chat/chatMessages.tsx
 
 import React from 'react';
 

@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navbar from '@/components/store/navbar';
+import Navbar from '@/components/admin/navbar';
 import RecentReviews from '@/components/store/dashboard/recentReviews';
 import ReviewModal from '@/components/store/dashboard/reviewModal';
 import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';

@@ -36,6 +36,7 @@ const UpcomingEvents = () => {
             <th className="text-left">日時</th>
             <th className="text-left">男</th>
             <th className="text-left">女</th>
+            <th className="text-left">action</th>
           </tr>
         </thead>
         <tbody>
@@ -45,6 +46,15 @@ const UpcomingEvents = () => {
               <td>{event.date}</td>
               <td>{event.male}</td>
               <td>{event.female}</td>
+              <td>•••</td>
+              {/* "<div class='tooltip-container'>";
+                      "<button class='tooltip-button'>•••</button>";
+                      "<div class='tooltip-content'>";
+                        < class='tooltip-arrow'></div>";
+                        "<span class='tooltip-item tooltip-icon show_full_review'><span style='width: 18px; margin-top: 3px;'>".dtd_svg("star-outline", "dash-icon mr-1")."</span> Show full review</span>";
+                        $tag == 'published' ? "<span class='tooltip-item tooltip-icon'><span style='width: 18px; margin-top: 3px;'>".dtd_svg("question", "dash-icon mr-1")."</span> Help</span>" : "<span class='tooltip-item tooltip-icon'><span style='width: 18px; margin-top: 3px;'>".dtd_svg("question", "dash-icon mr-1")."</span> Check the status</span>";
+                      "</div>";
+                    "</div>"; */}
             </tr>
           ))}
         </tbody>

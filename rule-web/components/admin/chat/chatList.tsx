@@ -1,4 +1,4 @@
-// components/store/chat/chatList.tsx
+// components/admin/chat/chatList.tsx
 
 import React, { useState } from 'react';
 

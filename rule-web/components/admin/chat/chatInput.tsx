@@ -1,4 +1,4 @@
-// components/store/chat/chatInput.tsx
+// components/admin/chat/chatInput.tsx
 
 import React, { useState } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
