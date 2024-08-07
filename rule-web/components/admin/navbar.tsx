@@ -4,7 +4,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { FaHome, FaCalendarAlt, FaComments, FaChartBar, FaBell, FaCog } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaComments, FaChartArea, FaClipboardList, FaBell, FaCog } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -21,7 +21,7 @@ const Navbar = () => {
         </Link>
         <Link href="/admin/events">
           <button className='hover:text-blue-400 active:text-blue-800'>
-            <FaCalendarAlt className="w-8 h-8" />
+            <FaCalendar className="w-8 h-8" />
           </button>
         </Link>
         <Link href="/admin/chat">
@@ -29,9 +29,14 @@ const Navbar = () => {
             <FaComments className="w-8 h-8" />
           </button>
         </Link>
+        <Link href="/admin/settlementSummary">
+          <button className='hover:text-blue-400 active:text-blue-800'>
+            <FaClipboardList className="w-8 h-8" />
+          </button>
+        </Link>
         <Link href="/admin/salesManagement">
           <button className='hover:text-blue-400 active:text-blue-800'>
-            <FaChartBar className="w-8 h-8" />
+            <FaChartArea className="w-8 h-8" />
           </button>
         </Link>
       </div>
