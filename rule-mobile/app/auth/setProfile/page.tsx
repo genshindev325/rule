@@ -40,7 +40,8 @@ const SetProfile: React.FC = () => {
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
       <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-        <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-12 text-center">プロフィール画像を設定してください</h2>
+        <h2 className="text-xl md:text-3xl font-bold pt-12 md:pt-20 px-12 text-center">プロフィール画像を</h2>
+        <h2 className="text-xl md:text-3xl font-bold pb-12 md:pb-20 px-12 text-center">設定してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="py-2 md:py-4 flex items-center justify-center h-full">
             <input
