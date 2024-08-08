@@ -7,9 +7,10 @@ import RegisterName from './auth/registerName/page';
 import SetProfile from './auth/setProfile/page';
 import RegisterBirthday from './auth/registerBirthday/page';
 import RegisterPassword from './auth/registerPassword/page';
+import RegisterEmail from './auth/registerEmail/page';
 
 export default function Home() {
   return (
-    <RegisterPassword />
+    <RegisterEmail />
   );
 }
