@@ -8,9 +8,10 @@ import SetProfile from './auth/setProfile/page';
 import RegisterBirthday from './auth/registerBirthday/page';
 import RegisterPassword from './auth/registerPassword/page';
 import RegisterEmail from './auth/registerEmail/page';
+import SelectGender from './auth/selectGender/page';
 
 export default function Home() {
   return (
-    <RegisterEmail />
+    <SelectGender />
   );
 }
