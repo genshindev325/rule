@@ -5,9 +5,10 @@ import LoginWith from './auth/loginWith/page';
 import RegisterID from './auth/registerID/page';
 import RegisterName from './auth/registerName/page';
 import SetProfile from './auth/setProfile/page';
+import RegisterBirthday from './auth/registerBirthday/page';
 
 export default function Home() {
   return (
-    <SetProfile />
+    <RegisterBirthday />
   );
 }
