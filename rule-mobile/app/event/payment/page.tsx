@@ -9,10 +9,6 @@ import RegisteredCard from '@/components/event/payment/registeredCard';
 import FormInput from '@/components/event/payment/formInput';
 
 const EventPayment: React.FC = () => {
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardHolderName, setCardHolderName] = useState('');
-  const [dateOfExpiry, setDateOfExpiry] = useState('');
-  const [cardSecurityCode, setCardSecurityCode] = useState('');
 
   const total = 8;
   const males = 7;

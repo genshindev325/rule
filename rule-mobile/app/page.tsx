@@ -12,9 +12,10 @@ import RegisterEmail from './auth/registerEmail/page';
 import SelectGender from './auth/selectGender/page';
 // Events
 import EventPayment from './event/payment/page';
+import RegistSuccess from './event/registSuccess/page';
 
 export default function Home() {
   return (
-    <EventPayment />
+    <RegistSuccess />
   );
 }
