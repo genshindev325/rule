@@ -94,6 +94,12 @@ const EventPayment: React.FC = () => {
         {/*  */}
         <form onSubmit={handleSubmit} className='mt-8 md:mt-16 bg-white'>
           <RegisteredCard />
+          <div className='flex justify-center py-8'>
+            <button name='btn_registerCard' className='bg-[#808080] text-white flex items-center px-8 md:px-12 lg:px-16 py-2 md:py-4 lg:py-6'>
+              <div className='rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 lg:h-10 w-6 md:w-8 lg:w-10 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center'>+</div>
+              新しいカードを登録する
+            </button>
+          </div>
           <FormInput />
           <h2 className='text-sm sm:text-md md:text-lg text-center pt-6'>##############################</h2>
           <h2 className='text-sm sm:text-md md:text-lg text-center'>#######################################</h2>
