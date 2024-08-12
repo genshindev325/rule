@@ -23,7 +23,7 @@ const RegistSuccess: React.FC = () => {
         <h2 className='grow'>完了しました!</h2>
       </div>
       {/* content */}
-      <div className='rounded-lg bg-white p-4 mb-12 flex flex-col space-y-1'>
+      <div className='rounded-lg bg-white p-4 sm:px-8 mb-12 flex flex-col sm:items-center space-y-1'>
         <h2 className='text-lg md:text-2xl font-semibold '>街コン・合コン・飲み会イベント</h2>
         <h2 className='text-md md:text-lg'>{date}</h2>
         <div className='flex flex-row space-x-2 text-xs font-semibold'>
@@ -31,8 +31,8 @@ const RegistSuccess: React.FC = () => {
           <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>大学生Only</button>
           <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>アニメ好き</button>
         </div>        
-        <Image src={eventImage} alt={`event-profile`} width={350} height={70} className="pt-4 pb-8" />
-        <button className='bg-transparent border-solid border-2 rounded-lg border-black text-black font-semibold py-2' >イベント概要</button>
+        <Image src={eventImage} alt={`event-profile`} width={350} height={70} className="pt-4 pb-8 sm:w-full" />
+        <button className='bg-transparent border-solid border-2 rounded-lg border-black text-black font-semibold py-2 w-full' >イベント概要</button>
         <h2 className='py-4 text-sm font-semibold'>{description}</h2>
       </div>
       {/* button */}
