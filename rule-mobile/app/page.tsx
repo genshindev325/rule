@@ -13,9 +13,10 @@ import SelectGender from './auth/selectGender/page';
 // Events
 import EventPayment from './event/payment/page';
 import RegistSuccess from './event/registSuccess/page';
+import FindOnMap from './event/find/page';
 
 export default function Home() {
   return (
-    <RegistSuccess />
+    <FindOnMap />
   );
 }

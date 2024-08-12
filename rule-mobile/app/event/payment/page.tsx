@@ -5,29 +5,17 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-import RegisteredCard from '@/components/event/payment/registeredCard';
-import FormInput from '@/components/event/payment/formInput';
+import RegisteredCard from '@/components/event/registeredCard';
+import FormInput from '@/components/event/formInput';
+import EventCard from '@/components/event/eventCard';
 
 const EventPayment: React.FC = () => {
-
-  const total = 8;
-  const males = 7;
-  const females = 2;
-  const maleRate = males/total;
-  const femaleRate = females/total;
-
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-
-  const [eventImage, setEventImage] = useState(
-    '/image/img_1.png'
-    // Modify image paths here from event profile
-  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(eventImage);
+    console.log("AAA");
   };
 
   return (
@@ -41,35 +29,7 @@ const EventPayment: React.FC = () => {
         <h2 className='grow'>イベントに参加</h2>
       </div>
       {/* event attend to participate */}
-      <div className="flex flex-row space-x-2 bg-white rounded-xl shadow-xl px-2 sm:px-4 md:px-8 py-6 md:py-12 mx-8 md:mx-20 md:mt-6 mb-12 md:mb-20">
-        <Image src={eventImage} alt={`event-profile`} width={100} height={70}
-          className="rounded-md rounded-br-none"
-        />
-        <div className='flex flex-col space-y-1'>
-          <h2 className="text-xs font-bold">街コン・合コン・飲み会イベント</h2>
-          <h2 className="text-xs">2023年9月20日 17:00</h2>
-          <div className='flex flex-row space-x-1'>
-            <div className={`${maleGradient} px-1 rounded-full w-10 text-center text-xs text-white my-auto`}>男性</div>
-            <h2 className='text-xs'>5000円 募集 : {males}/{total}</h2>
-            <div className="w-16 md:w-28 bg-gray-300 h-2 rounded-full my-auto">
-              <div 
-                className={`h-2 ${maleGradient}`} 
-                style={{ width: `${maleRate * 100}%` }}
-              ></div>
-            </div>
-          </div>
-          <div className='flex flex-row space-x-1'>
-            <div className={`${femaleGradient} px-1 rounded-full w-10 text-center text-xs text-white my-auto`}>女性</div>
-            <h2 className='text-xs'>2000円 募集 : {females}/{total}</h2>
-            <div className="w-16 md:w-28 bg-gray-200 h-2 rounded-full my-auto">
-              <div 
-                className={`h-2 ${femaleGradient}`} 
-                style={{ width: `${femaleRate * 100}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <EventCard />
       {/* form */}
       <div className='flex flex-col justify-center'>
         <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">

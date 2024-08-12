@@ -1,4 +1,4 @@
-// components/event/payment/registeredCard.tsx
+// components/event/registeredCard.tsx
 
 import React, { useState } from 'react';
 

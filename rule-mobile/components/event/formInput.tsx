@@ -1,4 +1,4 @@
-// components/event/payment/formInput.tsx
+// components/event/formInput.tsx
 
 import React, { useState } from 'react';
 
