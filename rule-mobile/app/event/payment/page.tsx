@@ -5,6 +5,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+import RegisteredCard from '@/components/event/payment/registeredCard';
+import FormInput from '@/components/event/payment/formInput';
+
 const EventPayment: React.FC = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolderName, setCardHolderName] = useState('');
@@ -19,11 +22,6 @@ const EventPayment: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-
-  const americanExpressSVG = "/svg/american_express.svg";
-  const jcbSVG = "/svg/jcb.svg";
-  const masterCardSVG = "/svg/mastercard.svg";
-  const visaSVG = "/svg/visa.svg";
 
   const [eventImage, setEventImage] = useState(
     '/image/img_1.png'
@@ -95,34 +93,8 @@ const EventPayment: React.FC = () => {
         </div>
         {/*  */}
         <form onSubmit={handleSubmit} className='mt-8 md:mt-16 bg-white'>
-          <div className='px-4 md:px-8 bg-gray-100 pb-8'>
-            <label className="block font-bold text-gray-800 pt-8">カード登録</label>
-            <div className="mt-4 bg-white rounded-md">
-              <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
-              <div className="flex justify-around pb-4">
-                <img src={`${visaSVG}`} alt="Visa" className="h-12" />
-                <img src={`${masterCardSVG}`} alt="MasterCard" className="h-12" />
-                <img src={`${jcbSVG}`} alt="JCB" className="h-12" />
-                <img src={`${americanExpressSVG}`} alt="American Express" className="h-12" />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label className="block font-bold text-gray-800">カード番号</label>
-              <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="カード番号" />
-            </div>
-            <div className="mt-4">
-              <label className="block font-bold text-gray-800">カード名義</label>
-              <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="カード番号" />
-            </div>
-            <div className="mt-4">
-              <label className="block font-bold text-gray-600">有効期限</label>
-              <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="有効期限" />
-            </div>
-            <div className="mt-4">
-              <label className="block font-bold text-gray-600">セキュリティコード</label>
-              <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="セキュリティコード" />
-            </div>
-          </div>
+          <RegisteredCard />
+          <FormInput />
           <h2 className='text-sm sm:text-md md:text-lg text-center pt-6'>##############################</h2>
           <h2 className='text-sm sm:text-md md:text-lg text-center'>#######################################</h2>
           <div className="mt-4 flex items-center justify-center">
