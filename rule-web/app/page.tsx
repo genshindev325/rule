@@ -36,6 +36,6 @@ import SearchResult4 from './user/event/searchResult4/page';
 
 export default function Home() {
   return (
-    <SearchResult4 />
+    <SearchResult3 />
   );
 }
