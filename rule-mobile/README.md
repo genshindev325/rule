@@ -1,64 +1,134 @@
-# Next.js + Tailwind CSS + Ionic Framework + Capacitor Mobile Starter
+# Next.js 14 + TypeScript + Tailwind CSS + Ionic Framework + Capacitor Starter
 
-![Screenshot](./screenshot.png)
+This project is a state-of-the-art starter template designed for building scalable, cross-platform applications with Next.js 14, TypeScript, Tailwind CSS, Ionic Framework, and Capacitor. It enables developers to efficiently create apps that run on iOS, Android, and the web with a single codebase.
 
-This repo is a conceptual starting point for building an iOS, Android, and Progressive Web App with Next.js, Tailwind CSS, [Ionic Framework](https://ionicframework.com/), and [Capacitor](https://capacitorjs.com/).
+## Inspiration
 
-Next.js handles the production React app experience, Tailwind can be used to style each page of your app, Ionic Framework provides the cross-platform system controls (navigation/transitions/tabs/etc.), and then Capacitor bundles all of it up and runs it on iOS, Android, and Web with full native access.
+This project was inspired by [Max Lynch's Next.js + Tailwind CSS + Ionic Framework + Capacitor Mobile Starter](https://github.com/mlynch/nextjs-tailwind-ionic-capacitor-starter). The original project provided a conceptual starting point for integrating these technologies into a cohesive development stack for building mobile and web applications. We have adapted and expanded upon this foundation to leverage the latest features of Next.js 14 and TypeScript, along with incorporating best practices and additional configurations to enhance the developer experience and application performance.
 
-See this blog post for an overview of the stack and how it all works: <https://dev.to/ionic/build-mobile-apps-with-tailwind-css-next-js-ionic-framework-and-capacitor-3kij>
+## Features
 
-## Usage
+- **Next.js 14**: Leverages the latest Next.js features for optimized React applications.
+- **TypeScript**: Integrates TypeScript for type safety and improved developer experience.
+- **Tailwind CSS**: Uses Tailwind CSS for rapid UI development with utility-first styling.
+- **Ionic Framework**: Employs Ionic Framework for high-quality, cross-platform UI components.
+- **Capacitor**: Utilizes Capacitor to bridge web apps with native mobile functionality, providing full access to native SDKs on iOS and Android.
 
-This project is a standard Next.js app, so the typical Next.js development process applies (`npm run dev` for browser-based development). However, there is one caveat: the app must be exported to deploy to iOS and Android, since it must run purely client-side. ([more on Next.js export](https://nextjs.org/docs/advanced-features/static-html-export))
+## Getting Started
 
-To build the app, run:
+### Prerequisites
+
+- Node.js (LTS version recommended)
+- npm or yarn
+- Android Studio or Xcode (for mobile app development)
+
+### Setup
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/UretzkyZvi/nextjs-typescript-tailwind-ionic-starter.git <project-directory>
+    ```
+
+2. **Install dependencies**:
+    ```bash
+    cd <project-directory>
+    npm install
+    ```
+
+3. **Add platforms**:
+    To add iOS and Android platforms to your project:
+    ```bash
+    npx cap add ios
+    npx cap add android
+    ```
+    This step requires Xcode for iOS and Android Studio for Android development.
+
+4. **Install Android Studio** (for Android development):
+    To run and test your app on an Android emulator, [download and install Android Studio](https://developer.android.com/studio). During installation, ensure you include the Android SDK and configure it as per the installation instructions.
+
+5. **Install Xcode** (for iOS development on Mac):
+    To run and test your app on an iOS simulator, download and install Xcode from the Mac App Store. After installation, open Xcode to install additional required components when prompted. Xcode includes the iOS Simulator where you can run your iOS apps.
+
+### Development
+
+Start the development server with:
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:3000` in your browser to see the app.
+
+## Capacitor Configuration
+
+The project integrates Capacitor for running on iOS and Android, configured in `capacitor.config.ts`:
+
+```typescript
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'com.example.app',
+  appName: 'nextjs-typescript-tailwind-ionic-starter',
+  cordova: {},
+  loggingBehavior: "debug",
+  webDir: "out",
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 0
+    }
+  },
+  server: {
+    androidScheme: 'https',
+    hostname: 'localhost:3000',
+  },
+  android: {
+     loggingBehavior: "debug",
+     webContentsDebuggingEnabled: true,
+  }
+};
+
+export default config;
+```
+
+### Building and Running on Devices
+
+To compile the application and prepare it for iOS and Android:
 
 ```bash
 npm run build
+npx cap sync
+npx cap open ios
+npx cap open android
 ```
 
-All the client side files will be sent to the `./out/` directory. These files need to be copied to the native iOS and Android projects, and this is where Capacitor comes in:
+### Live Reload
 
-```bash
-npm run sync
-```
+For live reload on devices, ensure your development server is accessible as configured in `capacitor.config.ts`. Adjust the `hostname` to match your development environment if necessary.
 
-Finally, use the following run commands to run the app on each platform:
+## Project Structure
 
-```bash
-npm run ios
-npm run android
-```
-
-## Livereload/Instant Refresh
-
-To enable Livereload and Instant Refresh during development (when running `npm run dev`), find the IP address of your local interface (ex: `192.168.1.2`) and port your Next.js server is running on, and then set the server url config value to point to it in `capacitor.config.json`:
-
-```json
-{
-  "server": {
-    "url": "http://192.168.1.2:3000"
-  }
-}
-```
-
-Note: this configuration wil be easier in Capacitor 3 which [recently went into beta](https://capacitorjs.com/blog/announcing-capacitor-3-0-beta).
-
-## API Routes
-
-API Routes can be used but some minimal configuration is required. See [this discussion](https://github.com/mlynch/nextjs-tailwind-ionic-capacitor-starter/issues/4#issuecomment-754030049) for more information.
+- `Card.tsx`, `Notifications.tsx`, `Settings.tsx`, `Tabs.tsx`: Showcase Ionic components.
+- `AppShell.tsx`: Manages app layout and navigation.
+- `[page].tsx`: Implements dynamic routing with Next.js.
+- `capacitor.config.ts`: Contains Capacitor configuration for native platforms.
+- `next.config.mjs`: Configures Next.js, including TypeScript and Tailwind CSS integration.
 
 ## Caveats
 
-One caveat with this project: Because the app must be able to run purely client-side and use [Next.js's Export command](https://nextjs.org/docs/advanced-features/static-html-export), that means no Server Side Rendering in this code base. There is likely a way to SSR and a fully static Next.js app in tandem but it requires [a Babel plugin](https://github.com/erzr/next-babel-conditional-ssg-ssr) or would involve a more elaborate monorepo setup with code sharing that is out of scope for this project.
+- The project setup excludes Server Side Rendering (SSR) to comply with Capacitor's requirements for mobile platforms.
+- Adapted Next.js routing to accommodate Ionic's navigation system for a native app experience.
 
-Additionally, Next.js routing is not really used much in this app beyond a catch-all route to render the native app shell and engage the Ionic React Router. This is primarily because Next.js routing is not set up to enable native-style transitions and history state management like the kind Ionic uses.
+## Additional Resources
 
-## What is Capacitor?
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Ionic Framework Docs](https://ionicframework.com/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Capacitor Documentation](https://capacitorjs.com/docs)
 
-You can think of [Capacitor](https://capacitorjs.com/) as a sort of "electron for mobile" that runs standard web apps on iOS, Android, Desktop, and Web.
+## Contributing
 
-Capacitor provides access to Native APIs and a plugin system for building any native functionality your app needs.
+Contributions are welcome. Please review our contributing guidelines before submitting pull requests.
 
-Capacitor apps can also run in the browser as a Progressive Web App with the same code.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
