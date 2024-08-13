@@ -9,7 +9,7 @@ const SearchResult3: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'absolute top-24 w-11/12 rounded-xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-md space-y-2';
-  const fromTop = 'pt-[750px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
+  const fromTop = 'pt-[1200px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
   const locationSVG = '/svg/location.svg';
 
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
