@@ -108,8 +108,8 @@ const SearchResult1: React.FC = () => {
           </div>
         ))}
         {/* see more button */}
-        <div className='pt-12 mx-auto'>
-          <button type='submit' className={`w-52 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+        <div className='py-8 mx-auto'>
+          <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
         </div>
       </div>
     </div>

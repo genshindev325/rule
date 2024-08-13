@@ -30,9 +30,12 @@ import EventPayment from '@/app/user/event/payment/page';
 import RegistSuccess from '@/app/user/event/registSuccess/page';
 import FindOnMap from '@/app/user/event/findOnMap/page';
 import SearchResult1 from './user/event/searchResult1/page';
+import SearchResult2 from './user/event/searchResult2/page';
+import SearchResult3 from './user/event/searchResult3/page';
+import SearchResult4 from './user/event/searchResult4/page';
 
 export default function Home() {
   return (
-    <SearchResult1 />
+    <SearchResult3 />
   );
 }
