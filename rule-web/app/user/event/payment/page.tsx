@@ -10,6 +10,17 @@ import EventCard from '@/components/user/event/eventCard';
 
 const EventPayment: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const event = {
+    title: '街コン・合コン・飲み会イベント',
+    date: '2023年9月20日 17:00',
+    imageUrl: '/image/img_1.png',
+    maleFee: 5000,
+    maleTotal: 8,
+    males: 7,
+    femaleFee: 2000,
+    femaleTotal: 8,
+    females: 2,
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +39,9 @@ const EventPayment: React.FC = () => {
         <h2 className='grow'>イベントに参加</h2>
       </div>
       {/* event attend to participate */}
-      <EventCard />
+      <div className='px-4 sm:px-6 md:px-8 mb-10 sm:mb-12 md:mb-16'>
+        <EventCard {...event} />
+      </div>
       {/* form */}
       <div className='flex flex-col justify-center'>
         <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">

@@ -28,10 +28,11 @@ import SelectGender from '@/app/user/auth/selectGender/page';
 // Events
 import EventPayment from '@/app/user/event/payment/page';
 import RegistSuccess from '@/app/user/event/registSuccess/page';
-import FindOnMap from '@/app/user/event/find/page';
+import FindOnMap from '@/app/user/event/findOnMap/page';
+import SearchResult1 from './user/event/searchResult1/page';
 
 export default function Home() {
   return (
-    <RegistSuccess/>
+    <SearchResult1 />
   );
 }
