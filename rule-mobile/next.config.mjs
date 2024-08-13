@@ -7,6 +7,7 @@ const nextConfig = {
     return [
       {
         source: "/tabs/:path*",
+        source: "/event",
         destination: "/",
       },
     ];

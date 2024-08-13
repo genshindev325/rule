@@ -11,8 +11,8 @@ const AppShell = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet id="main">
-          <Route path="/event/payment" render={() => <EventPayment />} />
-          <Route path="/tabs" render={() => <EventPayment />} />
+          <Route path="/event" render={() => <EventPayment />} />
+          <Route path="/tabs" render={() => <Tabs />} />
           <Route
             path="/"
             render={() => <Redirect to="/tabs/feed" />}
