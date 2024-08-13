@@ -1,4 +1,4 @@
-// app/user/auth/loginWith/page.tsx
+// app/user/auth/loginWith.tsx
 
 'use client';
 

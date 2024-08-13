@@ -1,4 +1,4 @@
-// app/user/auth/registerPasword/page.tsx
+// app/user/auth/registerPasword.tsx
 
 'use client';
 

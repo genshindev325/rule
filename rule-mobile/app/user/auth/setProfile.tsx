@@ -1,4 +1,4 @@
-// app/user/auth/setProfile/page.tsx
+// app/user/auth/setProfile.tsx
 
 'use client';
 

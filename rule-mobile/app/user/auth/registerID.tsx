@@ -1,4 +1,4 @@
-// app/user/auth/registerID/page.tsx
+// app/user/auth/registerID.tsx
 
 'use client';
 

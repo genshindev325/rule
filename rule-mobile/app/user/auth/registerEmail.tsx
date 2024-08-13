@@ -1,4 +1,4 @@
-// app/user/auth/registerEmail/page.tsx
+// app/user/auth/registerEmail.tsx
 
 'use client';
 

@@ -1,4 +1,4 @@
-// app/user/auth/passwordResetSend/page.tsx
+// app/user/auth/passwordResetSend.tsx
 
 'use client';
 

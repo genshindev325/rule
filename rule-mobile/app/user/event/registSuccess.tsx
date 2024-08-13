@@ -1,4 +1,4 @@
-// app/user/event/registSuccess/page.tsx
+// app/user/event/registSuccess.tsx
 
 'use client';
 

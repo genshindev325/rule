@@ -1,4 +1,4 @@
-// app/user/auth/selectGender/page.tsx
+// app/user/auth/selectGender.tsx
 
 'use client';
 

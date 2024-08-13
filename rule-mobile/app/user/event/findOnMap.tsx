@@ -1,10 +1,10 @@
-// app/user/event/findOnMap/page.tsx
+// app/user/event/findOnMap.tsx
 
 'use client';
 
 import React, { useState } from 'react';
-import EventCarousel from '@/components/user/event/eventCarousel';
-import EventCard from '@/components/user/event/eventCard';
+import EventCarousel from '@/app/components/user/event/eventCarousel';
+import EventCard from '@/app/components/user/event/eventCard';
 
 const FindOnMap: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';

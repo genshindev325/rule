@@ -2,6 +2,7 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 import Tabs from "./components/Tabs";
+import EventPayment from "./user/event/payment";
 
 setupIonicReact({});
 
@@ -10,7 +11,8 @@ const AppShell = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet id="main">
-          <Route path="/tabs" render={() => <Tabs />} />
+          <Route path="/event/payment" render={() => <EventPayment />} />
+          <Route path="/tabs" render={() => <EventPayment />} />
           <Route
             path="/"
             render={() => <Redirect to="/tabs/feed" />}

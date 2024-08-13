@@ -1,4 +1,4 @@
-// app/user/auth/registerBirthday/page.tsx
+// app/user/auth/registerBirthday.tsx
 
 'use client';
 
