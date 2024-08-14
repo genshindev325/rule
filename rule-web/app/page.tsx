@@ -29,13 +29,19 @@ import SelectGender from '@/app/user/auth/selectGender/page';
 import EventPayment from '@/app/user/event/payment/page';
 import RegistSuccess from '@/app/user/event/registSuccess/page';
 import FindOnMap from '@/app/user/event/findOnMap/page';
-import SearchResult1 from './user/event/searchResult1/page';
-import SearchResult2 from './user/event/searchResult2/page';
-import SearchResult3 from './user/event/searchResult3/page';
-import SearchResult4 from './user/event/searchResult4/page';
+import SearchResult1 from '@/app/user/event/searchResult1/page';
+import SearchResult2 from '@/app/user/event/searchResult2/page';
+import SearchResult3 from '@/app/user/event/searchResult3/page';
+import SearchResult4 from '@/app/user/event/searchResult4/page';
+
+import EventHistory1 from '@/app/user/event/history1/page';
+import EventHistory2 from '@/app/user/event/history2/page';
+
+import EventReview1 from '@/app/user/event/eventReview1/page';
+import EventReview2 from '@/app/user/event/eventReview2/page';
 
 export default function Home() {
   return (
-    <SearchResult3 />
+    <EventHistory2 />
   );
 }
