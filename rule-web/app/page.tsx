@@ -40,8 +40,10 @@ import EventHistory2 from '@/app/user/event/history2/page';
 import EventReview1 from '@/app/user/event/eventReview1/page';
 import EventReview2 from '@/app/user/event/eventReview2/page';
 
+import Profile from '@/app/user/profile/page';
+
 export default function Home() {
   return (
-    <EventHistory2 />
+    <SearchResult3 />
   );
 }
