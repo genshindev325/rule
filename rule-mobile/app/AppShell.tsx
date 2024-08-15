@@ -31,7 +31,7 @@ import SearchResult4 from "./user/event/searchResult4";
 
 setupIonicReact({});
 
-const isAuthed = false;
+const isAuthed = true;
 
 const AppShell = () => {
   return (
@@ -45,16 +45,16 @@ const AppShell = () => {
           <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
           <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
           <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
-          <Route path="/auth/RegisterBirthday" render={() => <RegisterBirthday />} exact={true} />
-          <Route path="/auth/RegisterEmail" render={() => <RegisterEmail />} exact={true} />
-          <Route path="/auth/RegisterID" render={() => <RegisterID />} exact={true} />
-          <Route path="/auth/RegisterName" render={() => <RegisterName />} exact={true} />
-          <Route path="/auth/RegisterPassword" render={() => <RegisterPassword />} exact={true} />
-          <Route path="/auth/SelectGender" render={() => <SelectGender />} exact={true} />
-          <Route path="/auth/SetProfile" render={() => <SetProfile />} exact={true} />
+          <Route path="/auth/registerBirthday" render={() => <RegisterBirthday />} exact={true} />
+          <Route path="/auth/registerEmail" render={() => <RegisterEmail />} exact={true} />
+          <Route path="/auth/registerID" render={() => <RegisterID />} exact={true} />
+          <Route path="/auth/registerName" render={() => <RegisterName />} exact={true} />
+          <Route path="/auth/registerPassword" render={() => <RegisterPassword />} exact={true} />
+          <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
+          <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
           {/* user/event */}
           <Route path="/event/findOnMap" render={() => {
-            return isAuthed ? <FindOnMap /> : <Redirect to="/auth/SelectGender" />;
+            return isAuthed ? <EventPayment /> : <Redirect to="/auth/login" />;
             }}
           />
           <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />

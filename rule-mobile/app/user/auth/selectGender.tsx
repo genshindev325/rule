@@ -7,6 +7,8 @@ import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const SelectGender: React.FC = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,14 +28,14 @@ const SelectGender: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setGender('male')}
-                  className={`px-4 py-2 rounded-full ${gender === 'male' ? 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white' : 'bg-white border-2 border-solid border-gray-400 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-full ${gender === 'male' ? maleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700'}`}
                 >
                   男性
                 </button>
                 <button
                   type="button"
                   onClick={() => setGender('female')}
-                  className={`px-4 py-2 rounded-full ${gender === 'female' ? 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white' : 'bg-white border-2 border-solid border-gray-400 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-full ${gender === 'female' ? femaleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700'}`}
                 >
                   女性
                 </button>

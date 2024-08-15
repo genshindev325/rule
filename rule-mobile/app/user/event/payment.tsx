@@ -37,11 +37,13 @@ const EventPayment = () => {
             <h2 className='grow'>イベントに参加</h2>
           </div>
           {/* event attend to participate */}
-          <EventCard {...event} />
+          <div className='py-6 px-2 xs:px-6'>
+            <EventCard {...event} />
+          </div>
           {/* form */}
           <div className='flex flex-col justify-center'>
             <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">
-              支払い手続き
+              お支払い手続き
             </div>
             {/*  */}
             <div className='flex flex-col mx-8 md:mx-20 mt-6 md:mt-10'>

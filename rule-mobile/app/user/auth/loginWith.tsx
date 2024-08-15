@@ -50,7 +50,7 @@ const LoginWith: React.FC = () => {
               </button>
               <button
                 onClick={() => handleLogin('Email')}
-                className="flex items-center justify-center w-full py-2 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold border border-gray-800 rounded-lg"
+                className="flex items-center justify-center w-full py-2 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold border border-gray-800 border-solid rounded-lg"
               >
                 <FaEnvelope className="mr-2 h-6 w-6 md:h-10 md:w-10" />
                 <div className='mx-auto'>

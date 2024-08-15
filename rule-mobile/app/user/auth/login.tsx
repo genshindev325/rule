@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const Login: React.FC = () => {
   const [emailAddress, setEmailAddress] = useState('');
@@ -41,15 +41,27 @@ const Login: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <p className="text-md md:text-lg text-right font-semibold text-gray-400">
-                パスワードをお忘れですか？
-              </p>
+              <IonRouterLink routerLink='/auth/passwordReset'>
+                <p className="text-md md:text-lg text-right font-semibold text-gray-400">
+                  パスワードをお忘れですか？
+                </p>
+              </IonRouterLink>
+              <IonRouterLink routerLink='/auth/loginWith'>
+                <p className="text-md md:text-lg text-right font-semibold text-gray-400">
+                  ソーシャルログイン
+                </p>
+              </IonRouterLink>
               <button
                 type="submit"
                 className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
               >
                 サインイン
               </button>
+              <IonRouterLink routerLink='/auth/selectGender'>
+                <p className="text-md md:text-lg text-center font-semibold text-gray-400 pb-10">
+                  ソーシャルログイン
+                </p>
+              </IonRouterLink>
             </form>
           </div>
           </div>

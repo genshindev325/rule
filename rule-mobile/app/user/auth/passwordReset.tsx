@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const PasswordReset: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ const PasswordReset: React.FC = () => {
                 <input
                   type="text"
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
-                  placeholder="メールアド"
+                  placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -42,12 +42,14 @@ const PasswordReset: React.FC = () => {
                   onChange={(e) => setPasswordConfirm(e.target.value)}
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
-              >
-                送信する
-              </button>
+              <IonRouterLink routerLink='/auth/passwordResetSend'>
+                <button
+                  type="submit"
+                  className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
+                >
+                  再設定する
+                </button>
+              </IonRouterLink>
             </form>
           </div>
           </div>
