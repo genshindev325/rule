@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const SelectGender: React.FC = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -38,13 +38,15 @@ const SelectGender: React.FC = () => {
                   女性
                 </button>
               </div>
-              <div className='flex justify-center'>
-                <button type="submit"
-                  className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                >
-                  ➔
-                </button>
-              </div>
+              <IonRouterLink routerLink="/auth/registerEmail">
+                <div className='flex justify-center'>
+                  <button type="submit"
+                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
+                  >
+                    ➔
+                  </button>
+                </div>
+              </IonRouterLink>
             </form>
           </div>
           </div>

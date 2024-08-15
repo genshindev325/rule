@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const RegisterBirthday: React.FC = () => {
   const [day, setDay] = useState('');
@@ -50,13 +50,15 @@ const RegisterBirthday: React.FC = () => {
               <p className="text-sm md:text-md text-center font-semibold text-gray-400">
                 スキップする
               </p>
-              <div className='flex justify-center'>
-                <button type="submit"
-                  className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                >
-                  ➔
-                </button>
-              </div>
+              <IonRouterLink href='/auth/setProfile'>
+                <div className='flex justify-center'>
+                  <button type="submit"
+                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
+                  >
+                    ➔
+                  </button>
+                </div>
+              </IonRouterLink>
             </form>
           </div>
           </div>

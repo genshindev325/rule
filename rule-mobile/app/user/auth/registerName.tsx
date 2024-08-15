@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 const RegisterName: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -31,13 +31,15 @@ const RegisterName: React.FC = () => {
                   onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
-              <div className='flex justify-center'>
-                <button type="submit"
-                  className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                >
-                  ➔
-                </button>
-              </div>
+              <IonRouterLink href='/auth/registerID'>
+                <div className='flex justify-center'>
+                  <button type="submit"
+                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
+                  >
+                    ➔
+                  </button>
+                </div>
+              </IonRouterLink>
             </form>
           </div>
           </div>

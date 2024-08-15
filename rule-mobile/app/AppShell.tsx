@@ -31,6 +31,8 @@ import SearchResult4 from "./user/event/searchResult4";
 
 setupIonicReact({});
 
+const isAuthed = false;
+
 const AppShell = () => {
   return (
     <IonApp>
@@ -39,7 +41,7 @@ const AppShell = () => {
           <Route path="/event" render={() => <EventPayment />} />
           <Route path="/tabs" render={() => <Tabs />} />
           {/* user/auth */}
-          <Route path="/auth/login" render={() => <Login />} exact={true} />
+          <Route path="/auth/login" component={Login} />
           <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
           <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
           <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
@@ -51,9 +53,12 @@ const AppShell = () => {
           <Route path="/auth/SelectGender" render={() => <SelectGender />} exact={true} />
           <Route path="/auth/SetProfile" render={() => <SetProfile />} exact={true} />
           {/* user/event */}
+          <Route path="/event/findOnMap" render={() => {
+            return isAuthed ? <FindOnMap /> : <Redirect to="/auth/SelectGender" />;
+            }}
+          />
           <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
           <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
-          <Route path="/event/findOnMap" render={() => <FindOnMap />} />
           <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
           <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
           <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
