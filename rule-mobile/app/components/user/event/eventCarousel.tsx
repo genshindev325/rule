@@ -4,8 +4,20 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import EventCard from './eventCard';
 
+interface EventCardProps {
+  title: string;
+  date: string;
+  imageUrl: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
+}
+
 interface EventCarouselProps {
-  events: object[];
+  events: EventCardProps[];
 }
 
 const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
@@ -34,8 +46,8 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     <div className="bg-gray-100">
       <Slider {...settings}>
         {events.map((event, index) => (
-          <div key={index} className="px-4 mt-12">
-            {/* <EventCard {...event} /> */}
+          <div key={index} className="px-4 my-6">
+            <EventCard {...event} />
           </div>
         ))}
       </Slider>

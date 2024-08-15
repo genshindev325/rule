@@ -64,7 +64,7 @@ const AppShell = () => {
           <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
           <Route
             path="/"
-            render={() => <Redirect to="/event/eventReview1" />}
+            render={() => <Redirect to="/event/findOnMap" />}
             exact={true}
           />
         </IonRouterOutlet>
