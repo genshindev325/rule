@@ -4,11 +4,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import EventCard from './eventCard';
 
-interface ImageCarouselProps {
-  images: string[];
+interface EventCarouselProps {
+  events: object[];
 }
 
-const EventCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
+const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -33,9 +33,9 @@ const EventCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   return (
     <div className="bg-gray-100">
       <Slider {...settings}>
-        {images.map((src, index) => (
+        {events.map((event, index) => (
           <div key={index} className="px-4 mt-12">
-            <EventCard/>
+            {/* <EventCard {...event} /> */}
           </div>
         ))}
       </Slider>

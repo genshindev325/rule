@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { IonPage, IonContent } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 
@@ -164,51 +165,55 @@ const EventHistory2: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-      <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
-        {/* header */}
-        <h2 className='text-3xl text-center text-white font-bold pt-10'>イベント予約履歴</h2>
-      </div>
-      {/* container */}
-      <div className={`${container}`}>
-        {/* tab */}
-        <div className='flex flex-row'>
-          <button
-            type='button'
-            className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4`}
-            onClick={showUpcomingEvents}
-          >
-            今後のイベント
-          </button>
-          <button
-            type='button'
-            className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4 ml-auto`}
-            onClick={showPastEvents}
-          >
-            過去のイベント
-          </button>
-        </div>
-        {/* upcoming events */}
-        <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-4`}>
-          {events.map((event, index) => (          
-            <div key={index}>
-              <EventCard { ...event } />
+    <IonPage>
+      <IonContent>
+        <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+          <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
+            {/* header */}
+            <h2 className='text-3xl text-center text-white font-bold pt-10'>イベント予約履歴</h2>
+          </div>
+          {/* container */}
+          <div className={`${container}`}>
+            {/* tab */}
+            <div className='flex flex-row'>
+              <button
+                type='button'
+                className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4`}
+                onClick={showUpcomingEvents}
+              >
+                今後のイベント
+              </button>
+              <button
+                type='button'
+                className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4 ml-auto`}
+                onClick={showPastEvents}
+              >
+                過去のイベント
+              </button>
             </div>
-          ))}
-        </div>
-        {/* past events */}
-        <div className={`${tab === 'past' ? '' : 'hidden'} space-y-4`}>
-          {eventReviews.map((event, index) => (          
-            <div key={index}>
-              <EventReviewCard { ...event } />
+            {/* upcoming events */}
+            <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-4`}>
+              {events.map((event, index) => (          
+                <div key={index}>
+                  <EventCard { ...event } />
+                </div>
+              ))}
             </div>
-          ))}
+            {/* past events */}
+            <div className={`${tab === 'past' ? '' : 'hidden'} space-y-4`}>
+              {eventReviews.map((event, index) => (          
+                <div key={index}>
+                  <EventReviewCard { ...event } />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className='py-6'>
+            <button type="button" className={`rounded-full bg-gray-200 px-12 py-1 ${textSm}`}>もっと見る</button>
+          </div>
         </div>
-      </div>
-      <div className='py-6'>
-        <button type="button" className={`rounded-full bg-gray-200 px-12 py-1 ${textSm}`}>もっと見る</button>
-      </div>
-    </div>
+      </IonContent>
+    </IonPage>    
   );
 };
 

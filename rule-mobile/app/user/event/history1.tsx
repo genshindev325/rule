@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { IonPage, IonContent } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 
@@ -150,31 +151,35 @@ const EventHistory1: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-      <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
-        {/* header */}
-        <h2 className='text-3xl text-center text-white font-bold pt-10'>イベント予約履歴</h2>
-      </div>
-      {/* container */}
-      <div className={`${container}`}>
-        <h2 className='text-xl text-center font-bold'>参加予定のイベント</h2>
-        {/* search results */}
-        {events.map((event, index) => (          
-          <div key={index}>
-            <EventCard { ...event } />
+    <IonPage>
+      <IonContent>
+        <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+          <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
+            {/* header */}
+            <h2 className='text-3xl text-center text-white font-bold pt-10'>イベント予約履歴</h2>
           </div>
-        ))}
-      </div>
-      <div className={`py-6 px-4 sm:px-6 md:px-8 flex flex-col space-y-2 items-center w-full`}>
-        <h2 className='text-xl font-bold pt-3'>過去に参加したイベント</h2>
-        {/* past events attended */}
-        {eventReviews.map((event, index) => (
-          <div key={index}>
-            <EventReviewCard {...event } />
+          {/* container */}
+          <div className={`${container}`}>
+            <h2 className='text-xl text-center font-bold'>参加予定のイベント</h2>
+            {/* search results */}
+            {events.map((event, index) => (          
+              <div key={index}>
+                <EventCard { ...event } />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+          <div className={`py-6 px-4 sm:px-6 md:px-8 flex flex-col space-y-2 items-center w-full`}>
+            <h2 className='text-xl font-bold pt-3'>過去に参加したイベント</h2>
+            {/* past events attended */}
+            {eventReviews.map((event, index) => (
+              <div key={index}>
+                <EventReviewCard {...event } />
+              </div>
+            ))}
+          </div>
+        </div>
+      </IonContent>
+    </IonPage>
   );
 };
 
