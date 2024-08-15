@@ -8,6 +8,17 @@ import EventCard from '@/app/components/user/event/eventCard';
 
 const EventPayment = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const event = {
+    title: '街コン・合コン・飲み会イベント',
+    date: '2023年9月20日 17:00',
+    imageUrl: '/image/img_1.png',
+    maleFee: 5000,
+    maleTotal: 8,
+    males: 7,
+    femaleFee: 2000,
+    femaleTotal: 8,
+    females: 2,
+  }
 
   const handleSubmit = () => {
     console.log("AAA");
@@ -26,7 +37,7 @@ const EventPayment = () => {
             <h2 className='grow'>イベントに参加</h2>
           </div>
           {/* event attend to participate */}
-          <EventCard />
+          <EventCard {...event} />
           {/* form */}
           <div className='flex flex-col justify-center'>
             <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">
