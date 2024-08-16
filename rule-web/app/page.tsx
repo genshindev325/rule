@@ -2,11 +2,11 @@ import SignIn from '@/app/auth/signIn/page';
 import SignUp from '@/app/auth/signUp/page';
 
 // Admin
-import Dashboard from '@/app/admin/dashboard/page';
+// import Dashboard from '@/app/admin/dashboard/page';
 import Events from '@/app/admin/events/page';
 
 // Store
-// import Dashboard from '@/app/store/dashboard/page';
+import Dashboard from '@/app/store/dashboard/page';
 import ChatPage from '@/app/store/chat/page';
 import EventSettings from '@/app/store/eventSettings/page';
 import SalesManagement from '@/app/store/salesManagement/page';
@@ -33,17 +33,16 @@ import SearchResult1 from '@/app/user/event/searchResult1/page';
 import SearchResult2 from '@/app/user/event/searchResult2/page';
 import SearchResult3 from '@/app/user/event/searchResult3/page';
 import SearchResult4 from '@/app/user/event/searchResult4/page';
-
 import EventHistory1 from '@/app/user/event/history1/page';
 import EventHistory2 from '@/app/user/event/history2/page';
-
 import EventReview1 from '@/app/user/event/eventReview1/page';
 import EventReview2 from '@/app/user/event/eventReview2/page';
-
 import Profile from '@/app/user/profile/page';
+
+const isAuthed = true;
 
 export default function Home() {
   return (
-    <SearchResult3 />
+    <Dashboard />
   );
 }

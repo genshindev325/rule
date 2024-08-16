@@ -31,7 +31,7 @@ import SearchResult4 from "./user/event/searchResult4";
 
 setupIonicReact({});
 
-const isAuthed = true;
+const isAuthed = false;
 
 const AppShell = () => {
   return (
