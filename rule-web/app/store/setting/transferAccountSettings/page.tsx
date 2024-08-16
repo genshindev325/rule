@@ -3,18 +3,35 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/store/navbar';
 
 const TransferAccountSetting = () => {
-  const [bankName, setBankName] = useState('');
-  const [branchName, setBranchName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [accountHolder, setAccountHolder] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add transfer account setting logic here
-  }
+    const formData = new FormData(e.currentTarget);
+    const bankName = formData.get('bankName');
+    const branchName = formData.get('branchName');
+    const accountNumber = formData.get('accountNumber');
+    const accountHolder = formData.get('accountHolder');
+
+    const response = await fetch('/api/store/setting/storeProfileSetting', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
+    });
+
+    if (response.status === 200) {
+      router.push('/store/setting');
+      console.log(response);
+    } else {
+      console.log(response.status);
+      console.log("Failed.");
+    }
+  })
 
   return (
     <div className="min-h-screen min-w-full flex bg-gray-100">
@@ -24,48 +41,56 @@ const TransferAccountSetting = () => {
       <div className='w-auto mx-auto'>
         <div className="min-h-screen flex items-start py-20 justify-center bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-6">振替口座設定</h2>
+            <h2 className="text-2xl font-bold mb-6">振込口座設定</h2>
             <form onSubmit={handleSubmit}>
               {/* Transfer account setting */}
               <h3 className='text-gray-600 py-2'>銀行名</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='bankName'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="銀行名"
+                  required
                 />
               </div>
               <h3 className='text-gray-600 py-2'>支店名</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='branchName'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="支店名"
+                  required
                 />
               </div>
               <h3 className='text-gray-600 py-2'>口座番号</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='accountNumber'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="口座番号"
+                  required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>口座名義人</h3>
+              <h3 className='text-gray-600 py-2'>口座名義</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='accountHolder'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="口座名義人"
+                  placeholder="口座名義"
+                  required
                 />
               </div>
               {/* buttons */}
               <div className='flex flex-row justify-end gap-4 pt-12'>
                 <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                  keep
+                  保存
                 </button>
                 <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
-                  cancel
+                  <a href='/store/setting'>キャンセル</a>
                 </button>
               </div>
             </form>

@@ -3,19 +3,35 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/store/navbar';
 
 const CreditCardSettins = () => {
-  const [registeredCard, setRegisteredCard] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardHolderName, setCardHolderName] = useState('');
-  const [dateOfExpiry, setDateOfExpiry] = useState('');
-  const [securityCode, setSecurityCode] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add CreditCardSettins logic here
-  }
+    const formData = new FormData(e.currentTarget);
+    const cardNumber = formData.get('cardNumber');
+    const cardHolderNumber = formData.get('cardHolderNumber');
+    const dateOfExpiry = formData.get('dateOfExpiry');
+    const securityCode = formData.get('securityCode');
+
+    const response = await fetch('/api/store/setting/storeProfileSetting', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cardNumber, cardHolderNumber, dateOfExpiry, securityCode }),
+    });
+
+    if (response.status === 200) {
+      router.push('/store/setting');
+      console.log("Credit card setting success.");
+    } else {
+      console.log(response.status);
+      console.log("Failed.");
+    }
+  })
 
   return (
     <div className="min-h-screen min-w-full flex bg-gray-100">
@@ -44,41 +60,49 @@ const CreditCardSettins = () => {
               <div className="mb-4">
                 <input
                   type="name"
+                  name='cardNumber'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="カード番号"
+                  required
                 />
               </div>
               <h3 className='text-gray-600 py-2'>クレジットカード名義人氏名</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='cardHolderNumber'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="クレジットカード名義人氏名"
+                  required
                 />
               </div>
               <h3 className='text-gray-600 py-2'>有効期限</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='dateOfExpiry'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="有効期限"
+                  required
                 />
               </div>
               <h3 className='text-gray-600 py-2'>セキュリティコード</h3>
               <div className="mb-4">
                 <input
                   type="name"
+                  name='securityCode'
                   className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="セキュリティコード"
+                  required
                 />
               </div>
               {/* buttons */}
               <div className='flex flex-row justify-end gap-4 pt-12'>
                 <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                  保つ
+                  保存
                 </button>
                 <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
-                  下書き
+                  <a href='/store/setting'>キャンセル</a>
                 </button>
               </div>
             </form>

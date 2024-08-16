@@ -9,7 +9,7 @@ const SignIn = () => {
 
   async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+    // Add sign-in logic here
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');

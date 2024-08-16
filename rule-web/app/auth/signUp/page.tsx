@@ -1,19 +1,34 @@
 // pages/signUp.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [useremail, setUseremail] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add sign-in logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  }
+    // Add sign-up logic here
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email');
+    const username = formData.get('username');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirmPassword');
+
+    const response = await fetch('/api/auth/signUp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, username, password }),
+    });
+
+    if (response.status === 200) {
+      router.push('/store/dashboard');
+    } else {
+      console.log(response.status);
+      console.log("Failed.");
+    }
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -23,29 +38,37 @@ const SignUp = () => {
           <div className="mb-4">
             <input
               type="text"
+              name='email'
               className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="メール"
+              required
             />
           </div>
           <div className="mb-4">
             <input
               type="text"
+              name='username'
               className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="ユーザー名"
+              required
             />
           </div>
           <div className="mb-4">
             <input
               type="password"
+              name='password'
               className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="パスワード"
+              required
             />
           </div>
           <div className="mb-4">
             <input
               type="password"
+              name='confirmPassword'
               className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="パスワードの確認"
+              required
             />
           </div>
           <button
