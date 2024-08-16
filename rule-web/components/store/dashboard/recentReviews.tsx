@@ -39,7 +39,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => 
             </div>
             <p>{review.content}</p>
             <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
-            <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">返事</div>
+            <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">返事する</div>
           </li>
         ))}
         <div className='text-center mt-8 mb-2'>

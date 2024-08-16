@@ -98,10 +98,6 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddReview = (review: string) => {
-
-  };
-
   return (
     <div className="min-h-screen min-w-full flex bg-gray-100">
       <div className="w-20">
@@ -120,8 +116,8 @@ const Dashboard = () => {
       </div>
       <ReviewModal
         isOpen={isModalOpen}
+        reviews={recentReviews}
         onClose={handleCloseModal}
-        onSubmit={handleAddReview}
       />
     </div>
   );
