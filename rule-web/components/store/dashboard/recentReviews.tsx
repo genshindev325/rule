@@ -5,36 +5,20 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
 
-interface RecentReviewsProps {
-  onSeeMore: () => void;
+interface RecentReview {
+  user: string,
+  date: string,
+  content: string,
+  conclusion: string,
+  rating: number,
 }
 
-const reviews = [
-  {
-    user: '橋本バナナ',
-    date: '昨日',
-    content: 'とても楽しかったです！機会があればまた参加したいです。',
-    conclusion: '食事も美味しかったです。',
-    rating: 5
-  },
-  {
-    user: '橋本バナナ',
-    date: '昨日',
-    content: 'とても楽しかったです！機会があればまた参加したいです。',
-    conclusion: '食事も美味しかったです。',
-    rating: 4
-  },
-  {
-    user: '橋本バナナ',
-    date: '昨日',
-    content: 'とても楽しかったです！機会があればまた参加したいです。',
-    conclusion: '食事も美味しかったです。',
-    rating: 5
-  },
-  // Add more reviews as needed
-];
+interface RecentReviewsProps {
+  onSeeMore: () => void;
+  reviews: RecentReview[]
+}
 
-const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore }) => {
+const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => {
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
       <h3 className="text-lg font-semibold mb-4">最近のレビュー</h3>
