@@ -1,10 +1,6 @@
-# Next.js 14 + TypeScript + Tailwind CSS + Ionic Framework + Capacitor Starter
+# Rule = Next.js 14 + TypeScript + Tailwind CSS + Ionic Framework + Capacitor
 
-This project is a state-of-the-art starter template designed for building scalable, cross-platform applications with Next.js 14, TypeScript, Tailwind CSS, Ionic Framework, and Capacitor. It enables developers to efficiently create apps that run on iOS, Android, and the web with a single codebase.
-
-## Inspiration
-
-This project was inspired by [Max Lynch's Next.js + Tailwind CSS + Ionic Framework + Capacitor Mobile Starter](https://github.com/mlynch/nextjs-tailwind-ionic-capacitor-starter). The original project provided a conceptual starting point for integrating these technologies into a cohesive development stack for building mobile and web applications. We have adapted and expanded upon this foundation to leverage the latest features of Next.js 14 and TypeScript, along with incorporating best practices and additional configurations to enhance the developer experience and application performance.
+This project is designed for organizing party event and paticipating for mobile users with Next.js 14, TypeScript, Tailwind CSS, Ionic Framework, and Capacitor. It enables developers to efficiently create apps that run on iOS, Android, and the web with a single codebase.
 
 ## Features
 
@@ -19,14 +15,14 @@ This project was inspired by [Max Lynch's Next.js + Tailwind CSS + Ionic Framewo
 ### Prerequisites
 
 - Node.js (LTS version recommended)
-- npm or yarn
+- npm
 - Android Studio or Xcode (for mobile app development)
 
 ### Setup
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/UretzkyZvi/nextjs-typescript-tailwind-ionic-starter.git <project-directory>
+    git clone https://github.com/genshindev325/Rule.git <project-directory>
     ```
 
 2. **Install dependencies**:
