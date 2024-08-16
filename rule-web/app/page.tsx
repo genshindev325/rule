@@ -1,3 +1,6 @@
+import { useSelector, useDispatch } from 'react-redux';
+
+// Auth
 import SignIn from '@/app/auth/signIn/page';
 import SignUp from '@/app/auth/signUp/page';
 
@@ -39,10 +42,10 @@ import EventReview1 from '@/app/user/event/eventReview1/page';
 import EventReview2 from '@/app/user/event/eventReview2/page';
 import Profile from '@/app/user/profile/page';
 
-const isAuthed = true;
+const isAuthenticated = false;
 
 export default function Home() {
   return (
-    <Dashboard />
+    isAuthenticated ? <Dashboard /> : <SignIn />
   );
 }
