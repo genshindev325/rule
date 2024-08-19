@@ -2,7 +2,6 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Image from 'next/image';
 
 interface ImageCarouselProps {
   images: string[];
@@ -62,7 +61,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index} className="pr-4">
-            <Image
+            <img
               src={src}
               alt={`image-${index}`}
               width={300}

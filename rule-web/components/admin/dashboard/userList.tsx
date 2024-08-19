@@ -4,44 +4,26 @@
 
 import React, { useState } from 'react';
 
-const users = [
-  { id: '1111-2222-3333-44441', username: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44442', username: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44443', username: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44444', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-44445', username: 'Hanako', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44446', username: 'Hanako', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44447', username: 'Hanako', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44448', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-44449', username: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44451', username: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44452', username: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44453', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-44454', username: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44455', username: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44456', username: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44457', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-44458', username: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44459', username: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44461', username: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44462', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-44463', username: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-44464', username: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-44465', username: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-44466', username: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  // Add more users if needed
-];
+interface User {
+  userID: string,
+  userName: string,
+  registeredDate: string,
+}
+
+interface UserListProps {
+  users: User[]
+}
 
 const itemsPerPage = 4;
 
-const UserList: React.FC = () => {
+const UserList: React.FC<UserListProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.id.includes(searchTerm)
+    user.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.userID.includes(searchTerm)
   );
 
   const paginatedUsers = filteredUsers.slice(
@@ -97,9 +79,9 @@ const UserList: React.FC = () => {
           </thead>
           <tbody>
             {paginatedUsers.map((user) => (
-              <tr key={user.id}>
-                <td className="py-2 text-left">{user.id}</td>
-                <td className="py-2 px-4 text-left">{user.username}</td>
+              <tr key={user.userID}>
+                <td className="py-2 text-left">{user.userID}</td>
+                <td className="py-2 px-4 text-left">{user.userName}</td>
                 <td className="py-2 px-4 text-left">{user.registeredDate}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">

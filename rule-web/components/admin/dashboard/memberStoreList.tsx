@@ -4,52 +4,33 @@
 
 import React, { useState } from 'react';
 
-const users = [
-  { id: '1111-2222-3333-43441', monthRate: '5000', storename: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43442', monthRate: '5000', storename: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43443', monthRate: '5000', storename: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43444', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-43445', monthRate: '5000', storename: 'Hanako', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43446', monthRate: '5000', storename: 'Hanako', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43447', monthRate: '5000', storename: 'Hanako', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43448', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-43449', monthRate: '5000', storename: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43451', monthRate: '5000', storename: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43452', monthRate: '5000', storename: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43453', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-43454', monthRate: '5000', storename: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43455', monthRate: '5000', storename: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43456', monthRate: '5000', storename: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43457', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-43458', monthRate: '5000', storename: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43459', monthRate: '5000', storename: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43461', monthRate: '5000', storename: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43462', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  { id: '1111-2222-3333-43463', monthRate: '5000', storename: 'Taro Yamamoto', registeredDate: 'September 20, 2023 17:00' },
-  { id: '1111-2222-3333-43464', monthRate: '5000', storename: 'Taro Sato', registeredDate: 'October 12, 2023 16:00' },
-  { id: '1111-2222-3333-43465', monthRate: '5000', storename: 'Taro Iwasaki', registeredDate: 'October 20, 2023 17:00' },
-  { id: '1111-2222-3333-43466', monthRate: '5000', storename: 'Taro Omae', registeredDate: 'December 15, 2023 18:00' },
-  // Add more users if needed 
-];
+interface Store {
+  storeID: string,
+  monthRate: number,
+  storeName: string,
+  registeredDate: string,
+}
 
-const itemsPerPage = 4;
+interface StoresProps {
+  stores: Store[],
+}
 
-const MemberStoreList: React.FC = () => {
+const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredUsers = users.filter(user =>
-    user.storename.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.id.includes(searchTerm)
+  const filteredStores = stores.filter(store =>
+    store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    store.storeID.includes(searchTerm)
   );
 
-  const paginatedUsers = filteredUsers.slice(
+  const paginatedStores = filteredStores.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredStores.length / itemsPerPage);
 
   const handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pageNumber = parseInt(e.target.value, 10);
@@ -97,12 +78,12 @@ const MemberStoreList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedUsers.map((user) => (
-              <tr key={user.id}>
-                <td className="py-2 text-left">{user.id}</td>
-                <td className="py-2 px-4 text-left">{user.storename}</td>
-                <td className="py-2 px-4 text-left">{user.monthRate}</td>
-                <td className="py-2 px-4 text-left">{user.registeredDate}</td>
+            {paginatedStores.map((store) => (
+              <tr key={store.storeID}>
+                <td className="py-2 text-left">{store.storeID}</td>
+                <td className="py-2 px-4 text-left">{store.storeName}</td>
+                <td className="py-2 px-4 text-left">{store.monthRate}</td>
+                <td className="py-2 px-4 text-left">{store.registeredDate}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
                     <button className="text-blue-600">設定</button>
