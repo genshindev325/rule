@@ -4,32 +4,21 @@
 
 import React from 'react';
 
-const events = [
-  {
-    name: 'drinking party event',
-    date: 'September 16, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people',
-    earnings: '12356'
-  },
-  {
-    name: 'Town dating, matchmaking, drinking party events',
-    date: 'September 20, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people',
-    earnings: '23589'
-  },
-  {
-    name: 'Town dating, matchmaking, drinking party events',
-    date: 'September 20, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people',
-    earnings: '8535'
-  },
-  // Add more events as needed
-];
+interface PastEvent {
+  eventName: string,
+  date: string,
+  maleTotal: number,
+  males: number,
+  femaleTotal: number,
+  females: number,
+  earnings: number
+}
 
-const PastEvents = () => {
+interface PastEvents {
+  pastEvents: PastEvent[]
+}
+
+const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
   return (
     <div className="p-10 bg-white shadow-md rounded-md g-4">
       <table className="w-full">
@@ -43,12 +32,12 @@ const PastEvents = () => {
           </tr>
         </thead>
         <tbody>
-          {events.map((event, index) => (
+          {pastEvents.map((event, index) => (
             <tr key={index}>
-              <td>{event.name}</td>
+              <td>{event.eventName}</td>
               <td>{event.date}</td>
-              <td>{event.male}</td>
-              <td>{event.female}</td>
+              <td>{event.males}/{event.maleTotal}</td>
+              <td>{event.females}/{event.femaleTotal}</td>
               <td>{event.earnings} (yen)</td>
             </tr>
           ))}

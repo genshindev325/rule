@@ -4,29 +4,20 @@
 
 import React from 'react';
 
-const events = [
-  {
-    name: 'Town dating, matchmaking, drinking party events',
-    date: 'September 20, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people'
-  },
-  {
-    name: 'Town dating, matchmaking, drinking party events',
-    date: 'September 20, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people'
-  },
-  {
-    name: 'Town dating, matchmaking, drinking party events',
-    date: 'September 20, 2023 17:00',
-    male: '15/20 people',
-    female: '12/20 people'
-  },
-  // Add more events as needed
-];
+interface UpcomingEvent {
+  eventName: string,
+  date: string,
+  maleTotal: number,
+  males: number,
+  femaleTotal: number,
+  females: number
+}
 
-const UpcomingEvents = () => {
+interface UpcomingEvents {
+  upcomingEvents: UpcomingEvent[]
+}
+
+const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents }) => {
   return (
     <div className="p-10 bg-white shadow-md rounded-md g-4">
       <table className="w-full">
@@ -40,12 +31,12 @@ const UpcomingEvents = () => {
           </tr>
         </thead>
         <tbody>
-          {events.map((event, index) => (
+          {upcomingEvents.map((event, index) => (
             <tr key={index}>
-              <td>{event.name}</td>
+              <td>{event.eventName}</td>
               <td>{event.date}</td>
-              <td>{event.male}</td>
-              <td>{event.female}</td>
+              <td>{event.males}/{event.maleTotal}</td>
+              <td>{event.females}/{event.femaleTotal}</td>
               <td>•••</td>
               {/* "<div class='tooltip-container'>";
                       "<button class='tooltip-button'>•••</button>";
