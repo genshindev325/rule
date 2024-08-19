@@ -6,7 +6,6 @@ import SignUp from '@/app/auth/signUp/page';
 
 // Admin
 import Dashboard from '@/app/admin/dashboard/page';
-import Events from '@/app/admin/events/page';
 
 // Store
 // import Dashboard from '@/app/store/dashboard/page';
@@ -38,10 +37,8 @@ import EventReview1 from '@/app/user/event/eventReview1/page';
 import EventReview2 from '@/app/user/event/eventReview2/page';
 import Profile from '@/app/user/profile/page';
 
-const isAuthenticated = false;
-
 export default function Home() {
   return (
-    isAuthenticated ? <Dashboard /> : <SignIn />
+    <SignIn />
   );
 }

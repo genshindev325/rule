@@ -1,11 +1,13 @@
 // pages/signin.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/auth/authContext';
 
 const SignIn = () => {
   const router = useRouter();
+  const { login } = useAuth();
 
   async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,7 +23,21 @@ const SignIn = () => {
     });
 
     if (response.status === 200) {
-      router.push('/admin/dashboard');
+      const result = await response.json();
+      console.log(result.message);
+      const userName = result.userName;
+      const userEmail = result.userEmail;
+      const userRole = result.userRole;
+      const token = result.token;
+      if (userRole === 'admin') {
+        login(userName, userEmail, userRole, token);
+        router.push('/admin/dashboard');
+      } else if (userRole === 'store') {
+        login(userName, userEmail, userRole, token);
+        router.push('/store/dashboard');
+      } else {
+        // Add user logic here
+      }
     } else {
       console.log(response.status);
       console.log("Your username and pasword mismatched.");
