@@ -21,7 +21,7 @@ const SignIn = () => {
     });
 
     if (response.status === 200) {
-      router.push('/store/dashboard');
+      router.push('/admin/dashboard');
     } else {
       console.log(response.status);
       console.log("Your username and pasword mismatched.");

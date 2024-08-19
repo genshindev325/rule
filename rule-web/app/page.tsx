@@ -5,15 +5,11 @@ import SignIn from '@/app/auth/signIn/page';
 import SignUp from '@/app/auth/signUp/page';
 
 // Admin
-// import Dashboard from '@/app/admin/dashboard/page';
+import Dashboard from '@/app/admin/dashboard/page';
 import Events from '@/app/admin/events/page';
 
 // Store
-import Dashboard from '@/app/store/dashboard/page';
-import ChatPage from '@/app/store/chat/page';
-import EventSettings from '@/app/store/eventSettings/page';
-import SalesManagement from '@/app/store/salesManagement/page';
-import Setting from '@/app/store/setting/page';
+// import Dashboard from '@/app/store/dashboard/page';
 
 // Users
 // Auth

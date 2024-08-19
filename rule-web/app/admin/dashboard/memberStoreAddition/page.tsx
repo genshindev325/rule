@@ -1,4 +1,4 @@
-// app/store/setting/storeProfileSetting/page.tsx
+// app/admin/dashboard/memberStoreAddition/page.tsx
 
 'use client';
 
@@ -7,7 +7,7 @@ import Navbar from '@/components/admin/navbar';
 import ImageCarousel from '@/components/imageCarousel';
 import Link from 'next/link';
 
-const StoreProfileSettings = () => {
+const MemberStoreAddition = () => {
   const [storeName, setStoreName] = useState('');
 
   const [images, setImages] = useState<string[]>([
@@ -122,4 +122,4 @@ const StoreProfileSettings = () => {
   );
 };
 
-export default StoreProfileSettings;
+export default MemberStoreAddition;
