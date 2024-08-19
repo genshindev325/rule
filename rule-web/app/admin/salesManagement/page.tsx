@@ -3,6 +3,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
+import AuthWrapper from '@/components/auth/authWrapper';
 import EarningsManagement from '@/components/admin/salesManagement/earningsManagement';
 import Navbar from '@/components/admin/navbar';
 
@@ -44,14 +46,16 @@ const SalesManagement: React.FC = () => {
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
 
   return (
-    <div className="min-h-screen w-full flex bg-gray-100">
-      <div className="w-20">
-        <Navbar />
+    <AuthWrapper allowedRoles={['admin']}>
+      <div className="min-h-screen w-full flex bg-gray-100">
+        <div className="w-20">
+          <Navbar />
+        </div>
+        <div className="w-full p-10 pb-16">
+          <EarningsManagement {...earnings} />
+        </div>
       </div>
-      <div className="w-full p-10 pb-16">
-        <EarningsManagement {...earnings} />
-      </div>
-    </div>
+    </AuthWrapper>
   );
 };
 

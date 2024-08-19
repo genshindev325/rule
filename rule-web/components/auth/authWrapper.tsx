@@ -3,15 +3,16 @@ import { useAuth } from '@/components/auth/authContext';
 import { useRouter } from 'next/navigation';
 
 interface AuthWrapperProps {
+  allowedRoles: string[];
   children: ReactNode;
 }
 
-const AuthWrapper = ({ children }: AuthWrapperProps) => {
-  const { isAuthenticated } = useAuth();
+const AuthWrapper = ({ allowedRoles, children }: AuthWrapperProps) => {
+  const { isAuthenticated, userRole } = useAuth();
   const router = useRouter();
 
-  if (!isAuthenticated) {
-    router.push('/auth/signIn'); // Redirect to the sign-in page
+  if (!isAuthenticated || !allowedRoles.includes(userRole || '')) {
+    router.push('/auth/unauthorized');
     return null;
   }
 

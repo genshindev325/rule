@@ -3,6 +3,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
+import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import RecentReviews from '@/components/store/dashboard/recentReviews';
 import ReviewModal from '@/components/store/dashboard/reviewModal';
@@ -99,27 +101,29 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-full flex bg-gray-100">
-      <div className="w-20">
-        <Navbar />
-      </div>
-      <div className="w-3/4 p-10">
-        <h1 className="text-3xl font-bold mb-6">ダッシュボード</h1>
-        <MainPanel {...mainPanelData} />
-        <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
-          <UpcomingEvents events={upcomingEvents} />
+    <AuthWrapper allowedRoles={['store']}>
+      <div className="min-h-screen min-w-full flex bg-gray-100">
+        <div className="w-20">
+          <Navbar />
         </div>
+        <div className="w-3/4 p-10">
+          <h1 className="text-3xl font-bold mb-6">ダッシュボード</h1>
+          <MainPanel {...mainPanelData} />
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
+            <UpcomingEvents events={upcomingEvents} />
+          </div>
+        </div>
+        <div className='w-auto p-10 mt-4'>
+          <RecentReviews onSeeMore={handleOpenModal} reviews={recentReviews} />        
+        </div>
+        <ReviewModal
+          isOpen={isModalOpen}
+          reviews={recentReviews}
+          onClose={handleCloseModal}
+        />
       </div>
-      <div className='w-auto p-10 mt-4'>
-        <RecentReviews onSeeMore={handleOpenModal} reviews={recentReviews} />        
-      </div>
-      <ReviewModal
-        isOpen={isModalOpen}
-        reviews={recentReviews}
-        onClose={handleCloseModal}
-      />
-    </div>
+    </AuthWrapper>
   );
 };
 
