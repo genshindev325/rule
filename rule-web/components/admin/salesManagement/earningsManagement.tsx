@@ -5,9 +5,17 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
+interface EarningsProps {
+  sales: number,
+  salesTotal: number,
+  salesData: number[],
+}
+
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const EarningsManagement: React.FC = () => {
+const EarningsManagement: React.FC<EarningsProps> = ({
+  sales, salesTotal, salesData
+}) => {
   const chartOptions = {
     chart: {
       id: 'basic-bar',
@@ -26,7 +34,7 @@ const EarningsManagement: React.FC = () => {
   const chartSeries = [
     {
       name: 'series-1',
-      data: [30, 40, 45, 50, 49, 60, 70],
+      data: salesData,
     },
   ];
 
@@ -37,13 +45,13 @@ const EarningsManagement: React.FC = () => {
         <div className="w-full md:w-1/2 p-4">
           <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
             <div className="text-sm text-gray-600">総合売上</div>
-            <div className="text-2xl font-bold">123,45 円</div>
+            <div className="text-2xl font-bold">{sales} 円</div>
           </div>
         </div>
         <div className="w-full md:w-1/2 p-4">
           <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
             <div className="text-sm text-gray-600">見込総合売上</div>
-            <div className="text-2xl font-bold">163,25 円</div>
+            <div className="text-2xl font-bold">{salesTotal} 円</div>
           </div>
         </div>
       </div>

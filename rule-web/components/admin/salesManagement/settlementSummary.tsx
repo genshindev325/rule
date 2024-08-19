@@ -4,49 +4,26 @@
 
 import React, { useState } from 'react';
 
-const stores = [
-  { storename: 'isazakaza', eargings: '12356', salesForecast: '15356', totalDepositedAmount: '12356' },
-  { storename: 'tarantoiy', eargings: '23589', salesForecast: '24623', totalDepositedAmount: '23589' },
-  { storename: 'kolaramoy', eargings: '8535', salesForecast: '18236', totalDepositedAmount: '8535' },
-  { storename: 'homogenny', eargings: '9389', salesForecast: '29491', totalDepositedAmount: '9389' },
-  { storename: 'buluramar', eargings: '14765', salesForecast: '17856', totalDepositedAmount: '19999' },
-  { storename: 'clearitym', eargings: '2356', salesForecast: '12256', totalDepositedAmount: '23476' },
-  { storename: 'isazakaza', eargings: '12356', salesForecast: '15356', totalDepositedAmount: '12356' },
-  { storename: 'tarantoiy', eargings: '23589', salesForecast: '24623', totalDepositedAmount: '23589' },
-  { storename: 'kolaramoy', eargings: '8535', salesForecast: '18236', totalDepositedAmount: '8535' },
-  { storename: 'homogenny', eargings: '9389', salesForecast: '29491', totalDepositedAmount: '9389' },
-  { storename: 'buluramar', eargings: '14765', salesForecast: '17856', totalDepositedAmount: '19999' },
-  { storename: 'clearitym', eargings: '2356', salesForecast: '12256', totalDepositedAmount: '23476' },
-  { storename: 'isazakaza', eargings: '12356', salesForecast: '15356', totalDepositedAmount: '12356' },
-  { storename: 'tarantoiy', eargings: '23589', salesForecast: '24623', totalDepositedAmount: '23589' },
-  { storename: 'kolaramoy', eargings: '8535', salesForecast: '18236', totalDepositedAmount: '8535' },
-  { storename: 'homogenny', eargings: '9389', salesForecast: '29491', totalDepositedAmount: '9389' },
-  { storename: 'buluramar', eargings: '14765', salesForecast: '17856', totalDepositedAmount: '19999' },
-  { storename: 'clearitym', eargings: '2356', salesForecast: '12256', totalDepositedAmount: '23476' },
-  { storename: 'isazakaza', eargings: '12356', salesForecast: '15356', totalDepositedAmount: '12356' },
-  { storename: 'tarantoiy', eargings: '23589', salesForecast: '24623', totalDepositedAmount: '23589' },
-  { storename: 'kolaramoy', eargings: '8535', salesForecast: '18236', totalDepositedAmount: '8535' },
-  { storename: 'homogenny', eargings: '9389', salesForecast: '29491', totalDepositedAmount: '9389' },
-  { storename: 'buluramar', eargings: '14765', salesForecast: '17856', totalDepositedAmount: '19999' },
-  { storename: 'clearitym', eargings: '2356', salesForecast: '12256', totalDepositedAmount: '23476' },
-  { storename: 'isazakaza', eargings: '12356', salesForecast: '15356', totalDepositedAmount: '12356' },
-  { storename: 'tarantoiy', eargings: '23589', salesForecast: '24623', totalDepositedAmount: '23589' },
-  { storename: 'kolaramoy', eargings: '8535', salesForecast: '18236', totalDepositedAmount: '8535' },
-  { storename: 'homogenny', eargings: '9389', salesForecast: '29491', totalDepositedAmount: '9389' },
-  { storename: 'buluramar', eargings: '14765', salesForecast: '17856', totalDepositedAmount: '19999' },
-  { storename: 'clearitym', eargings: '2356', salesForecast: '12256', totalDepositedAmount: '23476' },
-  // Add more users if needed
-];
+interface StoreSale {
+  storeName: string,
+  sales: number,
+  salesForecast: number,
+  totalDepositedAmount: number
+}
+
+interface StoreSalesProps {
+  stores: StoreSale[]
+}
 
 const itemsPerPage = 4;
 
-const StoreList: React.FC = () => {
+const StoreList: React.FC<StoreSalesProps> = ({ stores }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredStores = stores.filter(store =>
-    store.storename.toLowerCase().includes(searchTerm.toLowerCase())
+    store.storeName.toLowerCase().includes(searchTerm.toLowerCase())
     //  || store.id.includes(searchTerm)
   );
 
@@ -102,10 +79,10 @@ const StoreList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedStores.map((store) => (
-              <tr key={store.storename}>
-                <td className="py-2 text-left">{store.storename}</td>
-                <td className="py-2 px-4 text-left">{store.eargings}</td>
+            {paginatedStores.map((store, index) => (
+              <tr key={index}>
+                <td className="py-2 text-left">{store.storeName}</td>
+                <td className="py-2 px-4 text-left">{store.sales}</td>
                 <td className="py-2 px-4 text-left">{store.salesForecast}</td>
                 <td className="py-2 px-4 text-left">{store.totalDepositedAmount}</td>
               </tr>
