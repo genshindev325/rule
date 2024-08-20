@@ -56,7 +56,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ onDelete, onEdit }) => {
                 setIsOpen(false); // Close the dropdown after an action is taken
               }}
             >
-              Edit
+              編集
             </button>
             <button
               className="block px-4 py-2 text-sm text-red-700 hover:bg-red-100 w-full text-left"
@@ -65,7 +65,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ onDelete, onEdit }) => {
                 setIsOpen(false); // Close the dropdown after an action is taken
               }}
             >
-              Delete
+              削除
             </button>
           </div>
         </div>
