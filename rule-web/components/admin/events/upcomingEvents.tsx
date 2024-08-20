@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import DropdownMenu from '@/components/utils/dropdownMenu';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
@@ -22,18 +23,32 @@ interface UpcomingEvents {
 }
 
 const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents }) => {
+  const router = useRouter();
+
   const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
 
+  // Delete event logic
   const handleDelete = (rowId: number) => {
     setSelectedRowId(rowId);
     setDeleteConfirmModalVisible(true);
   };
 
-  const handleConfirmDelete = () => {
-    // Handle the delete action here
+  const handleConfirmDelete = async () => {
     if (selectedRowId !== null) {
-      console.log(selectedRowId + " row selected.")
+      const response = await fetch('/api/admin/events/deleteEvent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ selectedRowId }),
+      });
+  
+      if (response.status === 200) {
+        router.push('/admin/events');
+        console.log("Delete event success.");
+      } else {
+        console.log(response.status);
+        console.log("Delete event failed.");
+      }
       setSelectedRowId(null);
     }
     setDeleteConfirmModalVisible(false);
@@ -43,10 +58,11 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents }) => {
     setDeleteConfirmModalVisible(false);
   };
 
+  // Edit event logic
   const handleEdit = (id: number) => {
     // Implement your edit logic here, such as opening a modal to edit the row
     console.log(id);
-  };  
+  };
 
   return (
     <div className="p-10 bg-white shadow-md rounded-md g-4">

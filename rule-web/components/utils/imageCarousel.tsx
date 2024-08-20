@@ -65,13 +65,13 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
     <div className="bg-gray-200 rounded w-full">
       <Slider {...settings}>
         {images.map((src, index) => (
-          <div key={index} className="relative w-full h-28">
+          <div key={index} className="relative w-full h-28 -mb-2">
             <Image
               src={src}
               alt={`image-${index}`}
               layout='fill'
-              objectFit='cover'
-              className="rounded"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+              className="rounded object-cover"
             />
           </div>
         ))}
