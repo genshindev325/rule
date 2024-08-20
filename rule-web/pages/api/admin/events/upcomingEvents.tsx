@@ -5,6 +5,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Process a GET request
     const upcomingEvents = [
       {
+        id: 1,
         eventName: 'Town dating, drinking party events',
         date: 'September 20, 2023 17:00',
         maleTotal: 20,
@@ -13,6 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         females: 12,
       },
       {
+        id: 2,
         eventName: 'Town dating, matchmaking, drinking party events',
         date: 'September 20, 2023 17:00',
         maleTotal: 6,
@@ -21,6 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         females: 3,
       },
       {
+        id: 3,
         eventName: 'matchmaking, drinking party events',
         date: 'September 20, 2023 17:00',
         maleTotal: 12,

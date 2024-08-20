@@ -10,6 +10,7 @@ import UpcomingEvents from '@/components/admin/events/upcomingEvents';
 import PastEvents from '@/components/admin/events/pastEvents';
 
 interface UpcomingEvent {
+  id: number,
   eventName: string,
   date: string,
   maleTotal: number,
