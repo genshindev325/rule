@@ -3,6 +3,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
 interface Store {
   storeID: string,
@@ -16,9 +19,50 @@ interface StoresProps {
 }
 
 const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
+  const router = useRouter();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
+  const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
+
+  // Delete memberStore logic
+  const handleDelete = (rowId: string) => {
+    setSelectedRowId(rowId);
+    setDeleteConfirmModalVisible(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedRowId !== null) {
+      const response = await fetch('/api/admin/dashboard/deleteStore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ selectedRowId }),
+      });
+  
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log(result.message);
+        router.push('/admin/dashboard');
+      } else {
+        console.log(response.status);
+        console.log("Delete user failed.");
+      }
+      setSelectedRowId(null);
+    }
+    setDeleteConfirmModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
+  };
+
+  // Edit memberStore logic
+  const handleEdit = (rowId: string) => {
+    // Implement your edit logic here, such as opening a modal to edit the row
+    console.log(rowId);
+  };
 
   const filteredStores = stores.filter(store =>
     store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -87,7 +131,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
                     <button className="text-blue-600">設定</button>
-                    <button className="text-red-600">削除</button>
+                    <button className="text-red-600" onClick={() => handleDelete(store.storeID)}>削除</button>
                   </div>
                 </td>
               </tr>
@@ -114,6 +158,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
           &gt;&gt;
         </button>
       </div>
+      <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
     </div>
   );
 };
