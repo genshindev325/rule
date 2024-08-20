@@ -2,8 +2,10 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+
 import DropdownMenu from '@/components/utils/dropdownMenu';
+import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
 interface UpcomingEvent {
   id: number,
@@ -20,10 +22,25 @@ interface UpcomingEvents {
 }
 
 const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents }) => {
+  const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
+  const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
 
-  const handleDelete = (id: number) => {
-    // Remove the row with the given ID from the state
-    console.log(id);
+  const handleDelete = (rowId: number) => {
+    setSelectedRowId(rowId);
+    setDeleteConfirmModalVisible(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // Handle the delete action here
+    if (selectedRowId !== null) {
+      console.log(selectedRowId + " row selected.")
+      setSelectedRowId(null);
+    }
+    setDeleteConfirmModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
   };
 
   const handleEdit = (id: number) => {
@@ -59,6 +76,7 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents }) => {
           ))}
         </tbody>
       </table>
+      <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
     </div>
   );
 };
