@@ -4,6 +4,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
 
 interface ImageCarouselProps {
   images: string[];
@@ -12,37 +13,39 @@ interface ImageCarouselProps {
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    arrows: false,
+    draggable: true,
+    // responsive: [
+    //   {
+    //     breakpoint: 1024,
+    //     settings: {
+    //       slidesToShow: 3,
+    //       slidesToScroll: 1,
+    //       infinite: true,
+    //       dots: true,
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 600,
+    //     settings: {
+    //       slidesToShow: 2,
+    //       slidesToScroll: 1,
+    //       initialSlide: 2,
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 480,
+    //     settings: {
+    //       slidesToShow: 1,
+    //       slidesToScroll: 1,
+    //     },
+    //   },
+    // ],
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,13 +62,15 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
   };
 
   return (
-    <div className="bg-gray-200 rounded">
+    <div className="bg-gray-200 rounded w-full">
       <Slider {...settings}>
         {images.map((src, index) => (
-          <div key={index} className="pr-4">
-            <img
+          <div key={index} className="relative w-full h-28">
+            <Image
               src={src}
               alt={`image-${index}`}
+              layout='fill'
+              objectFit='cover'
               className="rounded"
             />
           </div>
@@ -80,7 +85,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
           />
           <label
             htmlFor="file-input"
-            className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer"
+            className="flex h-28 items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer"
           >
             <span className="text-2xl">+</span>
           </label>

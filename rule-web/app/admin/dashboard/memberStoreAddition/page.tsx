@@ -17,7 +17,7 @@ const MemberStoreAddition = () => {
 
   const [images, setImages] = useState<string[]>([
     '/image/img_1.png',
-    '/image/img_1.png',
+    // '/image/img_1.png',
     // Add more image paths here
   ]);
 
