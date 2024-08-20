@@ -20,7 +20,6 @@ interface RecentReview {
 }
 
 const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) => {
-  const [review, setReview] = React.useState('');
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {

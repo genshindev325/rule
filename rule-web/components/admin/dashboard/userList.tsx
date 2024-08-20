@@ -14,8 +14,6 @@ interface UserListProps {
   users: User[]
 }
 
-const itemsPerPage = 4;
-
 const UserList: React.FC<UserListProps> = ({ users }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);

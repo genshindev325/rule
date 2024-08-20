@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+// components/auth/authWrapper.tsx
+
+import { ReactNode, useState, useEffect } from 'react';
 import { useAuth } from '@/components/auth/authContext';
 import { useRouter } from 'next/navigation';
 
@@ -10,9 +12,19 @@ interface AuthWrapperProps {
 const AuthWrapper = ({ allowedRoles, children }: AuthWrapperProps) => {
   const { isAuthenticated, userRole } = useAuth();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
-  if (!isAuthenticated || !allowedRoles.includes(userRole || '')) {
-    router.push('/auth/unauthorized');
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && (!isAuthenticated || !allowedRoles.includes(userRole || ''))) {
+      router.push('/auth/unauthorized');
+    }
+  }, [isClient, isAuthenticated, userRole, router]);
+
+  if (!isClient) {    
     return null;
   }
 

@@ -1,6 +1,6 @@
 // components/event/eventCard.tsx
 
-import React, { useState } from 'react';
+import React from 'react';
 
 // will be modified
 interface CardProps {

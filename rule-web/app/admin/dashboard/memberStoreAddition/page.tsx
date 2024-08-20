@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import Navbar from '@/components/admin/navbar';
-import ImageCarousel from '@/components/imageCarousel';
+import ImageCarousel from '@/components/utils/imageCarousel';
 import AuthWrapper from '@/components/auth/authWrapper';
 
 const MemberStoreAddition = () => {
@@ -32,12 +32,13 @@ const MemberStoreAddition = () => {
     const address = formData.get('address');
     const access1 = formData.get('access1');
     const access2 = formData.get('access2');
+    const storeImages = images;
     const description = formData.get('description');
 
     const response = await fetch('/api/admin/dashboard/memberStoreAddition', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ storeName, storeGenre, foodGenre, cuisine, address, access1, access2, description }),
+      body: JSON.stringify({ storeName, storeGenre, foodGenre, cuisine, address, access1, access2, storeImages, description }),
     });
 
     if (response.status === 200) {

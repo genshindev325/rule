@@ -1,4 +1,4 @@
-// app/store/eventSetting/page.tsx
+// app/store/eventSettings/page.tsx
 
 'use client';
 
@@ -10,9 +10,7 @@ import Navbar from '@/components/store/navbar';
 
 const EventSettings = () => {
   const router = useRouter();
-
-  const [eventName, setEventName] = useState('');
-  const [category, setCategory] = useState('');
+  
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +22,7 @@ const EventSettings = () => {
     // Add event settings logic here
     const formData = new FormData(e.currentTarget);
     const eventName = formData.get('eventName');
-    const category = formData.get('category');
+    const category = selectedCategory;
     const description = formData.get('description');
     const schedule = formData.get('schedule');
     const startTime = formData.get('startTime');

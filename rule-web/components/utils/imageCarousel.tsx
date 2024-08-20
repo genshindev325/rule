@@ -1,3 +1,5 @@
+// components/utils/authContext.tsx
+
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -64,13 +66,11 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
             <img
               src={src}
               alt={`image-${index}`}
-              width={300}
-              height={200}
               className="rounded"
             />
           </div>
         ))}
-        <div className="flex items-center justify-center px-2 h-full">
+        <div className="flex flex-col items-center justify-center">
           <input
             type="file"
             accept="image/*"
@@ -80,7 +80,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
           />
           <label
             htmlFor="file-input"
-            className="w-full h-full flex items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer"
+            className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer"
           >
             <span className="text-2xl">+</span>
           </label>

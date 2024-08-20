@@ -1,3 +1,5 @@
+// components/auth/authContext.tsx
+
 import { createContext, useContext, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn as reduxLogin, signOut as reduxLogout } from '@/store/features/auth/AuthSlice';

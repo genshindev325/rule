@@ -10,6 +10,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const address = req.body.address;
     const access1 = req.body.access1;
     const access2 = req.body.access2;
+    const images = req.body.storeImages;
     const description = req.body.description;
     if (storeName !== '' && storeGenre !== '' && foodGenre !== '' && cuisine !== '') {
       res.status(200).json({ message: "Add memberStore success" });

@@ -26,14 +26,6 @@ const FindOnMap: React.FC = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [images, setImages] = useState<string[]>([
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
-    // Add more image paths here
-  ]);
 
   const events = [
     {

@@ -13,26 +13,78 @@ const FindOnMap: React.FC = () => {
   const settingSVG = '/svg/settings.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
-  let detailConditions = {
-    "location": "",
-    "date": "",
-    "gender": "",
-    "age": "",
-    "category": "",
-    "store": "",
-    "food": "",
-    "genre": "",
-  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [images, setImages] = useState<string[]>([
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
-    '/image/img_1.png',
+
+  const events = [
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_1.png',
+      maleFee: 5000,
+      maleTotal: 8,
+      males: 7,
+      femaleFee: 2000,
+      femaleTotal: 8,
+      females: 2,
+    },
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_2.png',
+      maleFee: 5000,
+      maleTotal: 8,
+      males: 7,
+      femaleFee: 5000,
+      femaleTotal: 8,
+      females: 7,
+    },
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_3.png',
+      maleFee: 6000,
+      maleTotal: 10,
+      males: 8,
+      femaleFee: 4000,
+      femaleTotal: 10,
+      females: 3,
+    },
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_4.png',
+      maleFee: 5000,
+      maleTotal: 8,
+      males: 3,
+      femaleFee: 1000,
+      femaleTotal: 8,
+      females: 6,
+    },
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_1.png',
+      maleFee: 5000,
+      maleTotal: 8,
+      males: 7,
+      femaleFee: 3000,
+      femaleTotal: 8,
+      females: 2,
+    },
+    {
+      title: '街コン・合コン・飲み会イベント',
+      date: '2023年9月20日 17:00',
+      imageUrl: '/image/img_2.png',
+      maleFee: 10000,
+      maleTotal: 8,
+      males: 4,
+      femaleFee: 5000,
+      femaleTotal: 8,
+      females: 4,
+    },
     // Add more image paths here
-  ]);
+  ];
   
   const handle20Over = () => {};
   const handleStudent = () => {};
@@ -68,7 +120,7 @@ const FindOnMap: React.FC = () => {
         <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
       </div>
       <div className='bg-gray-100 h-40 mt-96'>
-        <EventCarousel images={images}/>
+        <EventCarousel events={events}/>
       </div>
       {/* buttons */}
       <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 py-12 md:py-48'>

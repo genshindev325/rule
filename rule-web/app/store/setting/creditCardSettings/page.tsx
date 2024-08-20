@@ -2,13 +2,13 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 
-const CreditCardSettins = () => {
+const CreditCardSettings = () => {
   const router = useRouter();
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
@@ -117,4 +117,4 @@ const CreditCardSettins = () => {
   );
 };
 
-export default CreditCardSettins;
+export default CreditCardSettings;
