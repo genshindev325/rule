@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, ObjectId, Schema, model } from 'mongoose';
 //import { IEvent } from '../interfaces/eventInterface';
 
 interface IEvent extends Document {
@@ -12,6 +12,8 @@ interface IEvent extends Document {
     numberOfFemalesRecruited: number;
     maleFee: number;
     femaleFee: number;
+    userId: ObjectId;
+    // storeId: ObjectId;
 }
 
 const eventSchema = new Schema<IEvent>({
@@ -25,6 +27,8 @@ const eventSchema = new Schema<IEvent>({
     numberOfFemalesRecruited: { type: Number, required: true },
     maleFee: { type: Number, required: true },
     femaleFee: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, require:true },
+    // storeId: { type: Schema.Types.ObjectId, require:true },
 });
 
 

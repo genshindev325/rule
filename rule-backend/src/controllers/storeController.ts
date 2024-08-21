@@ -1,12 +1,25 @@
 import { Request, Response } from "express";
-import { registerUser, loginUser } from "../services/userService";
+import { signInStore } from "../services/storeService";
 import Store from "../models/storeModel";
+
+
+export const signIn = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  try {
+    const token = await signInStore(email, password);
+    
+    res.status(200).json({ token });
+  } catch (err:any) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
 // Create a new store
 export const createStore = async( req: Request, res: Response ): Promise<void> => {
   try {
     const store = new Store(req.body);
     await store.save();
+
     res.status(201).json(store);
   } catch (error) {
     res.status(400).json({ message: 'Bad request' });
@@ -64,4 +77,6 @@ export const deleteStoreById = async (req: Request, res: Response): Promise<void
     res.status(500).json({ message: 'Error deleting store', error });
   }
 };
+
+
 
