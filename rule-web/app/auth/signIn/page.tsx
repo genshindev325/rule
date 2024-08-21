@@ -40,7 +40,7 @@ const SignIn = () => {
       }
     } else {
       console.log(response.status);
-      console.log("Your username and pasword mismatched.");
+      console.log("Your username and password mismatched.");
     }
   }
 
