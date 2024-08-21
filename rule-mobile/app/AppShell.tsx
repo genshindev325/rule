@@ -1,7 +1,7 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
-import Tabs from "./components/Tabs";
+import Providers from "@/app/provider";
 
 // Auth
 import Login from "./user/auth/login";
@@ -31,15 +31,13 @@ import SearchResult4 from "./user/event/searchResult4";
 
 setupIonicReact({});
 
-const isAuthed = false;
-
 const AppShell = () => {
   return (
+    <Providers>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet id="main">
           <Route path="/event" render={() => <EventPayment />} />
-          <Route path="/tabs" render={() => <Tabs />} />
           {/* user/auth */}
           <Route path="/auth/login" component={Login} />
           <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
@@ -53,10 +51,7 @@ const AppShell = () => {
           <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
           <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
           {/* user/event */}
-          <Route path="/event/findOnMap" render={() => {
-            return isAuthed ? <EventPayment /> : <Redirect to="/auth/login" />;
-            }}
-          />
+          <Route path='/event/findOnMap' render={() => <FindOnMap />} exact={true} />
           <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
           <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
           <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
@@ -69,12 +64,13 @@ const AppShell = () => {
           <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
           <Route
             path="/"
-            render={() => <Redirect to="/event/findOnMap" />}
+            render={() => <Redirect to="/auth/login" />}
             exact={true}
           />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
+    </Providers>
   );
 };
 

@@ -3,11 +3,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
-import { useRouter } from 'next/navigation';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+
+import { useAuth } from '@/app/components/auth/authContext';
 
 const Login: React.FC = () => {
-  const router = useRouter();
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const textMd = 'text-md md:text-lg font-semibold';
+
+  const router = useIonRouter();
+  const { login } = useAuth();
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
@@ -35,8 +40,8 @@ const Login: React.FC = () => {
       const userRole = result.userRole;
       const token = result.token;
       if (userRole === 'user') {
-        console.log('userName: ' + userName);
-        console.log('userEmail: ' + userEmail);
+        login(userName, userEmail, userRole, token);
+        router.push('/event/findOnMap')
       }
     } else {
       console.log(response.status);
@@ -48,7 +53,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
-          <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+          <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
           <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20">
             <h2 className="text-3xl font-bold py-12 md:py-20 px-12 text-center">ログイン</h2>
             <form onSubmit={handleSubmit}>
@@ -74,27 +79,21 @@ const Login: React.FC = () => {
                   required
                 />
               </div>
-              <IonRouterLink routerLink='/auth/passwordReset'>
-                <p className="text-md md:text-lg text-right font-semibold text-gray-400">
-                  パスワードをお忘れですか？
-                </p>
-              </IonRouterLink>
-              <IonRouterLink routerLink='/auth/loginWith'>
-                <p className="text-md md:text-lg text-right font-semibold text-gray-400">
-                  ソーシャルログイン
-                </p>
-              </IonRouterLink>
+              <div className={`${textMd} text-right text-gray-400`}>
+                <IonRouterLink routerLink='/auth/passwordReset'>パスワードをお忘れですか？</IonRouterLink>
+              </div>
+              <div className={`${textMd} text-right text-gray-400`}>
+                <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink>
+              </div>
               <button
                 type="submit"
-                className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
+                className={`w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 ${maleGradient} text-white rounded-full font-bold`}
               >
                 サインイン
               </button>
-              <IonRouterLink routerLink='/auth/selectGender'>
-                <p className="text-md md:text-lg text-center font-semibold text-gray-400 pb-10">
-                  ソーシャルログイン
-                </p>
-              </IonRouterLink>
+              <div className={`${textMd} text-center text-gray-400 pb-10`}>                  
+                <IonRouterLink routerLink='/auth/selectGender'>アカウントを作成する</IonRouterLink>
+              </div>
             </form>
           </div>
           </div>
