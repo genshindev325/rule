@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className="flex flex-col items-center space-y-8 flex-grow">
         <button className='hover:text-blue-400 active:text-blue-800'>
           <div className="w-8 h-8 rounded-full bg-gray-200" />
-          {/* <div className="w-8 h-8 rounded-full bg-[url('../public/vercel.svg')] bg-gray-200" /> */}
+          
         </button>
         <Link href="/store/dashboard">
           <button className='hover:text-blue-400 active:text-blue-800'>
