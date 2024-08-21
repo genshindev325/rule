@@ -53,7 +53,7 @@ const CreditCardSettings = () => {
                   </div>
                   <div className='flex flex-row-reverse'>
                     <button type="button" className="w-20 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                      delete
+                      削除
                     </button>
                   </div>
                 </div>
