@@ -1,19 +1,30 @@
 import { Document, Schema, model } from 'mongoose';
 import bcrypt from "bcryptjs";
 
-interface IUser extends Document {
-    username: string;
+export interface IUser extends Document {
     email: string;
     password: string;
-    role: string;
+
+    uid: string;
+    username: string;
+    nickname: string;
+    gender: string;
+    birthday: Date;
+    avatar: string;
+
     comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
-    username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, required: true },
+
+    uid: { type: String, unique: true },
+    username: { type: String },
+    nickname: { type: String },
+    gender: { type: String },
+    birthday: { type: Date },
+    avatar: { type: String },
 });
 
 userSchema.pre<IUser>("save", async function (next) {
@@ -27,6 +38,6 @@ userSchema.pre<IUser>("save", async function (next) {
 userSchema.methods.comparePassword = async function (password: string) {
     return bcrypt.compare(password, this.password);
 }
-
 const User = model<IUser>('User', userSchema);
+
 export default User;

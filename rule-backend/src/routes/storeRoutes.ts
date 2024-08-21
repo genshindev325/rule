@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import {
+  signIn,
+
   createStore,
   getAllStores,
   getStoreById,
@@ -11,7 +13,9 @@ import upload from '../middlewares/uploadMiddleware';
 
 const router: Router = Router();
 
-router.post('/', upload.array('avatar', 5), createStore);
+router.post("/signin", signIn);
+
+router.post("/", createStore);
 router.get('/', getAllStores);
 router.get('/:id', getStoreById);
 router.put('/:id', updateStoreById);

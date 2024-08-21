@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { IUser } from "../interfaces/userInterface";
-import User from "../models/userModel";
+import User,{ IUser } from "../models/userModel";
 
 interface AuthRequest extends Request {
   user?: IUser;
