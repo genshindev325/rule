@@ -2,36 +2,39 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
 import FullCarousel from '@/app/components/user/search/fullCarousel';
 import Star from '@/app/components/user/event/starSVG';
 
 const EventReview2: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [map, setMap] = useState('');
+  const [maleFee, setMaleFee] = useState(1);
+  const [maleTotal, setMaleTotal] = useState(1);
+  const [males, setMales] = useState(1);
+  const [femaleFee, setFemaleFee] = useState(1);
+  const [femaleTotal, setFemaleTotal] = useState(1);
+  const [females, setFemales] = useState(1);
+  const [rateEvent, setRateEvent] = useState(1);
+  const [rateStore, setRateStore] = useState(1);
+  const [description, setDescription] = useState('');
+  const [types, setTypes] = useState<string[]>([]);
+
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'w-full rounded-xl -mt-36 bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-md space-y-2';
-  const fromTop = 'pt-[750px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
   const locationSVG = '/svg/location.svg';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
   const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
 
-  const title = '街コン・合コン・飲み会イベント';
-  const date = '2023年9月20日 17:00~20:00';
-  const imageUrl = '/image/img_1.png';
-  const imageUrl5 = '/image/img_5.png';
-  const maleFee = 5000;
-  const maleTotal = 8;
-  const males = 7;
   const maleRate = males/maleTotal;
-  const femaleFee = 2000;
-  const femaleTotal = 8;
-  const females = 2;
   const femaleRate = females/femaleTotal;
-  const rateEvent = 3;
-  const rateStore = 4;
   const eventFilledStars = Math.min(rateEvent, 5);
   const eventEmptyStars = 5 - eventFilledStars;
   const storeFilledStars = Math.min(rateStore, 5);
@@ -52,12 +55,42 @@ const EventReview2: React.FC = () => {
     },
     // will be added or get from database
   ];
-
-  const description = 'イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。';
   
-  const handle20Over = () => {};
-  const handleStudent = () => {};
-  const handleAnime = () => {};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch event Data
+        const response_event = await fetch('http://localhost:3000/api/user/event/eventReview');
+        if (response_event.ok) {
+          const result = await response_event.json();
+          setTitle(result.title);
+          setDate(result.date);
+          setImageUrl(result.imageUrl);
+          setMap(result.map);
+          setMaleFee(result.maleFee);
+          setMaleTotal(result.maleTotal);
+          setMales(result.males);
+          setFemaleFee(result.femaleFee);
+          setFemaleTotal(result.femaleTotal);
+          setFemales(result.females);
+          setRateEvent(result.rateEvent);
+          setRateStore(result.rateStore);
+          setDescription(result.description);
+          setTypes(result.types);
+        } else {
+          console.error('Failed to fetch mainPanel data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
 
   return (
     <IonPage>
@@ -73,15 +106,15 @@ const EventReview2: React.FC = () => {
               {/* title */}
               <h2 className='text-lg sm:text-xl font-bold'>{title}</h2>
               <h2 className='text-md sm:text-lg'>{date}</h2>
-              {/* buttons */}
+              {/* type */}
               <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
-                <button className='rounded-full bg-gray-200 px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
-                <button className='rounded-full bg-gray-200 px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
-                <button className='rounded-full bg-gray-200 px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
+                {types && types.map((type, index) => (
+                  <div key={index} className='rounded-full bg-gray-200 px-3 md:px-4 py-1'>{type}</div>
+                ))}
               </div>
               <img src={`${imageUrl}`} className='py-2' />
               {/* male */}
-              <div className='rounded-lg bg-gray-200 p-4 sm:p-6 flex flex-col space-y-1'>
+              <div className='rounded-lg bg-gray-100 p-4 sm:p-6 flex flex-col space-y-1'>
                 <div className='flex flex-row'>
                   <div className={`${maleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>男性</div>
                   <h2 className={`${textSm} pl-2`}>募集人数</h2>
@@ -99,7 +132,7 @@ const EventReview2: React.FC = () => {
                 </div>
               </div>
               {/* female */}
-              <div className='rounded-lg bg-gray-200 p-4 sm:p-6 flex flex-col space-y-1'>
+              <div className='rounded-lg bg-gray-100 p-4 sm:p-6 flex flex-col space-y-1'>
                 <div className='flex flex-row'>
                   <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
                   <h2 className={`${textSm} pl-2`}>募集人数</h2>
@@ -163,7 +196,7 @@ const EventReview2: React.FC = () => {
             <h2 className={`${textSm} border-b-2 border-solid border-gray-300`}>大阪府大阪市中央区東心斎橋1-17-2 アニーズビル1F</h2>
             <h2 className={`${textSm}`}>大阪メトロ御堂筋線「長堀橋駅」より徒歩10分</h2>
             <h2 className={`${textSm}`}>大阪メトロ長堀鶴見緑地線「長堀橋駅」より徒歩5分</h2>
-            <img src={`${imageUrl5}`} className='py-2' />
+            <img src={`${map}`} className='py-2' />
             <div className={`py-6 px-4 sm:px-6 md:px-8 flex w-full`}>
               <button className={`grow rounded-xl border-2 border-solid border-gray-800 ${textMd}`}>注意事項</button>
             </div>

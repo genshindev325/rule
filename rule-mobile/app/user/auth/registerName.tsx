@@ -3,15 +3,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const RegisterName: React.FC = () => {
-  const [userName, setUserName] = useState('');
+  const [name, setUserName] = useState('');
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+
+  const router = useIonRouter();
+  const searchParams = useSearchParams ();
+  const sex = searchParams.get('gender');
+  const mail = searchParams.get('email');
+  const pwd = searchParams.get('pwd');
+  const bth = searchParams.get('bth');
+  const img = searchParams.get('img');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(userName);
+    router.push(`/auth/registerID?sex=${sex}&mail=${mail}&pwd=${pwd}&bth=${bth}&img=${img}&name=${name}`);
   };
 
   return (
@@ -27,19 +37,14 @@ const RegisterName: React.FC = () => {
                   type="text"
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="氏名"
-                  value={userName}
+                  value={name}
                   onChange={(e) => setUserName(e.target.value)}
+                  required
                 />
               </div>
-              <IonRouterLink routerLink='/auth/registerID'>
-                <div className='flex justify-center'>
-                  <button type="submit"
-                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                  >
-                    ➔
-                  </button>
-                </div>
-              </IonRouterLink>
+              <div className='flex justify-center'>
+                <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+              </div>
             </form>
           </div>
           </div>

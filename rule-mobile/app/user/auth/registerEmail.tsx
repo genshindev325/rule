@@ -3,16 +3,22 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const RegisterEmail: React.FC = () => {
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useIonRouter();
+  const searchParams = useSearchParams ();
+  const gender = searchParams.get('gender');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(email);
+    router.push(`/auth/registerPassword?gender=${gender}&email=${email}`)
   };
 
   return (
@@ -27,30 +33,28 @@ const RegisterEmail: React.FC = () => {
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="text"
+                  name='email'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="メールアドレス"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="text"
+                  name='emailConfirm'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="メールアドレス(確認用)"
                   value={emailConfirm}
                   onChange={(e) => setEmailConfirm(e.target.value)}
+                  required
                 />
               </div>
-              <IonRouterLink routerLink='/auth/registerPassword'>
-                <div className='flex justify-center'>
-                  <button type="submit"
-                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                  >
-                    ➔
-                  </button>
-                </div>
-              </IonRouterLink>
+              <div className='flex justify-center'>
+                <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+              </div>
             </form>
           </div>
           </div>
