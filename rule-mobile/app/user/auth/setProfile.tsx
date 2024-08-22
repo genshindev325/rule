@@ -18,22 +18,16 @@ const SetProfile: React.FC = () => {
   const pwd = searchParams.get('pwd');
   const bth = searchParams.get('bth');
 
-  const handleAddImage = (newImage: string) => {
-    // setImage((prevImages) => [...prevImages, newImage]);
-    setImage(newImage);
-  };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result) {
-          handleAddImage(reader.result as string);
         }
       };
-      const url = URL.createObjectURL(file);      
-      console.log(url);
+      const url = URL.createObjectURL(file);
+      setImage(url);
     }
   };
 

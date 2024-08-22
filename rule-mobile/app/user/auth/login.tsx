@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       const token = result.token;
       if (userRole === 'user') {
         login(userName, userEmail, userRole, token);
-        router.push('/event/findOnMap')
+        router.push('/event/eventReview2')
       }
     } else {
       console.log(response.status);
