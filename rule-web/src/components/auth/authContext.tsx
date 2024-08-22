@@ -10,8 +10,8 @@ interface AuthContextType {
   userName: string | null;
   userEmail: string | null;
   userRole: string | null;
-  login: (userName: string, userEmail: string, userRole: string, token: string) => void;
-  logout: () => void;
+  signin: (userName: string, userEmail: string, userRole: string, token: string) => void;
+  signout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
   const { userEmail, userName, userRole, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const login = (userEmail: string, userName: string, userRole: string, token: string) => {
+  const signin = (userEmail: string, userName: string, userRole: string, token: string) => {
     // Logic for logging in
     const user = {
       userName: userName,
@@ -30,13 +30,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     dispatch(reduxLogin({ user: user, token: token }));
   };
 
-  const logout = () => {
+  const signout = () => {
     // Logic for logging out
     dispatch(reduxLogout());
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userName, userEmail, userRole, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userName, userEmail, userRole, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );

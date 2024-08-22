@@ -3,9 +3,11 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/auth/authContext';
 
 const SignUp = () => {
   const router = useRouter();
+  const { signin } = useAuth();
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,6 +25,13 @@ const SignUp = () => {
     });
 
     if (response.status === 201) {
+      const result = await response.json();
+      console.log(result)
+      const name = result.data.storeName;
+      const email = result.data.email;
+      const role = 'store';
+      const token = result.jwt;
+      signin(name, email, role, token);
       router.push('/store/dashboard');
     } else {
       console.log(response.status);

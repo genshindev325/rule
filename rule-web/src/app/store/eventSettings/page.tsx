@@ -47,7 +47,7 @@ const EventSettings = () => {
       body: JSON.stringify({eventName, category, description, eventDate, eventStartTime, eventEndTime, numberOfMalesRecruited, numberOfFemalesRecruited, maleRate, femaleRate }),
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       router.push('/store/dashboard');
       console.log("Create event success.");
     } else {
@@ -159,7 +159,7 @@ const EventSettings = () => {
                   <div className='flex-1'>
                     <h3 className='text-gray-600 py-2'>採用された男性の数</h3>
                     <input
-                      type="name"
+                      type="number"
                       name='maleTotal'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="採用された男性の数"
@@ -169,7 +169,7 @@ const EventSettings = () => {
                   <div className='flex-1'>
                     <h3 className='text-gray-600 py-2'>採用された女性の数</h3>
                     <input
-                      type="name"
+                      type="number"
                       name='femaleTotal'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="採用された女性の数"
@@ -184,7 +184,7 @@ const EventSettings = () => {
                   <div className='flex-1'>
                     <h3 className='text-gray-600 py-2'>男性料金</h3>
                     <input
-                      type="name"
+                      type="number"
                       name='maleFee'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="男性料金"
@@ -194,7 +194,7 @@ const EventSettings = () => {
                   <div className='flex-1'>
                     <h3 className='text-gray-600 py-2'>女性料金</h3>
                     <input
-                      type="name"
+                      type="number"
                       name='femaleFee'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="女性料金"
@@ -206,7 +206,7 @@ const EventSettings = () => {
               {/* buttons */}
               <div className='flex flex-row justify-end gap-4 pt-12'>
                 <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                  保つ
+                  保存
                 </button>
                 <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
                   <a href='/store/dashboard'>下書き</a>

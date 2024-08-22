@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ success: false, message: 'User already exists' }, { status: 400 });
       }
       const user = await User.create(body);
-      return NextResponse.json({ success: true, data: user }, { status: 201 });
+      return NextResponse.json({ success: true, data: user, jwt: 'jwt' }, { status: 201 });
   } catch (error) {
       return NextResponse.json({ success: false, error }, { status: 500 });
   }

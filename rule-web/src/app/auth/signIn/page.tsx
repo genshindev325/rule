@@ -7,7 +7,7 @@ import { useAuth } from '@/components/auth/authContext';
 
 const SignIn = () => {
   const router = useRouter();
-  const { login } = useAuth();
+  const { signin } = useAuth();
 
   async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,10 +30,10 @@ const SignIn = () => {
       const userRole = result.userRole;
       const token = result.token;
       if (userRole === 'admin') {
-        login(userName, userEmail, userRole, token);
+        signin(userName, userEmail, userRole, token);
         router.push('/admin/dashboard');
       } else if (userRole === 'store') {
-        login(userName, userEmail, userRole, token);
+        signin(userName, userEmail, userRole, token);
         router.push('/store/dashboard');
       } else {
         // Add user logic here
