@@ -3,24 +3,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const SelectGender: React.FC = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
+  const router = useIonRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(gender);
+    router.push(`/auth/registerEmail?gender=${gender}`);
   };
 
   return (
     <IonPage>
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
-          <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+          <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
           <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
             <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-12 text-center">性別を選択してください</h2>
             <form onSubmit={handleSubmit}>
@@ -40,15 +41,9 @@ const SelectGender: React.FC = () => {
                   女性
                 </button>
               </div>
-              <IonRouterLink routerLink="/auth/registerEmail">
-                <div className='flex justify-center'>
-                  <button type="submit"
-                    className="mt-10 w-24 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white py-2 rounded-full hover:from-purple-500 hover:to-blue-500 transition-colors"
-                  >
-                    ➔
-                  </button>
-                </div>
-              </IonRouterLink>
+              <div className='flex justify-center'>
+                <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+              </div>
             </form>
           </div>
           </div>
