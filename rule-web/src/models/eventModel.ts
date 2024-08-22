@@ -1,5 +1,10 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
+enum EventStatus {
+    Active = "active",
+    Inactive = "inactive", // or Canceled = "canceled",
+    Past = "past",
+}
 interface IEvent extends Document {
     eventName: string;
     category: string;
@@ -13,7 +18,8 @@ interface IEvent extends Document {
     maleRate: number;
     femaleRate: number;
     storeId: mongoose.ObjectId;
-
+    status: string;
+    
     createdAt: Date;
 }
 
@@ -30,6 +36,7 @@ const eventSchema = new Schema<IEvent>({
     maleRate: { type: Number, required: true },
     femaleRate: { type: Number, required: true },
     storeId: { type: Schema.Types.ObjectId, require:true },
+    status: { type: String },
 
     createdAt: { type: Date, default: () => new Date() },
 });

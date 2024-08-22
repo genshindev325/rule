@@ -1,6 +1,11 @@
 import mongoose, { Model, Document, Schema } from 'mongoose';
 import bcrypt from "bcryptjs";
-// import { IStore } from '../interfaces/storeInterface';
+
+enum StoreStatus {
+    Active = 'active',
+    Inactive = 'inactive',
+    Blocked = 'blocked',
+}
 
 export interface IStore extends Document {
     email: string;
@@ -21,6 +26,8 @@ export interface IStore extends Document {
     // Optional
     rating: Number;
     ratingCount: { type: Number },
+
+    status: { type: string },
 
     comparePassword: (password: string) => Promise<boolean>;
 }
@@ -44,6 +51,7 @@ const storeSchema = new Schema<IStore>({
     // Optional
     rating: { type: Number },
     ratingCount: { type: Number },
+    status: { type: String, default: "active" },
 });
 
 storeSchema.pre<IStore>("save", async function (next) {
