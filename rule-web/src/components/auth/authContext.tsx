@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
   const { userEmail, userName, userRole, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const signin = (userEmail: string, userName: string, userRole: string, token: string) => {
+  const signin = (userName: string, userEmail: string, userRole: string, token: string) => {
     // Logic for logging in
     const user = {
       userName: userName,

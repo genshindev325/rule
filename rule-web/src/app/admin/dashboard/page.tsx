@@ -41,15 +41,15 @@ const Dashboard = () => {
       try {
         // Fetch mainPanel Data
         const response_mainPanel = await fetch('/api/admin/dashboard/mainPanel');
-        if (response_mainPanel.ok) {
+        if (response_mainPanel.status === 200) {
           const result_mainPanel = await response_mainPanel.json();
           setMainPanelData(result_mainPanel);
         } else {
-          console.error('Failed to fetch memberstore data');
+          console.error('Failed to fetch mainpanel data');
         }
         // Fetch memberstore Data
         const response_memberstore = await fetch('/api/stores');
-        if (response_memberstore.ok) {
+        if (response_memberstore.status === 200) {
           const result_memberstore = await response_memberstore.json();
           setMemberStores(result_memberstore.data);
         } else {
@@ -57,7 +57,7 @@ const Dashboard = () => {
         }
         // Fetch userList Data
         const response_userList = await fetch('/api/users');
-        if (response_userList.ok) {
+        if (response_userList.status === 200) {
           const result_userList = await response_userList.json();
           setUserList(result_userList.data);
         } else {

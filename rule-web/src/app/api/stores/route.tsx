@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
         }
 
         const store = await Store.create(body);
-        return NextResponse.json({ success: true, data: store }, { status: 201 });
+        return NextResponse.json({ success: true, data: store, jwt: 'jwt' }, { status: 201 });
     } catch (error) {
         return NextResponse.json({ success: false, error }, { status: 500 });
     }
