@@ -16,17 +16,16 @@ const SignUp = () => {
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
 
-    const response = await fetch('/api/auth/signUp', {
+    const response = await fetch('/api/stores', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       router.push('/store/dashboard');
     } else {
       console.log(response.status);
-      console.log("Failed.");
     }
   });
 
@@ -78,7 +77,7 @@ const SignUp = () => {
             サインアップ
           </button>
           <div className='my-6 text-right'>
-            <a href='/auth/signIn' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
+            <a href='/auth/signin' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
               すでにアカウントを持っています
             </a>
           </div>

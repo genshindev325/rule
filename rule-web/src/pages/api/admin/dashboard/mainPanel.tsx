@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
  
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    // Process a GET request
     const lastMonthSales = 12345;
     const thisMonthSales = 234567;
     

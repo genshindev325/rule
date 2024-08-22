@@ -19,23 +19,32 @@ const EventSettings = () => {
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     // Add event settings logic here
     const formData = new FormData(e.currentTarget);
     const eventName = formData.get('eventName');
     const category = selectedCategory;
     const description = formData.get('description');
-    const schedule = formData.get('schedule');
-    const startTime = formData.get('startTime');
-    const endTime = formData.get('endTime');
-    const maleTotal = formData.get('maleTotal');
-    const femaleTotal = formData.get('femaleTotal');
-    const maleFee = formData.get('maleFee');
-    const femaleFee = formData.get('femaleFee');
+    const eventDate = formData.get('schedule');
+    const _eventStartTime = formData.get('startTime');
+    const _eventEndTime = formData.get('endTime');
+    let eventStartTime, eventEndTime;
+    if(eventDate && _eventStartTime)
+      eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
+    if(eventDate && _eventEndTime)
+      eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
+    const numberOfMalesRecruited = formData.get('maleTotal');
+    const numberOfFemalesRecruited = formData.get('femaleTotal');
+    const maleRate = formData.get('maleFee');
+    const femaleRate = formData.get('femaleFee');
+    console.log(eventDate);
+    console.log(eventStartTime);
+    console.log(eventEndTime);
 
-    const response = await fetch('/api/store/createEvent', {
+    const response = await fetch('/api/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ eventName, category, description, schedule, startTime, endTime, maleTotal, femaleTotal, maleFee, femaleFee }),
+      body: JSON.stringify({eventName, category, description, eventDate, eventStartTime, eventEndTime, numberOfMalesRecruited, numberOfFemalesRecruited, maleRate, femaleRate }),
     });
 
     if (response.status === 200) {

@@ -34,10 +34,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
   const handleConfirmDelete = async () => {
     if (selectedRowId !== null) {
-      const response = await fetch('/api/admin/dashboard/deleteUser', {
-        method: 'POST',
+      const response = await fetch(`/api/users/${selectedRowId}`, {
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ selectedRowId }),
       });
   
       if (response.status === 200) {
@@ -90,6 +89,17 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     }
   };
 
+  const formatDateTime = ( dt: string ) => {
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const curDateTime = new Date(dt);
+    const y = curDateTime.getFullYear();
+    const m = months[curDateTime.getMonth()];
+    const d = curDateTime.getDate();
+    const mm = curDateTime.getMinutes();
+    const hh = curDateTime.getHours();
+    return `${m} ${d}, ${y} ${hh}:${mm}`;
+  }
+
   return (
     <div className="p-0">
       <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
@@ -121,14 +131,14 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </thead>
           <tbody>
             {paginatedUsers.map((user) => (
-              <tr key={user.userID}>
+              <tr key={user._id}>
                 <td className="py-2 text-left">{user.userID}</td>
                 <td className="py-2 px-4 text-left">{user.userName}</td>
-                <td className="py-2 px-4 text-left">{user.registeredDate}</td>
+                <td className="py-2 px-4 text-left">{formatDateTime(user.createdAt)}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
                     <button className="text-blue-600">設定</button>
-                    <button className="text-red-600" onClick={() => handleDelete(user.userID)}>削除</button>
+                    <button className="text-red-600" onClick={() => handleDelete(user._id)}>削除</button>
                   </div>
                 </td>
               </tr>

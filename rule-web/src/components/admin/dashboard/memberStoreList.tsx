@@ -35,10 +35,9 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
 
   const handleConfirmDelete = async () => {
     if (selectedRowId !== null) {
-      const response = await fetch('/api/admin/dashboard/deleteStore', {
-        method: 'POST',
+      const response = await fetch(`/api/stores/${selectedRowId}`, {
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ selectedRowId }),
       });
   
       if (response.status === 200) {
@@ -47,7 +46,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
         router.push('/admin/dashboard');
       } else {
         console.log(response.status);
-        console.log("Delete user failed.");
+        console.log("Delete store failed.");
       }
       setSelectedRowId(null);
     }
@@ -65,7 +64,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
   };
 
   const filteredStores = stores.filter(store =>
-    store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    store.storeName && store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     store.storeID.includes(searchTerm)
   );
 
@@ -90,6 +89,17 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
       setCurrentPage(1); // Reset to first page
     }
   };
+
+  const formatDateTime = ( dt: string ) => {
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const curDateTime = new Date(dt);
+    const y = curDateTime.getFullYear();
+    const m = months[curDateTime.getMonth()];
+    const d = curDateTime.getDate();
+    const mm = curDateTime.getMinutes();
+    const hh = curDateTime.getHours();
+    return `${m} ${d}, ${y} ${hh}:${mm}`;
+  }
 
   return (
     <div className="p-0">
@@ -123,15 +133,15 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
           </thead>
           <tbody>
             {paginatedStores.map((store) => (
-              <tr key={store.storeID}>
+              <tr key={store._id}>
                 <td className="py-2 text-left">{store.storeID}</td>
-                <td className="py-2 px-4 text-left">{store.storeName}</td>
-                <td className="py-2 px-4 text-left">{store.monthRate}</td>
-                <td className="py-2 px-4 text-left">{store.registeredDate}</td>
+                <td className="py-2 px-4 text-left">{store.storeName? store.storeName : "NOT SET"}</td>
+                <td className="py-2 px-4 text-left">{store.monthlyRate}</td>
+                <td className="py-2 px-4 text-left">{formatDateTime(store.createdAt)}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
                     <button className="text-blue-600">設定</button>
-                    <button className="text-red-600" onClick={() => handleDelete(store.storeID)}>削除</button>
+                    <button className="text-red-600" onClick={() => handleDelete(store._id)}>削除</button>
                   </div>
                 </td>
               </tr>

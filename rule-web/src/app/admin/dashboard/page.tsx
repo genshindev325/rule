@@ -48,18 +48,18 @@ const Dashboard = () => {
           console.error('Failed to fetch memberstore data');
         }
         // Fetch memberstore Data
-        const response_memberstore = await fetch('/api/admin/dashboard/memberStoreList');
+        const response_memberstore = await fetch('/api/stores');
         if (response_memberstore.ok) {
           const result_memberstore = await response_memberstore.json();
-          setMemberStores(result_memberstore.memberStores);
+          setMemberStores(result_memberstore.data);
         } else {
           console.error('Failed to fetch memberstore data');
         }
         // Fetch userList Data
-        const response_userList = await fetch('/api/admin/dashboard/userList');
+        const response_userList = await fetch('/api/users');
         if (response_userList.ok) {
           const result_userList = await response_userList.json();
-          setUserList(result_userList.users);
+          setUserList(result_userList.data);
         } else {
           console.error('Failed to fetch userList data');
         }

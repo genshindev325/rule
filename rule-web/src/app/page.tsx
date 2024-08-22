@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 // Auth
-import SignIn from '@/app/auth/signIn/page';
-import SignUp from '@/app/auth/signUp/page';
+import SignIn from '@/app/auth/signin/page';
+import SignUp from '@/app/auth/signup/page';
 
 // Admin
 import Dashboard from '@/app/admin/dashboard/page';

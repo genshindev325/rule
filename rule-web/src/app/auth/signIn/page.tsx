@@ -16,7 +16,7 @@ const SignIn = () => {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/auth/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -79,7 +79,7 @@ const SignIn = () => {
             サインイン
           </button>
           <div className='my-6 text-center'>
-            <a href='/auth/signUp' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
+            <a href='/auth/signup' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
               アカウントを作成する
             </a>
           </div>
