@@ -7,6 +7,8 @@ interface IReview extends Document {
     storeId: ObjectId; // Check if this field is necessary
     storeReviewText: string;
     storeRating: number;
+
+    storeReplyText: string;
     
     createdBy: ObjectId;
     createdAt: Date;
@@ -19,6 +21,8 @@ const reviewSchema = new Schema<IReview>({
     storeId: { type: mongoose.Types.ObjectId, required: true }, // Check if this field is necessary
     storeRating: { type: Number },
     storeReviewText: { type: String },
+
+    storeReplyText: {type: String },
 
     createdBy: { type: mongoose.Types.ObjectId, required: true },
     createdAt: { type: Date, default: () => new Date() },
