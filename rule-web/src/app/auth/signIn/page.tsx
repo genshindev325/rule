@@ -25,15 +25,15 @@ const SignIn = () => {
     if (response.status === 200) {
       const result = await response.json();
       console.log(result.message);
-      const userName = result.userName;
-      const userEmail = result.userEmail;
-      const userRole = result.userRole;
-      const token = result.token;
+      const profile = result.data.profile;
+      const userEmail = result.data.email;
+      const userRole = result.data.role;
+      const token = result.data.token;
       if (userRole === 'admin') {
-        signin(userName, userEmail, userRole, token);
+        signin(profile, userEmail, userRole, token);
         router.push('/admin/dashboard');
       } else if (userRole === 'store') {
-        signin(userName, userEmail, userRole, token);
+        signin(profile, userEmail, userRole, token);
         router.push('/store/dashboard');
       } else {
         // Add user logic here

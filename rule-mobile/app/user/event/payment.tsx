@@ -48,7 +48,7 @@ const EventPayment = () => {
     // });
 
     // if (response.status === 201) {
-      router.push(`/event/eventRegistSuccess?event=${eventString}`);
+      router.push(`/event/eventRegistSuccess?`);
     //   console.log("Participate event success.");
     // } else {
     //   console.log(response.status);
