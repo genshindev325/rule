@@ -2,10 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import AuthReduer from "./features/auth/AuthSlice";
+import EventReducer from './features/event/EventSlice';
 
 export const store = configureStore({
   reducer: {
     auth: AuthReduer,
+    event: EventReducer,
   },
 });
 

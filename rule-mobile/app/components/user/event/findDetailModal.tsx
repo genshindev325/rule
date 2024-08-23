@@ -37,6 +37,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
     // });
 
     router.push(`/event/eventResult4`); // should be deleted
+    // router.push(`/event/eventRegistSuccess`);
 
     // will be released after adding api...
     // if (response.status === 200) {
