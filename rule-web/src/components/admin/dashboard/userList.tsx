@@ -8,9 +8,10 @@ import { useRouter } from 'next/navigation';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
 interface User {
+  _id: string,
   userID: string,
-  userName: string,
-  registeredDate: string,
+  nickname: string,
+  createdAt: string,
 }
 
 interface UserListProps {
@@ -63,7 +64,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   };
 
   const filteredUsers = users.filter(user =>
-    user.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.userID.includes(searchTerm)
   );
 
@@ -133,7 +134,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             {paginatedUsers.map((user) => (
               <tr key={user._id}>
                 <td className="py-2 text-left">{user.userID}</td>
-                <td className="py-2 px-4 text-left">{user.userName}</td>
+                <td className="py-2 px-4 text-left">{user.nickname}</td>
                 <td className="py-2 px-4 text-left">{formatDateTime(user.createdAt)}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">

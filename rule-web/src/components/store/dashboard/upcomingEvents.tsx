@@ -4,13 +4,15 @@
 
 import React from 'react';
 
+import { formatDateTime } from '@/utils/datetime';
+
 interface UpcomingEvent {
-  name: string | "Town dating, matchmaking, drinking party events",
-  date: string | "September 20, 2023 17:00",
-  maleTotal: number | 20,
-  males: number | 15,
-  femaleTotal: number | 20,
-  females: number | 12,
+  eventName: string | "---",
+  eventDate: string | "---",
+  maleTotal: number | 0,
+  males: number | 0,
+  femaleTotal: number | 0,
+  females: number | 0,
 }
 
 interface UpcomingEvents {
@@ -30,10 +32,10 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events }) => {
           </tr>
         </thead>
         <tbody>
-          {events.map((event, index) => (
+          {events?.map((event, index) => (
             <tr key={index}>
-              <td>{event.name}</td>
-              <td>{event.date}</td>
+              <td>{event.eventName}</td>
+              <td>{formatDateTime(event.eventDate)}</td>
               <td>{event.males}/{event.maleTotal}</td>
               <td>{event.females}/{event.femaleTotal}</td>
             </tr>

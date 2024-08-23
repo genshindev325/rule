@@ -1,12 +1,6 @@
 import mongoose, { Model, Document, Schema } from 'mongoose';
 import bcrypt from "bcryptjs";
 
-enum StoreStatus {
-    Active = 'active',
-    Inactive = 'inactive',
-    Blocked = 'blocked',
-}
-
 export interface IStore extends Document {
     email: string;
     password: string;
@@ -52,7 +46,11 @@ const storeSchema = new Schema<IStore>({
 
     rating: { type: Number },
     ratingCount: { type: Number, default: 0 },
-    status: { type: String, default: "active" },
+    status: {
+        type: String,
+        enum: ["active", "inactive", "blocked"],
+        default: "active"
+    },
 
     createdAt: { type: Date, default: () => new Date() },
 });

@@ -1,12 +1,6 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 import bcrypt from "bcryptjs";
 
-enum UserStatus {
-    Active = 'active',
-    Inactive = 'inactive',
-    Blocked = 'blocked',
-}
-
 export interface IUser extends Document {
     email: string;
     password: string;
@@ -32,12 +26,18 @@ const userSchema = new Schema<IUser>({
     userID: { type: String, default: "1111-2222-3333-44444"},
     // username: { type: String },
     nickname: { type: String },
-    gender: { type: String },
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+    },
     birthday: { type: Date },
     avatar: { type: String },
     // avatar: { type: String, default: "http://localhost:3000/uploads/avatar-placeholder.png" },
 
-    status: { type: String, default: "active" },
+    status: {
+        type: String,
+        enum: ["active", "inactive", "blocked"],
+        default: "active" },
 
     createdAt: { type: Date, default: () => new Date() },
 });

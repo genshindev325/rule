@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 
 import AuthWrapper from '@/components/auth/authWrapper';
+import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
 import RecentReviews from '@/components/store/dashboard/recentReviews';
 import ReviewModal from '@/components/store/dashboard/reviewModal';
@@ -12,8 +13,8 @@ import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';
 import MainPanel from '@/components/store/dashboard/mainPanel';
 
 interface UpcomingEvent {
-  name: string,
-  date: string,
+  eventName: string,
+  eventDate: string,
   maleTotal: number,
   males: number,
   femaleTotal: number,
@@ -50,6 +51,7 @@ const Dashboard = () => {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [loading, setLoading] = useState(true); 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { profile } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,12 +75,18 @@ const Dashboard = () => {
         }
 
         // Fetch upcomingEvents Data
-        const response_upcomingEvents = await fetch('/api/store/dashboard/upcomingEvents');
+        const response_upcomingEvents = await fetch('/api/stores/upcoming-events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ store: profile?._id }),
+        });
         if (response_upcomingEvents.ok) {
           const result_upcomingEvents = await response_upcomingEvents.json();
-          setUpcomingEvents(result_upcomingEvents.upcomingEvents);
+          console.log(response_upcomingEvents);
+          setUpcomingEvents(result_upcomingEvents.data);
         } else {
-          console.error('Failed to fetch upcomingEvents data');
+          // Error handler
+          console.error('Failed to fetch upcoming events data');
         }
       } catch (error) {
         console.error('Error:', error);

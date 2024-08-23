@@ -1,11 +1,5 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
-enum EventParticipateStatus {
-    Active = "active",
-    Inactive = "inactive", // or Canceled = "canceled",
-    Past = "past",
-}
-
 interface IEventParticipate extends Document {
     userId: mongoose.ObjectId;
     eventId: mongoose.ObjectId;

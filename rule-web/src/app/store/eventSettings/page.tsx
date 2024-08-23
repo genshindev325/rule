@@ -6,10 +6,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
+import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
+
 
 const EventSettings = () => {
   const router = useRouter();
+  const { profile } = useAuth();
   
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -55,6 +58,8 @@ const EventSettings = () => {
     const femaleTotal = formData.get('femaleTotal');
     const maleFee = formData.get('maleFee');
     const femaleFee = formData.get('femaleFee');
+    const store = profile?._id;
+
     
     const response = await fetch('/api/events', {
       method: 'POST',
@@ -70,7 +75,8 @@ const EventSettings = () => {
         maleTotal,
         femaleTotal,
         maleFee,
-        femaleFee
+        femaleFee,
+        store
       }),
     });
 

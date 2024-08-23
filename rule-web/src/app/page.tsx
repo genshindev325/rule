@@ -23,6 +23,7 @@ import RegisterBirthday from '@/app/user/auth/registerBirthday/page';
 import RegisterPassword from '@/app/user/auth/registerPassword/page';
 import RegisterEmail from '@/app/user/auth/registerEmail/page';
 import SelectGender from '@/app/user/auth/selectGender/page';
+
 // Events
 import EventPayment from '@/app/user/event/payment/page';
 import RegistSuccess from '@/app/user/event/registSuccess/page';
