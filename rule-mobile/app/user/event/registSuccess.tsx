@@ -5,9 +5,40 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { IonPage, IonContent } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
+
+interface EventProps {
+  title: string,
+  date: string,
+  imageUrl: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+}
 
 const RegistSuccess: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  // const searchParams = useSearchParams();
+  // const eventString = searchParams.get('event');
+  // let event: EventProps | null = null;
+
+  // if (eventString) {
+  //   try {
+  //     event = JSON.parse(decodeURIComponent(eventString));
+  //     console.log("AAA")
+  //     console.log(event)
+  //   } catch (error) {
+  //     console.error('Failed to parse event data', error);
+  //   }
+  // }
+
+  // if (!event) {
+  //   return <div>Invalid event data.</div>;
+  // }
+
   const completedImage = '/svg/checked_outline.svg';
   const date = '2023年 9月 20日 17:00 ~ 20:00';
   const eventImage = '/image/img_1.png';
@@ -21,7 +52,7 @@ const RegistSuccess: React.FC = () => {
         <div className={`flex flex-col items-center min-h-screen w-screen ${maleGradient} px-8`}>
           {/* banner on the bg-gradient */}
           <div className="py-20 md:py-24 lg:py-28 px-4 md:px-8 flex flex-col text-2xl text-white md:text-3xl font-bold text-center">
-            <Image src={completedImage} alt={`event-profile`} width={120} height={100} className="rounded-md rounded-br-none text-white mx-auto mb-10 md:mb-16" />
+            <img src={completedImage} alt={`event-complete`} width={120} height={100} className="rounded-md rounded-br-none text-white mx-auto mb-10" />
             <h2 className='grow'>イベントの参加予約が</h2>
             <h2 className='grow'>完了しました!</h2>
           </div>
@@ -33,8 +64,8 @@ const RegistSuccess: React.FC = () => {
               <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>20代以上</button>
               <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>大学生Only</button>
               <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>アニメ好き</button>
-            </div>        
-            <Image src={eventImage} alt={`event-profile`} width={350} height={70} className="pt-4 pb-8 sm:w-full" />
+            </div>
+            <img src={eventImage} alt={`event-profile`} width={350} height={70} className="pt-4 pb-8 sm:w-full" />
             <button className='bg-transparent border-solid border-2 rounded-lg border-black text-black font-semibold py-2 w-full' >イベント概要</button>
             <h2 className='py-4 text-sm font-semibold'>{description}</h2>
           </div>

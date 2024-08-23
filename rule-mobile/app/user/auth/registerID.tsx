@@ -17,7 +17,7 @@ const RegisterID: React.FC = () => {
   const password = searchParams.get('pwd');
   const birthday = searchParams.get('bth');
   const image = searchParams.get('img');
-  const name = searchParams.get('name');
+  const nickname = searchParams.get('name');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ const RegisterID: React.FC = () => {
     const response = await fetch('/api/user/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ gender, email, password, birthday, image, name, userID }),
+      body: JSON.stringify({ gender, email, password, birthday, image, nickname, userID }),
     });
 
     if (response.status === 200) {
