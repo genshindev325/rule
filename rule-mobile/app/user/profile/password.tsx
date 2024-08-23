@@ -25,7 +25,7 @@ const ProfilePassword: React.FC = () => {
             <h2 className='grow text-3xl text-center text-white font-bold pr-10'>マイページ</h2>
           </div>
           {/* container */}
-          <div className={`${container} w-5/6`}>
+          <form className={`${container} w-5/6`}>
             <div className='flex flex-col items-center'>
               <h2 className={`${textLg}`}>パスワード変更</h2>
             </div>
@@ -53,10 +53,10 @@ const ProfilePassword: React.FC = () => {
                 <img src='/svg/eye-open.svg' className='ml-auto w-10 h-10' />
               </div>
             </div>
-          </div>
+          </form>
           {/* buttons */}
           <div className='w-5/6 flex flex-col space-y-4 py-6'>
-            <button type='button' className={`${maleGradient} rounded-full py-2 text-white ${textMd}`}>登録する</button>
+            <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textMd}`}>登録する</button>
             <button type='button' className={`bg-gray-400 rounded-full py-2 text-white text-center ${textMd}`}>キャンセル</button>
           </div>
         </div>

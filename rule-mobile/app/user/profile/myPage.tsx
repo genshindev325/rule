@@ -19,7 +19,9 @@ const Profile: React.FC = () => {
         <div className="flex flex-col items-center min-h-screen w-screen bg-white">
           <div className={`h-80 md:h-88 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
             {/* header */}
-            <img src='/svg/arrow-left-white.svg' className='w-10 h-10' />
+            <IonRouterLink routerLink={'/home'}>
+              <img src='/svg/arrow-left-white.svg' className='w-10 h-10' />
+            </IonRouterLink>
             <h2 className='grow text-3xl text-center text-white font-bold pr-10'>マイページ</h2>
           </div>
           {/* container */}
