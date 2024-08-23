@@ -8,10 +8,11 @@ import { useRouter } from 'next/navigation';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
 interface Store {
+  _id: string,
   storeID: string,
-  monthRate: number,
+  monthlyRate: number,
   storeName: string,
-  registeredDate: string,
+  createdAt: string,
 }
 
 interface StoresProps {
