@@ -25,8 +25,8 @@ if (serializedProfile) {
 
 const initialState: AuthState = {
   isAuthenticated: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('isAuthenticated') || 'false') : false,
-  email: typeof window !== "undefined" ? sessionStorage.getItem('userEmail') : null,
-  role: typeof window !== "undefined" ? sessionStorage.getItem('userRole') : null,
+  email: typeof window !== "undefined" ? sessionStorage.getItem('email') : null,
+  role: typeof window !== "undefined" ? sessionStorage.getItem('role') : null,
   profile: typeof window !== "undefined" ? sessionStorage.getItem('profile') && JSON.parse(sessionStorage.getItem('profile') || '') : null,
   token: typeof window !== "undefined" ? sessionStorage.getItem('token') : null,
 };
