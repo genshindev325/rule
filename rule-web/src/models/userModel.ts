@@ -1,6 +1,12 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 import bcrypt from "bcryptjs";
 
+enum UserStatus {
+    Active = 'active',
+    Inactive = 'inactive',
+    Blocked = 'blocked',
+}
+
 export interface IUser extends Document {
     email: string;
     password: string;
@@ -12,6 +18,8 @@ export interface IUser extends Document {
     gender: string;
     birthday: Date;
     avatar: string;
+
+    status: string;
 
     comparePassword: (password: string) => Promise<boolean>;
 }
@@ -27,6 +35,8 @@ const userSchema = new Schema<IUser>({
     gender: { type: String },
     birthday: { type: Date },
     avatar: { type: String },
+
+    status: { type: String, default: "active" },
 });
 
 userSchema.pre<IUser>("save", async function (next) {
