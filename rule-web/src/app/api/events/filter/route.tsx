@@ -7,11 +7,10 @@ export async function POST(req: NextRequest) {
     await dbConnect();
 
     const body = await req.json();
-        
     try {
         const query = Event.find();
         if(body.upcoming){
-            query.where("eventDate").gt(body.upcoming);
+            query.where("eventDate").gte(Date());
         } else if(body.openAt) {
             query.where("eventDate").equals(body.openAt);
         }
