@@ -15,16 +15,18 @@ interface MainPanelProps {
 }
 
 interface Store {
+  _id: string,
   storeID: string,
-  monthRate: number,
+  monthlyRate: number,
   storeName: string,
-  registeredDate: string,
+  createdAt: string,
 }
 
 interface User {
+  _id: string,
   userID: string,
-  userName: string,
-  registeredDate: string,
+  nickname: string,
+  createdAt: string,
 }
 
 const Dashboard = () => {
