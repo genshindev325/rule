@@ -23,7 +23,7 @@ const RegisterID: React.FC = () => {
     e.preventDefault();
     // Handle the form submission
 
-    const response = await fetch('/api/user/auth/signup', {
+    const response = await fetch('http://localhost:3000/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ gender, email, password, birthday, image, nickname, userID }),
