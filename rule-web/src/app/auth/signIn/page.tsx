@@ -24,16 +24,23 @@ const SignIn = () => {
 
     if (response.status === 200) {
       const result = await response.json();
-      console.log(result.message);
-      const profile = result.data.profile;
-      const userEmail = result.data.email;
-      const userRole = result.data.role;
-      const token = result.data.token;
-      if (userRole === 'admin') {
-        signin(profile, userEmail, userRole, token);
+      const {
+        email,
+        role,
+        profile,
+        token
+      } = result.data;
+      signin(email, role, profile, token);
+      
+      // const userName = result.userName;
+      // const userEmail = result.userEmail;
+      // const userRole = result.userRole;
+      // const token = result.token;
+      if (role === 'admin') {
+        // signin(userName, userEmail, userRole, token);
         router.push('/admin/dashboard');
-      } else if (userRole === 'store') {
-        signin(profile, userEmail, userRole, token);
+      } else if (role === 'store') {
+        // signin(userName, userEmail, userRole, token);
         router.push('/store/dashboard');
       } else {
         // Add user logic here

@@ -10,7 +10,7 @@ interface AuthWrapperProps {
 }
 
 const AuthWrapper = ({ allowedRoles, children }: AuthWrapperProps) => {
-  const { isAuthenticated, userRole } = useAuth();
+  const { isAuthenticated, role } = useAuth();
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
 
@@ -19,10 +19,10 @@ const AuthWrapper = ({ allowedRoles, children }: AuthWrapperProps) => {
   }, []);
 
   useEffect(() => {
-    if (isClient && (!isAuthenticated || !allowedRoles.includes(userRole || ''))) {
+    if (isClient && (!isAuthenticated || !allowedRoles.includes(role || ''))) {
       router.push('/auth/unauthorized');
     }
-  }, [isClient, isAuthenticated, userRole, router]);
+  }, [isClient, isAuthenticated, role, router]);
 
   if (!isClient) {    
     return null;

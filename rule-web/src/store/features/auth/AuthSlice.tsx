@@ -7,17 +7,17 @@ interface ProfileProps {
 
 interface AuthState {
   isAuthenticated: boolean;
-  userRole: string | null;
-  userEmail: string | null;
+  email: string | null;
+  role: string | null;
   profile: ProfileProps | null;
   token: string | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('isAuthenticated') || 'false') : false,
-  userRole: typeof window !== "undefined" ? sessionStorage.getItem('userRole') : null,
-  userEmail: typeof window !== "undefined" ? sessionStorage.getItem('userEmail') : null,
-  profile: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('profile') || '') : null,
+  email: typeof window !== "undefined" ? sessionStorage.getItem('userEmail') : null,
+  role: typeof window !== "undefined" ? sessionStorage.getItem('userRole') : null,
+  profile: typeof window !== "undefined" ? sessionStorage.getItem('profile') && JSON.parse(sessionStorage.getItem('profile') || '') : null,
   token: typeof window !== "undefined" ? sessionStorage.getItem('token') : null,
 };
 
@@ -27,29 +27,30 @@ const authSlice = createSlice({
   reducers: {
     signIn: (state, action: PayloadAction<{ user: any; token: string }>) => {
       state.isAuthenticated = true;
-      state.userRole = action.payload.user.userRole;
-      state.userEmail = action.payload.user.userEmail;
+      state.email = action.payload.user.email;
+      state.role = action.payload.user.role;
       state.profile = action.payload.user.profile;
       state.token = action.payload.token;
 
       sessionStorage.setItem('isAuthenticated', JSON.stringify(true));
+      sessionStorage.setItem('email', action.payload.user.email);
+      sessionStorage.setItem('role', action.payload.user.role);
+      sessionStorage.setItem('profile', JSON.stringify(action.payload.user.profile));
       sessionStorage.setItem('token', action.payload.token);
-      sessionStorage.setItem('profile', action.payload.user.profile);
-      sessionStorage.setItem('userEmail', action.payload.user.userEmail);
-      sessionStorage.setItem('userRole', action.payload.user.userRole);
+      
     },
     signOut: (state) => {
       state.isAuthenticated = false;
-      state.userRole = null;
-      state.userEmail = null;
+      state.email = null;
+      state.role = null;
       state.profile = null;
       state.token = null;
 
       sessionStorage.setItem('isAuthenticated', JSON.stringify(true));
-      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('role');
       sessionStorage.removeItem('profile');
-      sessionStorage.removeItem('userEmail');
-      sessionStorage.removeItem('userRole');
+      sessionStorage.removeItem('token');
     },
   },
 });

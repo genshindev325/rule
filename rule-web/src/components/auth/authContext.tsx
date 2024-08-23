@@ -11,10 +11,10 @@ interface ProfileProps {
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  email: string | null;
+  role: string | null;
   profile: ProfileProps | null;
-  userEmail: string | null;
-  userRole: string | null;
-  signin: (profile: ProfileProps, userEmail: string, userRole: string, token: string) => void;
+  signin: (email: string, role: string, profile: ProfileProps, token: string) => void;
   signout: () => void;
 }
 
@@ -22,15 +22,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
-  const { userEmail, profile, userRole, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, email, role, profile, token } = useSelector((state: RootState) => state.auth);
 
-  const signin = (profile: ProfileProps, userEmail: string, userRole: string, token: string) => {
+  const signin = (email: string, role: string, profile: ProfileProps, token: string) => {
     // Logic for logging in
     const user = {
+      email: email,
+      role: role,
       profile: profile,
-      userEmail: userEmail,
-      userRole: userRole
-    }
+    };
     dispatch(reduxLogin({ user: user, token: token }));
   };
 
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, profile, userEmail, userRole, signin, signout }}>
+    <AuthContext.Provider value={{ isAuthenticated, email, role, profile, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );
