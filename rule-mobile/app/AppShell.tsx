@@ -24,6 +24,7 @@ import RegisterName from "./user/auth/registerName";
 import RegisterPassword from "./user/auth/registerPassword";
 import SelectGender from "./user/auth/selectGender";
 import SetProfile from "./user/auth/setProfile";
+import Unauthorized from "./user/auth/unauthorized";
 
 // Event
 import EventReview1 from "./user/event/eventReview1";
@@ -66,6 +67,7 @@ const AppShell = () => {
           <Route path="/auth/registerPassword" render={() => <RegisterPassword />} exact={true} />
           <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
           <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
+          <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
           {/* user/event */}
           <Route path='/event/findOnMap' render={() => <FindOnMap />} exact={true} />
           <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />

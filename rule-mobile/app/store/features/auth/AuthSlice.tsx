@@ -30,7 +30,7 @@ async () => {
 
 const initialState: AuthState = {
   isAuthenticated: isAuthenticated || false,
-  role: role || null,
+  role: role && JSON.parse(role) || null,
   email: email || null,
   profile: profile && JSON.parse(profile) || null,
   token: token || null
@@ -42,7 +42,7 @@ const authSlice = createSlice({
   reducers: {
     signIn: (state, action: PayloadAction<{ user: any; token: string }>) => {
       state.isAuthenticated = true;
-      state.role = action.payload.user.userRole;
+      state.role = action.payload.user.role;
       state.email = action.payload.user.email;
       state.profile = action.payload.user.profile;
       state.token = action.payload.token;

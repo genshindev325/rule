@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 
 const SearchResult1: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -88,34 +89,36 @@ const SearchResult1: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex flex-col min-h-screen w-screen bg-white">
-          {/* header */}
-          <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
-            <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
-            <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
-              <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8"/>
-              <h2 className="text-xl font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
-              <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-6" />
-            </div>
-          </div>
-          {/* container */}
-          <div className={`${container}`}>
-            <div className='flex text-xl font-semibold'>
-              <div className='flex-none'>*</div>
-              <div className='grow text-center'>検索結果</div>
-            </div>
-            {/* search results */}
-            {events.map((event, index) => (
-              <div key={index}>
-                <EventCard {...event} />
+        <AuthWrapper allowedRoles={['user']}>
+          <div className="flex flex-col min-h-screen w-screen bg-white">
+            {/* header */}
+            <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
+              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
+                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8"/>
+                <h2 className="text-xl font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
+                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-6" />
               </div>
-            ))}
-            {/* see more button */}
-            <div className='py-8 mx-auto'>
-              <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+            </div>
+            {/* container */}
+            <div className={`${container}`}>
+              <div className='flex text-xl font-semibold'>
+                <div className='flex-none'>*</div>
+                <div className='grow text-center'>検索結果</div>
+              </div>
+              {/* search results */}
+              {events.map((event, index) => (
+                <div key={index}>
+                  <EventCard {...event} />
+                </div>
+              ))}
+              {/* see more button */}
+              <div className='py-8 mx-auto'>
+                <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+              </div>
             </div>
           </div>
-        </div>
+        </AuthWrapper>
       </IonContent>
     </IonPage>    
   );
