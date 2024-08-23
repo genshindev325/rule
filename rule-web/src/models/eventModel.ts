@@ -1,10 +1,11 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
 enum EventStatus {
-    Active = "active",
-    Inactive = "inactive", // or Canceled = "canceled",
+    Upcoming = "upcoming",
+    Canceled = "canceled",
     Past = "past",
 }
+
 interface IEvent extends Document {
     eventName: string;
     category: string;
@@ -13,13 +14,16 @@ interface IEvent extends Document {
     eventDate: Date;
     eventStartTime: Date;
     eventEndTime: Date;
-    numberOfMalesRecruited: number;
-    numberOfFemalesRecruited: number;
-    maleRate: number;
-    femaleRate: number;
-    storeId: mongoose.ObjectId;
+    maleTotal: number;
+    males: number;
+    maleFee: number;
+    femaleTotal: number;
+    females: number;
+    femaleFee: number;
+
+    store: mongoose.ObjectId;
     status: string;
-    
+
     createdAt: Date;
 }
 
@@ -27,15 +31,18 @@ const eventSchema = new Schema<IEvent>({
     eventName: { type: String, required: true },
     category: { type: String, required: true },
     coverImage: { type: String },
+    // coverImage: { type: String, default: "http://localhost:3000/uploads/event-placeholder.png" },
     description: { type: String },
     eventDate: { type: Date },
     eventStartTime: { type: Date, },
     eventEndTime: { type: Date, },
-    numberOfMalesRecruited: { type: Number, required: true },
-    numberOfFemalesRecruited: { type: Number, required: true },
-    maleRate: { type: Number, required: true },
-    femaleRate: { type: Number, required: true },
-    storeId: { type: Schema.Types.ObjectId, require:true },
+    maleTotal: { type: Number, required: true },
+    males: { type: Number, default:0 },
+    maleFee: { type: Number, required: true },
+    femaleTotal: { type: Number, required: true },
+    females: { type: Number, default: 0 },
+    femaleFee: { type: Number, required: true },
+    store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
     status: { type: String },
 
     createdAt: { type: Date, default: () => new Date() },

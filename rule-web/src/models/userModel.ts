@@ -10,10 +10,9 @@ enum UserStatus {
 export interface IUser extends Document {
     email: string;
     password: string;
-    createdAt: Date;
-
+    
     userID: string;
-    userName: string;
+    // username: string;
     nickname: string;
     gender: string;
     birthday: Date;
@@ -21,22 +20,26 @@ export interface IUser extends Document {
 
     status: string;
 
+    createdAt: Date;
+
     comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    createdAt: { type: Date, default: () => new Date() },
 
     userID: { type: String, default: "1111-2222-3333-44444"},
-    userName: { type: String },
+    // username: { type: String },
     nickname: { type: String },
     gender: { type: String },
     birthday: { type: Date },
     avatar: { type: String },
+    // avatar: { type: String, default: "http://localhost:3000/uploads/avatar-placeholder.png" },
 
     status: { type: String, default: "active" },
+
+    createdAt: { type: Date, default: () => new Date() },
 });
 
 userSchema.pre<IUser>("save", async function (next) {

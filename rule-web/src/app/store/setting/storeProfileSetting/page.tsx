@@ -28,7 +28,17 @@ const StoreProfileSettings = () => {
     const response = await fetch('/api/store/setting/storeProfileSetting', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ storeName, storeGenre, foodGenre, cuisine, address, access1, access2, image, description }),
+      body: JSON.stringify({
+        storeName,
+        storeGenre,
+        foodGenre,
+        cuisine,
+        address,
+        access1,
+        access2,
+        image,
+        description
+      }),
     });
 
     if (response.status === 200) {

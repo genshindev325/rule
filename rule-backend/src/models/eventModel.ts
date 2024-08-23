@@ -1,5 +1,4 @@
 import { Document, ObjectId, Schema, model } from 'mongoose';
-//import { IEvent } from '../interfaces/eventInterface';
 
 interface IEvent extends Document {
     eventName: string;

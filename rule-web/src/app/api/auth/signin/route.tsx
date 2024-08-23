@@ -16,10 +16,12 @@ export async function POST(req: NextRequest) {
         if(user && (await user.comparePassword(password))){
             return NextResponse.json({
                 message: "Sign in success",
-                userEmail: user.email,
-                userName: user.userName,
-                userRole: 'user',
-                token: token,
+                data: {
+                    email: user.email,
+                    role: 'user',
+                    profile: user,
+                    token: token,
+                },
             }, { status: 200 });
         }
 
@@ -28,10 +30,12 @@ export async function POST(req: NextRequest) {
         if(store && (await store.comparePassword(password))){
             return NextResponse.json({
                 message: "Sign in success",
-                userEmail: store.email,
-                userName: store.storeName,
-                userRole: 'store',
-                token: token,
+                data: {
+                    email: store.email,
+                    role: 'store',
+                    profile: store,
+                    token: token,
+                },
             }, { status: 200 });
         }
 
@@ -40,10 +44,12 @@ export async function POST(req: NextRequest) {
             // admin role
             return NextResponse.json({
                 message: "Sign in success",
-                userEmail: email,
-                userName: "Administrator",
-                userRole: 'admin',
-                token: token,
+                data: {
+                    email: email,
+                    role: 'admin',
+                    profile: {},
+                    token: token,
+                },
             }, { status: 200 });
         }
         

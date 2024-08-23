@@ -4,6 +4,7 @@ interface IReview extends Document {
     eventId: ObjectId;
     eventReviewText: string;
     eventRating: number;
+
     storeId: ObjectId; // Check if this field is necessary
     storeReviewText: string;
     storeRating: number;
@@ -15,18 +16,19 @@ interface IReview extends Document {
 }
 
 const reviewSchema = new Schema<IReview>({
-    eventId: { type: mongoose.Types.ObjectId, required: true },
+    eventId: { type: mongoose.Types.ObjectId, required: true, ref: 'Event' },
     eventRating: { type: Number },
     eventReviewText: { type: String },
-    storeId: { type: mongoose.Types.ObjectId, required: true }, // Check if this field is necessary
+
+    storeId: { type: mongoose.Types.ObjectId, ref: 'Store' }, // Check if this field is necessary
     storeRating: { type: Number },
     storeReviewText: { type: String },
 
     storeReplyText: {type: String },
 
-    createdBy: { type: mongoose.Types.ObjectId, required: true },
+    createdBy: { type: mongoose.Types.ObjectId, required: true, ref:'User' },
     createdAt: { type: Date, default: () => new Date() },
 });
 
-const Review: Model<IReview> = mongoose.models.Review || mongoose.model<IReview>('Event', reviewSchema);
+const Review: Model<IReview> = mongoose.models.Review || mongoose.model<IReview>('Review', reviewSchema);
 export default Review;

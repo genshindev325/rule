@@ -10,7 +10,6 @@ enum StoreStatus {
 export interface IStore extends Document {
     email: string;
     password: string;
-    createdAt: Date;
 
     storeID: string;
     storeName: string;
@@ -20,14 +19,16 @@ export interface IStore extends Document {
     address: string;
     access: string;
     storeImages: string;
-    explanatoryText: string;
+    description: string;
     monthlyRate: Number;
 
     // Optional
     rating: Number;
-    ratingCount: { type: Number },
+    ratingCount: Number;
 
-    status: { type: string },
+    status: string;
+
+    createdAt: Date;
 
     comparePassword: (password: string) => Promise<boolean>;
 }
@@ -35,7 +36,7 @@ export interface IStore extends Document {
 const storeSchema = new Schema<IStore>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    createdAt: { type: Date, default: () => new Date() },
+    
 
     storeID: { type: String, default: "1111-2222-3333-44444"},
     storeName: { type: String, default: "" },
@@ -45,13 +46,15 @@ const storeSchema = new Schema<IStore>({
     address: { type: String },
     access: { type: String },
     storeImages: { type: String },
-    explanatoryText: { type: String },
+    // storeImages: { type: String, default: "http://localhost:3000/uploads/store-placeholder-1.png" },
+    description: { type: String },
     monthlyRate: { type: Number, default: 5000 },
 
-    // Optional
     rating: { type: Number },
-    ratingCount: { type: Number },
+    ratingCount: { type: Number, default: 0 },
     status: { type: String, default: "active" },
+
+    createdAt: { type: Date, default: () => new Date() },
 });
 
 storeSchema.pre<IStore>("save", async function (next) {

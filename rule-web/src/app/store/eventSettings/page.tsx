@@ -12,15 +12,33 @@ const EventSettings = () => {
   const router = useRouter();
   
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
   };
 
+  // Handle file selection
+  const handlePhotoFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+        const selectedFile = event.target.files[0];
+        setPhotoFile(selectedFile);
+
+        // Create a URL for previewing the image
+        const previewUrl = URL.createObjectURL(selectedFile);
+        setPhotoImageUrl(previewUrl);
+    }
+};
+
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Add event settings logic here
+
+    // Upload images to the server or cloud service and get url
+    const coverImage = "http://localhost:3000/uploads/event-placeholder.png";
+
     const formData = new FormData(e.currentTarget);
     const eventName = formData.get('eventName');
     const category = selectedCategory;
@@ -33,18 +51,27 @@ const EventSettings = () => {
       eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
     if(eventDate && _eventEndTime)
       eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
-    const numberOfMalesRecruited = formData.get('maleTotal');
-    const numberOfFemalesRecruited = formData.get('femaleTotal');
-    const maleRate = formData.get('maleFee');
-    const femaleRate = formData.get('femaleFee');
-    console.log(eventDate);
-    console.log(eventStartTime);
-    console.log(eventEndTime);
-
+    const maleTotal = formData.get('maleTotal');
+    const femaleTotal = formData.get('femaleTotal');
+    const maleFee = formData.get('maleFee');
+    const femaleFee = formData.get('femaleFee');
+    
     const response = await fetch('/api/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({eventName, category, description, eventDate, eventStartTime, eventEndTime, numberOfMalesRecruited, numberOfFemalesRecruited, maleRate, femaleRate }),
+      body: JSON.stringify({
+        eventName,
+        category,
+        coverImage,
+        description,
+        eventDate,
+        eventStartTime,
+        eventEndTime,
+        maleTotal,
+        femaleTotal,
+        maleFee,
+        femaleFee
+      }),
     });
 
     if (response.status === 201) {
@@ -105,7 +132,10 @@ const EventSettings = () => {
               <h3 className='text-gray-600 py-2'>表紙画像</h3>
               <div className="mb-4">
                 <div className='w-full px-6 py-3 bg-gray-100 rounded-md flex flex-row justify-center'>
-                  <img src='/image/img_1.png' className='w-2/3' />
+                  {photoImageUrl && (<img src={photoImageUrl} className='w-2/3' />)}
+                </div>
+                <div>
+                  <input type="file" accept="image/*" onChange={handlePhotoFileChange} />
                 </div>
               </div>
               <h3 className='text-gray-600 py-2'>説明文</h3>

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   await dbConnect();
   
   const body = await req.json();
-  const { email, password } = body;
+  const { email } = body;
 
   try {
       const existingUser = await User.findOne({ email });
