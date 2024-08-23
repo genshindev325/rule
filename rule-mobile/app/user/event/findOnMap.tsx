@@ -2,11 +2,23 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
 
 import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
+
+interface EventProps {
+  title: string,
+  date: string,
+  imageUrl: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number
+}
 
 const FindOnMap: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -14,18 +26,10 @@ const FindOnMap: React.FC = () => {
   const settingSVG = '/svg/settings.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
-  let detailConditions = {
-    "location": "",
-    "date": "",
-    "gender": "",
-    "age": "",
-    "category": "",
-    "store": "",
-    "food": "",
-    "genre": "",
-  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [recentEvents, setRecentEvents] = useState<EventProps[]>([])
 
   const events = [
     {
@@ -96,6 +100,30 @@ const FindOnMap: React.FC = () => {
     },
     // Add more image paths here
   ];
+  
+  // will be released after adding api...
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   try {
+    //     // Fetch recentEvents Data
+    //     const response = await fetch('http://localhost:3000/api/user/recentEvent/...');
+    //     if (response.status === 200) {
+    //       const result = await response.json();
+    //       setRecentEvents(result.data);
+    //     } else {
+    //       console.error('Failed to fetch recentEvents data');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+
+    // fetchData();
+  }, []);
+
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
   
   const handle20Over = () => {};
   const handleStudent = () => {};

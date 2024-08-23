@@ -3,7 +3,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
 import EventCard from '@/app/components/user/event/eventCard';
 
 const SearchResult4: React.FC = () => {
@@ -19,6 +20,10 @@ const SearchResult4: React.FC = () => {
   const handleStudent = () => {};
   const handleSocial = () => {};
   const handleAnime = () => {};
+
+  // get events from findDetailModal params
+  const searchParams = useSearchParams ();
+  const resultEvents = searchParams.get('events'); // this will be used ...
 
   const events = [
     {
@@ -115,7 +120,9 @@ const SearchResult4: React.FC = () => {
             {/* search results */}
             {events.map((event, index) => (
               <div key={index}>
-                <EventCard {...event} />
+                <IonRouterLink routerLink={`/event/payment?event=${event}`} className='text-black'>
+                  <EventCard {...event} />
+                </IonRouterLink>
               </div>
             ))}
             {/* see more button */}

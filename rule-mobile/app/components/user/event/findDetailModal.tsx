@@ -30,19 +30,19 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
 
-    const response = await fetch('http://localhost:3000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ date, gender, age, category, store, food, genre }),
-    });
+    // const response = await fetch('http://localhost:3000/api/event', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ date, gender, age, category, store, food, genre }),
+    // });
 
-    router.push(`/event/eventSearchResult`); // should be deleted
+    router.push(`/event/eventResult4`); // should be deleted
 
     // will be released after adding api...
     // if (response.status === 200) {
     //   const result = await response.json();
     //   const events = result.data;
-    //   router.push(`/event/eventSearchResult?events=${events}`);
+    //   router.push(`/event/eventResult4?events=${events}`);
     // } else {
     //   console.log(response.status);
     //   console.log("Your username and password mismatched.");
