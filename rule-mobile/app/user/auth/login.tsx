@@ -23,8 +23,6 @@ const Login: React.FC = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
-    console.log('userName: ' + email);
-    console.log('userEmail: ' + password);
 
     const response = await fetch('http://localhost:3000/api/auth/login', {
       method: 'POST',
@@ -34,14 +32,13 @@ const Login: React.FC = () => {
 
     if (response.status === 200) {
       const result = await response.json();
-      console.log(result.message);
       const userName = result.userName;
       const userEmail = result.userEmail;
       const userRole = result.userRole;
       const token = result.token;
       if (userRole === 'user') {
         login(userName, userEmail, userRole, token);
-        router.push('/event/eventReview2')
+        router.push('/home')
       }
     } else {
       console.log(response.status);

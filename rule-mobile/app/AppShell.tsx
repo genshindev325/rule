@@ -3,6 +3,15 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 import Providers from "@/app/provider";
 
+// Home
+import Home from './user/home';
+
+// profile
+import MyPage from './user/profile/myPage';
+import Password from './user/profile/password';
+import Payment from './user/profile/payment';
+import Setting from './user/profile/setting';
+
 // Auth
 import Login from "./user/auth/login";
 import LoginWith from "./user/auth/loginWith";
@@ -38,6 +47,13 @@ const AppShell = () => {
       <IonReactRouter>
         <IonRouterOutlet id="main">
           <Route path="/event" render={() => <EventPayment />} />
+          {/* home */}
+          <Route path="/home" component={Home} />
+          {/* my page */}
+          <Route path="/profile/myPage" component={MyPage} />
+          <Route path="/profile/password" component={Password} />
+          <Route path="/profile/payment" component={Payment} />
+          <Route path="/profile/setting" component={Setting} />
           {/* user/auth */}
           <Route path="/auth/login" component={Login} />
           <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />

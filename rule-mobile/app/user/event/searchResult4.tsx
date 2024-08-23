@@ -93,14 +93,14 @@ const SearchResult4: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex flex-col min-h-screen w-screen bg-white">
+        <div className="flex flex-col items-center min-h-screen w-screen bg-white">
           {/* header */}
           <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
             <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
             <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
-              <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8"/>
-              <h2 className="text-xl font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
-              <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-6" />
+              <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6"/>
+              <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
+              <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
             </div>
             {/* buttons */}
             <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
