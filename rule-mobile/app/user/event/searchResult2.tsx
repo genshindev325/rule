@@ -20,9 +20,9 @@ const SearchResult2: React.FC = () => {
 
   const events = [
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_1.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_1.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -31,9 +31,9 @@ const SearchResult2: React.FC = () => {
       females: 2,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_2.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_2.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -42,9 +42,9 @@ const SearchResult2: React.FC = () => {
       females: 7,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_3.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_3.png',
       maleFee: 6000,
       maleTotal: 10,
       males: 8,
@@ -53,9 +53,9 @@ const SearchResult2: React.FC = () => {
       females: 3,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_4.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_4.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 3,
@@ -64,9 +64,9 @@ const SearchResult2: React.FC = () => {
       females: 6,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_1.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_1.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -75,9 +75,9 @@ const SearchResult2: React.FC = () => {
       females: 2,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_2.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_2.png',
       maleFee: 10000,
       maleTotal: 8,
       males: 4,
@@ -100,7 +100,7 @@ const SearchResult2: React.FC = () => {
               <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
               {/* search with these conditions */}
               <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-4 md:p-4 mx-8 md:mx-12 mt-4 md:mt-8">
-                {/*location and date*/}
+                {/*location and eventDate*/}
                 <div className="flex space-x-2 pt-4 sm:pt-6 md:pt-8">
                   <select id="location" name="location" value={selectedLocation} onChange={handleCategoryChange}
                     className="px-6 py-1 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
@@ -110,13 +110,13 @@ const SearchResult2: React.FC = () => {
                     <option value="location2">場所 2</option>
                     <option value="location3">場所 3</option>
                   </select>
-                  <select id="date" name="date" value={selectedLocation} onChange={handleCategoryChange}
+                  <select id="eventDate" name="eventDate" value={selectedLocation} onChange={handleCategoryChange}
                     className="px-6 py-1 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
                   >
                     <option value="">日付を選択</option>
-                    <option value="date1">日付 1</option>
-                    <option value="date2">日付 2</option>
-                    <option value="date3">日付 3</option>
+                    <option value="eventDate1">日付 1</option>
+                    <option value="eventDate2">日付 2</option>
+                    <option value="eventDate3">日付 3</option>
                   </select>
                 </div>
                 {/* budget, category, genre */}

@@ -9,9 +9,9 @@ import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
-  title: string,
-  date: string,
-  imageUrl: string,
+  eventName: string,
+  eventDate: string,
+  coverImage: string,
   maleFee: number,
   maleTotal: number,
   males: number,
@@ -63,7 +63,7 @@ const EventPayment = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex items-start justify-center min-h-screen w-screen bg-white">
             <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
-            {/* title on the bg-gradient */}
+            {/* eventName on the bg-gradient */}
             <div className="py-6 md:py-12 px-4 md:px-8 flex flex-row text-xl text-white md:text-3xl font-bold text-center">
               <button type='button' className='flex bg-transparent rounded-full border-none w-12 text-white text-left items-center justify-center font-bold'>
                 &lt;
