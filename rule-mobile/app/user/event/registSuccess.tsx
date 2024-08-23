@@ -10,9 +10,9 @@ import { useSearchParams  } from 'next/navigation';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
-  title: string,
-  date: string,
-  imageUrl: string,
+  eventName: string,
+  eventDate: string,
+  coverImage: string,
   maleFee: number,
   maleTotal: number,
   males: number,
@@ -42,7 +42,7 @@ const RegistSuccess: React.FC = () => {
   // }
 
   const completedImage = '/svg/checked_outline.svg';
-  const date = '2023年 9月 20日 17:00 ~ 20:00';
+  const eventDate = '2023年 9月 20日 17:00 ~ 20:00';
   const eventImage = '/image/img_1.png';
   const description = 'イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。';
 
@@ -62,7 +62,7 @@ const RegistSuccess: React.FC = () => {
             {/* content */}
             <div className='rounded-lg bg-white p-4 sm:px-8 mb-12 flex flex-col sm:items-center space-y-1'>
               <h2 className='text-lg md:text-2xl font-semibold '>街コン・合コン・飲み会イベント</h2>
-              <h2 className='text-md md:text-lg'>{date}</h2>
+              <h2 className='text-md md:text-lg'>{eventDate}</h2>
               <div className='flex flex-row space-x-2 text-xs font-semibold'>
                 <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>20代以上</button>
                 <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>大学生Only</button>

@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 
 // will be modified
 interface CardProps {
-  title: string;
-  date: string;
-  imageUrl: string;
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
   maleFee: number;
   maleTotal: number;
   males: number;
@@ -16,7 +16,7 @@ interface CardProps {
 }
 
 const EventCard: React.FC<CardProps> = ({
-  title, date, imageUrl, maleFee, femaleFee, maleTotal, femaleTotal, males, females,
+  eventName, eventDate, coverImage, maleFee, femaleFee, maleTotal, femaleTotal, males, females,
 }) => {
   const maleRate = males/maleTotal;
   const femaleRate = females/femaleTotal;
@@ -26,10 +26,10 @@ const EventCard: React.FC<CardProps> = ({
 
   return (
     <div className="flex flex-row space-x-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 mx-0 sm:mx-4 md:mx-8 md:mt-6">
-      <img src={imageUrl} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
+      <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
       <div className='flex flex-col space-y-1'>
-        <h2 className="text-xs sm:text-sm md:text-md font-bold">{title}</h2>
-        <h2 className="text-xs sm:text-sm md:text-md">{date}</h2>
+        <h2 className="text-xs sm:text-sm md:text-md font-bold">{eventName}</h2>
+        <h2 className="text-xs sm:text-sm md:text-md">{eventDate}</h2>
         <div className='flex flex-row space-x-1'>
           <div className={`${maleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>男性</div>
           <h2 className='text-xs sm:text-sm md:text-md'>{maleFee}円 募集 : {males}/{maleTotal}</h2>

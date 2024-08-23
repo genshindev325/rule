@@ -17,9 +17,9 @@ const EventReview1: React.FC = () => {
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
 
-  const title = '街コン・合コン・飲み会イベント';
-  const date = '2023年9月20日 17:00';
-  const imageUrl = '/image/img_1.png';
+  const eventName = '街コン・合コン・飲み会イベント';
+  const eventDate = '2023年9月20日 17:00';
+  const coverImage = '/image/img_1.png';
   const maleFee = 5000;
   const maleTotal = 8;
   const males = 7;
@@ -34,9 +34,9 @@ const EventReview1: React.FC = () => {
   const storeEmptyStars = 5 - storeFilledStars;
 
   const event = {
-    title: title,
-    date: date,
-    imageUrl: imageUrl,
+    eventName: eventName,
+    eventDate: eventDate,
+    coverImage: coverImage,
     maleFee: maleFee,
     maleTotal: maleTotal,
     males: males,

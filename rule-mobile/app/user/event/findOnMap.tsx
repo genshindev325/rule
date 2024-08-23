@@ -10,9 +10,9 @@ import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
-  title: string,
-  date: string,
-  imageUrl: string,
+  eventName: string,
+  eventDate: string,
+  coverImage: string,
   maleFee: number,
   maleTotal: number,
   males: number,
@@ -34,9 +34,9 @@ const FindOnMap: React.FC = () => {
 
   const events = [
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_1.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_1.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -45,9 +45,9 @@ const FindOnMap: React.FC = () => {
       females: 2,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_2.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_2.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -56,9 +56,9 @@ const FindOnMap: React.FC = () => {
       females: 7,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_3.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_3.png',
       maleFee: 6000,
       maleTotal: 10,
       males: 8,
@@ -67,9 +67,9 @@ const FindOnMap: React.FC = () => {
       females: 3,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_4.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_4.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 3,
@@ -78,9 +78,9 @@ const FindOnMap: React.FC = () => {
       females: 6,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_1.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_1.png',
       maleFee: 5000,
       maleTotal: 8,
       males: 7,
@@ -89,9 +89,9 @@ const FindOnMap: React.FC = () => {
       females: 2,
     },
     {
-      title: '街コン・合コン・飲み会イベント',
-      date: '2023年9月20日 17:00',
-      imageUrl: '/image/img_2.png',
+      eventName: '街コン・合コン・飲み会イベント',
+      eventDate: '2023年9月20日 17:00',
+      coverImage: '/image/img_2.png',
       maleFee: 10000,
       maleTotal: 8,
       males: 4,

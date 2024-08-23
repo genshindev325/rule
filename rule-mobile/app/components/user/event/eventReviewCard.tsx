@@ -5,9 +5,9 @@ import Star from './starSVG';
 import { randomInt } from 'crypto';
 
 interface CardProps {
-  title: string;
-  date: string;
-  imageUrl: string;
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
   maleFee: number;
   maleTotal: number;
   males: number;
@@ -19,7 +19,7 @@ interface CardProps {
 }
 
 const EventReviewCard: React.FC<CardProps> = ({
-  title, date, imageUrl, maleFee, femaleFee, maleTotal, femaleTotal, males, females, rateEvent, rateStore
+  eventName, eventDate, coverImage, maleFee, femaleFee, maleTotal, femaleTotal, males, females, rateEvent, rateStore
 }) => {
   const maleRate = males/maleTotal;
   const femaleRate = females/femaleTotal;
@@ -35,10 +35,10 @@ const EventReviewCard: React.FC<CardProps> = ({
   return (
     <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6'>
       <div className="flex flex-row space-x-2">
-        <img src={imageUrl} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
+        <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
         <div className='flex flex-col space-y-1'>
-          <h2 className={`${textSm} font-bold`}>{title}</h2>
-          <h2 className={`${textSm}`}>{date}</h2>
+          <h2 className={`${textSm} font-bold`}>{eventName}</h2>
+          <h2 className={`${textSm}`}>{eventDate}</h2>
           <div className='flex flex-row space-x-1'>
             <div className={`${maleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>男性</div>
             <h2 className={`${textSm}`}>{maleFee}円 募集 : {males}/{maleTotal}</h2>

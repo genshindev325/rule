@@ -5,9 +5,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import EventCard from './eventCard';
 
 interface EventCardProps {
-  title: string;
-  date: string;
-  imageUrl: string;
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
   maleFee: number;
   maleTotal: number;
   males: number;
