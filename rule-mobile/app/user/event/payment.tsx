@@ -1,27 +1,59 @@
 // app/user/event/payment.tsx
 
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
 
 import RegisteredCard from '@/app/components/user/event/registeredCard';
 import FormInput from '@/app/components/user/event/formInput';
 import EventCard from '@/app/components/user/event/eventCard';
 
+interface EventProps {
+  title: string,
+  date: string,
+  imageUrl: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+}
+
 const EventPayment = () => {
+  const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const event = {
-    title: '街コン・合コン・飲み会イベント',
-    date: '2023年9月20日 17:00',
-    imageUrl: '/image/img_1.png',
-    maleFee: 5000,
-    maleTotal: 8,
-    males: 7,
-    femaleFee: 2000,
-    femaleTotal: 8,
-    females: 2,
+  const searchParams = useSearchParams();
+  const eventString = searchParams.get('event');
+  let event: EventProps | null = null;
+
+  if (eventString) {
+    try {
+      event = JSON.parse(decodeURIComponent(eventString));
+      console.log(event)
+    } catch (error) {
+      console.error('Failed to parse event data', error);
+    }
+  }
+
+  if (!event) {
+    return <div>Invalid event data.</div>;
   }
 
   const handleSubmit = () => {
-    console.log("AAA");
+    // participate event logic
+    // const response = await fetch('http://localhost:3000/api/participate', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ attendEvent }),
+    // });
+
+    // if (response.status === 201) {
+      router.push(`/event/eventRegistSuccess?event=${eventString}`);
+    //   console.log("Participate event success.");
+    // } else {
+    //   console.log(response.status);
+    //   console.log("Participate event failed.");
+    // } 
   };
 
   return (
@@ -50,11 +82,11 @@ const EventPayment = () => {
               <h3 className="text-lg text-gray-800 font-bold">クレジット決済</h3>
               <div className="flex items-center justify-between mt-2">
                 <div className="text-gray-600">参加費（税込み）</div>
-                <div className="text-gray-800">2,000円</div>
+                <div className="text-gray-800">{event.maleFee}円</div>
               </div>
               <div className="flex items-center font-bold justify-between mt-2 border-t-2 border-gray-300 pt-2 md:pt-4">
                 <div className="text-gray-600">決済金額（税込み）</div>
-                <div className="text-gray-800">2,000円</div>
+                <div className="text-gray-800">{event.maleFee}円</div>
               </div>
             </div>
             {/*  */}
@@ -74,7 +106,7 @@ const EventPayment = () => {
                 <span className="ml-2 text-gray-600"><a href="" className='text-blue-400 font-bold'>利用規約</a>に同意する</span>
               </div>
               <div className="mt-6 justify-center flex">
-                <button className={`mx-4 md:mx-8 w-full ${maleGradient} text-white py-2 rounded-full hover:bg-purple-600`}>決済する</button>
+                <button type='submit' className={`mx-4 md:mx-8 w-full ${maleGradient} text-white py-2 rounded-full hover:bg-purple-600`}>決済する</button>
               </div>
               <div className="mt-4 pb-12 md:pb-20 flex justify-center">
                 <button className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">キャンセル</button>
