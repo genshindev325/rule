@@ -91,14 +91,17 @@ const SignUp = () => {
 
     if (response.status === 201) {
       const result = await response.json();
-      console.log(result)
-      const name = result.data.storeName;
-      const email = result.data.email;
-      const role = 'store';
-      const token = result.jwt;
-      signin(name, email, role, token);
+      const {
+        email,
+        role,
+        profile,
+        token
+      } = result.data;
+
+      signin(email, role, profile, token);
       router.push('/store/dashboard');
     } else {
+      // Error handler
       console.log(response.status);
     }
   });

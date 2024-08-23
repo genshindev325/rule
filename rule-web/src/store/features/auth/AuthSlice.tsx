@@ -13,16 +13,6 @@ interface AuthState {
   token: string | null;
 }
 
-let profile;
-const serializedProfile = sessionStorage.getItem('profile');
-if (serializedProfile) {
-  try {
-    profile = JSON.parse(serializedProfile);
-  } catch (error) {
-    console.error('Error parsing profile from sessionStorage:', error);
-  }
-}
-
 const initialState: AuthState = {
   isAuthenticated: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('isAuthenticated') || 'false') : false,
   email: typeof window !== "undefined" ? sessionStorage.getItem('email') : null,
