@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import { useSearchParams  } from 'next/navigation';
 import EventCard from '@/app/components/user/event/eventCard';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 
 const SearchResult4: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -98,40 +99,42 @@ const SearchResult4: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-          {/* header */}
-          <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
-            <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
-            <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
-              <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6"/>
-              <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
-              <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
-            </div>
-            {/* buttons */}
-            <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
-              <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
-              <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
-              <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
-              <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
-            </div>
-          </div>
-          {/* container */}
-          <div className={`${container}`}>
-            {/* search results */}
-            {events.map((event, index) => (
-              <div key={index}>
-                <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
-                  <EventCard {...event} />
-                </IonRouterLink>
+        <AuthWrapper allowedRoles={['user']}>
+          <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+            {/* header */}
+            <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
+              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
+                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6"/>
+                <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
+                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
               </div>
-            ))}
-            {/* see more button */}
-            <div className='py-4 sm:py-8 mx-auto'>
-              <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+              {/* buttons */}
+              <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
+                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
+                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
+                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
+                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
+              </div>
             </div>
+            {/* container */}
+            <div className={`${container}`}>
+              {/* search results */}
+              {events.map((event, index) => (
+                <div key={index}>
+                  <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
+                    <EventCard {...event} />
+                  </IonRouterLink>
+                </div>
+              ))}
+              {/* see more button */}
+              <div className='py-4 sm:py-8 mx-auto'>
+                <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+              </div>
+            </div>
+            <div className={`${fromTop}`}></div>
           </div>
-          <div className={`${fromTop}`}></div>
-        </div>
+        </AuthWrapper>
       </IonContent>
     </IonPage>
   );

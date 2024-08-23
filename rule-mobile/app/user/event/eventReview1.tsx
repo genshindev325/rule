@@ -7,6 +7,7 @@ import { IonPage, IonContent } from '@ionic/react';
 
 import EventCard from '@/app/components/user/event/eventCard';
 import Star from '@/app/components/user/event/starSVG';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 
 const EventReview1: React.FC = () => {
   const [reviewEvent, setReviewEvent] = useState('');
@@ -47,54 +48,56 @@ const EventReview1: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-          <div className={`h-40 md:h-48 w-full ${maleGradient}`}>
-            {/* header */}
-            <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントレビュー</h2>
-          </div>
-          {/* container */}
-          <div className='-mt-16 sm:-mt-24 px-2 sm:px-4 md:px-8'>
-            <EventCard { ...event } />
-          </div>
-          <div className={`py-10 sm:py-16 px-8 sm:px-16 md:px-20 flex flex-col space-y-4 w-full`}>
-            <div className='flex flex-row'>
-              <h2 className={`${textLg}`}>イベントを評価:</h2>
-              {/* event star rating */}
-              <div className='space-x-1 flex ml-auto'>
-                {[...Array(eventFilledStars)].map((_, index) => (
-                  <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-                ))}
-                {[...Array(eventEmptyStars)].map((_, index) => (
-                  <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
-                ))}
-              </div>
+        <AuthWrapper allowedRoles={['user']}>
+          <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+            <div className={`h-40 md:h-48 w-full ${maleGradient}`}>
+              {/* header */}
+              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントレビュー</h2>
             </div>
-            <textarea
-              className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none"
-              placeholder="イベントのレビューを書く"
-              rows={6}          
-            />
-            <button id="btn_event" className={`grow ${maleGradient} rounded-full text-white ${textMd}`}>送信する</button>
-            <div className='flex flex-row'>
-              <h2 className={`${textLg}`}>お店を評価:</h2>
-              {/* event star rating */}
-              <div className='space-x-1 flex ml-auto'>
-                {[...Array(storeFilledStars)].map((_, index) => (
-                  <Star key={5 + index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-                ))}
-                {[...Array(storeEmptyStars)].map((_, index) => (
-                  <Star key={5 + index + storeFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
-                ))}
-              </div>
+            {/* container */}
+            <div className='-mt-16 sm:-mt-24 px-2 sm:px-4 md:px-8'>
+              <EventCard { ...event } />
             </div>
-            <textarea
-              className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none"
-              placeholder="お店のレビューを書く"
-              rows={6}          
-            />
-            <button id="btn_store" className={`grow ${maleGradient} rounded-full text-white ${textMd}`}>送信する</button>
+            <div className={`py-10 sm:py-16 px-8 sm:px-16 md:px-20 flex flex-col space-y-4 w-full`}>
+              <div className='flex flex-row'>
+                <h2 className={`${textLg}`}>イベントを評価:</h2>
+                {/* event star rating */}
+                <div className='space-x-1 flex ml-auto'>
+                  {[...Array(eventFilledStars)].map((_, index) => (
+                    <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
+                  ))}
+                  {[...Array(eventEmptyStars)].map((_, index) => (
+                    <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
+                  ))}
+                </div>
+              </div>
+              <textarea
+                className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none"
+                placeholder="イベントのレビューを書く"
+                rows={6}          
+              />
+              <button id="btn_event" className={`grow ${maleGradient} rounded-full text-white ${textMd}`}>送信する</button>
+              <div className='flex flex-row'>
+                <h2 className={`${textLg}`}>お店を評価:</h2>
+                {/* event star rating */}
+                <div className='space-x-1 flex ml-auto'>
+                  {[...Array(storeFilledStars)].map((_, index) => (
+                    <Star key={5 + index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
+                  ))}
+                  {[...Array(storeEmptyStars)].map((_, index) => (
+                    <Star key={5 + index + storeFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
+                  ))}
+                </div>
+              </div>
+              <textarea
+                className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none"
+                placeholder="お店のレビューを書く"
+                rows={6}          
+              />
+              <button id="btn_store" className={`grow ${maleGradient} rounded-full text-white ${textMd}`}>送信する</button>
+            </div>
           </div>
-        </div>
+        </AuthWrapper>
       </IonContent>
     </IonPage>
     

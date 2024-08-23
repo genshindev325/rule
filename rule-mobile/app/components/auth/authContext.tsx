@@ -5,38 +5,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn as reduxLogin, signOut as reduxLogout } from '@/app/store/features/auth/AuthSlice';
 import { RootState } from '@/app/store/store';
 
+interface ProfileProps {
+  [key: string] : any
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
-  userName: string | null;
-  userEmail: string | null;
-  userRole: string | null;
-  login: (userName: string, userEmail: string, userRole: string, token: string) => void;
-  logout: () => void;
+  profile: ProfileProps | null;
+  email: string | null;
+  role: string | null;
+  signin: (email: string, role: string, profile: ProfileProps, token: string) => void;
+  signout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
-  const { userEmail, userName, userRole, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { email, profile, role, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const login = (userEmail: string, userName: string, userRole: string, token: string) => {
+  const signin = (email: string, role: string, profile: ProfileProps, token: string) => {
     // Logic for logging in
     const user = {
-      userName: userName,
-      userEmail: userEmail,
-      userRole: userRole
+      profile: profile,
+      email: email,
+      role: role
     }
     dispatch(reduxLogin({ user: user, token: token }));
   };
 
-  const logout = () => {
+  const signout = () => {
     // Logic for logging out
     dispatch(reduxLogout());
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userName, userEmail, userRole, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, email, role, profile, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );

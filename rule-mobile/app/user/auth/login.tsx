@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   const textMd = 'text-md md:text-lg font-semibold';
 
   const router = useIonRouter();
-  const { login } = useAuth();
+  const { signin } = useAuth();
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const response = await fetch('http://localhost:3000/api/auth/login', {
+    const response = await fetch('http://localhost:3000/api/auth/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -32,12 +32,14 @@ const Login: React.FC = () => {
 
     if (response.status === 200) {
       const result = await response.json();
-      const userName = result.userName;
-      const userEmail = result.userEmail;
-      const userRole = result.userRole;
-      const token = result.token;
-      if (userRole === 'user') {
-        login(userName, userEmail, userRole, token);
+      const {
+        email,
+        role,
+        profile,
+        token
+      } = result.data;
+      if (role === 'user') {
+        signin(email, role, profile, token);
         router.push('/home')
       }
     } else {

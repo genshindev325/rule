@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
   await dbConnect();
   
   const body = await req.json();
+  console.log(body)
   const { email } = body;
 
   try {

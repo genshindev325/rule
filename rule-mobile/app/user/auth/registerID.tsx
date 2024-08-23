@@ -6,14 +6,17 @@ import React, { useState } from 'react';
 import { useSearchParams  } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
+import { useAuth } from '@/app/components/auth/authContext';
+
 const RegisterID: React.FC = () => {
   const [userID, setUserID] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
   const router = useIonRouter();
+  const { signin } = useAuth();
   const searchParams = useSearchParams ();
-  const gender = searchParams.get('gender');
-  const email = searchParams.get('email');
+  const gender = searchParams.get('sex');
+  const email = searchParams.get('mail');
   const password = searchParams.get('pwd');
   const birthday = searchParams.get('bth');
   const image = searchParams.get('img');
@@ -29,7 +32,16 @@ const RegisterID: React.FC = () => {
       body: JSON.stringify({ gender, email, password, birthday, image, nickname, userID }),
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
+      const result = await response.json();
+      const {
+        email,
+        role,
+        profile,
+        token
+      } = result.data;
+
+      signin(email, role, profile, token);
       router.push('/event/findOnMap');
       console.log("Registeration success.");
     } else {

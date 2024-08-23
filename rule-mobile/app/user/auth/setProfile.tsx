@@ -13,8 +13,8 @@ const SetProfile: React.FC = () => {
 
   const router = useIonRouter();
   const searchParams = useSearchParams ();
-  const sex = searchParams.get('gender');
-  const mail = searchParams.get('email');
+  const sex = searchParams.get('sex');
+  const mail = searchParams.get('mail');
   const pwd = searchParams.get('pwd');
   const bth = searchParams.get('bth');
 
