@@ -13,11 +13,21 @@ interface AuthState {
   token: string | null;
 }
 
+let profile;
+const serializedProfile = sessionStorage.getItem('profile');
+if (serializedProfile) {
+  try {
+    profile = JSON.parse(serializedProfile);
+  } catch (error) {
+    console.error('Error parsing profile from sessionStorage:', error);
+  }
+}
+
 const initialState: AuthState = {
   isAuthenticated: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('isAuthenticated') || 'false') : false,
   userRole: typeof window !== "undefined" ? sessionStorage.getItem('userRole') : null,
   userEmail: typeof window !== "undefined" ? sessionStorage.getItem('userEmail') : null,
-  profile: typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem('profile') || '') : null,
+  profile: typeof window !== "undefined" ? profile : null,
   token: typeof window !== "undefined" ? sessionStorage.getItem('token') : null,
 };
 
