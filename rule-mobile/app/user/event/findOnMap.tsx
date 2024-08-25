@@ -30,7 +30,7 @@ const FindOnMap: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [recentEvents, setRecentEvents] = useState<EventProps[]>([])
+  const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([])
 
   const events = [
     {
@@ -106,13 +106,17 @@ const FindOnMap: React.FC = () => {
   useEffect(() => {
     // const fetchData = async () => {
     //   try {
-    //     // Fetch recentEvents Data
-    //     const response = await fetch('http://localhost:3000/api/user/recentEvent/...');
+    //     // Fetch upcomingEvents Data
+    //     const response = await fetch('http://localhost:3000/api/events/filter/...', {
+    //       method: 'POST',
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify({ limit: 6 })
+    //     });
     //     if (response.status === 200) {
     //       const result = await response.json();
-    //       setRecentEvents(result.data);
+    //       setUpcomingEvents(result.data);
     //     } else {
-    //       console.error('Failed to fetch recentEvents data');
+    //       console.error('Failed to fetch upcomingEvents data');
     //     }
     //   } catch (error) {
     //     console.error('Error:', error);
@@ -161,6 +165,7 @@ const FindOnMap: React.FC = () => {
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
             <div className='bg-gray-100 h-40 mt-96'>
+              {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={events}/>
             </div>
             {/* buttons */}

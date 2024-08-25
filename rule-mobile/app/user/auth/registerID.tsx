@@ -56,14 +56,14 @@ const RegisterID: React.FC = () => {
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
           <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
           <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-            <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-12 text-center">パスワード再設定</h2>
+            <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-12 text-center">IDを登録してください</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
                   type="text"
                   name='userID'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
-                  placeholder="氏名"
+                  placeholder="ID"
                   value={userID}
                   onChange={(e) => setUserID(e.target.value)}
                   required

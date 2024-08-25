@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import EventCard from './eventCard';
+import { IonRouterLink } from '@ionic/react';
 
 interface EventCardProps {
   eventName: string;
@@ -47,7 +48,9 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
       <Slider {...settings}>
         {events.map((event, index) => (
           <div key={index} className="px-4 my-6">
-            <EventCard {...event} />
+            <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
+              <EventCard {...event} />
+            </IonRouterLink>
           </div>
         ))}
       </Slider>

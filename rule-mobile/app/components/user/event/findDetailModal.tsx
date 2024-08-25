@@ -30,28 +30,50 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
 
-    // const response = await fetch('http://localhost:3000/api/event', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ date, gender, age, category, store, food, genre }),
-    // });
-
     router.push(`/event/eventResult4`); // should be deleted
 
     // will be released after adding api...
+    // const response = await fetch('http://localhost:3000/api/events/filter', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ location, date, gender, age, category, store, food, genre }),
+    // });
     // if (response.status === 200) {
     //   const result = await response.json();
     //   const events = result.data;
     //   router.push(`/event/eventResult4?events=${events}`);
     // } else {
     //   console.log(response.status);
-    //   console.log("Your username and password mismatched.");
     // }
     onClose();
   };
 
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLocation(e.target.value);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDate(e.target.value);
+  };
+
+  const handleAgeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAge(e.target.value);
+  };
+
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setLocation(event.target.value);
+    setCategory(event.target.value);
+  };
+
+  const handleStoreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStore(e.target.value);
+  };
+
+  const handleFoodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFood(e.target.value);
+  };
+
+  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setGenre(e.target.value);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -78,7 +100,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
       <div ref={modalRef} className="bg-white px-6 py-12 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
         {/*location and date*/}
         <div className="flex mb-4 space-x-2">
-          <select id="location" name="location" value={location} onChange={handleCategoryChange}
+          <select id="location" name="location" value={location} onChange={handleLocationChange}
             className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">場所を選択</option>
@@ -86,7 +108,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="location2">場所 2</option>
             <option value="location3">場所 3</option>
           </select>
-          <select id="date" name="date" value={date} onChange={handleCategoryChange}
+          <select id="date" name="date" value={date} onChange={handleDateChange}
             className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">日付を選択</option>
@@ -101,7 +123,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <button className={`rounded-l-lg py-3 px-6 border-2 border-r-0 ${textSmall} ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
             <button className={`rounded-r-lg py-3 px-6 border-2 border-l-0 ${textSmall} ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
           </div>
-          <select id="age" name="age" value={age} onChange={handleCategoryChange}
+          <select id="age" name="age" value={age} onChange={handleAgeChange}
             className="block w-32 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">年齢</option>
@@ -121,7 +143,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="category2">20</option>
             <option value="category3">30</option>
           </select>
-          <select id="store" name="store" value={store} onChange={handleCategoryChange}
+          <select id="store" name="store" value={store} onChange={handleStoreChange}
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">店舗ジャンルを選択</option>
@@ -129,7 +151,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="store2">20</option>
             <option value="store3">30</option>
           </select>
-          <select id="food" name="food" value={food} onChange={handleCategoryChange}
+          <select id="food" name="food" value={food} onChange={handleFoodChange}
             className="relative w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">食ジャンルを選択</option>
@@ -137,7 +159,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="food2">20</option>
             <option value="food3">30</option>
           </select>
-          <select id="genre" name="genre" value={genre} onChange={handleCategoryChange}
+          <select id="genre" name="genre" value={genre} onChange={handleGenreChange}
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">料理ジャンルを選択</option>
