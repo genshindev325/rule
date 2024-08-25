@@ -32,6 +32,23 @@ const EventPayment = () => {
   const dispatch = useDispatch();
   
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
+  const userInfo = useSelector((state: RootState) => state.auth.profile);
+
+  // will be released after fix event interface ...
+  // if (selectedEvent) {
+  //   const eventId = selectedEvent._id;
+  // } else {
+  //   console.log("Error event...")
+  // }
+
+  if (userInfo) {
+    const userId = userInfo._id;
+  } else {
+    console.log("You don't have permission to participate in the event.");
+  }
+
+  console.log(selectedEvent);
+  console.log(userInfo);
 
   useEffect(() => {
     if (eventString) {
@@ -59,10 +76,10 @@ const EventPayment = () => {
   const handleSubmit = async () => {
     try {
       // Participate in event logic (uncomment and adjust as needed)
-      // const response = await fetch('http://localhost:3000/api/participate', {
+      // const response = await fetch('http://localhost:3000/api/events/participate', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ attendEvent: selectedEvent }),
+      //   body: JSON.stringify({ userId, eventId }),
       // });
 
       // if (response.status === 201) {
