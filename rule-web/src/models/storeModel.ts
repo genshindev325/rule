@@ -11,7 +11,8 @@ export interface IStore extends Document {
     foodGenre: string;
     cookingGenre: string;
     address: string;
-    access: string;
+    access1: string;
+    access2: string;
     storeImages: string;
     description: string;
     monthlyRate: Number;
@@ -38,7 +39,8 @@ const storeSchema = new Schema<IStore>({
     foodGenre: { type: String },
     cookingGenre: { type: String },
     address: { type: String },
-    access: { type: String },
+    access1: { type: String },
+    access2: { type: String },
     storeImages: { type: String },
     // storeImages: { type: String, default: "http://localhost:3000/uploads/store-placeholder-1.png" },
     description: { type: String },

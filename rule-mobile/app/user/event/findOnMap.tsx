@@ -8,6 +8,7 @@ import { IonPage, IonContent } from '@ionic/react';
 import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import GoogleMapBackground from '@/app/components/utils/googleMap';
 
 interface EventProps {
   _id: string,
@@ -24,7 +25,11 @@ interface EventProps {
   femaleFee: number,
   femaleTotal: number,
   females: number,
-  store: string,
+  store: {
+    address: string;
+    storeName: string;
+    storeImages: string;
+  };
   status: string,
   createdAt: string
 }
@@ -35,80 +40,11 @@ const FindOnMap: React.FC = () => {
   const settingSVG = '/svg/settings.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
+  const Google_Map_API_key = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([])
-
-  const events = [
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_1.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 2000,
-      femaleTotal: 8,
-      females: 2,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_2.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 5000,
-      femaleTotal: 8,
-      females: 7,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_3.png',
-      maleFee: 6000,
-      maleTotal: 10,
-      males: 8,
-      femaleFee: 4000,
-      femaleTotal: 10,
-      females: 3,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_4.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 3,
-      femaleFee: 1000,
-      femaleTotal: 8,
-      females: 6,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_1.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 3000,
-      femaleTotal: 8,
-      females: 2,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_2.png',
-      maleFee: 10000,
-      maleTotal: 8,
-      males: 4,
-      femaleFee: 5000,
-      femaleTotal: 8,
-      females: 4,
-    },
-    // Add more image paths here
-  ];
   
   // will be released after adding api...
   useEffect(() => {
@@ -157,7 +93,7 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
-            <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
+            <div className={`h-44 md:h-48 w-full ${maleGradient} z-10`}>
               <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
                 <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8" onClick={handleOpenModal}/>
@@ -165,19 +101,21 @@ const FindOnMap: React.FC = () => {
                 <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
               </div>
             </div>
+            {/* Google Map background */}
+            <GoogleMapBackground apiKey={Google_Map_API_key} events={upcomingEvents} />
             {/* content */}
-            <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
+            <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4 z-10'>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
-            <div className='bg-gray-100 h-40 mt-96'>
+            <div className='bg-gray-100 h-40 mt-96 z-10 shadow'>
               {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={upcomingEvents}/>
             </div>
             {/* buttons */}
-            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 py-12 md:py-48'>
+            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 py-12 md:py-48 z-10'>
               <button className={`rounded-md w-12 h-12 ${maleGradient} fill-white`}>
                 <img src={searchSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
               </button>

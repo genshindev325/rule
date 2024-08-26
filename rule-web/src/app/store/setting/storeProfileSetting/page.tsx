@@ -18,25 +18,27 @@ const StoreProfileSettings = () => {
     const storeName = formData.get('storeName');
     const storeGenre = formData.get('storeGenre');
     const foodGenre = formData.get('foodGenre');
-    const cuisine = formData.get('cuisine');
+    const cookingGenre = formData.get('cookingGenre');
     const address = formData.get('address');
     const access1 = formData.get('access1');
     const access2 = formData.get('access2');
-    const image = formData.get('image');
+    const storeImages = formData.get('storeImages');
     const description = formData.get('description');
 
-    const response = await fetch('/api/store/setting/storeProfileSetting', {
-      method: 'POST',
+    const storeID = '';
+
+    const response = await fetch(`/api/stores/${storeID}`, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         storeName,
         storeGenre,
         foodGenre,
-        cuisine,
+        cookingGenre,
         address,
         access1,
         access2,
-        image,
+        storeImages,
         description
       }),
     });
@@ -94,7 +96,7 @@ const StoreProfileSettings = () => {
                 <div className="mb-4">
                   <input
                     type="name"
-                    name='cuisine'
+                    name='cookingGenre'
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="料理ジャンル"
                     required

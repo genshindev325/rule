@@ -1,52 +1,72 @@
-// components/GoogleMapBackground.tsx
-
 import React, { useEffect, useRef } from 'react';
 
-interface GoogleMapBackgroundProps {
-  apiKey: string;
-  lat: number;
-  lng: number;
-  zoom: number;
-}
+type EventProps = {
+  _id: string;
+  eventName: string;
+  coverImage: string;
+  store: {
+    address: string;
+    storeName: string;
+    storeImages: string;
+  };
+};
 
-const GoogleMapBackground: React.FC<GoogleMapBackgroundProps> = ({ apiKey, lat, lng, zoom }) => {
-  const mapRef = useRef<HTMLDivElement | null>(null);
+type GoogleMapBackgroundProps = {
+  apiKey: string;
+  events: EventProps[];
+};
+
+const GoogleMapBackground: React.FC<GoogleMapBackgroundProps> = ({ apiKey, events }) => {
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const initializeMap = () => {
-      if (mapRef.current) {
-        const map = new google.maps.Map(mapRef.current, {
-          center: { lat, lng },
-          zoom,
-          disableDefaultUI: true, // Disable default UI for background map
-        });
+    if (!mapRef.current || events.length === 0) return;
 
-        // Set the map to be non-interactive
-        map.setOptions({
-          gestureHandling: 'none',
-          zoomControl: false,
-        });
-      }
-    };
-
-    // Load the Google Maps script dynamically
     const loadGoogleMapsScript = () => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initializeMap;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
       document.body.appendChild(script);
+
+      script.onload = () => {
+        if (!google || !google.maps) return;
+
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: events[0].store.address }, (results, status) => {
+          if (status === 'OK' && results && results[0]) {
+            const map = new google.maps.Map(mapRef.current!, {
+              center: results[0].geometry.location,
+              zoom: 14,
+              gestureHandling: 'greedy',
+            });
+
+            // Add markers for each event
+            events.forEach(event => {
+              geocoder.geocode({ address: event.store.address }, (results, status) => {
+                if (status === 'OK' && results && results[0]) {
+                  new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map,
+                    icon: {
+                      url: event.coverImage,
+                      scaledSize: new google.maps.Size(50, 50),
+                    }
+                  });
+                } else {
+                  console.error(`Geocode failed for address: ${event.store.address}, status: ${status}`);
+                }
+              });
+            });
+          } else {
+            console.error(`Geocode failed for address: ${events[0].store.address}, status: ${status}`);
+          }
+        });
+      };
     };
 
-    if (!window.google) {
-      loadGoogleMapsScript();
-    } else {
-      initializeMap();
-    }
-  }, [apiKey, lat, lng, zoom]);
+    loadGoogleMapsScript();
+  }, [apiKey, events]);
 
-  return <div ref={mapRef} className="absolute inset-0" />;
+  return <div ref={mapRef} className="w-full h-full" />;
 };
 
 export default GoogleMapBackground;

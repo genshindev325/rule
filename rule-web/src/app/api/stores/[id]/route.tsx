@@ -18,10 +18,10 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
-  const { title, content } = await req.json();
+  const body = await req.json();
 
   try {
-    const store = await Store.findByIdAndUpdate(params.id, { title, content }, { new: true, runValidators: true });
+    const store = await Store.findByIdAndUpdate(params.id, body, { new: true, runValidators: true });
     if (!store) {
       return NextResponse.json({ success: false, message: 'Store not found' }, { status: 404 });
     }
