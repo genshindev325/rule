@@ -2,15 +2,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface EventProps {
-  eventName: string;
-  eventDate: string;
-  coverImage: string;
-  maleFee: number;
-  maleTotal: number;
-  males: number;
-  femaleFee: number;
-  femaleTotal: number;
-  females: number;
+  _id: string,
+  eventName: string,
+  category: string,
+  coverImage: string,
+  description: string,
+  eventDate: string,
+  eventStartTime: string,
+  eventEndTime: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+  store: string,
+  status: string,
+  createdAt: string,
 }
 
 interface EventState {

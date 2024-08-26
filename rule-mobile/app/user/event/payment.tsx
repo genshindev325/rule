@@ -35,11 +35,12 @@ const EventPayment = () => {
   const userInfo = useSelector((state: RootState) => state.auth.profile);
 
   // will be released after fix event interface ...
-  // if (selectedEvent) {
-  //   const eventId = selectedEvent._id;
-  // } else {
-  //   console.log("Error event...")
-  // }
+  if (selectedEvent) {
+    const eventId = selectedEvent._id;
+    console.log("eventId: " + eventId);
+  } else {
+    console.log("Error event...")
+  }
 
   if (userInfo) {
     const userId = userInfo._id;
