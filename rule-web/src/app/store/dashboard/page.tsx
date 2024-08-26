@@ -82,7 +82,6 @@ const Dashboard = () => {
         });
         if (response_upcomingEvents.ok) {
           const result_upcomingEvents = await response_upcomingEvents.json();
-          console.log(response_upcomingEvents);
           setUpcomingEvents(result_upcomingEvents.data);
         } else {
           // Error handler

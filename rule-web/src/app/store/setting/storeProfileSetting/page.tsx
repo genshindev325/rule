@@ -2,14 +2,43 @@
 
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 
 const StoreProfileSettings = () => {
   const router = useRouter();
+  const [storeID, setStoreID] = useState('');
+  const [storeImages, setStoreImages] = useState<string>();
+  const { profile } = useSelector((state: RootState) => state.auth);
+  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result) {
+        }
+      };
+      const url = URL.createObjectURL(file);
+      setStoreImages(url);
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setStoreImages('');
+  }
+
+  useEffect(() => {
+    if (profile) {
+      console.log(profile)
+      setStoreID(profile._id);
+    }
+  }, [profile])
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,10 +51,7 @@ const StoreProfileSettings = () => {
     const address = formData.get('address');
     const access1 = formData.get('access1');
     const access2 = formData.get('access2');
-    const storeImages = formData.get('storeImages');
     const description = formData.get('description');
-
-    const storeID = '';
 
     const response = await fetch(`/api/stores/${storeID}`, {
       method: 'PUT',
@@ -45,8 +71,10 @@ const StoreProfileSettings = () => {
 
     if (response.status === 200) {
       router.push('/store/setting');
+      console.log('store profile setting success')
     } else {
       console.log(response.status);
+      console.log(response)
       console.log("Failed.");
     }
   })
@@ -128,7 +156,19 @@ const StoreProfileSettings = () => {
                   />
                 </div>
                 <div className='mb-4'>
-                  <button type='button' className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="file-input"
+                  />
+                  <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                  {storeImages && (
+                    <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
+                      <img src={`${storeImages}`} onClick={handleDeleteImage} />
+                    </div>
+                  )}
                 </div>
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>ストアイメージ</h3>
@@ -136,6 +176,7 @@ const StoreProfileSettings = () => {
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>説明文</h3>
                   <textarea
+                    name='description'
                     className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="説明文"
                     rows={5}
