@@ -10,15 +10,23 @@ import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
+  _id: string,
   eventName: string,
-  eventDate: string,
+  category: string,
   coverImage: string,
+  description: string,
+  eventDate: string,
+  eventStartTime: string,
+  eventEndTime: string,
   maleFee: number,
   maleTotal: number,
   males: number,
   femaleFee: number,
   femaleTotal: number,
-  females: number
+  females: number,
+  store: string,
+  status: string,
+  createdAt: string
 }
 
 const FindOnMap: React.FC = () => {

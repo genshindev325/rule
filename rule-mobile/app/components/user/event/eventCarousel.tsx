@@ -6,15 +6,23 @@ import EventCard from './eventCard';
 import { IonRouterLink } from '@ionic/react';
 
 interface EventCardProps {
-  eventName: string;
-  eventDate: string;
-  coverImage: string;
-  maleFee: number;
-  maleTotal: number;
-  males: number;
-  femaleFee: number;
-  femaleTotal: number;
-  females: number;
+  _id: string,
+  eventName: string,
+  category: string,
+  coverImage: string,
+  description: string,
+  eventDate: string,
+  eventStartTime: string,
+  eventEndTime: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+  store: string,
+  status: string,
+  createdAt: string
 }
 
 interface EventCarouselProps {
@@ -28,19 +36,6 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          // onAddImage(reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   return (
