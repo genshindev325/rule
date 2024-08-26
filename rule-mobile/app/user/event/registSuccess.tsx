@@ -2,45 +2,13 @@
 
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import { IonPage, IonContent } from '@ionic/react';
-import { useSearchParams  } from 'next/navigation';
 
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
-interface EventProps {
-  eventName: string,
-  eventDate: string,
-  coverImage: string,
-  maleFee: number,
-  maleTotal: number,
-  males: number,
-  femaleFee: number,
-  femaleTotal: number,
-  females: number,
-}
-
 const RegistSuccess: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  // const searchParams = useSearchParams();
-  // const eventString = searchParams.get('event');
-  // let event: EventProps | null = null;
-
-  // if (eventString) {
-  //   try {
-  //     event = JSON.parse(decodeURIComponent(eventString));
-  //     console.log("AAA")
-  //     console.log(event)
-  //   } catch (error) {
-  //     console.error('Failed to parse event data', error);
-  //   }
-  // }
-
-  // if (!event) {
-  //   return <div>Invalid event data.</div>;
-  // }
-
   const completedImage = '/svg/checked_outline.svg';
   const eventDate = '2023年 9月 20日 17:00 ~ 20:00';
   const eventImage = '/image/img_1.png';

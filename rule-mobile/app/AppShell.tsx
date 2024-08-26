@@ -69,13 +69,13 @@ const AppShell = () => {
           <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
           <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
           {/* user/event */}
-          <Route path='/event/findOnMap' render={() => <FindOnMap />} exact={true} />
+          <Route path="/event/registSuccess" render={() => <RegistSuccess />} exact={true} />
+          <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
           <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
           <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
           <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
           <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
           <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
-          <Route path="/event/eventRegistSuccess" render={() => <RegistSuccess />} exact={true} />
           <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
           <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
           <Route path="/event/eventResult3" render={() => <SearchResult3 />} exact={true} />

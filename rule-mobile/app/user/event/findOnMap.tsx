@@ -123,7 +123,6 @@ const FindOnMap: React.FC = () => {
         if (response.status === 200) {
           const result = await response.json();
           setUpcomingEvents(result.data);
-          console.log(upcomingEvents);
         } else {
           console.error('Failed to fetch upcomingEvents data');
         }

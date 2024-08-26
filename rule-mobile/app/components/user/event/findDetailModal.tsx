@@ -30,7 +30,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
 
-    router.push(`/event/eventResult4`); // should be deleted
+    router.push(`/event/searchResult4`); // should be deleted
 
     // will be released after adding api...
     // const response = await fetch('http://localhost:3000/api/events/filter', {
