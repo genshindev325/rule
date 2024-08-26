@@ -104,28 +104,29 @@ const FindOnMap: React.FC = () => {
   
   // will be released after adding api...
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     // Fetch upcomingEvents Data
-    //     const response = await fetch('http://localhost:3000/api/events/filter/...', {
-    //       method: 'POST',
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify({ limit: 6 })
-    //     });
-    //     if (response.status === 200) {
-    //       const result = await response.json();
-    //       setUpcomingEvents(result.data);
-    //     } else {
-    //       console.error('Failed to fetch upcomingEvents data');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error:', error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
+    const fetchData = async () => {
+      try {
+        // Fetch upcomingEvents Data
+        const response = await fetch('http://localhost:3000/api/events/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ limit: 6 })
+        });
+        if (response.status === 200) {
+          const result = await response.json();
+          setUpcomingEvents(result.data);
+          console.log(upcomingEvents);
+        } else {
+          console.error('Failed to fetch upcomingEvents data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // fetchData();
+    fetchData();
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
@@ -166,7 +167,7 @@ const FindOnMap: React.FC = () => {
             </div>
             <div className='bg-gray-100 h-40 mt-96'>
               {/* events should be changed into upcomingEvents after adding API call */}
-              <EventCarousel events={events}/>
+              <EventCarousel events={upcomingEvents}/>
             </div>
             {/* buttons */}
             <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 py-12 md:py-48'>
