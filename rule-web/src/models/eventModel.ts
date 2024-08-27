@@ -14,6 +14,8 @@ interface IEvent extends Document {
     femaleTotal: number;
     females: number;
     femaleFee: number;
+    rateEvent: number;
+    rateStore: number;
 
     store: mongoose.ObjectId;
     status: string;
