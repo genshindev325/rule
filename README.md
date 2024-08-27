@@ -19,5 +19,5 @@ This is a Next.js project bootstrapped with TailwindCSS and typescript.
   This project consist of rule-app for mobile and rule-web for web browser.
   If you want to modify mobile pages, you need to go to rule-mobile/app folder and editing {pageName}/page.tsx file.
   If you want to modify web pages, you need to go to rule-web/app folder and editing {pageName}/page.tsx file.
+  If you want to modify backend apis, go to the rule-web/app/apis folder and editing {api}/route.tsx file.
   
-  Backend is developed by using express and mongoBD for database. Backend also support various APIs for mobile apps.
