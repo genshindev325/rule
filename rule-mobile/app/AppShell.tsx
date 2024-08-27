@@ -39,6 +39,7 @@ import SearchResult1 from "./user/event/searchResult1";
 import SearchResult2 from "./user/event/searchResult2";
 import SearchResult3 from "./user/event/searchResult3";
 import SearchResult4 from "./user/event/searchResult4";
+import Success from "./user/event/success";
 
 setupIonicReact({});
 
@@ -77,7 +78,7 @@ const AppShell = () => {
               <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* user/event */}
-              <Route path="/event/registSuccess" render={() => <RegistSuccess />} exact={true} />
+              <Route path="/event/registSuccess" component={RegistSuccess} exact />
               <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
               <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
               <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
@@ -88,6 +89,7 @@ const AppShell = () => {
               <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
               <Route path="/event/eventResult3" render={() => <SearchResult3 />} exact={true} />
               <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
+              <Route path="/event/success" render={() => <Success />} exact={true} />
               <Route
                 path="/"
                 render={() => <Redirect to="/auth/login" />}

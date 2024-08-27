@@ -49,82 +49,9 @@ const SearchResult4: React.FC = () => {
 
   useEffect(() => {
     if (resultEvents) {
-      console.log(JSON.parse(resultEvents));
       setTestEvents(JSON.parse(resultEvents));
     }
   }, [resultEvents]);
-
-  console.log(testEvents);
-
-  const events = [
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_1.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 2000,
-      femaleTotal: 8,
-      females: 2,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_2.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 5000,
-      femaleTotal: 8,
-      females: 7,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_3.png',
-      maleFee: 6000,
-      maleTotal: 10,
-      males: 8,
-      femaleFee: 4000,
-      femaleTotal: 10,
-      females: 3,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_4.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 3,
-      femaleFee: 1000,
-      femaleTotal: 8,
-      females: 6,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_1.png',
-      maleFee: 5000,
-      maleTotal: 8,
-      males: 7,
-      femaleFee: 3000,
-      femaleTotal: 8,
-      females: 2,
-    },
-    {
-      eventName: '街コン・合コン・飲み会イベント',
-      eventDate: '2023年9月20日 17:00',
-      coverImage: '/image/img_2.png',
-      maleFee: 10000,
-      maleTotal: 8,
-      males: 4,
-      femaleFee: 5000,
-      femaleTotal: 8,
-      females: 4,
-    },
-    // Add more image paths here
-  ];
 
   return (
     <IonPage>
@@ -150,7 +77,7 @@ const SearchResult4: React.FC = () => {
             {/* container */}
             <div className={`${container}`}>
               {/* search results */}
-              {testEvents.map((event, index) => (
+              {testEvents && testEvents.map((event, index) => (
                 <div key={index}>
                   <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
                     <EventCard {...event} />

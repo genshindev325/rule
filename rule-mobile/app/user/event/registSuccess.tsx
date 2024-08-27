@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
@@ -41,7 +41,11 @@ const RegistSuccess: React.FC = () => {
               <h2 className='py-4 text-sm font-semibold'>{description}</h2>
             </div>
             {/* button */}
-            <button className='rounded-full w-full bg-white hover:bg-gray-100 mx-8 p-2 mb-16 border-none font-semibold'>TOPにもどる</button>
+            <button className='rounded-full w-full bg-white hover:bg-gray-100 mx-8 p-2 mb-16 border-none font-semibold'>
+              <IonRouterLink routerLink='/event/findOnMap'>
+                TOPにもどる
+              </IonRouterLink>
+            </button>
           </div>
         </AuthWrapper>
       </IonContent>
