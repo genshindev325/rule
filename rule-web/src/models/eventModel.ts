@@ -38,6 +38,8 @@ const eventSchema = new Schema<IEvent>({
     femaleTotal: { type: Number, required: true },
     females: { type: Number, default: 0 },
     femaleFee: { type: Number, required: true },
+    rateEvent: { type: Number, default: 1 },
+    rateStore: { tyep: Number, default: 1 },
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
     status: {
         type: String,
