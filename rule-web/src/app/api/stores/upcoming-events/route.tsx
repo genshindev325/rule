@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
 
         query.where("store").equals(body.store);
 
+        query.where("eventDate").gte(Date());
+
         if(body.location) {
             query.populate({
                 path: 'store',

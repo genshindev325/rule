@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
             query.where("eventDate").gte(Date());
         } else if(body.openAt) {
             query.where("eventDate").equals(body.openAt);
+        } else if(body.past){
+            query.where("eventDate").lt(Date());
         }
         
         if(body.category) {

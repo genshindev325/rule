@@ -7,6 +7,7 @@ import { IonPage, IonContent } from '@ionic/react';
 import FullCarousel from '@/app/components/user/search/fullCarousel';
 import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import StarRating from '@/app/components/utils/starRating';
 
 const EventReview2: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,12 @@ const EventReview2: React.FC = () => {
   const [rateStore, setRateStore] = useState(1);
   const [description, setDescription] = useState('');
   const [types, setTypes] = useState<string[]>([]);
+  const [rating, setRating] = useState(3.5);
+
+  const handleRateChange = (newRate: number) => {
+    setRating(newRate);
+    console.log('New rating:', newRate);
+  };
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
@@ -210,12 +217,13 @@ const EventReview2: React.FC = () => {
                 <h2 className={`${textLg}`}>お店を評価:</h2>
                 {/* event star rating */}
                 <div className='space-x-1 flex ml-auto'>
-                  {[...Array(storeFilledStars)].map((_, index) => (
+                  {/* {[...Array(storeFilledStars)].map((_, index) => (
                     <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={24} />
                   ))}
                   {[...Array(storeEmptyStars)].map((_, index) => (
                     <Star key={index + storeFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={24} />
-                  ))}
+                  ))} */}
+                  <StarRating rate={rating} onRateChange={handleRateChange} />
                 </div>
               </div>
               <textarea

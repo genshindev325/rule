@@ -53,7 +53,7 @@ const EventPayment: React.FC = () => {
 
       if (response.status === 201) {
         console.log("Participate event success.");
-        router.push("/event/registSuccess");
+        router.push("/event/findOnMap");
       } else {
         console.log(response.status);
         console.log("Participate event failed.");

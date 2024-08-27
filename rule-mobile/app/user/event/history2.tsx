@@ -2,14 +2,42 @@
 
 'use client';
 
-import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
+interface UpcomingEventProps {
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
+}
+
+interface PastEventProps {
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
+  rateEvent: number;
+  rateStore: number;
+}
+
 const EventHistory2: React.FC = () => {
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
+  const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -165,6 +193,48 @@ const EventHistory2: React.FC = () => {
     // Add more image paths here
   ];
 
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        // get upcoming events
+        const response_upcomingEvents = await fetch('http://localhost:3000/api/events/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ upcoming: 'true' }),
+        });
+        if (response_upcomingEvents.status === 200) {
+          console.log("Getting upcoming events success.");
+          const result = await response_upcomingEvents.json();
+          setUpcomingEvents(result.data);
+          console.log(result.data);
+        } else {
+          console.log(response_upcomingEvents.status);
+          console.log("Getting upcoming events failed.");
+        }
+
+        // get past events
+        const response_pastEvents = await fetch('http://localhost:3000/api/events/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ past: 'true' })
+        });
+        if (response_pastEvents.status === 200) {
+          console.log("Getting past events success.");
+          const result = await response_pastEvents.json();
+          setPastEvents(result.data);
+          console.log(result.data);
+        } else {
+          console.log(response_pastEvents.status);
+          console.log("Getting past events failed.")
+        }
+      } catch(error) {
+        console.error("An error occurred during get events:", error);
+      }
+    }
+
+    fetchEventData();
+  }, [])
+
   return (
     <IonPage>
       <IonContent>      
@@ -195,7 +265,7 @@ const EventHistory2: React.FC = () => {
               </div>
               {/* upcoming events */}
               <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-4`}>
-                {events.map((event, index) => (          
+                {upcomingEvents.map((event, index) => (          
                   <div key={index}>
                     <EventCard { ...event } />
                   </div>
@@ -205,7 +275,9 @@ const EventHistory2: React.FC = () => {
               <div className={`${tab === 'past' ? '' : 'hidden'} space-y-4`}>
                 {eventReviews.map((event, index) => (          
                   <div key={index}>
-                    <EventReviewCard { ...event } />
+                    <IonRouterLink routerLink={`/event/eventReview2?events=${event}`}>
+                      <EventReviewCard { ...event } />
+                    </IonRouterLink>
                   </div>
                 ))}
               </div>

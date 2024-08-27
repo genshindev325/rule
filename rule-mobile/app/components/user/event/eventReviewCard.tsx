@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Star from './starSVG';
-import { randomInt } from 'crypto';
+import StarRating from '@/app/components/utils/starRating';
 
 interface CardProps {
   eventName: string;
@@ -28,12 +28,14 @@ const EventReviewCard: React.FC<CardProps> = ({
   const storeFilledStars = Math.min(rateStore, 5);
   const storeEmptyStars = 5 - storeFilledStars;
 
+  const [rating, setRating] = useState(3.5);
+
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const textSm = 'text-xs sm:text-sm md:text-md';
 
   return (
-    <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6'>
+    <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6 text-gray-800'>
       <div className="flex flex-row space-x-2">
         <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
         <div className='flex flex-col space-y-1'>
@@ -77,9 +79,10 @@ const EventReviewCard: React.FC<CardProps> = ({
         <h2 className={`${textSm}`}>お店を評価:</h2>
         {/* store star rating */}
         <div className='space-x-1 flex ml-auto'>
-          {[...Array(storeFilledStars)].map((_, index) => (
+          <StarRating rate={rating} />
+          {/* {[...Array(storeFilledStars)].map((_, index) => (
             <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-          ))}
+          ))} */}
           {/* {[...Array(storeEmptyStars)].map((_, index) => (
             <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} />
           ))} */}
