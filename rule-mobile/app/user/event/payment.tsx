@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { IonRouterLink } from '@ionic/react';
 
 import RegisteredCard from '@/app/components/user/event/registeredCard';
 import FormInput from '@/app/components/user/event/formInput';
@@ -69,7 +68,7 @@ const EventPayment: React.FC = () => {
       <IonPage>
         <IonContent>
           <div className="flex items-center justify-center min-h-screen w-screen bg-white">
-            <div className="text-center text-red-500 text-xl font-bold">Invalid event data!!!</div>
+            <div className="text-center text-red-500 text-xl font-bold">Invalid event data</div>
           </div>
         </IonContent>
       </IonPage>

@@ -25,11 +25,7 @@ interface EventProps {
   femaleFee: number,
   femaleTotal: number,
   females: number,
-  store: {
-    address: string;
-    storeName: string;
-    storeImages: string;
-  };
+  store: string;
   status: string,
   createdAt: string
 }
@@ -102,7 +98,7 @@ const FindOnMap: React.FC = () => {
               </div>
             </div>
             {/* Google Map background */}
-            <GoogleMapBackground apiKey={Google_Map_API_key} events={upcomingEvents} />
+            <GoogleMapBackground apiKey={Google_Map_API_key} address='Tokyo, Japan' className='w-full' />
             {/* content */}
             <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4 z-10'>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
@@ -110,7 +106,7 @@ const FindOnMap: React.FC = () => {
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
-            <div className='bg-gray-100 h-40 mt-96 z-10 shadow'>
+            <div className='bg-white h-48 mt-96 z-10 shadow'>
               {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={upcomingEvents}/>
             </div>

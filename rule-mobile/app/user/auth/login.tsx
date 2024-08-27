@@ -91,7 +91,7 @@ const Login: React.FC = () => {
                 サインイン
               </button>
               <div className={`${textMd} text-center text-gray-400 pb-10`}>                  
-                <IonRouterLink routerLink='/auth/selectGender'>アカウントを作成する</IonRouterLink>
+                <IonRouterLink routerLink='/auth/registerEmail'>アカウントを作成する</IonRouterLink>
               </div>
             </form>
           </div>

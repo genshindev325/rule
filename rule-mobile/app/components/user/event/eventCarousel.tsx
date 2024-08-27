@@ -20,11 +20,7 @@ interface EventCardProps {
   femaleFee: number,
   femaleTotal: number,
   females: number,
-  store: {
-    address: string;
-    storeName: string;
-    storeImages: string;
-  };
+  store: string;
   status: string,
   createdAt: string
 }
@@ -43,7 +39,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   };
 
   return (
-    <div className="bg-gray-100">
+    // <div className="bg-gray-100">
       <Slider {...settings}>
         {events.map((event, index) => (
           <div key={index} className="px-4 my-6">
@@ -53,7 +49,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
           </div>
         ))}
       </Slider>
-    </div>
+    // </div>
   );
 };
 

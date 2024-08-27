@@ -1,5 +1,6 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { LoadScript } from "@react-google-maps/api";
 import { Redirect, Route } from "react-router-dom";
 import Providers from "@/app/provider";
 
@@ -42,52 +43,60 @@ import SearchResult4 from "./user/event/searchResult4";
 setupIonicReact({});
 
 const AppShell = () => {
+  const apiKey = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
+
   return (
     <Providers>
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet id="main">
-          <Route path="/event" render={() => <EventPayment />} />
-          {/* home */}
-          <Route path="/home" component={Home} />
-          {/* my page */}
-          <Route path="/profile/myPage" component={MyPage} />
-          <Route path="/profile/password" component={Password} />
-          <Route path="/profile/payment" component={Payment} />
-          <Route path="/profile/setting" component={Setting} />
-          {/* user/auth */}
-          <Route path="/auth/login" component={Login} />
-          <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
-          <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
-          <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
-          <Route path="/auth/registerBirthday" render={() => <RegisterBirthday />} exact={true} />
-          <Route path="/auth/registerEmail" render={() => <RegisterEmail />} exact={true} />
-          <Route path="/auth/registerID" render={() => <RegisterID />} exact={true} />
-          <Route path="/auth/registerName" render={() => <RegisterName />} exact={true} />
-          <Route path="/auth/registerPassword" render={() => <RegisterPassword />} exact={true} />
-          <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
-          <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
-          <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
-          {/* user/event */}
-          <Route path="/event/registSuccess" render={() => <RegistSuccess />} exact={true} />
-          <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
-          <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
-          <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
-          <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
-          <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
-          <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
-          <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
-          <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
-          <Route path="/event/eventResult3" render={() => <SearchResult3 />} exact={true} />
-          <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
-          <Route
-            path="/"
-            render={() => <Redirect to="/auth/login" />}
-            exact={true}
-          />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
+      <IonApp>
+        <LoadScript
+          googleMapsApiKey={apiKey}
+          loadingElement={<div>Loading...</div>}
+          id="google-map-script"
+        >
+          <IonReactRouter>
+            <IonRouterOutlet id="main">
+              <Route path="/event" render={() => <EventPayment />} />
+              {/* home */}
+              <Route path="/home" component={Home} />
+              {/* my page */}
+              <Route path="/profile/myPage" component={MyPage} />
+              <Route path="/profile/password" component={Password} />
+              <Route path="/profile/payment" component={Payment} />
+              <Route path="/profile/setting" component={Setting} />
+              {/* user/auth */}
+              <Route path="/auth/login" component={Login} />
+              <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
+              <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
+              <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
+              <Route path="/auth/registerBirthday" render={() => <RegisterBirthday />} exact={true} />
+              <Route path="/auth/registerEmail" render={() => <RegisterEmail />} exact={true} />
+              <Route path="/auth/registerID" render={() => <RegisterID />} exact={true} />
+              <Route path="/auth/registerName" render={() => <RegisterName />} exact={true} />
+              <Route path="/auth/registerPassword" render={() => <RegisterPassword />} exact={true} />
+              <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
+              <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
+              <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
+              {/* user/event */}
+              <Route path="/event/registSuccess" render={() => <RegistSuccess />} exact={true} />
+              <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
+              <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
+              <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
+              <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
+              <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
+              <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
+              <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
+              <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
+              <Route path="/event/eventResult3" render={() => <SearchResult3 />} exact={true} />
+              <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
+              <Route
+                path="/"
+                render={() => <Redirect to="/auth/login" />}
+                exact={true}
+              />
+            </IonRouterOutlet>
+          </IonReactRouter>
+        </LoadScript>
+      </IonApp>
     </Providers>
   );
 };

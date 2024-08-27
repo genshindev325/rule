@@ -8,18 +8,63 @@ import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const RegisterPassword: React.FC = () => {
   const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
+  const minLength = 6;
+  const maxLength = 20;
+
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
   const router = useIonRouter();
   const searchParams = useSearchParams ();
-  const gender = searchParams.get('gender');
   const email = searchParams.get('email');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/registerBirthday?gender=${gender}&email=${email}&pwd=${password}`);
+    router.push(`/auth/selectGender?email=${email}&pwd=${password}`);
+  };
+
+  const validatePassword = (newPassword: string) => {
+    if (newPassword.length < minLength) {
+      return `パスワードは${minLength}文字以上でなければなりません。`;
+    } else if (newPassword.length > maxLength) {
+      return `パスワードは${maxLength}文字を超えることはできません。`;
+    } else if (!/[A-Z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
+    } else if (!/[a-z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
+    } else if (!/[0-9]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
+    // } else if (!/[!@#$%^&*]/.test(newPassword)) {
+    //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
+    } else {
+      return '';
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+
+    if (newConfirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
   };
 
   return (
@@ -34,24 +79,24 @@ const RegisterPassword: React.FC = () => {
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="password"
-                  name='password'
+                  value={password}
+                  onChange={handlePasswordChange}
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="パスワード"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
               </div>
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="password"
-                  name='passwordConfirm'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="パスワード(確認用)"
-                  value={passwordConfirm}
-                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
                   required
                 />
+                {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               </div>
               <div className='flex justify-center'>
                 <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>

@@ -5,18 +5,22 @@
 import React, { useState } from 'react';
 import { useSearchParams  } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { useAuth } from '@/app/components/auth/authContext';
 
 const SetProfile: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
-  const [img, setImage] = useState<string>();
+  const [avatar, setAvatar] = useState<string>();
 
   const router = useIonRouter();
   const searchParams = useSearchParams ();
-  const sex = searchParams.get('sex');
-  const mail = searchParams.get('mail');
-  const pwd = searchParams.get('pwd');
-  const bth = searchParams.get('bth');
+  const { signin } = useAuth();
+  const gender = searchParams.get('sex');
+  const email = searchParams.get('email');
+  const password = searchParams.get('pwd');
+  const userID = searchParams.get('id');
+  const nickname = searchParams.get('name');
+  const birthday = searchParams.get('bth');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -27,14 +31,36 @@ const SetProfile: React.FC = () => {
         }
       };
       const url = URL.createObjectURL(file);
-      setImage(url);
+      setAvatar(url);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/registerName?sex=${sex}&mail=${mail}&pwd=${pwd}&bth=${bth}&img=${img}`);
+
+    const response = await fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gender, email, password, birthday, avatar, nickname, userID }),
+    });
+
+    if (response.status === 201) {
+      const result = await response.json();
+      const {
+        email,
+        role,
+        profile,
+        token
+      } = result.data;
+
+      signin(email, role, profile, token);
+      router.push('/event/findOnMap');
+      console.log("Registeration success.");
+    } else {
+      console.log(response.status);
+      console.log("Registeration failed.");
+    }
   };
 
   return (
@@ -63,9 +89,9 @@ const SetProfile: React.FC = () => {
                     <span className='text-md md:text-xl font-bold text-gray-400'>プロフィール画像を選ぶ</span>
                   </label>
                 </div>
-                {img && (
+                {avatar && (
                   <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
-                    <img src={`${img}`} />
+                    <img src={`${avatar}`} />
                   </div>
                 )}
               </div>

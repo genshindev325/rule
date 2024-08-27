@@ -1,72 +1,63 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
+import { GoogleMap } from '@react-google-maps/api';
 
-type EventProps = {
-  _id: string;
-  eventName: string;
-  coverImage: string;
-  store: {
-    address: string;
-    storeName: string;
-    storeImages: string;
-  };
-};
-
-type GoogleMapBackgroundProps = {
+interface GoogleMapComponentProps {
   apiKey: string;
-  events: EventProps[];
+  address: string;
+  className: string
+}
+
+const mapContainerStyle = {
+  width: '100%',
+  height: '100%'
 };
 
-const GoogleMapBackground: React.FC<GoogleMapBackgroundProps> = ({ apiKey, events }) => {
-  const mapRef = useRef<HTMLDivElement>(null);
+const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ apiKey, address, className }) => {
+  const mapRef = useRef<google.maps.Map | null>(null);
 
-  useEffect(() => {
-    if (!mapRef.current || events.length === 0) return;
+  const handleMapLoad = useCallback((map: google.maps.Map) => {
+    mapRef.current = map;
 
-    const loadGoogleMapsScript = () => {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-      document.body.appendChild(script);
+    // Center map to the address
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === 'OK' && results && results[0] && results[0].geometry.location) {
+        const location = results[0].geometry.location;
+        map.setCenter(location);
 
-      script.onload = () => {
-        if (!google || !google.maps) return;
+        // Ensure AdvancedMarkerElement is available
+        // if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+        //   new google.maps.marker.AdvancedMarkerElement({
+        //     position: location,
+        //     map,
+        //   });
+        // } else {
+        //   console.error('AdvancedMarkerElement is not available.');
+        // }
+      } else {
+        console.error('Geocode was not successful for the following reason:', status);
+      }
+    });
+  }, [address]);
 
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ address: events[0].store.address }, (results, status) => {
-          if (status === 'OK' && results && results[0]) {
-            const map = new google.maps.Map(mapRef.current!, {
-              center: results[0].geometry.location,
-              zoom: 14,
-              gestureHandling: 'greedy',
-            });
-
-            // Add markers for each event
-            events.forEach(event => {
-              geocoder.geocode({ address: event.store.address }, (results, status) => {
-                if (status === 'OK' && results && results[0]) {
-                  new google.maps.Marker({
-                    position: results[0].geometry.location,
-                    map,
-                    icon: {
-                      url: event.coverImage,
-                      scaledSize: new google.maps.Size(50, 50),
-                    }
-                  });
-                } else {
-                  console.error(`Geocode failed for address: ${event.store.address}, status: ${status}`);
-                }
-              });
-            });
-          } else {
-            console.error(`Geocode failed for address: ${events[0].store.address}, status: ${status}`);
-          }
-        });
-      };
-    };
-
-    loadGoogleMapsScript();
-  }, [apiKey, events]);
-
-  return <div ref={mapRef} className="w-full h-full" />;
+  return (
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      zoom={14}
+      onLoad={handleMapLoad}
+      options={{
+        scrollwheel: true, // Enable zooming with scroll
+        draggable: true,   // Enable dragging with mouse
+        zoomControl: false, // Hide zoom control (+ and - buttons)
+        streetViewControl: false, // Hide street view control (human icon)
+        mapTypeControl: false, // Hide map type control (e.g., satellite vs. roadmap)
+        fullscreenControl: false, // Hide fullscreen control
+      }}
+      mapContainerClassName={`absolute inset-0 ${className}`}
+    >
+      {/* Additional Markers or Components can be added here */}
+    </GoogleMap>
+  );
 };
 
-export default GoogleMapBackground;
+export default GoogleMapComponent;

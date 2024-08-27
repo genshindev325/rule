@@ -22,29 +22,25 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [age, setAge] = useState('');
   const [category, setCategory] = useState('');
-  const [store, setStore] = useState('');
-  const [food, setFood] = useState('');
-  const [genre, setGenre] = useState('');
+  const [storeGenre, setStoreGenre] = useState('');
+  const [foodGenre, setFoodGenre] = useState('');
+  const [cookingGenre, setCookingGenre] = useState('');
 
   const router = useIonRouter();
 
   const handleSubmit = async () => {
-
-    router.push(`/event/searchResult4`); // should be deleted
-
-    // will be released after adding api...
-    // const response = await fetch('http://localhost:3000/api/events/filter', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ location, date, gender, age, category, store, food, genre }),
-    // });
-    // if (response.status === 200) {
-    //   const result = await response.json();
-    //   const events = result.data;
-    //   router.push(`/event/eventResult4?events=${events}`);
-    // } else {
-    //   console.log(response.status);
-    // }
+    const response = await fetch('http://localhost:3000/api/events/filter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre }),
+    });
+    if (response.status === 200) {
+      const result = await response.json();
+      const events = result.data;
+      router.push(`/event/eventResult4?events=${JSON.stringify(events)}`);
+    } else {
+      console.log(response.status);
+    }
     onClose();
   };
 
@@ -64,16 +60,16 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
     setCategory(event.target.value);
   };
 
-  const handleStoreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStore(e.target.value);
+  const handleStoreGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStoreGenre(e.target.value);
   };
 
-  const handleFoodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFood(e.target.value);
+  const handleFoodGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFoodGenre(e.target.value);
   };
 
-  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGenre(e.target.value);
+  const handleCookingGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCookingGenre(e.target.value);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -96,7 +92,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
       <div ref={modalRef} className="bg-white px-6 py-12 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
         {/*location and date*/}
         <div className="flex mb-4 space-x-2">
@@ -104,8 +100,8 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">場所を選択</option>
-            <option value="location1">場所 1</option>
-            <option value="location2">場所 2</option>
+            <option value="location1">Tokyo, Japan</option>
+            <option value="location2">Osaka, Japan</option>
             <option value="location3">場所 3</option>
           </select>
           <select id="date" name="date" value={date} onChange={handleDateChange}
@@ -143,7 +139,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="category2">20</option>
             <option value="category3">30</option>
           </select>
-          <select id="store" name="store" value={store} onChange={handleStoreChange}
+          <select id="store" name="store" value={storeGenre} onChange={handleStoreGenreChange}
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">店舗ジャンルを選択</option>
@@ -151,7 +147,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="store2">20</option>
             <option value="store3">30</option>
           </select>
-          <select id="food" name="food" value={food} onChange={handleFoodChange}
+          <select id="food" name="food" value={foodGenre} onChange={handleFoodGenreChange}
             className="relative w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">食ジャンルを選択</option>
@@ -159,7 +155,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="food2">20</option>
             <option value="food3">30</option>
           </select>
-          <select id="genre" name="genre" value={genre} onChange={handleGenreChange}
+          <select id="genre" name="genre" value={cookingGenre} onChange={handleCookingGenreChange}
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">料理ジャンルを選択</option>

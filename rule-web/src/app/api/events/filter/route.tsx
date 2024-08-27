@@ -27,6 +27,14 @@ export async function POST(req: NextRequest) {
             });
         }
 
+        if(body.storeGenre) {
+            query.populate({
+                path: 'store',
+                match: { storeGenre: body.storeGenre },
+                select: 'storeName'
+            });
+        }
+
         if(body.limit){
             query.limit(body.limit);
         }

@@ -2,18 +2,39 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import { useSearchParams  } from 'next/navigation';
 import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
+interface EventProps {
+  _id: string,
+  eventName: string,
+  category: string,
+  coverImage: string,
+  description: string,
+  eventDate: string,
+  eventStartTime: string,
+  eventEndTime: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+  store: string;
+  status: string,
+  createdAt: string
+}
+
 const SearchResult4: React.FC = () => {
+  const [testEvents, setTestEvents] = useState<EventProps[]>([]);
+
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'absolute top-48 rounded-xl bg-white px-1 sm:px-4 md:px-8 py-6 sm:py-12 md:py-20 m-8 sm:m-8 md:m-16 flex flex-col shadow-md space-y-4';
   const searchSVG = '/svg/search.svg';
   const settingSVG = '/svg/settings.svg';
-
   const textMd = 'text-md sm:text-lg';
   const fromTop = 'pt-[900px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
   
@@ -25,6 +46,15 @@ const SearchResult4: React.FC = () => {
   // get events from findDetailModal params
   const searchParams = useSearchParams ();
   const resultEvents = searchParams.get('events'); // this will be used ...
+
+  useEffect(() => {
+    if (resultEvents) {
+      console.log(JSON.parse(resultEvents));
+      setTestEvents(JSON.parse(resultEvents));
+    }
+  }, [resultEvents]);
+
+  console.log(testEvents);
 
   const events = [
     {
@@ -120,7 +150,7 @@ const SearchResult4: React.FC = () => {
             {/* container */}
             <div className={`${container}`}>
               {/* search results */}
-              {events.map((event, index) => (
+              {testEvents.map((event, index) => (
                 <div key={index}>
                   <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
                     <EventCard {...event} />

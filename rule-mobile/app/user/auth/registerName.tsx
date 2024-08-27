@@ -13,15 +13,14 @@ const RegisterName: React.FC = () => {
   const router = useIonRouter();
   const searchParams = useSearchParams ();
   const sex = searchParams.get('sex');
-  const mail = searchParams.get('mail');
+  const email = searchParams.get('email');
   const pwd = searchParams.get('pwd');
-  const bth = searchParams.get('bth');
-  const img = searchParams.get('img');
+  const id = searchParams.get('id');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/registerID?sex=${sex}&mail=${mail}&pwd=${pwd}&bth=${bth}&img=${img}&name=${name}`);
+    router.push(`/auth/registerBirthday?sex=${sex}&email=${email}&pwd=${pwd}&id=${id}&name=${name}`);
   };
 
   return (

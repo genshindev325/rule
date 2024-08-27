@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { useSearchParams  } from 'next/navigation';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 
 const RegisterBirthday: React.FC = () => {
   const [day, setDay] = useState('');
@@ -14,16 +14,18 @@ const RegisterBirthday: React.FC = () => {
 
   const router = useIonRouter();
   const searchParams = useSearchParams ();
-  const sex = searchParams.get('gender');
-  const mail = searchParams.get('email');
+  const sex = searchParams.get('sex');
+  const email = searchParams.get('email');
   const pwd = searchParams.get('pwd');
+  const id = searchParams.get('id');
+  const name = searchParams.get('name');
   const bth = `${year}-${month}-${day}`;
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/setProfile?sex=${sex}&mail=${mail}&pwd=${pwd}&bth=${bth}`);
+    router.push(`/auth/setProfile?sex=${sex}&email=${email}&pwd=${pwd}&bth=${bth}&id=${id}&name=${name}`);
   };
 
   return (
@@ -56,9 +58,11 @@ const RegisterBirthday: React.FC = () => {
                   value={year}
                   onChange={(e) => setYear(e.target.value)}
                 />
-              </div>
+              </div>              
               <p className="text-sm md:text-md text-center font-semibold text-gray-400">
-                スキップする
+                <IonRouterLink routerLink={`/auth/setProfile?sex=${sex}&email=${email}&pwd=${pwd}&bth=''&id=${id}&name=${name}`}>
+                  スキップする
+                </IonRouterLink>
               </p>
               <div className='flex justify-center'>
                 <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>

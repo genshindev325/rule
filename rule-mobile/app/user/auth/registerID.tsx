@@ -6,48 +6,21 @@ import React, { useState } from 'react';
 import { useSearchParams  } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
-import { useAuth } from '@/app/components/auth/authContext';
-
 const RegisterID: React.FC = () => {
   const [userID, setUserID] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
   const router = useIonRouter();
-  const { signin } = useAuth();
   const searchParams = useSearchParams ();
-  const gender = searchParams.get('sex');
-  const email = searchParams.get('mail');
-  const password = searchParams.get('pwd');
-  const birthday = searchParams.get('bth');
-  const image = searchParams.get('img');
-  const nickname = searchParams.get('name');
+  const sex = searchParams.get('sex');
+  const email = searchParams.get('email');
+  const pwd = searchParams.get('pwd');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
 
-    const response = await fetch('http://localhost:3000/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ gender, email, password, birthday, image, nickname, userID }),
-    });
-
-    if (response.status === 201) {
-      const result = await response.json();
-      const {
-        email,
-        role,
-        profile,
-        token
-      } = result.data;
-
-      signin(email, role, profile, token);
-      router.push('/event/findOnMap');
-      console.log("Registeration success.");
-    } else {
-      console.log(response.status);
-      console.log("Registeration failed.");
-    }
+    router.push(`/auth/registerName?email=${email}&pwd=${pwd}&sex=${sex}&id=${userID}`);
   };
 
   return (

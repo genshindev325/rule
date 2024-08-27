@@ -3,18 +3,23 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const SelectGender: React.FC = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
+
   const router = useIonRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email');
+  const pwd = searchParams.get('pwd');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/registerEmail?gender=${gender}`);
+    router.push(`/auth/registerID?sex=${gender}&email=${email}&pwd=${pwd}`);
   };
 
   return (

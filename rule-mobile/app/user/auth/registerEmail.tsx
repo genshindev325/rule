@@ -3,22 +3,48 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSearchParams  } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const RegisterEmail: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [emailConfirm, setEmailConfirm] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
   const router = useIonRouter();
-  const searchParams = useSearchParams ();
-  const gender = searchParams.get('gender');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/registerPassword?gender=${gender}&email=${email}`)
+    router.push(`/auth/registerPassword?email=${email}`)
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    if (!validateEmail(newEmail)) {
+      setEmailError('有効なメールアドレスを入力してください。');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleConfirmEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmEmail = e.target.value;
+    setConfirmEmail(newConfirmEmail);
+
+    if (newConfirmEmail !== email) {
+      setConfirmError('メールアドレスが一致しません。');
+    } else {
+      setConfirmError('');
+    }
   };
 
   return (
@@ -33,24 +59,24 @@ const RegisterEmail: React.FC = () => {
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="text"
-                  name='email'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="メールアドレス"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
                   required
                 />
+                {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
               </div>
               <div className="mb-4 text-md md:text-xl font-bold">
                 <input
                   type="text"
-                  name='emailConfirm'
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
                   placeholder="メールアドレス(確認用)"
-                  value={emailConfirm}
-                  onChange={(e) => setEmailConfirm(e.target.value)}
+                  value={confirmEmail}
+                  onChange={handleConfirmEmailChange}
                   required
                 />
+                {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               </div>
               <div className='flex justify-center'>
                 <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
