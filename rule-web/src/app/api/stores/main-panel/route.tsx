@@ -5,9 +5,6 @@ import Store from '@/models/storeModel';
 
 export async function GET(req: NextRequest) {
     //await dbConnect();
-    
-    const body = await req.json();
-    const { email } = body;
 
     try {
         // Process a GET request
@@ -25,7 +22,7 @@ export async function GET(req: NextRequest) {
             unreachedCases: unreachedCases,
             reviews: reviews,
             reviewResponseRate: reviewResponseRate
-            }, { status: 201 });
+            }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ success: false, error }, { status: 500 });
     }

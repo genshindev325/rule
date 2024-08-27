@@ -5,10 +5,6 @@ import Store from '@/models/storeModel';
 
 export async function GET(req: NextRequest) {
     //await dbConnect();
-    
-    const body = await req.json();
-    const { email } = body;
-
     try {
         const recentReviews = [
             {
@@ -37,7 +33,7 @@ export async function GET(req: NextRequest) {
         
         return NextResponse.json({
             recentReviews: recentReviews
-            }, { status: 201 });
+            }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ success: false, error }, { status: 500 });
     }
