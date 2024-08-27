@@ -57,7 +57,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch mainPanel Data
-        const response_mainPanel = await fetch('/api/store/dashboard/mainPanel');
+        const response_mainPanel = await fetch('/api/stores/main-panel');
         if (response_mainPanel.ok) {
           const result_mainPanel = await response_mainPanel.json();
           setMainPanelData(result_mainPanel);
@@ -66,7 +66,7 @@ const Dashboard = () => {
         }
 
         // Fetch recentReviews Data
-        const response_recentReviews = await fetch('/api/store/dashboard/recentReviews');
+        const response_recentReviews = await fetch('/api/stores/recent-reviews');
         if (response_recentReviews.ok) {
           const result_recentReviews = await response_recentReviews.json();
           setRecentReviews(result_recentReviews.recentReviews);
