@@ -30,8 +30,8 @@ interface PastEventProps {
   femaleFee: number;
   femaleTotal: number;
   females: number;
-  rateEvent: number;
-  rateStore: number;
+  rating: number;
+  store: string;
 }
 
 const EventHistory2: React.FC = () => {
@@ -53,6 +53,8 @@ const EventHistory2: React.FC = () => {
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
   const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
+  const upcoming = true;
+  const past = true;
 
   const events = [
     {
@@ -200,7 +202,7 @@ const EventHistory2: React.FC = () => {
         const response_upcomingEvents = await fetch('http://localhost:3000/api/events/filter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ upcoming: 'true' }),
+          body: JSON.stringify({ upcoming }),
         });
         if (response_upcomingEvents.status === 200) {
           console.log("Getting upcoming events success.");
@@ -216,7 +218,7 @@ const EventHistory2: React.FC = () => {
         const response_pastEvents = await fetch('http://localhost:3000/api/events/filter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ past: 'true' })
+          body: JSON.stringify({ past })
         });
         if (response_pastEvents.status === 200) {
           console.log("Getting past events success.");
@@ -273,7 +275,7 @@ const EventHistory2: React.FC = () => {
               </div>
               {/* past events */}
               <div className={`${tab === 'past' ? '' : 'hidden'} space-y-4`}>
-                {eventReviews.map((event, index) => (          
+                {pastEvents.map((event, index) => (          
                   <div key={index}>
                     <IonRouterLink routerLink={`/event/eventReview2?events=${event}`}>
                       <EventReviewCard { ...event } />

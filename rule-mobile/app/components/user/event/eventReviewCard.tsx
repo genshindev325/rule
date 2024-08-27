@@ -14,21 +14,24 @@ interface CardProps {
   femaleFee: number;
   femaleTotal: number;
   females: number;
-  rateEvent: number;
-  rateStore: number;
+  rating: number;
+  store: string;
 }
 
 const EventReviewCard: React.FC<CardProps> = ({
-  eventName, eventDate, coverImage, maleFee, femaleFee, maleTotal, femaleTotal, males, females, rateEvent, rateStore
+  eventName, eventDate, coverImage, maleFee, femaleFee, maleTotal, femaleTotal, males, females, rating, store
 }) => {
   const maleRate = males/maleTotal;
   const femaleRate = females/femaleTotal;
-  const eventFilledStars = Math.min(rateEvent, 5);
+  const eventFilledStars = Math.min(rating, 5);
   const eventEmptyStars = 5 - eventFilledStars;
-  const storeFilledStars = Math.min(rateStore, 5);
-  const storeEmptyStars = 5 - storeFilledStars;
+  if(store) {
+    console.log(store)
+    // const storeFilledStars = Math.min(JSON.parse(store).rating, 5);
+    // const storeEmptyStars = 5 - storeFilledStars;
+  }
 
-  const [rating, setRating] = useState(3.5);
+  const [eventRating, setRating] = useState(rating);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
@@ -79,7 +82,7 @@ const EventReviewCard: React.FC<CardProps> = ({
         <h2 className={`${textSm}`}>お店を評価:</h2>
         {/* store star rating */}
         <div className='space-x-1 flex ml-auto'>
-          <StarRating rate={rating} />
+          <StarRating rate={eventRating} />
           {/* {[...Array(storeFilledStars)].map((_, index) => (
             <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
           ))} */}

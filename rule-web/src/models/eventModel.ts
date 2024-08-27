@@ -14,8 +14,8 @@ interface IEvent extends Document {
     femaleTotal: number;
     females: number;
     femaleFee: number;
-    rateEvent: number;
-    rateStore: number;
+    rating: number;
+    ratingCount: number;
 
     store: mongoose.ObjectId;
     status: string;
@@ -27,7 +27,6 @@ const eventSchema = new Schema<IEvent>({
     eventName: { type: String, required: true },
     category: { type: String, required: true },
     coverImage: { type: String },
-    // coverImage: { type: String, default: "http://localhost:3000/uploads/event-placeholder.png" },
     description: { type: String },
     eventDate: { type: Date },
     eventStartTime: { type: Date, },
@@ -38,8 +37,8 @@ const eventSchema = new Schema<IEvent>({
     femaleTotal: { type: Number, required: true },
     females: { type: Number, default: 0 },
     femaleFee: { type: Number, required: true },
-    rateEvent: { type: Number, default: 1 },
-    rateStore: { tyep: Number, default: 1 },
+    rating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
     status: {
         type: String,

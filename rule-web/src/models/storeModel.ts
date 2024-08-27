@@ -46,7 +46,7 @@ const storeSchema = new Schema<IStore>({
     description: { type: String },
     monthlyRate: { type: Number, default: 5000 },
 
-    rating: { type: Number },
+    rating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
     status: {
         type: String,
