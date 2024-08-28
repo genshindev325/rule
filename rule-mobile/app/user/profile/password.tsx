@@ -5,12 +5,60 @@
 import React, { useState } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import PasswordInput from '@/app/components/utils/passwordInput';
 
 const ProfilePassword: React.FC = () => {
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
+  const minLength = 6;
+  const maxLength = 20;
+
+  const validatePassword = (newPassword: string) => {
+    if (newPassword.length < minLength) {
+      return `パスワードは${minLength}文字以上でなければなりません。`;
+    } else if (newPassword.length > maxLength) {
+      return `パスワードは${maxLength}文字を超えることはできません。`;
+    } else if (!/[A-Z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
+    } else if (!/[a-z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
+    } else if (!/[0-9]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
+    // } else if (!/[!@#$%^&*]/.test(newPassword)) {
+    //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
+    } else {
+      return '';
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setNewPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+
+    if (newConfirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md';
-
   const textLg = 'text-center text-xl sm:text-3xl md:text-3xl font-bold';
   const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
 
@@ -34,27 +82,20 @@ const ProfilePassword: React.FC = () => {
               {/* current password */}
               <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>現在のパスワード</h2>
-                <div className='flex flex-row items-center'>
-                  <h2 className={`${textMd} text-gray-400`}>***************</h2>
-                  <img src='/svg/eye-closed.svg' className='ml-auto w-7 h-7' />
-                </div>
+                <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               {/* new password */}
               <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>新規パスワード</h2>
-                <div className='flex flex-row items-center'>
-                  <h2 className={`${textMd} text-gray-400`}>***************</h2>
-                  <img src='/svg/eye-closed.svg' className='ml-auto w-7 h-7' />
-                </div>
+                <PasswordInput value={newPassword} onChange={handlePasswordChange} />
               </div>
+              {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
               {/* confirm new password */}
               <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>新規パスワード確認</h2>
-                <div className='flex flex-row items-center'>
-                  <h2 className={`${textMd} text-gray-400`}>***************</h2>
-                  <img src='/svg/eye-open.svg' className='ml-auto w-10 h-10' />
-                </div>
+                <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
               </div>
+              {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
             </form>
             {/* buttons */}
             <div className='w-5/6 flex flex-col space-y-4 py-6'>
