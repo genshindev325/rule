@@ -50,7 +50,7 @@ const FindOnMap: React.FC = () => {
         const response = await fetch('http://localhost:3000/api/events/filter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ limit: 6 })
+          body: JSON.stringify({ upcoming: true, limit: 6 })
         });
         if (response.status === 200) {
           const result = await response.json();

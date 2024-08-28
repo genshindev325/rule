@@ -1,6 +1,6 @@
 // components/event/eventReviewCard.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Star from './starSVG';
 import StarRating from '@/app/components/utils/starRating';
 
@@ -15,7 +15,10 @@ interface CardProps {
   femaleTotal: number;
   females: number;
   rating: number;
-  store: string;
+  store: {
+    rating: number;
+    _id: string;
+  };
 }
 
 const EventReviewCard: React.FC<CardProps> = ({
@@ -23,15 +26,11 @@ const EventReviewCard: React.FC<CardProps> = ({
 }) => {
   const maleRate = males/maleTotal;
   const femaleRate = females/femaleTotal;
-  const eventFilledStars = Math.min(rating, 5);
+  const eventFilledStars = Math.min(rating, 5);  
   const eventEmptyStars = 5 - eventFilledStars;
-  if(store) {
-    console.log(store)
-    // const storeFilledStars = Math.min(JSON.parse(store).rating, 5);
-    // const storeEmptyStars = 5 - storeFilledStars;
-  }
 
   const [eventRating, setRating] = useState(rating);
+  const [storeRating, setStoreRating] = useState(store.rating);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
@@ -70,9 +69,10 @@ const EventReviewCard: React.FC<CardProps> = ({
         <h2 className={`${textSm}`}>イベントを評価:</h2>
         {/* event star rating */}
         <div className='space-x-1 flex ml-auto'>
-          {[...Array(eventFilledStars)].map((_, index) => (
+          <StarRating rate={eventRating} />
+          {/* {[...Array(eventFilledStars)].map((_, index) => (
             <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-          ))}
+          ))} */}
           {/* {[...Array(eventEmptyStars)].map((_, index) => (
             <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
           ))} */}
@@ -82,7 +82,7 @@ const EventReviewCard: React.FC<CardProps> = ({
         <h2 className={`${textSm}`}>お店を評価:</h2>
         {/* store star rating */}
         <div className='space-x-1 flex ml-auto'>
-          <StarRating rate={eventRating} />
+          <StarRating rate={storeRating} />
           {/* {[...Array(storeFilledStars)].map((_, index) => (
             <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
           ))} */}
