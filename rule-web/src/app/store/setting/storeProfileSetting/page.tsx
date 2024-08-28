@@ -35,7 +35,6 @@ const StoreProfileSettings = () => {
 
   useEffect(() => {
     if (profile) {
-      console.log(profile)
       setStoreID(profile._id);
     }
   }, [profile])

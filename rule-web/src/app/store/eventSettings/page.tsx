@@ -82,6 +82,7 @@ const EventSettings = () => {
 
     if (response.status === 201) {
       router.push('/store/dashboard');
+      sessionStorage.setItem('selectedMenu', 'dashboard');
       console.log("Create event success.");
     } else {
       console.log(response.status);
