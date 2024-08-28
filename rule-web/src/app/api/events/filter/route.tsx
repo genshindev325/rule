@@ -37,7 +37,23 @@ export async function POST(req: NextRequest) {
             query.populate({
                 path: 'store',
                 match: { storeGenre: body.storeGenre },
-                select: 'storeName storeGenre address'
+                select: 'storeName'
+            });
+        }
+
+        if(body.foodGenre) {
+            query.populate({
+                path: 'store',
+                match: { foodGenre: body.foodGenre },
+                select: 'storeName'
+            });
+        }
+
+        if(body.cookingGenre) {
+            query.populate({
+                path: 'store',
+                match: { cookingGenre: body.cookingGenre },
+                select: 'storeName'
             });
         }
 
