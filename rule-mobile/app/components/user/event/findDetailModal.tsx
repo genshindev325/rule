@@ -5,6 +5,34 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useIonRouter } from '@ionic/react';
 
+interface EventProps {
+  _id: string,
+  eventName: string,
+  category: string,
+  coverImage: string,
+  description: string,
+  eventDate: string,
+  eventStartTime: string,
+  eventEndTime: string,
+  maleFee: number,
+  maleTotal: number,
+  males: number,
+  femaleFee: number,
+  femaleTotal: number,
+  females: number,
+  store: {
+    address: string;
+    storeGenre: string;
+    foodGenre: string;
+    cookingGenre: string;
+    storeName: string;
+  };
+  status: string;
+  createdAt: string;
+  rating: number;
+  ratingCount: number;
+}
+
 interface ReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,7 +53,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   const [storeGenre, setStoreGenre] = useState('');
   const [foodGenre, setFoodGenre] = useState('');
   const [cookingGenre, setCookingGenre] = useState('');
-
+ 
   const router = useIonRouter();
 
   const handleSubmit = async () => {
@@ -36,8 +64,9 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
     });
     if (response.status === 200) {
       const result = await response.json();
-      const events = result.data;
-      router.push(`/event/eventResult4?events=${JSON.stringify(events)}`);
+      const result_events: EventProps[] = result.data;
+      const filterEvents = result_events.filter(event => event && event.store !== null);
+      router.push(`/event/eventResult4?events=${JSON.stringify(filterEvents)}`);
     } else {
       console.log(response.status);
     }
@@ -143,7 +172,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">店舗ジャンルを選択</option>
-            <option value="store1">10</option>
+            <option value="wedding, drinking, party">10</option>
             <option value="store2">20</option>
             <option value="store3">30</option>
           </select>
@@ -155,7 +184,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="food2">20</option>
             <option value="food3">30</option>
           </select>
-          <select id="genre" name="genre" value={cookingGenre} onChange={handleCookingGenreChange}
+          <select id="cooking" name="cooking" value={cookingGenre} onChange={handleCookingGenreChange}
             className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">料理ジャンルを選択</option>

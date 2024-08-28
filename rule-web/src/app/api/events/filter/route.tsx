@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
         }
 
         if(body.location) {
-            console.log(body.location);
             query.populate({
                 path: 'store',
                 options: { address: body.location },
@@ -38,7 +37,7 @@ export async function POST(req: NextRequest) {
             query.populate({
                 path: 'store',
                 match: { storeGenre: body.storeGenre },
-                select: 'storeName'
+                select: 'storeName storeGenre address'
             });
         }
 
