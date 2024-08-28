@@ -12,11 +12,14 @@ interface ReviewModalProps {
 }
 
 interface RecentReview {
-  user: string,
-  date: string,
-  content: string,
+  createdAt: string,
+  createdBy: {
+    email: string;
+    nickname: string;
+  },
+  storeReviewText: string,
   conclusion: string,
-  rating: number,
+  storeRating: number,
 }
 
 const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) => {
@@ -51,16 +54,16 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) =
               <div className="flex items-center mb-2">
                 <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
                 <div className="ml-2">
-                  <div className="font-semibold">{review.user}</div>
+                  <div className="font-semibold">{review.createdBy.email}</div>
                 </div>
               </div>
               <div className="flex items-center mb-2">
-                {Array.from({ length: review.rating }).map((_, i) => (
+                {Array.from({ length: review.storeRating }).map((_, i) => (
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
-                <div className="text-sm text-gray-500 ml-4">{review.date}</div>
+                <div className="text-sm text-gray-500 ml-4">{review.createdAt}</div>
               </div>
-              <p>{review.content}</p>
+              <p>{review.storeReviewText}</p>
               <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
               <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">返事する</div>
             </li>

@@ -22,11 +22,14 @@ interface UpcomingEvent {
 };
 
 interface RecentReview {
-  user: string,
-  date: string,
-  content: string,
+  createdAt: string,
+  createdBy: {
+    email: string;
+    nickname: string;
+  },
+  storeReviewText: string,
   conclusion: string,
-  rating: number,
+  storeRating: number,
 };
 
 interface MainPanelProps {
@@ -66,10 +69,14 @@ const Dashboard = () => {
         }
 
         // Fetch recentReviews Data
-        const response_recentReviews = await fetch('/api/stores/recent-reviews');
+        const response_recentReviews = await fetch('/api/reviews/store/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ storeId: profile?._id })
+        });
         if (response_recentReviews.ok) {
           const result_recentReviews = await response_recentReviews.json();
-          setRecentReviews(result_recentReviews.recentReviews);
+          setRecentReviews(result_recentReviews.data);
         } else {
           console.error('Failed to fetch recentReviews data');
         }
