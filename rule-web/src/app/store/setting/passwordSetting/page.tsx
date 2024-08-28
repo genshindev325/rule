@@ -2,37 +2,85 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 
 const PasswordSetting = () => {
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
+  const minLength = 6;
+  const maxLength = 20;
+
   const router = useRouter();
 
-  const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add Password setting logic here
-    const formData = new FormData(e.currentTarget);
-    const currentPassword = formData.get('currentPassword');
-    const newPassword = formData.get('newPassword');
-    const newPasswordConfirm = formData.get('newPasswordConfirm');
-
-    const response = await fetch('/api/store/setting/storeProfileSetting', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ currentPassword, newPassword, newPasswordConfirm }),
-    });
-
-    if (response.status === 200) {
-      router.push('/store/setting');
-      console.log("Password setting success.")
+    if (confirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+      const response = await fetch('/api/......', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, password, confirmPassword }),
+      });
+      if (response.status === 200) {
+        router.push('/store/setting');
+        console.log("Password setting success.")
+      } else {
+        console.log(response.status);
+        console.log("Failed.");
+      }
     } else {
-      console.log(response.status);
-      console.log("Failed.");
+      setConfirmError('');
     }
-  })
+  };
+
+  const validatePassword = (newPassword: string) => {
+    if (newPassword.length < minLength) {
+      return `パスワードは${minLength}文字以上でなければなりません。`;
+    } else if (newPassword.length > maxLength) {
+      return `パスワードは${maxLength}文字を超えることはできません。`;
+    } else if (!/[A-Z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
+    } else if (!/[a-z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
+    } else if (!/[0-9]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
+    // } else if (!/[!@#$%^&*]/.test(newPassword)) {
+    //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
+    } else {
+      return '';
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+
+    if (newConfirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -50,7 +98,8 @@ const PasswordSetting = () => {
                 <div className="mb-4">
                   <input
                     type="password"
-                    name='currentPassword'
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="現在のパスワード"
                     required
@@ -60,21 +109,25 @@ const PasswordSetting = () => {
                 <div className="mb-4">
                   <input
                     type="password"
-                    name='newPassword'
+                    value={password}
+                    onChange={handlePasswordChange}
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="新しいパスワード"
                     required
                   />
+                  {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
                 </div>
                 <h3 className='text-gray-600 py-2'>新しいパスワードを (再入力)</h3>
                 <div className="mb-4">
                   <input
                     type="password"
-                    name='newPasswordConfirm'
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="新しいパスワードを (再入力)"
                     required
                   />
+                  {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
                 </div>
                 {/* buttons */}
                 <div className='flex flex-row justify-end gap-4 pt-12'>
