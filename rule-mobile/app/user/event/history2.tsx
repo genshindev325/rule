@@ -31,7 +31,16 @@ interface PastEventProps {
   femaleTotal: number;
   females: number;
   rating: number;
-  store: string;
+  store: {
+    _id: string;
+    rating: number;
+    address: string;
+    access1: string;
+    access2: string;
+    description: string;
+    storeImages: string;
+    storeName: string;
+  };
 }
 
 const EventHistory2: React.FC = () => {
@@ -275,9 +284,9 @@ const EventHistory2: React.FC = () => {
               </div>
               {/* past events */}
               <div className={`${tab === 'past' ? '' : 'hidden'} space-y-4`}>
-                {pastEvents.map((event, index) => (          
+                {pastEvents.map((event, index) => (
                   <div key={index}>
-                    <IonRouterLink routerLink={`/event/eventReview2?events=${event}`}>
+                    <IonRouterLink routerLink={`/event/eventReview2?event=${encodeURIComponent(JSON.stringify(event))}`}>
                       <EventReviewCard { ...event } />
                     </IonRouterLink>
                   </div>

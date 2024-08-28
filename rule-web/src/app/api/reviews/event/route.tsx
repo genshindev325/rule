@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import dbConnect from '@/lib/mongoose';
-import Review from '@/models/reviewModel';
+import Review from '@/models/reviewEventModel';
 
 export async function GET(req: NextRequest) {
     await dbConnect();

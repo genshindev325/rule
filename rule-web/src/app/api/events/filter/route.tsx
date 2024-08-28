@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             query.where("eventDate").lt(Date());
             query.populate({
                 path: 'store',
-                select: 'rating'
+                select: 'rating address access1 access2 description storeImages storeName'
             })
         }
         
@@ -26,10 +26,11 @@ export async function POST(req: NextRequest) {
         }
 
         if(body.location) {
+            console.log(body.location);
             query.populate({
                 path: 'store',
-                match: { address: body.location },
-                select: 'address'
+                options: { address: body.location },
+                select: 'storeName'
             });
         }
 

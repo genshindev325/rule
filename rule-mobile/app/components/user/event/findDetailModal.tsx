@@ -32,7 +32,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
     const response = await fetch('http://localhost:3000/api/events/filter', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre }),
+      body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre, upcoming: true }),
     });
     if (response.status === 200) {
       const result = await response.json();
@@ -100,9 +100,9 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">場所を選択</option>
-            <option value="location1">Tokyo, Japan</option>
-            <option value="location2">Osaka, Japan</option>
-            <option value="location3">場所 3</option>
+            <option value="Tokyo, Japan">Tokyo, Japan</option>
+            <option value="Osaka, Japan">Osaka, Japan</option>
+            <option value="場所 3">場所 3</option>
           </select>
           <select id="date" name="date" value={date} onChange={handleDateChange}
             className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
