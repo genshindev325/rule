@@ -3,17 +3,71 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const PasswordReset: React.FC = () => {
   const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
+  const minLength = 6;
+  const maxLength = 20;
+
+  const router = useIonRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(password);
+
+    if (confirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+      router.push(`/auth/passwordResetSend?pwd=${password}&pwdC=${confirmPassword}`);
+    }
   };
+
+  const validatePassword = (newPassword: string) => {
+    if (newPassword.length < minLength) {
+      return `パスワードは${minLength}文字以上でなければなりません。`;
+    } else if (newPassword.length > maxLength) {
+      return `パスワードは${maxLength}文字を超えることはできません。`;
+    } else if (!/[A-Z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
+    } else if (!/[a-z]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
+    } else if (!/[0-9]/.test(newPassword)) {
+      return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
+    // } else if (!/[!@#$%^&*]/.test(newPassword)) {
+    //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
+    } else {
+      return '';
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+
+    if (newConfirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+    }
+  };
+  
 
   return (
     <IonPage>
@@ -26,30 +80,30 @@ const PasswordReset: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
-                  type="text"
+                  type="password"
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
                   placeholder="パスワード"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                 />
+                {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
               </div>
               <div className="mb-4">
                 <input
-                  type="text"
+                  type="password"
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
                   placeholder="パスワード(確認用)"
-                  value={passwordConfirm}
-                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
                 />
+                {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               </div>
-              <IonRouterLink routerLink='/auth/passwordResetSend'>
-                <button
-                  type="submit"
-                  className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
-                >
-                  再設定する
-                </button>
-              </IonRouterLink>
+              <button
+                type="submit"
+                className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"
+              >
+                再設定する
+              </button>
             </form>
           </div>
           </div>

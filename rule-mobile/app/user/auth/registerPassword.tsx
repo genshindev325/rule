@@ -23,7 +23,12 @@ const RegisterPassword: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push(`/auth/selectGender?email=${email}&pwd=${password}`);
+    if (confirmPassword !== password) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+      router.push(`/auth/selectGender?email=${email}&pwd=${password}`);
+    }
   };
 
   const validatePassword = (newPassword: string) => {

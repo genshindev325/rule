@@ -3,15 +3,22 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { useSearchParams  } from 'next/navigation';
 
 const PasswordResetSend: React.FC = () => {
   const [emailOrPhone, setEmailOrPhone] = useState('');
+  
+  const router = useIonRouter();
+  const searchParams = useSearchParams ();
+  
+  const password = searchParams.get('pwd');
+  const passwordConfirm = searchParams.get('pwdC');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    console.log(emailOrPhone);
+    router.push('/auth/login');
   };
 
   return (
