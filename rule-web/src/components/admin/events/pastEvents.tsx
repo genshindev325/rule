@@ -4,9 +4,11 @@
 
 import React from 'react';
 
+import { formatDateTime } from '@/utils/datetime';
+
 interface PastEvent {
-  eventName: string,
-  date: string,
+  eventName: string | "---",
+  eventDate: string | "---",
   maleTotal: number,
   males: number,
   femaleTotal: number,
@@ -35,7 +37,7 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
           {pastEvents.map((event, index) => (
             <tr key={index}>
               <td>{event.eventName}</td>
-              <td>{event.date}</td>
+              <td>{formatDateTime(event.eventDate)}</td>
               <td>{event.males}/{event.maleTotal}</td>
               <td>{event.females}/{event.femaleTotal}</td>
               <td>{event.earnings} (yen)</td>

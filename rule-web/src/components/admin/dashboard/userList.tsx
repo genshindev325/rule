@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
+import { formatDateTime } from '@/utils/datetime';
 
 interface User {
   _id: string,
@@ -89,17 +90,6 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
       setCurrentPage(1); // Reset to first page
     }
   };
-
-  const formatDateTime = ( dt: string ) => {
-    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    const curDateTime = new Date(dt);
-    const y = curDateTime.getFullYear();
-    const m = months[curDateTime.getMonth()];
-    const d = curDateTime.getDate();
-    const mm = curDateTime.getMinutes();
-    const hh = curDateTime.getHours();
-    return `${m} ${d}, ${y} ${hh}:${mm}`;
-  }
 
   return (
     <div className="p-0">

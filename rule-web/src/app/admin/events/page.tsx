@@ -10,9 +10,9 @@ import UpcomingEvents from '@/components/admin/events/upcomingEvents';
 import PastEvents from '@/components/admin/events/pastEvents';
 
 interface UpcomingEvent {
-  id: number,
-  eventName: string,
-  date: string,
+  _id: number,
+  eventName: string | "---",
+  eventDate: string | "---",
   maleTotal: number,
   males: number,
   femaleTotal: number,
@@ -21,7 +21,7 @@ interface UpcomingEvent {
 
 interface PastEvent {
   eventName: string,
-  date: string,
+  eventDate: string | "---",
   maleTotal: number,
   males: number,
   femaleTotal: number,
@@ -37,22 +37,32 @@ const Events = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch recentReviews Data
-        const response_recentReviews = await fetch('/api/admin/events/pastEvents');
-        if (response_recentReviews.ok) {
-          const result_recentReviews = await response_recentReviews.json();
-          setPastEvents(result_recentReviews.pastEvents);
+        // get upcoming events
+        const response_upcomingEvents = await fetch('http://localhost:3000/api/events/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ upcoming: true }),
+        });
+        if (response_upcomingEvents.status === 200) {
+          const result = await response_upcomingEvents.json();
+          setUpcomingEvents(result.data);
         } else {
-          console.error('Failed to fetch recentReviews data');
+          console.log(response_upcomingEvents.status);
+          console.log("Getting upcoming events failed.");
         }
 
-        // Fetch upcomingEvents Data
-        const response_upcomingEvents = await fetch('/api/admin/events/upcomingEvents');
-        if (response_upcomingEvents.ok) {
-          const result_upcomingEvents = await response_upcomingEvents.json();
-          setUpcomingEvents(result_upcomingEvents.upcomingEvents);
+        // get past events
+        const response_pastEvents = await fetch('http://localhost:3000/api/events/filter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ past: true })
+        });
+        if (response_pastEvents.status === 200) {
+          const result = await response_pastEvents.json();
+          setPastEvents(result.data);
         } else {
-          console.error('Failed to fetch upcomingEvents data');
+          console.log(response_pastEvents.status);
+          console.log("Getting past events failed.")
         }
       } catch (error) {
         console.error('Error:', error);
