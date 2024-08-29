@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             query.where("eventDate").lt(Date());
             query.populate({
                 path: 'store',
-                select: 'rating address access1 access2 description storeImage storeName'
+                select: 'rating address access1 access2 description storeImages storeName'
             })
         }
         

@@ -11,8 +11,9 @@ export interface IUser extends Document {
   avatar: string;
   status: string;
   createdAt: Date;
-  // resetPasswordToken?: string;
-  // resetPasswordExpires?: Date;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
+  phoneNumber: string;
 
   comparePassword: (password: string) => Promise<boolean>;
 }
@@ -20,26 +21,16 @@ export interface IUser extends Document {
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-
   userID: { type: String, default: "1111-2222-3333-44444" },
   nickname: { type: String },
-  gender: {
-    type: String,
-    enum: ["male", "female"],
-  },
+  gender: { type: String, enum: ["male", "female"], },
   birthday: { type: Date },
   avatar: { type: String },
-
-  status: {
-    type: String,
-    enum: ["active", "inactive", "blocked"],
-    default: "active"
-  },
-
-  // resetPasswordToken: { type: String },
-  // resetPasswordExpires: { type: Date },
-
+  status: { type: String, enum: ["active", "inactive", "blocked"], default: "active" },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
   createdAt: { type: Date, default: () => new Date() },
+  phoneNumber: { type: String },
 });
 
 // Hash password before saving if modified

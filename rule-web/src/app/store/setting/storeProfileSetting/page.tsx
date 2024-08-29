@@ -13,19 +13,19 @@ import Navbar from '@/components/store/navbar';
 const StoreProfileSettings = () => {
   const router = useRouter();
   const [storeID, setStoreID] = useState('');
-  const [storeImage, setStoreImage] = useState<string>();
+  const [storeImages, setStoreImages] = useState<string>();
   const { profile } = useSelector((state: RootState) => state.auth);
   
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      setStoreImage(url);
+      setStoreImages(url);
     }
   };
 
   const handleDeleteImage = () => {
-    setStoreImage('');
+    setStoreImages('');
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const StoreProfileSettings = () => {
         address,
         access1,
         access2,
-        storeImage,
+        storeImages,
         description
       }),
     });
@@ -158,9 +158,9 @@ const StoreProfileSettings = () => {
                     id="file-input"
                   />
                   <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
-                  {storeImage && (
+                  {storeImages && (
                     <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
-                      <img src={`${storeImage}`} onClick={handleDeleteImage} />
+                      <img src={`${storeImages}`} onClick={handleDeleteImage} />
                     </div>
                   )}
                 </div>

@@ -38,7 +38,7 @@ interface PastEventProps {
     access1: string;
     access2: string;
     description: string;
-    storeImage: string;
+    storeImages: string;
     storeName: string;
   };
 }
@@ -75,10 +75,8 @@ const EventHistory2: React.FC = () => {
           body: JSON.stringify({ upcoming }),
         });
         if (response_upcomingEvents.status === 200) {
-          console.log("Getting upcoming events success.");
           const result = await response_upcomingEvents.json();
           setUpcomingEvents(result.data);
-          console.log(result.data);
         } else {
           console.log(response_upcomingEvents.status);
           console.log("Getting upcoming events failed.");
@@ -91,10 +89,10 @@ const EventHistory2: React.FC = () => {
           body: JSON.stringify({ past })
         });
         if (response_pastEvents.status === 200) {
-          console.log("Getting past events success.");
           const result = await response_pastEvents.json();
-          setPastEvents(result.data);
-          console.log(result.data);
+          const result_events: PastEventProps[] = result.data;
+          const filterEvents = result_events.filter(event => event && event.store !== null);
+          setPastEvents(filterEvents);
         } else {
           console.log(response_pastEvents.status);
           console.log("Getting past events failed.")

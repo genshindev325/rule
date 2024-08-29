@@ -37,7 +37,7 @@ interface EventProps {
     access1: string;
     access2: string;
     description: string;
-    storeImage: string;
+    storeImages: string;
     storeName: string;
   };
   status: string,

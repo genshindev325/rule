@@ -2,18 +2,27 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { useSearchParams } from 'next/navigation';
 
 const PasswordReset: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
   const minLength = 6;
   const maxLength = 20;
 
   const router = useIonRouter();
+
+  useEffect(() => {
+    if (!token) {
+      setConfirmError('無効なリンクです。');
+    }
+  }, [token]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +34,7 @@ const PasswordReset: React.FC = () => {
     } else {
       setConfirmError('');
       // reset password logic ...
-      
+
     }
   };
 

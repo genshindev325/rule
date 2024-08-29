@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 import dbConnect from '@/lib/mongoose';
 import User from '@/models/userModel';
 
@@ -11,12 +12,15 @@ export async function POST(req: NextRequest) {
   const { email } = body;
 
   try {
-    const existingUser = await User.findOne({ email });
-    console.log("11")
-    if (!existingUser) {
+    const user = await User.findOne({ email });
+    if (!user) {
         return NextResponse.json({ success: false, message: 'ユーザーが見つかりません。' }, { status: 400 });
     }
-    console.log("000")
+
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
+    await user.save();
 
     // Send email (this is a simplified example)
     const transporter = nodemailer.createTransport({
@@ -26,9 +30,8 @@ export async function POST(req: NextRequest) {
         pass: 'Hpccloud21',
       },
     });
-    console.log("1111")
 
-    const resetUrl = `http://localhost:3001/auth/passwordReset`;
+    const resetUrl = `http://localhost:3001/auth/passwordReset?token=${token}`;
 
     const mailOptions = {
       from: 'dentel.practice.3@outlook.com',
@@ -38,7 +41,6 @@ export async function POST(req: NextRequest) {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("2222")
 
     return NextResponse.json({ success: true, message: '確認メールが送信されました。' }, { status: 200 });
   } catch (error) {
