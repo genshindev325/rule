@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
+import { useAuth } from '@/components/auth/authContext';
 
 const PasswordSetting = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -18,26 +19,27 @@ const PasswordSetting = () => {
   const maxLength = 20;
 
   const router = useRouter();
+  const { profile } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add Password setting logic here
     if (confirmPassword !== password) {
       setConfirmError('パスワードが一致しません。');
-      const response = await fetch('/api/......', {
+    } else {
+      setConfirmError('');
+      const response = await fetch('/api/stores/change-pwd', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ currentPassword, password, confirmPassword }),
+        body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
       });
       if (response.status === 200) {
         router.push('/store/setting');
         console.log("Password setting success.")
       } else {
         console.log(response.status);
-        console.log("Failed.");
+        console.log("Password setting failed.");
       }
-    } else {
-      setConfirmError('');
     }
   };
 
