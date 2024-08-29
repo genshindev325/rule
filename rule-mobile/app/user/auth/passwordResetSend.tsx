@@ -3,22 +3,30 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
-import { useSearchParams  } from 'next/navigation';
+import { IonPage, IonContent } from '@ionic/react';
 
 const PasswordResetSend: React.FC = () => {
-  const [emailOrPhone, setEmailOrPhone] = useState('');
-  
-  const router = useIonRouter();
-  const searchParams = useSearchParams ();
-  
-  const password = searchParams.get('pwd');
-  const passwordConfirm = searchParams.get('pwdC');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    router.push('/auth/login');
+    try {
+      const res = await fetch('http://localhost:3000/api/users/send-verification-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setMessage('確認メールが送信されました。メールを確認してください。');
+      } else {
+        setMessage('エラーが発生しました。もう一度お試しください。');
+      }
+    } catch (error) {
+      setMessage('サーバーエラーが発生しました。');
+    }
   };
 
   return (
@@ -34,13 +42,14 @@ const PasswordResetSend: React.FC = () => {
                   type="text"
                   className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
                   placeholder="メールアドレスもしくは電話番号"
-                  value={emailOrPhone}
-                  onChange={(e) => setEmailOrPhone(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+              {message ? <p>{message}</p> :
               <p className="text-md md:text-lg font-semibold text-gray-400">
                 ご登録されているメールアドレスもしくはSMSにて、パスワード再設定用のURLを送信します。
-              </p>
+              </p>}
               <button
                 type="submit"
                 className="w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 bg-gradient-to-r from-[#7c5ded] to-[#83d5f7] text-white rounded-full font-bold"

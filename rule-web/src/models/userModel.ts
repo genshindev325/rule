@@ -4,16 +4,15 @@ import bcrypt from 'bcryptjs';
 export interface IUser extends Document {
   email: string;
   password: string;
-
   userID: string;
   nickname: string;
   gender: string;
   birthday: Date;
   avatar: string;
-
   status: string;
-
   createdAt: Date;
+  // resetPasswordToken?: string;
+  // resetPasswordExpires?: Date;
 
   comparePassword: (password: string) => Promise<boolean>;
 }
@@ -36,6 +35,9 @@ const userSchema = new Schema<IUser>({
     enum: ["active", "inactive", "blocked"],
     default: "active"
   },
+
+  // resetPasswordToken: { type: String },
+  // resetPasswordExpires: { type: Date },
 
   createdAt: { type: Date, default: () => new Date() },
 });

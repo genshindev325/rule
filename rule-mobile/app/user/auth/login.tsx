@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const response = await fetch('http://localhost:3000/api/auth/signin', {
+    const response = await fetch(`http://localhost:3000/api/auth/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
                 />
               </div>
               <div className={`${textMd} text-right text-gray-400`}>
-                <IonRouterLink routerLink='/auth/passwordReset'>パスワードをお忘れですか？</IonRouterLink>
+                <IonRouterLink routerLink={`/auth/passwordResetSend`}>パスワードをお忘れですか？</IonRouterLink>
               </div>
               <div className={`${textMd} text-right text-gray-400`}>
                 <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink>

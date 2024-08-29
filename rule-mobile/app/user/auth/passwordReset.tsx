@@ -18,12 +18,14 @@ const PasswordReset: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-
     if (confirmPassword !== password) {
       setConfirmError('パスワードが一致しません。');
+    } else if (password === '') {
+      setConfirmError('新しいパスワードを入力してください。');
     } else {
       setConfirmError('');
-      router.push(`/auth/passwordResetSend?pwd=${password}&pwdC=${confirmPassword}`);
+      // reset password logic ...
+      
     }
   };
 
