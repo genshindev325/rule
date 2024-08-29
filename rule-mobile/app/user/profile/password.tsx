@@ -3,9 +3,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+import { useSelector } from 'react-redux';
+
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import PasswordInput from '@/app/components/utils/passwordInput';
+import { RootState } from '@/app/store/store';
 
 const ProfilePassword: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -15,6 +18,8 @@ const ProfilePassword: React.FC = () => {
   const [confirmError, setConfirmError] = useState('');
   const minLength = 6;
   const maxLength = 20;
+  const userInfo = useSelector((state: RootState) => state.auth.profile);
+  const router = useIonRouter();
 
   const validatePassword = (newPassword: string) => {
     if (newPassword.length < minLength) {
@@ -50,10 +55,39 @@ const ProfilePassword: React.FC = () => {
     const newConfirmPassword = e.target.value;
     setConfirmPassword(newConfirmPassword);
 
-    if (newConfirmPassword !== password) {
+    if (newConfirmPassword !== newPassword) {
       setConfirmError('パスワードが一致しません。');
     } else {
       setConfirmError('');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Add Password setting logic here
+    if (!userInfo) {
+      console.log("Missing user information or event data.");
+      return;
+    }
+    const { email: email } = userInfo;
+
+    if (confirmPassword !== newPassword) {
+      setConfirmError('パスワードが一致しません。');
+    } else {
+      setConfirmError('');
+      console.log("AAAAAAA")
+      const response = await fetch('http://localhost:3000/api/users/change-pwd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password, newPassword: newPassword }),
+      });
+      if (response.status === 200) {
+        router.push('/profile/myPage');
+        console.log("Password setting success.")
+      } else {
+        console.log(response.status);
+        console.log("Password setting failed.");
+      }
     }
   };
 
@@ -75,7 +109,7 @@ const ProfilePassword: React.FC = () => {
               <h2 className='grow text-3xl text-center text-white font-bold pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <form className={`${container} w-5/6`}>
+            <form onSubmit={handleSubmit} className={`${container} w-5/6`}>
               <div className='flex flex-col items-center'>
                 <h2 className={`${textLg}`}>パスワード変更</h2>
               </div>
@@ -96,12 +130,12 @@ const ProfilePassword: React.FC = () => {
                 <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
               </div>
               {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
+              {/* buttons */}
+              <div className='w-5/6 flex flex-col space-y-4 py-6'>
+                <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textMd}`}>登録する</button>
+                <button type='button' className={`bg-gray-400 rounded-full py-2 text-white text-center ${textMd}`}>キャンセル</button>
+              </div>
             </form>
-            {/* buttons */}
-            <div className='w-5/6 flex flex-col space-y-4 py-6'>
-              <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textMd}`}>登録する</button>
-              <button type='button' className={`bg-gray-400 rounded-full py-2 text-white text-center ${textMd}`}>キャンセル</button>
-            </div>
           </div>
         </AuthWrapper>
       </IonContent>

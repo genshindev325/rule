@@ -1,66 +1,87 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
-import bcrypt from "bcryptjs";
+import mongoose, { Model, Document, Schema, Query, UpdateQuery, CallbackError } from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
-    email: string;
-    password: string;
-    
-    userID: string;
-    // username: string;
-    nickname: string;
-    gender: string;
-    birthday: Date;
-    avatar: string;
+  email: string;
+  password: string;
 
-    status: string;
+  userID: string;
+  nickname: string;
+  gender: string;
+  birthday: Date;
+  avatar: string;
 
-    createdAt: Date;
+  status: string;
 
-    comparePassword: (password: string) => Promise<boolean>;
+  createdAt: Date;
+
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 
-    userID: { type: String, default: "1111-2222-3333-44444"},
-    // username: { type: String },
-    nickname: { type: String },
-    gender: {
-        type: String,
-        enum: ["male", "female"],
-    },
-    birthday: { type: Date },
-    avatar: { type: String },
-    // avatar: { type: String, default: "http://localhost:3000/uploads/avatar-placeholder.png" },
+  userID: { type: String, default: "1111-2222-3333-44444" },
+  nickname: { type: String },
+  gender: {
+    type: String,
+    enum: ["male", "female"],
+  },
+  birthday: { type: Date },
+  avatar: { type: String },
 
-    status: {
-        type: String,
-        enum: ["active", "inactive", "blocked"],
-        default: "active" },
+  status: {
+    type: String,
+    enum: ["active", "inactive", "blocked"],
+    default: "active"
+  },
 
-    createdAt: { type: Date, default: () => new Date() },
+  createdAt: { type: Date, default: () => new Date() },
 });
 
+// Hash password before saving if modified
 userSchema.pre<IUser>("save", async function (next) {
-    if (!this.isModified("password")) return next();
-  
+  if (!this.isModified("password")) return next();
+
+  try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
     next();
+  } catch (error) {
+    next(error as CallbackError);
+  }
 });
 
-userSchema.pre<IUser>("findOneAndUpdate", async function (next) {
-    if (!this.isModified("password")) return next();
-  
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+userSchema.pre<Query<IUser, IUser>>('findOneAndUpdate', async function (next) {
+  const update = this.getUpdate() as UpdateQuery<IUser>;
+
+  if (update.password && typeof update.password === 'string') {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(update.password, salt);
+      this.setUpdate({ ...update, password: hashedPassword });
+    } catch (error) {
+      return next(error as CallbackError);
+    }
+  }
+  else if (update.$set && typeof update.$set.password === 'string') {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(update.$set.password, salt);
+      this.setUpdate({ ...update, $set: { ...update.$set, password: hashedPassword } });
+    } catch (error) {
+      return next(error as CallbackError);
+    }
+  }
+
+  next();
 });
-  
+
+// Compare password method
 userSchema.methods.comparePassword = async function (password: string) {
-    return bcrypt.compare(password, this.password);
-}
+  return bcrypt.compare(password, this.password);
+};
 
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', userSchema);
 export default User;

@@ -55,31 +55,31 @@ storeSchema.pre<IStore>('save', async function (next) {
 });
 
 storeSchema.pre<Query<IStore, IStore>>('findOneAndUpdate', async function (next) {
-    const update = this.getUpdate() as UpdateQuery<IStore>; // Explicitly cast to UpdateQuery<IStore>
-  
-    // Check if the update directly modifies the 'password' field
-    if (update.password && typeof update.password === 'string') {
-      try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(update.password, salt);
-        this.setUpdate({ ...update, password: hashedPassword }); // Set the hashed password
-      } catch (error) {
-        return next(error as CallbackError);  // Explicitly cast error to CallbackError
-      }
-    } 
-    // Check if the update uses a $set modifier with 'password'
-    else if (update.$set && typeof update.$set.password === 'string') {
-      try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(update.$set.password, salt);
-        this.setUpdate({ ...update, $set: { ...update.$set, password: hashedPassword } }); // Update if nested in $set
-      } catch (error) {
-        return next(error as CallbackError);  // Explicitly cast error to CallbackError
-      }
+  const update = this.getUpdate() as UpdateQuery<IStore>; // Explicitly cast to UpdateQuery<IStore>
+
+  // Check if the update directly modifies the 'password' field
+  if (update.password && typeof update.password === 'string') {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(update.password, salt);
+      this.setUpdate({ ...update, password: hashedPassword }); // Set the hashed password
+    } catch (error) {
+      return next(error as CallbackError);  // Explicitly cast error to CallbackError
     }
-  
-    next();
-  });
+  }
+  // Check if the update uses a $set modifier with 'password'
+  else if (update.$set && typeof update.$set.password === 'string') {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(update.$set.password, salt);
+      this.setUpdate({ ...update, $set: { ...update.$set, password: hashedPassword } }); // Update if nested in $set
+    } catch (error) {
+      return next(error as CallbackError);  // Explicitly cast error to CallbackError
+    }
+  }
+
+  next();
+});
 
 storeSchema.methods.comparePassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
