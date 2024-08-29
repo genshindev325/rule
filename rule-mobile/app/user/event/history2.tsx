@@ -38,7 +38,7 @@ interface PastEventProps {
     access1: string;
     access2: string;
     description: string;
-    storeImages: string;
+    storeImage: string;
     storeName: string;
   };
 }

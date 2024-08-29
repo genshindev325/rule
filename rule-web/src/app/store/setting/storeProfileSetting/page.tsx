@@ -13,24 +13,19 @@ import Navbar from '@/components/store/navbar';
 const StoreProfileSettings = () => {
   const router = useRouter();
   const [storeID, setStoreID] = useState('');
-  const [storeImages, setStoreImages] = useState<string>();
+  const [storeImage, setStoreImage] = useState<string>();
   const { profile } = useSelector((state: RootState) => state.auth);
   
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-        }
-      };
       const url = URL.createObjectURL(file);
-      setStoreImages(url);
+      setStoreImage(url);
     }
   };
 
   const handleDeleteImage = () => {
-    setStoreImages('');
+    setStoreImage('');
   }
 
   useEffect(() => {
@@ -63,7 +58,7 @@ const StoreProfileSettings = () => {
         address,
         access1,
         access2,
-        storeImages,
+        storeImage,
         description
       }),
     });
@@ -163,14 +158,11 @@ const StoreProfileSettings = () => {
                     id="file-input"
                   />
                   <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
-                  {storeImages && (
+                  {storeImage && (
                     <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
-                      <img src={`${storeImages}`} onClick={handleDeleteImage} />
+                      <img src={`${storeImage}`} onClick={handleDeleteImage} />
                     </div>
                   )}
-                </div>
-                <div className="mb-4">
-                  <h3 className='text-gray-600 py-2'>ストアイメージ</h3>
                 </div>
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>説明文</h3>

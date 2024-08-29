@@ -12,7 +12,7 @@ export interface IStore extends Document {
   address: string;
   access1: string;
   access2: string;
-  storeImages: string;
+  storeImage: string;
   description: string;
   monthlyRate: number;
   rating: number;
@@ -33,7 +33,7 @@ const storeSchema = new Schema<IStore>({
   address: { type: String },
   access1: { type: String },
   access2: { type: String },
-  storeImages: { type: String },
+  storeImage: { type: String },
   description: { type: String },
   monthlyRate: { type: Number, default: 5000 },
   rating: { type: Number, default: 0 },
