@@ -3,7 +3,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
@@ -18,14 +17,13 @@ interface UserListProps {
   users: User[]
 }
 
-const UserList: React.FC<UserListProps> = ({ users }) => {
-  const router = useRouter();
-
+const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
+  const [userList, setUserList] = useState<User[]>(initialUsers);
 
   // Delete user logic
   const handleDelete = (rowId: string) => {
@@ -43,7 +41,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       if (response.status === 200) {
         const result = await response.json();
         console.log(result.message);
-        router.push('/admin/dashboard');
+        // Update the user list state by removing the deleted user
+        setUserList(prevUserList => prevUserList.filter(user => user._id !== selectedRowId));
+        setCurrentPage(1); // Optional: reset to the first page
       } else {
         console.log(response.status);
         console.log("Delete user failed.");
@@ -63,7 +63,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     console.log(rowId);
   };
 
-  const filteredUsers = users.filter(user =>
+  const filteredUsers = userList.filter(user =>
     user.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.userID.includes(searchTerm)
   );

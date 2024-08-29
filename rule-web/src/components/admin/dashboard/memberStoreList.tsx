@@ -3,7 +3,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
@@ -19,9 +18,8 @@ interface StoresProps {
   stores: Store[],
 }
 
-const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
-  const router = useRouter();
-
+const MemberStoreList: React.FC<StoresProps> = ({ stores: initialStores }) => {
+  const [stores, setStores] = useState<Store[]>(initialStores);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,7 +42,13 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores }) => {
       if (response.status === 200) {
         const result = await response.json();
         console.log(result.message);
-        router.push('/admin/dashboard');
+        // Filter out the deleted store from the state
+        setStores(prevStores => prevStores.filter(store => store._id !== selectedRowId));
+
+        // Optionally, reset to the first page if the last item on the current page is deleted
+        if ((currentPage - 1) * itemsPerPage >= stores.length - 1) {
+          setCurrentPage(prev => Math.max(prev - 1, 1));
+        }
       } else {
         console.log(response.status);
         console.log("Delete store failed.");
