@@ -164,7 +164,7 @@ const EventSettings = () => {
                       type="date"
                       name='schedule'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="November 14, 2023"
+                      placeholder="2023年 11月 14日"
                       required
                     />
                   </div>

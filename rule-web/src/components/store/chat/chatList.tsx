@@ -11,7 +11,7 @@ interface Chat {
 
 const chats: Chat[] = [
   {
-    name: '男性',
+    name: '仕事',
     date: '2023/09/16',
     lastMessage: 'ありがとうございました！',
     avatar: '/image/minion.png'

@@ -57,10 +57,10 @@ const SalesManagement = () => {
             <h3 className='text-sm pt-4'>期間指定</h3>
             <div className='flex flex-row py-4 gap-4'>
               <span className='p-2 border-none rounded-lg bg-gray-300 w-48 text-sm mt-auto'>
-                November 14, 2022
+                2022年 11月 14日
               </span>
               <span className='p-2 border-none rounded-lg bg-gray-300 w-48 text-sm mt-auto'>
-                November 14, 2022
+                2022年 11月 14日
               </span>
             </div>
             <EventHistory events={events} />
