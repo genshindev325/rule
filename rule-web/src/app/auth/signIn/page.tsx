@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/components/auth/authContext';
+import { useAuth } from '../../../components/auth/authContext';
 
 const SignIn = () => {
   const router = useRouter();
