@@ -55,7 +55,7 @@ const SetProfile: React.FC = () => {
       } = result.data;
 
       signin(email, role, profile, token);
-      router.push('/event/findOnMap');
+      router.push('/home');
       console.log("Registeration success.");
     } else {
       console.log(response.status);
