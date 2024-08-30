@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 
 import { useAuth } from '@/app/components/auth/authContext';
+import { SERVER_URL } from '@/app/config';
 
 const Login: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -24,7 +25,7 @@ const Login: React.FC = () => {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const response = await fetch(`http://localhost:3000/api/auth/signin`, {
+    const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

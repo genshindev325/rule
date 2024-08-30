@@ -7,6 +7,7 @@ import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import { SERVER_URL } from '@/app/config';
 
 interface UpcomingEventProps {
   eventName: string;
@@ -67,7 +68,7 @@ const EventHistory2: React.FC = () => {
     const fetchEventData = async () => {
       try {
         // get upcoming events
-        const response_upcomingEvents = await fetch('http://localhost:3000/api/events/filter', {
+        const response_upcomingEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ upcoming: true }),
@@ -81,7 +82,7 @@ const EventHistory2: React.FC = () => {
         }
 
         // get past events
-        const response_pastEvents = await fetch('http://localhost:3000/api/events/filter', {
+        const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ past: true })

@@ -40,7 +40,7 @@ const EventSettings = () => {
     // Add event settings logic here
 
     // Upload images to the server or cloud service and get url
-    const coverImage = "http://localhost:3000/uploads/event-placeholder.png";
+    const coverImage = `${photoImageUrl}`;
 
     const formData = new FormData(e.currentTarget);
     const eventName = formData.get('eventName');

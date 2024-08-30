@@ -9,6 +9,7 @@ import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import { RootState } from '@/app/store/store';
+import { SERVER_URL } from '@/app/config';
 
 const EventPayment: React.FC = () => {
   const router = useIonRouter();
@@ -45,7 +46,7 @@ const EventPayment: React.FC = () => {
     const { _id: eventId } = selectedEvent;
     
     try {
-      const response = await fetch('http://localhost:3000/api/events/participate', {
+      const response = await fetch(`${SERVER_URL}/api/events/participate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, eventId }),

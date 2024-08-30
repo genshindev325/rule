@@ -20,9 +20,9 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
       <table className="w-full table-auto">
         <thead>
           <tr>
-            <th className="text-left">Event Name</th>
-            <th className="text-left">Date and Time</th>
-            <th className="text-left">Earnings</th>
+            <th className="text-left">イベント名</th>
+            <th className="text-left">日時</th>
+            <th className="text-left">売上</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
             <tr key={index}>
               <td>{event.name}</td>
               <td>{event.date}</td>
-              <td>{event.earnings} yen</td>
+              <td>{event.earnings} 円</td>
             </tr>
           ))}
         </tbody>

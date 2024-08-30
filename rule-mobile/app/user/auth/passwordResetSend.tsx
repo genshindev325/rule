@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
+import { SERVER_URL } from '@/app/config';
 
 const PasswordResetSend: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const PasswordResetSend: React.FC = () => {
     e.preventDefault();
     // Handle the form submission
     try {
-      const res = await fetch('http://localhost:3000/api/users/send-verification-email', {
+      const res = await fetch(`${SERVER_URL}/api/users/send-verification-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

@@ -38,7 +38,7 @@ const Events = () => {
     const fetchData = async () => {
       try {
         // get upcoming events
-        const response_upcomingEvents = await fetch('http://localhost:3000/api/events/filter', {
+        const response_upcomingEvents = await fetch('/api/events/filter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ upcoming: true }),
@@ -52,7 +52,7 @@ const Events = () => {
         }
 
         // get past events
-        const response_pastEvents = await fetch('http://localhost:3000/api/events/filter', {
+        const response_pastEvents = await fetch('/api/events/filter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ past: true })
@@ -74,7 +74,7 @@ const Events = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
   return (
     <AuthWrapper allowedRoles={['admin']}>

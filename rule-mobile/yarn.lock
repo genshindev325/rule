@@ -24,10 +24,10 @@
   resolved "https://registry.npmjs.org/@capacitor/android/-/android-5.7.0.tgz"
   integrity sha512-0bnG1dqfT/nTjzMeHF/a5kF8mqGjHrPLADNqn41seWDfb2ch6AMiKUHsmHpEOWmGIrWOM25qNTrTOytoCSpuXg==
 
-"@capacitor/cli@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.npmjs.org/@capacitor/cli/-/cli-5.7.0.tgz"
-  integrity sha512-md6217RXFQwSNo9vr1gDgBqR88MJaQVwu3C5W3bpWlmajhec6NUR7yT7QNcBWErhCIJfqOOqXu4ZSSShndF0ug==
+"@capacitor/cli@^5.7.8":
+  version "5.7.8"
+  resolved "https://registry.npmjs.org/@capacitor/cli/-/cli-5.7.8.tgz"
+  integrity sha512-qN8LDlREMhrYhOvVXahoJVNkP8LP55/YPRJrzTAFrMqlNJC18L3CzgWYIblFPnuwfbH/RxbfoZT/ydkwgVpMrw==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"

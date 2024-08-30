@@ -9,6 +9,7 @@ import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
+import { SERVER_URL } from '@/app/config';
 
 interface EventProps {
   _id: string,
@@ -47,7 +48,7 @@ const FindOnMap: React.FC = () => {
     const fetchData = async () => {
       try {
         // Fetch upcomingEvents Data
-        const response = await fetch('http://localhost:3000/api/events/filter', {
+        const response = await fetch(`${SERVER_URL}/api/events/filter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ upcoming: true, limit: 6 })
@@ -68,7 +69,7 @@ const FindOnMap: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
   
   const handle20Over = () => {};
   const handleStudent = () => {};

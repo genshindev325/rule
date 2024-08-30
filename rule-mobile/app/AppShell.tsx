@@ -28,10 +28,10 @@ import SetProfile from "./user/auth/setProfile";
 import Unauthorized from "./user/auth/unauthorized";
 
 // Event
-import EventReview1 from "./user/event/eventReview1";
+// import EventReview1 from "./user/event/eventReview1";
 import EventReview2 from "./user/event/eventReview2";
 import FindOnMap from "./user/event/findOnMap";
-import EventHistory1 from "./user/event/history1";
+// import EventHistory1 from "./user/event/history1";
 import EventHistory2 from "./user/event/history2";
 import EventPayment from "./user/event/payment";
 import RegistSuccess from "./user/event/registSuccess";
@@ -51,7 +51,7 @@ const AppShell = () => {
       <IonApp>
         <LoadScript
           googleMapsApiKey={apiKey}
-          loadingElement={<div>Loading...</div>}
+          loadingElement={<div>読み込み中...</div>}
           id="google-map-script"
         >
           <IonReactRouter>
@@ -80,9 +80,9 @@ const AppShell = () => {
               {/* user/event */}
               <Route path="/event/registSuccess" component={RegistSuccess} exact />
               <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
-              <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} />
+              {/* <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} /> */}
               <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
-              <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} />
+              {/* <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} /> */}
               <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
               <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
               <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />

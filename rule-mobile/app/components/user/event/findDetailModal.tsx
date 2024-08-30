@@ -4,6 +4,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useIonRouter } from '@ionic/react';
+import { SERVER_URL } from '@/app/config';
 
 interface EventProps {
   _id: string,
@@ -57,7 +58,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   const router = useIonRouter();
 
   const handleSubmit = async () => {
-    const response = await fetch('http://localhost:3000/api/events/filter', {
+    const response = await fetch(`${SERVER_URL}/api/events/filter`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre, upcoming: true }),

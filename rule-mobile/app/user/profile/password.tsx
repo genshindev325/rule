@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import PasswordInput from '@/app/components/utils/passwordInput';
 import { RootState } from '@/app/store/store';
+import { SERVER_URL } from '@/app/config';
 
 const ProfilePassword: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -76,7 +77,7 @@ const ProfilePassword: React.FC = () => {
     } else {
       setConfirmError('');
       console.log("AAAAAAA")
-      const response = await fetch('http://localhost:3000/api/users/change-pwd', {
+      const response = await fetch(`${SERVER_URL}/api/users/change-pwd`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password, newPassword: newPassword }),

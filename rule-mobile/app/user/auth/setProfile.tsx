@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { useSearchParams  } from 'next/navigation';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useAuth } from '@/app/components/auth/authContext';
+import { SERVER_URL } from '@/app/config';
 
 const SetProfile: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -39,7 +40,7 @@ const SetProfile: React.FC = () => {
     e.preventDefault();
     // Handle the form submission
 
-    const response = await fetch('http://localhost:3000/api/users', {
+    const response = await fetch(`${SERVER_URL}/api/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ gender, email, password, birthday, avatar, nickname, userID }),

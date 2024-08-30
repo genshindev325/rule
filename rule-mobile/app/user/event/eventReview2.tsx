@@ -12,6 +12,7 @@ import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import StarRating from '@/app/components/utils/starRating';
 import { RootState } from '@/app/store/store';
+import { SERVER_URL } from '@/app/config';
 
 interface EventProps {
   _id: string,
@@ -98,7 +99,7 @@ const EventReview2: React.FC = () => {
         const createdBy = userId;
         console.log('eventRating: ' + eventRating);
         // send event review
-        const response = await fetch('http://localhost:3000/api/reviews/event', {
+        const response = await fetch(`${SERVER_URL}/api/reviews/event`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ eventId, eventReviewText, eventRating, createdBy }),
@@ -127,7 +128,7 @@ const EventReview2: React.FC = () => {
         const storeRating = ratingStore;
         const createdBy = userId;
         // send store review
-        const response = await fetch('http://localhost:3000/api/reviews/store', {
+        const response = await fetch(`${SERVER_URL}/api/reviews/store`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy }),
@@ -172,7 +173,7 @@ const EventReview2: React.FC = () => {
     // will be added or get from database
   ];
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>Loading...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
   return (
     <IonPage>

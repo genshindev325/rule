@@ -40,7 +40,7 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
               <td>{formatDateTime(event.eventDate)}</td>
               <td>{event.males}/{event.maleTotal}</td>
               <td>{event.females}/{event.femaleTotal}</td>
-              <td>{event.earnings} (yen)</td>
+              <td>{event.earnings} (円)</td>
             </tr>
           ))}
         </tbody>
