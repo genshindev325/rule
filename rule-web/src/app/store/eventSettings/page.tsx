@@ -15,24 +15,24 @@ const EventSettings = () => {
   const { profile } = useAuth();
   
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
   };
 
-  // Handle file selection
-  const handlePhotoFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-        const selectedFile = event.target.files[0];
-        setPhotoFile(selectedFile);
-
-        // Create a URL for previewing the image
-        const previewUrl = URL.createObjectURL(selectedFile);
-        setPhotoImageUrl(previewUrl);
+  // Handle file selection  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPhotoImageUrl(url);
     }
-};
+  };
+
+  const handleDeleteImage = () => {
+    setPhotoImageUrl('');
+  }
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -137,13 +137,20 @@ const EventSettings = () => {
                 </select>
               </div>
               <h3 className='text-gray-600 py-2'>表紙画像</h3>
-              <div className="mb-4">
-                <div className='w-full px-6 py-3 bg-gray-100 rounded-md flex flex-row justify-center'>
-                  {photoImageUrl && (<img src={photoImageUrl} className='w-2/3' />)}
-                </div>
-                <div>
-                  <input type="file" accept="image/*" onChange={handlePhotoFileChange} />
-                </div>
+              <div className='mb-4'>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="file-input"
+                />
+                <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                {photoImageUrl && (
+                  <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
+                    <img src={`${photoImageUrl}`} onClick={handleDeleteImage} />
+                  </div>
+                )}
               </div>
               <h3 className='text-gray-600 py-2'>説明文</h3>
               <div className="mb-4">
