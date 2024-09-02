@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { SERVER_URL } from '@/app/config';
 
 interface SetProfileInterface {
   isOpen: boolean;
@@ -19,7 +20,7 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange 
       formData.append('file', event.target.files[0]);
 
       try {
-        const response = await fetch('/api/upload', {
+        const response = await fetch(`${SERVER_URL}/api/upload`, {
           method: 'POST',
           body: formData,
         });

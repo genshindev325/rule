@@ -12,6 +12,7 @@ import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import StarRating from '@/app/components/utils/starRating';
 import { RootState } from '@/app/store/store';
+import { formatDateTime } from '@/app/components/utils/datetime';
 import { SERVER_URL } from '@/app/config';
 
 interface EventProps {
@@ -189,7 +190,7 @@ const EventReview2: React.FC = () => {
               <div className={`${container}`}>
                 {/* title */}
                 <h2 className='text-lg sm:text-xl font-bold'>{selectedEvent?.eventName}</h2>
-                <h2 className='text-md sm:text-lg'>{selectedEvent?.eventDate}</h2>
+                <h2 className='text-md sm:text-lg'>{selectedEvent && formatDateTime(selectedEvent.eventDate)}</h2>
                 {/* type */}
                 <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
                   {types && types.map((type, index) => (

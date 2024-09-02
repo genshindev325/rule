@@ -1,6 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 
+interface StoreProps {
+  
+}
+
 interface GoogleMapComponentProps {
   apiKey: string;
   address: string;
