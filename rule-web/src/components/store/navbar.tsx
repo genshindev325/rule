@@ -15,7 +15,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (profile) {
-      setAvatar(profile.storeImages);
+      // setAvatar(profile.storeImages);
     }
     // Load selected menu from sessionStorage if available
     const storedMenu = sessionStorage.getItem('selectedMenu');

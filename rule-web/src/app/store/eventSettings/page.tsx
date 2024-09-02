@@ -25,8 +25,16 @@ const EventSettings = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setPhotoImageUrl(url);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result) {
+          console.log(reader.readAsDataURL(file));
+          setPhotoImageUrl(reader.result as string);
+          console.log(reader.result)
+        }
+      };
+      // const url = URL.createObjectURL(file);
+      // setPhotoImageUrl(url);
     }
   };
 

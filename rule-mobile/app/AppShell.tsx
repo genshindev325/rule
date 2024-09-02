@@ -18,14 +18,8 @@ import Login from "./user/auth/login";
 import LoginWith from "./user/auth/loginWith";
 import PasswordReset from "./user/auth/passwordReset";
 import PasswordResetSend from "./user/auth/passwordResetSend";
-import RegisterBirthday from "./user/auth/registerBirthday";
-import RegisterEmail from "./user/auth/registerEmail";
-import RegisterID from "./user/auth/registerID";
-import RegisterName from "./user/auth/registerName";
-import RegisterPassword from "./user/auth/registerPassword";
-import SelectGender from "./user/auth/selectGender";
-import SetProfile from "./user/auth/setProfile";
 import Unauthorized from "./user/auth/unauthorized";
+import SignUp from "./user/auth/signup";
 
 // Event
 // import EventReview1 from "./user/event/eventReview1";
@@ -65,17 +59,11 @@ const AppShell = () => {
               <Route path="/profile/payment" component={Payment} />
               <Route path="/profile/setting" component={Setting} />
               {/* user/auth */}
+              <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/login" component={Login} />
               <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
               <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
               <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
-              <Route path="/auth/registerBirthday" render={() => <RegisterBirthday />} exact={true} />
-              <Route path="/auth/registerEmail" render={() => <RegisterEmail />} exact={true} />
-              <Route path="/auth/registerID" render={() => <RegisterID />} exact={true} />
-              <Route path="/auth/registerName" render={() => <RegisterName />} exact={true} />
-              <Route path="/auth/registerPassword" render={() => <RegisterPassword />} exact={true} />
-              <Route path="/auth/selectGender" render={() => <SelectGender />} exact={true} />
-              <Route path="/auth/setProfile" render={() => <SetProfile />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* user/event */}
               <Route path="/event/registSuccess" component={RegistSuccess} exact />

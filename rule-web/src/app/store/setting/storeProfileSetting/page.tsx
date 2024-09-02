@@ -19,8 +19,14 @@ const StoreProfileSettings = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setStoreImages(url);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result) {
+          setStoreImages(reader.result as string);
+        }
+      };
+      // const url = URL.createObjectURL(file);
+      // setStoreImages(url);
     }
   };
 
