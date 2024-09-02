@@ -13,17 +13,26 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const [localAvatar, setAvatar] = useState('');
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          // setAvatar(reader.result as string);
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const formData = new FormData();
+      formData.append('file', event.target.files[0]);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          setAvatar(data.url);
+        } else {
+          console.log(response.status);
         }
-      };
-      const url = URL.createObjectURL(file);
-      setAvatar(url);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
   };
   

@@ -22,19 +22,27 @@ const EventSettings = () => {
   };
 
   // Handle file selection  
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          console.log(reader.readAsDataURL(file));
-          setPhotoImageUrl(reader.result as string);
-          console.log(reader.result)
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const formData = new FormData();
+      formData.append('file', event.target.files[0]);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          console.log("storeIamge-url: " + data.url);
+          setPhotoImageUrl(data.url);
+        } else {
+          console.log(response.status);
         }
-      };
-      // const url = URL.createObjectURL(file);
-      // setPhotoImageUrl(url);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
   };
 

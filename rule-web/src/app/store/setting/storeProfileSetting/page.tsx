@@ -16,19 +16,30 @@ const StoreProfileSettings = () => {
   const [storeImages, setStoreImages] = useState<string>();
   const { profile } = useSelector((state: RootState) => state.auth);
   
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          setStoreImages(reader.result as string);
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const formData = new FormData();
+      formData.append('file', event.target.files[0]);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          setStoreImages(data.url);
+        } else {
+          console.log(response.status);
         }
-      };
-      // const url = URL.createObjectURL(file);
-      // setStoreImages(url);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
   };
+
+  useEffect(() => {}, [storeImages]);
 
   const handleDeleteImage = () => {
     setStoreImages('');
