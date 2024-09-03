@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
@@ -90,8 +90,13 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
-            <div className={`h-44 md:h-48 w-full ${maleGradient} z-10`}>
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+            <div className={`h-40 md:h-48 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-xl text-center text-white pt-10 px-4'>
+                <IonRouterLink routerLink={'/home'}>
+                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
+                </IonRouterLink>
+                <h2 className='grow pr-4'>イベントを探す</h2>
+              </div>
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
                 <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8" onClick={handleOpenModal}/>
                 <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
@@ -107,17 +112,19 @@ const FindOnMap: React.FC = () => {
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
-            <div className='bg-white h-48 mt-96 z-10 shadow'>
+            <div className='bg-white h-40 mt-[200px] sm:mt-[220px] md:mt-[240px] z-10 shadow'>
               {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={upcomingEvents}/>
             </div>
             {/* buttons */}
-            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 py-12 md:py-48 z-10'>
+            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-8 z-10'>
               <button className={`rounded-md w-12 h-12 ${maleGradient} fill-white`}>
                 <img src={searchSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
               </button>
               <button className={`rounded-md w-12 h-12 ${maleGradient} text-white`}>
-                <img src={detailSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
+                <IonRouterLink routerLink='/home'>
+                  <img src={detailSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
+                </IonRouterLink>
               </button>
               <button className={`rounded-md w-12 h-12 ${maleGradient} text-white`}>
                 <img src={locationSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />

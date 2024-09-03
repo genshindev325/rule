@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
@@ -19,12 +19,12 @@ const Profile: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-            <div className={`h-80 md:h-88 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
+            <div className={`h-80 md:h-88 w-full px-6 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/home'}>
-                <img src='/svg/arrow-left-white.svg' className='w-10 h-10' />
+                <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-3xl text-center text-white font-bold pr-10'>マイページ</h2>
+              <h2 className='grow text-xl text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
             <div className={`${container} w-5/6`}>
@@ -37,7 +37,7 @@ const Profile: React.FC = () => {
                 <div className='flex flex-row items-center py-6 border-b-2 border-solid border-gray-300'>
                   <img src='/svg/profile-circle.svg' className='w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16' />
                   <h2 className={`${textMd}`}>プロフィール設定</h2>
-                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 ml-auto' />
+                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 ml-auto' />
                 </div>
               </IonRouterLink>
               {/* payment setting */}
@@ -45,7 +45,7 @@ const Profile: React.FC = () => {
                 <div className='flex flex-row items-center py-6 border-b-2 border-solid border-gray-300'>
                   <img src='/svg/payment.svg' className='w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16' />
                   <h2 className={`${textMd}`}>クレジット設定</h2>
-                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 ml-auto' />
+                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 ml-auto' />
                 </div>
               </IonRouterLink>
               {/* password setting */}
@@ -53,7 +53,7 @@ const Profile: React.FC = () => {
                 <div className='flex flex-row items-center py-6 border-b-2 border-solid border-gray-300'>
                   <img src='/svg/lock.svg' className='w-7 sm:w-11 md:w-14 h-7 sm:h-11 md:h-14' />
                   <h2 className={`${textMd}`}>パスワード設定 • 変更</h2>
-                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-12 md:w-16 h-8 sm:h-12 md:h-16 ml-auto' />
+                  <img src='/svg/arrow-right.svg' className='w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 ml-auto' />
                 </div>
               </IonRouterLink>
             </div>

@@ -36,7 +36,7 @@ const PasswordResetSend: React.FC = () => {
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
           <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
           <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20">
-            <h2 className="text-3xl font-bold py-12 md:py-20 px-12 text-center">パスワード再設定</h2>
+            <h2 className="text-xl font-bold py-12 md:py-20 px-12 text-center">パスワード再設定</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input

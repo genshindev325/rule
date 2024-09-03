@@ -127,7 +127,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
         {/*location and date*/}
         <div className="flex mb-4 space-x-2">
           <select id="location" name="location" value={location} onChange={handleLocationChange}
-            className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+            className="block w-40 px-3 sm:px-4 md:px-5 sm:px-4 md:px-5 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">場所を選択</option>
             <option value="Tokyo, Japan">Tokyo, Japan</option>
@@ -135,7 +135,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="場所 3">場所 3</option>
           </select>
           <select id="date" name="date" value={date} onChange={handleDateChange}
-            className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+            className="block w-40 px-3 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">日付を選択</option>
             <option value="date1">日付 1</option>
@@ -146,11 +146,11 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
         {/*gender and age*/}
         <div className="flex mb-4 space-x-2">
           <div className=''>
-            <button className={`rounded-l-lg py-3 px-6 border-2 border-r-0 ${textSmall} ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
-            <button className={`rounded-r-lg py-3 px-6 border-2 border-l-0 ${textSmall} ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
+            <button className={`rounded-l-lg py-3 px-4 border border-r-0 ${textSmall} ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
+            <button className={`rounded-r-lg py-3 px-4 border border-l-0 ${textSmall} ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
           </div>
           <select id="age" name="age" value={age} onChange={handleAgeChange}
-            className="block w-32 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+            className="block w-28 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">年齢</option>
             <option value="age1">10</option>
@@ -195,7 +195,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="genre4">居酒屋</option>
           </select>
         </div>
-        <button type='submit' id='searchWith' className={`rounded-full w-full py-3 ${maleGradient} ${textlg}`} onClick={handleSubmit}>この条件で検索</button>
+        <button type='submit' id='searchWith' className={`rounded-full w-full py-3 ${maleGradient} ${textlg} text-white`} onClick={handleSubmit}>この条件で検索</button>
       </div>
     </div>
   );

@@ -23,9 +23,9 @@ const ProfileSetting: React.FC = () => {
             <div className={`h-80 md:h-88 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/profile/myPage'}>
-                <img src='/svg/arrow-left-white.svg' className='w-10 h-10' />
+                <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-3xl text-center text-white font-bold pr-10'>マイページ</h2>
+              <h2 className='grow text-xl text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
             <div className={`${container} w-5/6`}>

@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
@@ -58,8 +58,17 @@ const EventReview2: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
   const searchParams = useSearchParams();
   const eventString = searchParams.get('event');
-  
+  const router = useIonRouter();
   const userProfile = useSelector((state: RootState) => state.auth.profile);
+
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
+  const container = 'w-full rounded-xl -mt-36 bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-md space-y-2';
+  const locationSVG = '/svg/location.svg';
+
+  const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
+  const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
+  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
 
   // get selected event data and current user information
   useEffect(() => {
@@ -148,15 +157,6 @@ const EventReview2: React.FC = () => {
       console.error("An error occurred sending store review:", error);
     }
   }
-
-  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'w-full rounded-xl -mt-36 bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-md space-y-2';
-  const locationSVG = '/svg/location.svg';
-
-  const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
-  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
   
   const items = [
     {
@@ -183,7 +183,7 @@ const EventReview2: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white space-y-1">
             {/* header */}
             <div className={`h-60 md:h-72 w-full ${maleGradient}`}>
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントレビュー</h2>
+              <h2 className='text-xl text-center text-white pt-10'>イベントレビュー</h2>
             </div>
             {/* container */}
             <div className='px-4'>
@@ -306,7 +306,7 @@ const EventReview2: React.FC = () => {
               />
               <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full text-white ${textMd}`}>送信する</button>
               <div className={`py-6 flex w-full`}>
-                <button className={`grow bg-gray-300 rounded-full text-white ${textMd}`}>TOPにもどる</button>
+                <button onClick={() => router.back()} className={`grow bg-gray-300 rounded-full text-white ${textMd}`}>TOPにもどる</button>
               </div>
             </div>
           </div>

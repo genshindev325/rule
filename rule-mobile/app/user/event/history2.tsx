@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
@@ -48,6 +48,7 @@ const EventHistory2: React.FC = () => {
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
+  const router = useIonRouter();
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -58,7 +59,7 @@ const EventHistory2: React.FC = () => {
   }
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md space-y-4 w-[90vw]';
+  const container = 'rounded-xl bg-white -mt-16 px-2 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
@@ -102,16 +103,21 @@ const EventHistory2: React.FC = () => {
     }
 
     fetchEventData();
-  }, [upcomingEvents, pastEvents])
+  }, [])
 
   return (
     <IonPage>
       <IonContent>      
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-            <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
+            <div className={`h-40 md:h-88 w-full ${maleGradient}`}>
               {/* header */}
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベント予約履歴</h2>
+              <div className='flex flex-row text-xl text-center text-white pt-10 px-4'>
+                <IonRouterLink routerLink={'/home'}>
+                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
+                </IonRouterLink>
+                <h2 className='grow pr-4'>イベント予約履歴</h2>
+              </div>
             </div>
             {/* container */}
             <div className={`${container}`}>

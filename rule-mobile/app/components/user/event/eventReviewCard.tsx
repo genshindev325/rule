@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Star from './starSVG';
 import StarRating from '@/app/components/utils/starRating';
+import { formatDateTime } from '@/app/components/utils/datetime';
 
 interface CardProps {
   eventName: string;
@@ -37,12 +38,12 @@ const EventReviewCard: React.FC<CardProps> = ({
   const textSm = 'text-xs sm:text-sm md:text-md';
 
   return (
-    <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6 text-gray-800'>
+    <div className='flex flex-col bg-white rounded-xl shadow-[0_2px_10px_3px_rgba(0,0,0,0.2)] px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6 text-gray-800'>
       <div className="flex flex-row space-x-2">
         <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
         <div className='flex flex-col space-y-1'>
           <h2 className={`${textSm} font-bold`}>{eventName}</h2>
-          <h2 className={`${textSm}`}>{eventDate}</h2>
+          <h2 className={`${textSm}`}>{formatDateTime(eventDate)}</h2>
           <div className='flex flex-row space-x-1'>
             <div className={`${maleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>男性</div>
             <h2 className={`${textSm}`}>{maleFee}円 募集 : {males}/{maleTotal}</h2>
@@ -65,36 +66,24 @@ const EventReviewCard: React.FC<CardProps> = ({
           </div>
         </div>
       </div>
-      <div className='flex flex-row'>
+      <div className='flex flex-row items-center'>
         <h2 className={`${textSm}`}>イベントを評価:</h2>
         {/* event star rating */}
         <div className='space-x-1 flex ml-auto'>
           <StarRating rate={eventRating} />
-          {/* {[...Array(eventFilledStars)].map((_, index) => (
-            <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-          ))} */}
-          {/* {[...Array(eventEmptyStars)].map((_, index) => (
-            <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} /> // Using a gray color for empty stars
-          ))} */}
         </div>
       </div>
-      <div className='flex flex-row'>
+      <div className='flex flex-row items-center'>
         <h2 className={`${textSm}`}>お店を評価:</h2>
         {/* store star rating */}
         <div className='space-x-1 flex ml-auto'>
           <StarRating rate={storeRating} />
-          {/* {[...Array(storeFilledStars)].map((_, index) => (
-            <Star key={index} gradientColors={['#7c5ded', '#83d5f7']} size={20} />
-          ))} */}
-          {/* {[...Array(storeEmptyStars)].map((_, index) => (
-            <Star key={index + eventFilledStars} gradientColors={['#d1d5db', '#d1d5db']} size={20} />
-          ))} */}
         </div>
       </div>
-      <div className='flex flex-row ml-auto'>
+      {/* <div className='flex flex-row ml-auto'>
         <img src='/svg/write.svg' className='w-4 sm:w-6 h-4 sm:h-6'/>
         <h2 className={`${textSm} font-bold`}>レビューを書く</h2>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -97,7 +97,7 @@ const SearchResult2: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
             <div className={`h-80 md:h-96 w-full ${maleGradient}`}>
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+              <h2 className='text-xl text-center text-white font-bold pt-10'>イベントを探す</h2>
               {/* search with these conditions */}
               <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-4 md:p-4 mx-8 md:mx-12 mt-4 md:mt-8">
                 {/*location and eventDate*/}

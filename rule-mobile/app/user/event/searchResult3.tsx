@@ -59,7 +59,7 @@ const SearchResult3: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white space-y-1">
             {/* header */}
             <div className={`h-60 md:h-72 w-full ${maleGradient}`}>
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+              <h2 className='text-xl text-center text-white font-bold pt-10'>イベントを探す</h2>
             </div>
             {/* container */}
             <div className='px-4'>

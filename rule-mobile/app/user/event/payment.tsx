@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -84,18 +84,11 @@ const EventPayment: React.FC = () => {
             <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
               {/* Header Section */}
               <div className="py-6 md:py-12 px-4 md:px-8 flex flex-row text-xl text-white md:text-3xl font-bold text-center">
-                <button
-                  type="button"
-                  className="flex bg-transparent rounded-full border-none w-12 text-white text-left items-center justify-center font-bold"
-                  onClick={() => router.back()}
-                >
-                  &lt;
-                </button>
                 <h2 className="grow">イベントに参加</h2>
               </div>
 
               {/* Event Details */}
-              <div className="py-6 px-2 xs:px-6">
+              <div className="pb-6 px-4 sm:px-6 md:px-8">
                 <EventCard {...selectedEvent} />
               </div>
 
@@ -118,7 +111,7 @@ const EventPayment: React.FC = () => {
                 </div>
 
                 {/* Registration Form */}
-                <form onSubmit={handleSubmit} className="mt-8 md:mt-16 bg-white">
+                <form onSubmit={handleSubmit} className="mt-6 md:mt-10 bg-white">
                   <RegisteredCard />
                   <div className="flex justify-center py-8">
                     <button
@@ -132,8 +125,7 @@ const EventPayment: React.FC = () => {
                     </button>
                   </div>
                   <FormInput />
-                  <h2 className="text-sm sm:text-md md:text-lg text-center pt-6">##############################</h2>
-                  <h2 className="text-sm sm:text-md md:text-lg text-center">#######################################</h2>
+                  <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
                   <div className="mt-4 flex items-center justify-center">
                     <input type="checkbox" className="form-checkbox" />
                     <span className="ml-2 text-gray-600">
@@ -146,9 +138,11 @@ const EventPayment: React.FC = () => {
                     </button>
                   </div>
                   <div className="mt-4 pb-12 md:pb-20 flex justify-center">
-                    <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">
+                  <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">
+                    <IonRouterLink routerLink='/home' className='text-white'>
                       キャンセル
-                    </button>
+                    </IonRouterLink>
+                  </button>
                   </div>
                 </form>
               </div>

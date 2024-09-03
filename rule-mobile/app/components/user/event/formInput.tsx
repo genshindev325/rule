@@ -23,19 +23,19 @@ const FormInput: React.FC = () => {
       </div>
       <div className="mt-4">
         <label className="block font-bold text-gray-800">カード番号</label>
-        <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="カード番号" />
+        <input type="text" className="w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="カード番号" />
       </div>
       <div className="mt-4">
         <label className="block font-bold text-gray-800">カード名義</label>
-        <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="カード番号" />
+        <input type="text" className="w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="カード番号" />
       </div>
       <div className="mt-4">
         <label className="block font-bold text-gray-600">有効期限</label>
-        <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="有効期限" />
+        <input type="text" className="w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="有効期限" />
       </div>
       <div className="mt-4">
         <label className="block font-bold text-gray-600">セキュリティコード</label>
-        <input type="text" className="w-full px-3 py-2 border rounded-md" placeholder="セキュリティコード" />
+        <input type="text" className="w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="セキュリティコード" />
       </div>
     </div>
   );

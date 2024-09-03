@@ -93,7 +93,7 @@ const SearchResult1: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
             <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
-              <h2 className='text-3xl text-center text-white font-bold pt-10'>イベントを探す</h2>
+              <h2 className='text-xl text-center text-white font-bold pt-10'>イベントを探す</h2>
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
                 <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8"/>
                 <h2 className="text-xl font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
