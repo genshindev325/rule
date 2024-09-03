@@ -14,8 +14,10 @@ import RegisterBirthday from '@/app/components/auth/registerBirthday';
 import SetProfile from '@/app/components/auth/setProfile';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
+import Notification from '@/app/components/utils/notification';
 
 const SignUp: React.FC = () => {
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -70,31 +72,49 @@ const SignUp: React.FC = () => {
     setIsProfileOpen(true);
   }
 
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
+
   useEffect(() => {
-  }, [email, password, gender, userID, nickname, birthday]);
+  }, [email, password, gender, userID, nickname, birthday, notification]);
 
   const handleAvatarChange = async (avatar: string) => {
     setIsProfileOpen(false);
 
-    const response = await fetch(`${SERVER_URL}/api/users`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, gender, birthday, avatar, nickname, userID }),
-    });
+    try {
+      setNotification({ message: 'しばらくお待ちください。', type: 'success' });
+      const response = await fetch(`${SERVER_URL}/api/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, gender, birthday, avatar, nickname, userID }),
+      });
+  
+      if (response.status === 201) {
+        const result = await response.json();
+        const {
+          email,
+          role,
+          profile,
+          token
+        } = result.data;
+  
+        signin(email, role, profile, token);
+        setNotification({ message: '登録が完了しました!', type: 'success' });
+        setTimeout(() => {
+          router.push('/home');
+        }, 1500);
+      } else {
+        setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
 
-    if (response.status === 201) {
-      const result = await response.json();
-      const {
-        email,
-        role,
-        profile,
-        token
-      } = result.data;
+        // Auto-close notification after 4 seconds
+        setTimeout(handleCloseNotification, 4000);
+      }
+    } catch(error) {
+      setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
 
-      signin(email, role, profile, token);
-      router.push('/home');
-    } else {
-      console.log(response.status);
+      // Auto-close notification after 4 seconds
+      setTimeout(handleCloseNotification, 4000);
     }
   }
 
@@ -108,6 +128,7 @@ const SignUp: React.FC = () => {
         <RegisterName isOpen={isNicknameOpen} userName={nickname} onUserNameChange={handleUserNameChange} />
         <RegisterBirthday isOpen={isBirthdayOpen} onUserBirthdayChange={handleBirthdayChange} />
         <SetProfile isOpen={isProfileOpen} onUserAvatarChange={handleAvatarChange} />
+        {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
       </IonContent>
     </IonPage>
   )

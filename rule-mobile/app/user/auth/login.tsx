@@ -2,9 +2,9 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
-
+import Notification from '@/app/components/utils/notification';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
 
@@ -17,6 +17,13 @@ const Login: React.FC = () => {
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
+
+  useEffect(() => {}, [notification]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,27 +32,41 @@ const Login: React.FC = () => {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      setNotification({ message: 'しばらくお待ちください。', type: 'success' });
+      const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      if (response.status === 200) {
+        const result = await response.json();
+        const {
+          email,
+          role,
+          profile,
+          token
+        } = result.data;
+        if (role === 'user') {
+          signin(email, role, profile, token);
+          setNotification({ message: 'サインインに成功しました!', type: 'success' });
+          setTimeout(() => {
+            router.push('/home');
+          }, 1500);
+        }
+      } else {
+        console.log(response.status);
+        setNotification({ message: 'ユーザー名とパスワードが一致しません。', type: 'error' });
 
-    if (response.status === 200) {
-      const result = await response.json();
-      const {
-        email,
-        role,
-        profile,
-        token
-      } = result.data;
-      if (role === 'user') {
-        signin(email, role, profile, token);
-        router.push('/home')
+        // Auto-close notification after 4 seconds
+        setTimeout(handleCloseNotification, 4000);
       }
-    } else {
-      console.log(response.status);
-      console.log("Your username and password mismatched.");
+    } catch(error) {
+      setNotification({ message: `サインイン中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+
+      // Auto-close notification after 4 seconds
+      setTimeout(handleCloseNotification, 4000);
     }
   };
 
@@ -98,6 +119,7 @@ const Login: React.FC = () => {
           </div>
           </div>
         </div>
+        {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
       </IonContent>
     </IonPage>
   );

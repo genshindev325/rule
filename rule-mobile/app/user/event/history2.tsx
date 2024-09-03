@@ -58,7 +58,7 @@ const EventHistory2: React.FC = () => {
   }
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md space-y-4';
+  const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md space-y-4 w-[90vw]';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
@@ -102,7 +102,7 @@ const EventHistory2: React.FC = () => {
     }
 
     fetchEventData();
-  }, [])
+  }, [upcomingEvents, pastEvents])
 
   return (
     <IonPage>
@@ -116,7 +116,7 @@ const EventHistory2: React.FC = () => {
             {/* container */}
             <div className={`${container}`}>
               {/* tab */}
-              <div className='flex flex-row'>
+              <div className='flex flex-row sm:px-2 md:px-6 lg:px-10'>
                 <button
                   type='button'
                   className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4`}
