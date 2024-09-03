@@ -40,7 +40,7 @@ const RegistSuccess: React.FC = () => {
                 <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>大学生Only</button>
                 <button className='rounded-full bg-[#e6e6e6] px-4 py-1' onClick={handle20Over}>アニメ好き</button>
               </div>
-              <img src={selectedEvent.coverImage} alt={`event-profile`} width={350} height={70} className="py-2" />
+              <img src={selectedEvent.coverImage} alt={`event-profile`} width={350} height={70} className="py-1" />
               <button className='bg-transparent border-solid border-2 rounded-lg border-black text-black text-sm font-semibold py-1 w-full' >イベント概要</button>
               <h2 className='py-1 text-xs'>{selectedEvent.description}</h2>
             </div>

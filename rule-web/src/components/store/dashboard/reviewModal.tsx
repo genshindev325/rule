@@ -4,6 +4,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { formatDateTime } from '@/utils/datetime';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -61,7 +62,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) =
                 {Array.from({ length: review.storeRating }).map((_, i) => (
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
-                <div className="text-sm text-gray-500 ml-4">{review.createdAt}</div>
+                <div className="text-sm text-gray-500 ml-4">{formatDateTime(review.createdAt)}</div>
               </div>
               <p>{review.storeReviewText}</p>
               <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>

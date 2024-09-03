@@ -58,8 +58,8 @@ const EventPayment: React.FC = () => {
       });
 
       if (response.status === 201) {
-        console.log("Participate event success.");
-        router.push('/event/registSuccess');
+        setNotification({ message: '参加成功!', type: 'success' });
+        router.push('/participate');
       } else {
         setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
 

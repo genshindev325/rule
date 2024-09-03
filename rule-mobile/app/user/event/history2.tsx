@@ -59,7 +59,7 @@ const EventHistory2: React.FC = () => {
   }
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-16 px-2 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
+  const container = 'rounded-xl bg-white -mt-16 px-1 sm:px-2 md:px-4 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
