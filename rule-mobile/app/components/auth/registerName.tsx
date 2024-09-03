@@ -31,7 +31,7 @@ const RegisterName: React.FC<RegisterNameInterface> = ({ userName, isOpen, onUse
           <div className="mb-4">
             <input
               type="text"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
+              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
               placeholder="氏名"
               value={name}
               onChange={(e) => setUserName(e.target.value)}
@@ -39,7 +39,7 @@ const RegisterName: React.FC<RegisterNameInterface> = ({ userName, isOpen, onUse
             />
           </div>
           <div className='flex justify-center'>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>
       </div>

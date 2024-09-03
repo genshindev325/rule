@@ -63,7 +63,7 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
           <div className="mb-4 text-md md:text-xl font-bold">
             <input
               type="text"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
+              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
               placeholder="メールアドレス"
               value={email}
               onChange={handleEmailChange}
@@ -74,7 +74,7 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
           <div className="mb-4 text-md md:text-xl font-bold">
             <input
               type="text"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
+              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
               placeholder="メールアドレス(確認用)"
               value={confirmEmail}
               onChange={handleConfirmEmailChange}
@@ -83,7 +83,7 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
             {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
           </div>
           <div className='flex justify-center'>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>
       </div>

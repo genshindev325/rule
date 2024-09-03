@@ -86,7 +86,7 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
+              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
               placeholder="パスワード"
               required
             />
@@ -95,7 +95,7 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
           <div className="mb-4 text-md md:text-xl font-bold">
             <input
               type="password"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center"
+              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
               placeholder="パスワード(確認用)"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
@@ -104,7 +104,7 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
             {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
           </div>
           <div className='flex justify-center'>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>
       </div>

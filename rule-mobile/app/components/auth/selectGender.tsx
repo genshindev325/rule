@@ -27,7 +27,7 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
       <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-        <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-12 text-center">性別を選択してください</h2>
+        <h2 className="text-xl md:text-3xl font-bold py-12 md:py-20 px-2 text-center">性別を選択してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 text-md md:text-xl font-bold flex flex-col space-y-4">
             <button
@@ -46,7 +46,7 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
             </button>
           </div>
           <div className='flex justify-center'>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full`}>➔</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>
       </div>
