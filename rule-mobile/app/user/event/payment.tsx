@@ -33,7 +33,7 @@ const EventPayment: React.FC = () => {
         console.error('Failed to parse event data from URL:', error);
       }
     }
-  }, [eventString, dispatch]);
+  }, [eventString, dispatch, router]);
 
   const handleCloseNotification = () => {
     setNotification(null);
@@ -59,7 +59,7 @@ const EventPayment: React.FC = () => {
 
       if (response.status === 201) {
         console.log("Participate event success.");
-        router.push("/event/registSuccess");
+        router.push('/event/registSuccess');
       } else {
         setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
 
@@ -96,18 +96,15 @@ const EventPayment: React.FC = () => {
               <div className="py-6 md:py-12 px-4 md:px-8 flex flex-row text-xl text-white md:text-3xl font-bold text-center">
                 <h2 className="grow">イベントに参加</h2>
               </div>
-
               {/* Event Details */}
               <div className="pb-6 px-4 sm:px-6 md:px-8">
                 <EventCard {...selectedEvent} />
               </div>
-
               {/* Payment Form */}
               <div className="flex flex-col justify-center">
                 <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">
                   お支払い手続き
                 </div>
-
                 <div className="flex flex-col mx-8 md:mx-20 mt-6 md:mt-10">
                   <h3 className="text-lg text-gray-800 font-bold">クレジット決済</h3>
                   <div className="flex items-center justify-between mt-2">
@@ -119,7 +116,6 @@ const EventPayment: React.FC = () => {
                     <div className="text-gray-800">{selectedEvent.maleFee}円</div>
                   </div>
                 </div>
-
                 {/* Registration Form */}
                 <form onSubmit={handleSubmit} className="mt-6 md:mt-10 bg-white">
                   <RegisteredCard />
@@ -158,6 +154,7 @@ const EventPayment: React.FC = () => {
               </div>
             </div>
           </div>
+          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </AuthWrapper>
       </IonContent>
     </IonPage>
