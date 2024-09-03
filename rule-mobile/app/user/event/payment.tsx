@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import RegisteredCard from '@/app/components/user/event/registeredCard';
@@ -33,7 +33,7 @@ const EventPayment: React.FC = () => {
         console.error('Failed to parse event data from URL:', error);
       }
     }
-  }, [eventString, dispatch, router]);
+  }, [eventString, dispatch]);
 
   const handleCloseNotification = () => {
     setNotification(null);

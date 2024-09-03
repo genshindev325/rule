@@ -66,7 +66,7 @@ const AppShell = () => {
               <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* user/event */}
-              <Route path="/event/registSuccess" component={() => <RegistSuccess />} exact={true} />
+              <Route path="/event/registSuccess" render={() => <RegistSuccess />} exact={true} />
               <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
               {/* <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} /> */}
               <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
