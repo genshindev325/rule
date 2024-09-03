@@ -42,7 +42,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     // <div className="bg-gray-100">
       <Slider {...settings}>
         {events.map((event, index) => (
-          <div key={index} className="px-4 my-6">
+          <div key={index} className="px-4 my-4">
             <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
               <EventCard {...event} />
             </IonRouterLink>

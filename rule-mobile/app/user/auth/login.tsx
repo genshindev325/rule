@@ -82,7 +82,7 @@ const Login: React.FC = () => {
                 <input
                   type="address"
                   name='email'
-                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
+                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg focus:outline-none"
                   placeholder="メールアドレス"
                   value={emailAddress}
                   onChange={(e) => setEmailAddress(e.target.value)}
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
                 <input
                   type="password"
                   name='password'
-                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg"
+                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg focus:outline-none"
                   placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -108,7 +108,7 @@ const Login: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className={`w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 ${maleGradient} text-white rounded-full font-bold`}
+                className={`w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 ${maleGradient} text-white rounded-full font-bold focus:outline-none`}
               >
                 サインイン
               </button>

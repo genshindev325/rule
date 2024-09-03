@@ -146,8 +146,8 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
         {/*gender and age*/}
         <div className="flex mb-4 space-x-2">
           <div className=''>
-            <button className={`rounded-l-lg py-3 px-4 border border-r-0 ${textSmall} ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
-            <button className={`rounded-r-lg py-3 px-4 border border-l-0 ${textSmall} ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
+            <button className={`rounded-l-lg p-3 border border-r-0 ${textSmall} ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
+            <button className={`rounded-r-lg p-3 border border-l-0 ${textSmall} ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
           </div>
           <select id="age" name="age" value={age} onChange={handleAgeChange}
             className="block w-28 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"

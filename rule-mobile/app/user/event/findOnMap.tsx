@@ -90,15 +90,15 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
-            <div className={`h-40 md:h-48 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-xl text-center text-white pt-10 px-4'>
+            <div className={`h-32 md:h-48 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-xl text-center text-white pt-4 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
                 <h2 className='grow pr-4'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-6 md:mt-8">
-                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-8" onClick={handleOpenModal}/>
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-4 md:mt-6">
+                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6" onClick={handleOpenModal}/>
                 <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
                 <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
               </div>

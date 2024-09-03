@@ -32,7 +32,7 @@ const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'absolute top-48 rounded-xl bg-white px-1 sm:px-2 md:px-4 py-6 sm:py-12 md:py-20 mx-4 sm:m-6 md:m-8 flex flex-col shadow-md space-y-4';
+  const container = 'absolute top-48 rounded-xl bg-white px-1 sm:px-2 md:px-4 py-6 sm:py-12 md:py-20 mx-2 sm:m-4 md:m-6 flex flex-col shadow-md space-y-4';
   const searchSVG = '/svg/search.svg';
   const settingSVG = '/svg/settings.svg';
   const textMd = 'text-md sm:text-lg';
@@ -74,10 +74,10 @@ const SearchResult4: React.FC = () => {
               </div>
               {/* buttons */}
               <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
-                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
-                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
-                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
-                <button className='rounded-full bg-white shadow-lg px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
+                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
+                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
+                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
+                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
               </div>
             </div>
             {/* container */}
