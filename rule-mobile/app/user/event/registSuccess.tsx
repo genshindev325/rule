@@ -22,7 +22,7 @@ const RegistSuccess: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className={`flex flex-col items-center min-h-screen w-screen ${maleGradient} px-8`}>
             {/* banner on the bg-gradient */}
-            <div className="py-20 md:py-24 lg:py-28 px-4 md:px-8 flex flex-col text-2xl text-white md:text-3xl font-bold text-center">
+            <div className="py-10 md:py-12 lg:py-14 px-4 md:px-8 flex flex-col text-2xl text-white md:text-3xl font-bold text-center">
               <img src={completedImage} alt={`event-complete`} width={120} height={100} className="rounded-md rounded-br-none text-white mx-auto mb-10" />
               <h2 className='grow'>イベントの参加予約が</h2>
               <h2 className='grow'>完了しました!</h2>

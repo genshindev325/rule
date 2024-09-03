@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,13 +10,14 @@ import AuthWrapper from '@/app/components/auth/authWrapper';
 import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import { RootState } from '@/app/store/store';
 import { SERVER_URL } from '@/app/config';
+import Notification from '@/app/components/utils/notification';
 
 const EventPayment: React.FC = () => {
   const router = useIonRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const eventString = searchParams.get('event');
-
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
   // Redux state selectors
@@ -33,6 +34,10 @@ const EventPayment: React.FC = () => {
       }
     }
   }, [eventString, dispatch]);
+
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -54,13 +59,18 @@ const EventPayment: React.FC = () => {
 
       if (response.status === 201) {
         console.log("Participate event success.");
-        router.push("/event/findOnMap");
+        router.push("/event/registSuccess");
       } else {
-        console.log(response.status);
-        console.log("Participate event failed.");
+        setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+
+        // Auto-close notification after 4 seconds
+        setTimeout(handleCloseNotification, 4000);
       }
     } catch (error) {
-      console.error("An error occurred during event participation:", error);
+      setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+
+      // Auto-close notification after 4 seconds
+      setTimeout(handleCloseNotification, 4000);
     }
   };
 
