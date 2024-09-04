@@ -58,15 +58,9 @@ const Login: React.FC = () => {
       } else {
         console.log(response.status);
         setNotification({ message: 'ユーザー名とパスワードが一致しません。', type: 'error' });
-
-        // Auto-close notification after 4 seconds
-        setTimeout(handleCloseNotification, 4000);
       }
     } catch(error) {
       setNotification({ message: `サインイン中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
-
-      // Auto-close notification after 4 seconds
-      setTimeout(handleCloseNotification, 4000);
     }
   };
 

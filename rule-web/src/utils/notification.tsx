@@ -1,4 +1,4 @@
-// components/utils/notification.tsx
+// utils/notification.tsx
 
 import React, { useEffect } from 'react';
 

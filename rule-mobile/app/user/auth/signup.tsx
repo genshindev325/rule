@@ -106,15 +106,9 @@ const SignUp: React.FC = () => {
         }, 1500);
       } else {
         setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
-
-        // Auto-close notification after 4 seconds
-        setTimeout(handleCloseNotification, 4000);
       }
     } catch(error) {
       setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
-
-      // Auto-close notification after 4 seconds
-      setTimeout(handleCloseNotification, 4000);
     }
   }
 
