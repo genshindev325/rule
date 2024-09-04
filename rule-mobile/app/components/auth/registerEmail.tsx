@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { IonRouterLink } from '@ionic/react';
 
 interface RegisterEmailInterface {
   userEmail: string;
@@ -84,6 +85,11 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
           </div>
           <div className='flex justify-center'>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
+          </div>
+          <div className='text-center text-sm pt-6 font-bold'>
+            <IonRouterLink routerLink='/auth/login'>
+              すでにアカウントを持っています
+            </IonRouterLink>
           </div>
         </form>
       </div>

@@ -10,7 +10,7 @@ import { SERVER_URL } from '@/app/config';
 
 const Login: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textMd = 'text-md md:text-lg font-semibold';
+  const textSm = 'text-sm md:text-md font-semibold';
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -94,10 +94,10 @@ const Login: React.FC = () => {
                   required
                 />
               </div>
-              <div className={`${textMd} text-right text-gray-400`}>
+              <div className={`${textSm} text-right text-gray-400`}>
                 <IonRouterLink routerLink={`/auth/passwordResetSend`}>パスワードをお忘れですか？</IonRouterLink>
               </div>
-              <div className={`${textMd} text-right text-gray-400`}>
+              <div className={`${textSm} text-right text-gray-400`}>
                 <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink>
               </div>
               <button
@@ -106,7 +106,7 @@ const Login: React.FC = () => {
               >
                 サインイン
               </button>
-              <div className={`${textMd} text-center text-gray-400 pb-10`}>                  
+              <div className={`${textSm} text-center text-gray-400 pb-10`}>                  
                 <IonRouterLink routerLink='/auth/signup'>アカウントを作成する</IonRouterLink>
               </div>
             </form>
