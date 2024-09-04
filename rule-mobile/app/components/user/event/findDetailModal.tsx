@@ -130,9 +130,8 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             className="block w-40 px-3 sm:px-4 md:px-5 sm:px-4 md:px-5 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
           >
             <option value="">場所を選択</option>
-            <option value="Tokyo, Japan">Tokyo, Japan</option>
-            <option value="Osaka, Japan">Osaka, Japan</option>
-            <option value="場所 3">場所 3</option>
+            <option value="Tokyo, Japan">東京、日本</option>
+            <option value="Osaka, Japan">大阪、日本</option>
           </select>
           <select id="date" name="date" value={date} onChange={handleDateChange}
             className="block w-40 px-3 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
