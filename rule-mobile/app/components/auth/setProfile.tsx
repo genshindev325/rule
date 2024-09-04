@@ -9,9 +9,10 @@ import Notification from '@/app/components/utils/notification';
 interface SetProfileInterface {
   isOpen: boolean;
   onUserAvatarChange: (newUserBirthday: string) => void;
+  onCancel: () => void;
 }
 
-const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange }) => {
+const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange, onCancel }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const [localAvatar, setAvatar] = useState('');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -85,7 +86,8 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange 
               </div>
             )}
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>

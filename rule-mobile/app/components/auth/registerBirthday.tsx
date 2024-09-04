@@ -7,9 +7,10 @@ import React, { useState } from 'react';
 interface RegisterBirthdayInterface {
   isOpen: boolean;
   onUserBirthdayChange: (newUserBirthday: string) => void;
+  onCancel: () => void;
 }
 
-const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserBirthdayChange }) => {
+const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserBirthdayChange, onCancel }) => {
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
@@ -56,7 +57,8 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
           <p className="text-sm md:text-md text-center font-semibold text-gray-400">
             スキップする
           </p>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>

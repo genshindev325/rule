@@ -8,9 +8,10 @@ interface RegisterPasswordInterface {
   userPassword: string;
   isOpen: boolean;
   onPasswordChange: (newPassword: string) => void;
+  onCancel: () => void;
 }
 
-const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, isOpen, onPasswordChange }) => {
+const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, isOpen, onPasswordChange, onCancel }) => {
   const [password, setPassword] = useState(userPassword);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -103,7 +104,8 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
             />
             {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>

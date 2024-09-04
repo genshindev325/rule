@@ -48,10 +48,20 @@ const SignUp: React.FC = () => {
     setIsGenderOpen(true);
   }
 
+  const handlePasswordCancel = () => {
+    setIsPasswordOpen(false);
+    setIsEmailOpen(true);
+  }
+
   const handleGenderChange = (newGender: 'male' | 'female') => {
     setGender(newGender);
     setIsGenderOpen(false);
     setIsUserIDOpen(true);
+  }
+
+  const handleGenderCancel = () => {
+    setIsGenderOpen(false);
+    setIsPasswordOpen(true);
   }
 
   const handleUserIDChange = (newUserID: string) => {
@@ -60,16 +70,36 @@ const SignUp: React.FC = () => {
     setIsNicknameOpen(true);
   }
 
+  const handleUserIDCancel = () => {
+    setIsUserIDOpen(false);
+    setIsGenderOpen(true);
+  }
+
   const handleUserNameChange = (newUserName: string) => {
     setNickname(newUserName);
     setIsNicknameOpen(false);
     setIsBirthdayOpen(true);
   }
 
+  const handleUserNameCancel = () => {
+    setIsNicknameOpen(false);
+    setIsUserIDOpen(true);
+  }
+
   const handleBirthdayChange = (newBirthday: string) => {
     setBirthday(newBirthday);
     setIsBirthdayOpen(false);
     setIsProfileOpen(true);
+  }
+
+  const handleBirthdayCancel = () => {
+    setIsBirthdayOpen(false);
+    setIsNicknameOpen(true);
+  }
+
+  const handleAvatarCancel = () => {
+    setIsProfileOpen(false);
+    setIsBirthdayOpen(true);
   }
 
   const handleCloseNotification = () => {
@@ -116,12 +146,12 @@ const SignUp: React.FC = () => {
     <IonPage>
       <IonContent>
         <RegisterEmail isOpen={isEmailOpen} userEmail={email} onEmailChange={handleEmailChange} />
-        <RegisterPassword isOpen={isPasswordOpen} userPassword={password} onPasswordChange={handlePasswordChange} />
-        <SelectGender isOpen={isGenderOpen} userGender={gender} onGenderChange={handleGenderChange} />
-        <RegisterID isOpen={isUserIDOpen} Id={userID} onUserIDChange={handleUserIDChange} />
-        <RegisterName isOpen={isNicknameOpen} userName={nickname} onUserNameChange={handleUserNameChange} />
-        <RegisterBirthday isOpen={isBirthdayOpen} onUserBirthdayChange={handleBirthdayChange} />
-        <SetProfile isOpen={isProfileOpen} onUserAvatarChange={handleAvatarChange} />
+        <RegisterPassword isOpen={isPasswordOpen} userPassword={password} onPasswordChange={handlePasswordChange} onCancel={handlePasswordCancel} />
+        <SelectGender isOpen={isGenderOpen} userGender={gender} onGenderChange={handleGenderChange} onCancel={handleGenderCancel} />
+        <RegisterID isOpen={isUserIDOpen} Id={userID} onUserIDChange={handleUserIDChange} onCancel={handleUserIDCancel} />
+        <RegisterName isOpen={isNicknameOpen} userName={nickname} onUserNameChange={handleUserNameChange} onCancel={handleUserNameCancel} />
+        <RegisterBirthday isOpen={isBirthdayOpen} onUserBirthdayChange={handleBirthdayChange} onCancel={handleBirthdayCancel} />
+        <SetProfile isOpen={isProfileOpen} onUserAvatarChange={handleAvatarChange} onCancel={handleAvatarCancel} />
         {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
       </IonContent>
     </IonPage>

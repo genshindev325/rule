@@ -8,9 +8,10 @@ interface SelectGenderInterface {
   userGender: 'male' | 'female';
   isOpen: boolean;
   onGenderChange: (newGender: 'male' | 'female') => void;
+  onCancel: () => void;
 }
 
-const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onGenderChange }) => {
+const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onGenderChange, onCancel }) => {
   const [gender, setGender] = useState<'male' | 'female'>(userGender);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
@@ -45,7 +46,8 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
               女性
             </button>
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>

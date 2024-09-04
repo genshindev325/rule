@@ -8,9 +8,10 @@ interface RegisterIDInterface {
   Id: string;
   isOpen: boolean;
   onUserIDChange: (newUserID: string) => void;
+  onCancel: () => void;
 }
 
-const RegisterID: React.FC<RegisterIDInterface> = ({ Id, isOpen, onUserIDChange }) => {
+const RegisterID: React.FC<RegisterIDInterface> = ({ Id, isOpen, onUserIDChange, onCancel }) => {
   const [userID, setUserID] = useState(Id);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
@@ -45,7 +46,8 @@ const RegisterID: React.FC<RegisterIDInterface> = ({ Id, isOpen, onUserIDChange 
           <p className="text-sm md:text-md text-center font-semibold text-gray-400">
             で入力してください。
           </p>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>

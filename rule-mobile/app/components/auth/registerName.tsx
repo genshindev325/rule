@@ -8,9 +8,10 @@ interface RegisterNameInterface {
   userName: string;
   isOpen: boolean;
   onUserNameChange: (newUserName: string) => void;
+  onCancel: () => void;
 }
 
-const RegisterName: React.FC<RegisterNameInterface> = ({ userName, isOpen, onUserNameChange }) => {
+const RegisterName: React.FC<RegisterNameInterface> = ({ userName, isOpen, onUserNameChange, onCancel }) => {
   const [name, setUserName] = useState(userName);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
@@ -38,7 +39,8 @@ const RegisterName: React.FC<RegisterNameInterface> = ({ userName, isOpen, onUse
               required
             />
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center space-x-4'>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
         </form>
