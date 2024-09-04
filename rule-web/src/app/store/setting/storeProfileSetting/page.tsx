@@ -147,7 +147,7 @@ const StoreProfileSettings = () => {
                     type="address"
                     name='address'
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="Annie's Building 1F, 1-17-2 Higashi-Shinsaibashi, Chuo-ku, Osaka-shi, Osaka Prefecture"
+                    placeholder="大阪府大阪市中央区東心斎橋1-17-2 アニーズビル 1F"
                     required
                   />
                 </div>
@@ -157,13 +157,13 @@ const StoreProfileSettings = () => {
                     type="name"
                     name='access1'
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="10 minutes walk from Shinsaibashi Station on the Osaka Metro Midosuji Line"
+                    placeholder="大阪メトロ 御堂筋線 心斎橋駅から徒歩10分"
                   />
                   <input
                     type="name"
                     name='access2'
                     className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="5 minutes walk from Nagahoribashi Station on the Osaka Metro Nagahori Tsunimi-ryokuchi Line"
+                    placeholder="大阪メトロ 長堀鶴見緑地線 長堀橋駅から徒歩5分"
                   />
                 </div>
                 <div className='mb-4'>

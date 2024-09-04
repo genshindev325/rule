@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Check if it is admin
-        if (email == "admin@cloud.com" && password == "123123") {
+        if (email == "admin@cloud.com" && password == "Password123!@#") {
             // admin role
             return NextResponse.json({
                 message: "Sign in success",
