@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import AuthWrapper from '@/components/auth/authWrapper';
 import EarningsManagement from '@/components/admin/salesManagement/earningsManagement';
 import Navbar from '@/components/admin/navbar';
+import Notification from '@/utils/notification';
 
 interface EarningsProps {
   sales: number,
@@ -15,12 +16,17 @@ interface EarningsProps {
 }
 
 const SalesManagement: React.FC = () => {
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [loading, setLoading] = useState(true); 
   const [earnings, setEarnings] = useState<EarningsProps>({
     sales: 1,
     salesTotal: 0,
     salesData: [0, 0, 0, 0, 0, 0, 0]
   });
+  
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,10 +37,11 @@ const SalesManagement: React.FC = () => {
           const result_earning = await response_earningData.json();
           setEarnings(result_earning);
         } else {
-          console.error('Failed to fetch mainPanel data');
+          setNotification({ message: 'データの取得に失敗しました。', type: 'error' });
         }
       } catch (error) {
         console.error('Error:', error);
+        setNotification({ message: `エラー: ${error}`, type: 'error' });
       } finally {
         setLoading(false);
       }
@@ -55,6 +62,7 @@ const SalesManagement: React.FC = () => {
           <EarningsManagement {...earnings} />
         </div>
       </div>
+      {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
     </AuthWrapper>
   );
 };
