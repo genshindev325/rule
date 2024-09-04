@@ -112,7 +112,7 @@ const FindOnMap: React.FC = () => {
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
-            <div className='bg-white h-40 mt-[200px] sm:mt-[220px] md:mt-[240px] z-10 shadow'>
+            <div className='bg-white h-36 mt-[220px] sm:mt-[230px] md:mt-[240px] z-10 shadow'>
               {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={upcomingEvents}/>
             </div>

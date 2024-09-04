@@ -1,6 +1,6 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { LoadScript } from "@react-google-maps/api";
+import { LoadScriptNext } from "@react-google-maps/api";
 import { Redirect, Route } from "react-router-dom";
 import Providers from "@/app/provider";
 
@@ -43,7 +43,7 @@ const AppShell = () => {
   return (
     <Providers>
       <IonApp>
-        <LoadScript
+        <LoadScriptNext
           googleMapsApiKey={apiKey}
           loadingElement={<div>読み込み中...</div>}
           id="google-map-script"
@@ -85,7 +85,7 @@ const AppShell = () => {
               />
             </IonRouterOutlet>
           </IonReactRouter>
-        </LoadScript>
+        </LoadScriptNext>
       </IonApp>
     </Providers>
   );
