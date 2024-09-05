@@ -1,11 +1,6 @@
 import mongoose, { Model, Document, Schema, Query, UpdateQuery, CallbackError } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-interface IStoreLocation extends Document {
-  lat: number;
-  lng: number;
-}
-
 export interface IStore extends Document {
   email: string;
   password: string;
@@ -24,7 +19,8 @@ export interface IStore extends Document {
   ratingCount: number;
   status: string;
   createdAt: Date;
-  storeLocation: IStoreLocation;
+  storeLat: number;
+  storeLng: number;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -50,7 +46,8 @@ const storeSchema = new Schema<IStore>({
     default: 'active',
   },
   createdAt: { type: Date, default: () => new Date() },
-  storeLocation: { type: {lat: Number, lng: Number}, default: {lat: 35, lng: 140} }
+  storeLat: { type: Number, default: 35 },
+  storeLng: { type: Number, default: 140 },
 });
 
 storeSchema.pre<IStore>('save', async function (next) {
