@@ -31,7 +31,7 @@ export interface IStore extends Document {
 const storeSchema = new Schema<IStore>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  storeID: { type: String, default: '1111-2222-3333-44444' },
+  storeID: { type: String, default: '1111-2222-3333-4444' },
   storeName: { type: String, default: '' },
   storeGenre: { type: String },
   foodGenre: { type: String },
@@ -50,7 +50,7 @@ const storeSchema = new Schema<IStore>({
     default: 'active',
   },
   createdAt: { type: Date, default: () => new Date() },
-  storeLocation: { type: {lat: Number, lng: Number} }
+  storeLocation: { type: {lat: Number, lng: Number}, default: {lat: 35, lng: 140} }
 });
 
 storeSchema.pre<IStore>('save', async function (next) {
