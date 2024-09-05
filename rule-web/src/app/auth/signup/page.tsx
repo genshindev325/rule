@@ -4,8 +4,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth/authContext';
+import Notification from '@/utils/notification';
 
 const SignUp = () => {
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useRouter();
   const { signin } = useAuth();
 
@@ -101,8 +103,7 @@ const SignUp = () => {
       signin(email, role, profile, token);
       router.push('/store/dashboard');
     } else {
-      // Error handler
-      console.log(response.status);
+      setNotification({ message: `ユーザー名とパスワードが一致しません。${response.status} エラー`, type: 'error'});
     }
   });
 

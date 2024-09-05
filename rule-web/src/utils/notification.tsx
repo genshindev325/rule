@@ -11,15 +11,15 @@ interface NotificationProps {
 const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) => {
   useEffect(() => {
     // Automatically close the notification after 3 seconds
-    const timer = setTimeout(onClose, 3000);
+    const timer = setTimeout(onClose, 300000);
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, [onClose]);
 
   return (
     <div
-      className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
-        type === 'success' ? 'bg-green-500 text-white w-56' : 'bg-red-500 text-white w-80'
-      }`}
+      className={`absolute p-4 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-500 text-white w-64' : 'bg-red-500 text-white w-80'
+      }`} style={{top: 20, right: 20}}
     >
       <div className="flex justify-between items-center">
         <span>{message}</span>
