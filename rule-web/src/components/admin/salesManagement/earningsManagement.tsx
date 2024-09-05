@@ -4,6 +4,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface EarningsProps {
   sales: number,
@@ -43,15 +44,15 @@ const EarningsManagement: React.FC<EarningsProps> = ({
       <h1 className="text-3xl font-bold mb-6">売上</h1>
       <div className="p-4 mb-6 bg-white shadow-md rounded-md flex flex-wrap w-5/12">
         <div className="w-full md:w-1/2 p-4">
-          <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
+          <div className="border-gray-200 border-solid border-2 py-6 rounded-md text-center">
             <div className="text-sm text-gray-600">総合売上</div>
-            <div className="text-2xl font-bold">{sales} 円</div>
+            <div className="text-2xl font-bold">{formatNumber(sales)} 円</div>
           </div>
         </div>
         <div className="w-full md:w-1/2 p-4">
-          <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
+          <div className="border-gray-200 border-solid border-2 py-6 rounded-md text-center">
             <div className="text-sm text-gray-600">見込総合売上</div>
-            <div className="text-2xl font-bold">{salesTotal} 円</div>
+            <div className="text-2xl font-bold">{formatNumber(salesTotal)} 円</div>
           </div>
         </div>
       </div>

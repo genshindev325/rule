@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface StoreSale {
   storeName: string,
@@ -82,9 +83,9 @@ const StoreList: React.FC<StoreSalesProps> = ({ stores }) => {
             {paginatedStores.map((store, index) => (
               <tr key={index}>
                 <td className="py-2 text-left">{store.storeName}</td>
-                <td className="py-2 px-4 text-left">{store.sales}</td>
-                <td className="py-2 px-4 text-left">{store.salesForecast}</td>
-                <td className="py-2 px-4 text-left">{store.totalDepositedAmount}</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.sales)}</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.salesForecast)}</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.totalDepositedAmount)}</td>
               </tr>
             ))}
           </tbody>

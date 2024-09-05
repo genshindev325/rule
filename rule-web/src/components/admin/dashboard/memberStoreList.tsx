@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 import { formatDateTime } from '@/utils/datetime';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface Store {
   _id: string,
@@ -131,7 +132,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores: initialStores }) => {
               <tr key={store._id}>
                 <td className="py-2 text-left">{store.storeID}</td>
                 <td className="py-2 px-4 text-left">{store.storeName? store.storeName : "NOT SET"}</td>
-                <td className="py-2 px-4 text-left">{store.monthlyRate}</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.monthlyRate)}</td>
                 <td className="py-2 px-4 text-left">{formatDateTime(store.createdAt)}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
