@@ -6,15 +6,19 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-
+import Notification from '@/utils/notification';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
+import GoogleMapComponent from '@/utils/googleMap';
 
 const StoreProfileSettings = () => {
   const router = useRouter();
   const [storeID, setStoreID] = useState('');
+  
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [storeImages, setStoreImages] = useState<string>();
   const { profile } = useSelector((state: RootState) => state.auth);
+  const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
   
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -43,7 +47,12 @@ const StoreProfileSettings = () => {
 
   const handleDeleteImage = () => {
     setStoreImages('');
-  }
+  };
+
+  // Callback to receive the new marker location
+  const handleLocationSelect = (position: { lat: number; lng: number }) => {
+    setStoreLocation(position); // Update the location in the state
+  };
 
   useEffect(() => {
     if (profile) {
@@ -63,6 +72,7 @@ const StoreProfileSettings = () => {
     const access1 = formData.get('access1');
     const access2 = formData.get('access2');
     const description = formData.get('description');
+    console.log("storeLocation: " + storeLocation);
 
     const response = await fetch(`/api/stores/${storeID}`, {
       method: 'PUT',
@@ -76,17 +86,20 @@ const StoreProfileSettings = () => {
         access1,
         access2,
         storeImages,
-        description
+        description,
+        storeLat: storeLocation?.lat,
+        storeLng: storeLocation?.lng,
       }),
     });
 
     if (response.status === 200) {
       router.push('/store/setting');
       console.log('store profile setting success')
+      setTimeout(() => {
+        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+      }, 1500);
     } else {
-      console.log(response.status);
-      console.log(response)
-      console.log("Failed.");
+      setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
     }
   })
 
@@ -175,11 +188,17 @@ const StoreProfileSettings = () => {
                     id="file-input"
                   />
                   <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                  {/* store images */}
                   {storeImages && (
-                    <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
+                    <div className='flex-1 justify-center items-center w-40 pt-6'>
                       <img src={`${storeImages}`} onClick={handleDeleteImage} />
                     </div>
                   )}
+                  {/* google map */}
+                  <div className="my-4">
+                    {/* {loading ? <p>Googleマップを読み込んでいます...</p> : <GoogleMapComponent onLocationSelect={handleLocationSelect} />} */}
+                    <GoogleMapComponent onLocationSelect={handleLocationSelect} />
+                  </div>
                 </div>
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>説明文</h3>
@@ -204,6 +223,7 @@ const StoreProfileSettings = () => {
           </div>
         </div>
       </div>
+      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
     </AuthWrapper>
   );
 };

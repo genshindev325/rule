@@ -2,29 +2,20 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import GoogleMapComponent from '@/utils/googleMap';
 import AuthWrapper from '@/components/auth/authWrapper';
 import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
 
-
 const EventSettings = () => {
   const router = useRouter();
   const { profile } = useAuth();
-  
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
-  const [eventLocation, setEventLocation] = useState<{ lat: number; lng: number } | null>(null);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
-  };
-
-  // Handle location selection
-  const handleLocationSelect = (lat: number, lng: number) => {
-    setEventLocation({ lat, lng });
   };
 
   // Handle file selection  
@@ -78,12 +69,6 @@ const EventSettings = () => {
     const maleFee = formData.get('maleFee');
     const femaleFee = formData.get('femaleFee');
     const store = profile?._id;
-
-    // Make sure the location is set
-    if (!location) {
-      alert('地図上で場所を選択します。');
-      return;
-    }
     
     const response = await fetch('/api/events', {
       method: 'POST',
@@ -100,8 +85,7 @@ const EventSettings = () => {
         femaleTotal,
         maleFee,
         femaleFee,
-        store,
-        location
+        store
       }),
     });
 
@@ -174,9 +158,6 @@ const EventSettings = () => {
                 
                 {/* Event settings and other input fields */}
                 <h3 className='text-gray-600 py-2'>イベント場所</h3>
-                <div className="mb-4">
-                  {/* <GoogleMapComponent onLocationSelect={handleLocationSelect} /> */}
-                </div>
                 {photoImageUrl && (
                   <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
                     <img src={`${photoImageUrl}`} onClick={handleDeleteImage} />
