@@ -23,8 +23,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-full py-10 bg-zinc-700 text-white w-20">
-      <div className="flex flex-col items-center space-y-8 flex-grow">
+    <div className="flex flex-col items-center h-full bg-zinc-700 text-white w-20">
+      <div className="flex flex-col items-center space-y-8 sticky top-8">
         <Link href="/admin/dashboard">
           <button
             className={`hover:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''}`}
@@ -66,7 +66,7 @@ const Navbar = () => {
           </button>
         </Link>
       </div>
-      <div className='flex flex-col items-end space-y-8 mt-auto text-black'>
+      <div className='flex flex-col sticky bottom-8 space-y-8 mt-auto text-black'>
         <button
           className={`hover:text-blue-400 ${selectedMenu === 'notifications' ? 'text-blue-400' : ''}`}
           onClick={() => handleMenuClick('notifications')}

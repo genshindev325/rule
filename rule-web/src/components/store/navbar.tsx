@@ -30,8 +30,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-20 h-full py-10 bg-zinc-700 text-white">
-      <div className="flex flex-col items-center space-y-8 flex-grow">
+    <div className="flex flex-col items-center w-20 h-full bg-zinc-700 text-white">
+      <div className="flex flex-col sticky top-8 items-center space-y-8">
         <button className='hover:text-blue-400 active:text-blue-400'>
           <div className="w-8 h-8 rounded-full bg-gray-200">
             {avatar && <img src={avatar} className='rounded-full w-8 h-8' />}
@@ -70,7 +70,7 @@ const Navbar = () => {
           </button>
         </Link>
       </div>
-      <div className='flex flex-col items-end space-y-8 mt-auto text-black'>
+      <div className='flex flex-col sticky bottom-8 space-y-8 mt-auto text-black'>
         <button className='hover:text-blue-400 active:text-blue-400'>
           <FaBell className="w-8 h-8" />
         </button>
