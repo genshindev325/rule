@@ -119,14 +119,14 @@ const PasswordSetting = () => {
                   />
                   {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
                 </div>
-                <h3 className='text-gray-600 py-2'>新しいパスワードを (再入力)</h3>
+                <h3 className='text-gray-600 py-2'>新しいパスワード (再入力)</h3>
                 <div className="mb-4">
                   <input
                     type="password"
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="新しいパスワードを (再入力)"
+                    placeholder="新しいパスワード (再入力)"
                     required
                   />
                   {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}

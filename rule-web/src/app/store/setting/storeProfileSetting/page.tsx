@@ -17,6 +17,7 @@ const StoreProfileSettings = () => {
   
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [storeImages, setStoreImages] = useState<string>();
+  const [address, setAddress] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
   
@@ -50,8 +51,11 @@ const StoreProfileSettings = () => {
   };
 
   // Callback to receive the new marker location
-  const handleLocationSelect = (position: { lat: number; lng: number }) => {
+  const handleLocationSelect = (position: { lat: number; lng: number }, mainAddress: string | null) => {
     setStoreLocation(position); // Update the location in the state
+    if (mainAddress) {
+      setAddress(mainAddress);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +72,6 @@ const StoreProfileSettings = () => {
     const storeGenre = formData.get('storeGenre');
     const foodGenre = formData.get('foodGenre');
     const cookingGenre = formData.get('cookingGenre');
-    const address = formData.get('address');
     const access1 = formData.get('access1');
     const access2 = formData.get('access2');
     const description = formData.get('description');
@@ -159,6 +162,8 @@ const StoreProfileSettings = () => {
                   <input
                     type="address"
                     name='address'
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪府大阪市中央区東心斎橋1-17-2 アニーズビル 1F"
                     required
