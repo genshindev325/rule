@@ -155,9 +155,6 @@ const EventSettings = () => {
                   id="file-input"
                 />
                 <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
-                
-                {/* Event settings and other input fields */}
-                <h3 className='text-gray-600 py-2'>イベント場所</h3>
                 {photoImageUrl && (
                   <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
                     <img src={`${photoImageUrl}`} onClick={handleDeleteImage} />
