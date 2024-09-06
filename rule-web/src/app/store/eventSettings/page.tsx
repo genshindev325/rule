@@ -129,7 +129,7 @@ const EventSettings = () => {
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>カテゴリー</h3>
+              <h3 className='text-gray-600 py-2'>カテゴリ</h3>
               <div className="mb-4"> {/*will be modified*/}
                 <select
                   id="category"
@@ -175,7 +175,7 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>スケジュール</h3>
+                    <h3 className='text-gray-600 py-2'>日程</h3>
                     <input
                       type="date"
                       name='schedule'
@@ -210,22 +210,22 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>採用された男性の数</h3>
+                    <h3 className='text-gray-600 py-2'>男性の募集人数</h3>
                     <input
                       type="number"
                       name='maleTotal'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="採用された男性の数"
+                      placeholder="男性の募集人数"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>採用された女性の数</h3>
+                    <h3 className='text-gray-600 py-2'>女性の募集人数</h3>
                     <input
                       type="number"
                       name='femaleTotal'
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="採用された女性の数"
+                      placeholder="女性の募集人数"
                       required
                     />
                   </div>
@@ -235,7 +235,7 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>男性料金</h3>
+                    <h3 className='text-gray-600 py-2'>男性の料金</h3>
                     <input
                       type="number"
                       name='maleFee'
@@ -245,7 +245,7 @@ const EventSettings = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>女性料金</h3>
+                    <h3 className='text-gray-600 py-2'>女性の料金</h3>
                     <input
                       type="number"
                       name='femaleFee'
