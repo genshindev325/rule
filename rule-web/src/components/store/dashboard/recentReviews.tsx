@@ -50,7 +50,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
             <p>{review.storeReviewText}</p>
             <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
             <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">
-              <span onClick={() => onSelectReview(review)}>
+              <span onClick={() => onSelectReview(review)} className='underline underline-offset-2'>
                 返事する
               </span>
             </div>

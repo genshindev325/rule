@@ -10,6 +10,7 @@ interface ReviewModalProps {
   isOpen: boolean;
   reviews: RecentReview[];
   onClose: () => void;
+  onSelectReview: (review: RecentReview) => void;
 }
 
 interface RecentReview {
@@ -24,7 +25,7 @@ interface RecentReview {
   storeRating: number,
 }
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose, onSelectReview }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -71,7 +72,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) =
               </div>
               <p>{review.storeReviewText}</p>
               <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
-              <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">返事する</div>
+            <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">
+              <span onClick={() => onSelectReview(review)} className='underline underline-offset-2'>
+                返事する
+              </span>
+            </div>
             </li>
           ))}
         </ul>

@@ -9,6 +9,7 @@ import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
 import RecentReviews from '@/components/store/dashboard/recentReviews';
 import ReviewModal from '@/components/store/dashboard/reviewModal';
+import ReplyModal from '@/components/store/dashboard/replyModal';
 import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';
 import MainPanel from '@/components/store/dashboard/mainPanel';
 
@@ -52,9 +53,11 @@ const Dashboard = () => {
     reviewResponseRate: 0,
   });
   const [recentReviews, setRecentReviews] = useState<RecentReview[]>([]);
+  const [replyReview, setReplyReview] = useState<RecentReview>();
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [loading, setLoading] = useState(true); 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
 
   useEffect(() => {
@@ -107,12 +110,22 @@ const Dashboard = () => {
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenReviewModal = () => {
+    setIsReviewModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseReviewModal = () => {
+    setIsReviewModalOpen(false);
+  };
+
+  const handleOpenReplyModal = (review: RecentReview) => {
+    setIsReplyModalOpen(true);
+    setIsReviewModalOpen(false);
+    setReplyReview(review);
+  };
+
+  const handleCloseReplyModal = () => {
+    setIsReplyModalOpen(false);
   };
 
   return (
@@ -130,13 +143,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className='w-auto p-10 mt-4'>
-          <RecentReviews onSeeMore={handleOpenModal} reviews={recentReviews} />        
+          <RecentReviews onSeeMore={handleOpenReviewModal} reviews={recentReviews} onSelectReview={handleOpenReplyModal} />        
         </div>
-        <ReviewModal
-          isOpen={isModalOpen}
-          reviews={recentReviews}
-          onClose={handleCloseModal}
-        />
+        <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
+        {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
       </div>
     </AuthWrapper>
   );
