@@ -39,7 +39,7 @@ const Navbar = () => {
         </button>
         <Link href="/store/dashboard">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('dashboard')}
           >
             <FaHome className="w-8 h-8" />
@@ -47,7 +47,7 @@ const Navbar = () => {
         </Link>
         <Link href="/store/eventSettings">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'eventSettings' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'eventSettings' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('eventSettings')}
           >
             <FaCalendar className="w-8 h-8" />
@@ -55,7 +55,7 @@ const Navbar = () => {
         </Link>
         <Link href="/store/chat">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'chat' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'chat' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('chat')}
           >
             <FaComments className="w-8 h-8" />
@@ -63,7 +63,7 @@ const Navbar = () => {
         </Link>
         <Link href="/store/salesManagement">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'salesManagement' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'salesManagement' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('salesManagement')}
           >
             <FaChartLine className="w-8 h-8" />
@@ -71,12 +71,12 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='flex flex-col sticky bottom-8 space-y-8 mt-auto text-black'>
-        <button className='hover:text-blue-400 active:text-blue-400'>
+        <button className='hover:text-blue-400 active:text-blue-400 duration-300'>
           <FaBell className="w-8 h-8" />
         </button>
         <Link href="/store/setting">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'setting' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'setting' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('setting')}
           >
             <FaCog className="w-8 h-8" />

@@ -27,7 +27,7 @@ const Navbar = () => {
       <div className="flex flex-col items-center space-y-8 sticky top-8">
         <Link href="/admin/dashboard">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('dashboard')}
           >
             <FaHome className="w-8 h-8" />
@@ -35,7 +35,7 @@ const Navbar = () => {
         </Link>
         <Link href="/admin/events">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'events' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 ${selectedMenu === 'events' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('events')}
           >
             <FaCalendar className="w-8 h-8" />
@@ -43,7 +43,7 @@ const Navbar = () => {
         </Link>
         <Link href="/admin/chat">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'chat' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 ${selectedMenu === 'chat' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('chat')}
           >
             <FaComments className="w-8 h-8" />
@@ -51,7 +51,7 @@ const Navbar = () => {
         </Link>
         <Link href="/admin/settlementSummary">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'settlementSummary' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 ${selectedMenu === 'settlementSummary' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('settlementSummary')}
           >
             <FaClipboardList className="w-8 h-8" />
@@ -59,7 +59,7 @@ const Navbar = () => {
         </Link>
         <Link href="/admin/salesManagement">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'salesManagement' ? 'text-blue-400' : ''}`}
+            className={`hover:text-blue-400 ${selectedMenu === 'salesManagement' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('salesManagement')}
           >
             <FaChartArea className="w-8 h-8" />
@@ -68,7 +68,7 @@ const Navbar = () => {
       </div>
       <div className='flex flex-col sticky bottom-8 space-y-8 mt-auto text-black'>
         <button
-          className={`hover:text-blue-400 ${selectedMenu === 'notifications' ? 'text-blue-400' : ''}`}
+          className={`hover:text-blue-400 ${selectedMenu === 'notifications' ? 'text-blue-400' : ''} duration-300`}
           onClick={() => handleMenuClick('notifications')}
         >
           <FaBell className="w-8 h-8" />
