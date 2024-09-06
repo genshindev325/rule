@@ -26,6 +26,7 @@ interface RecentReview {
   createdBy: {
     email: string;
     nickname: string;
+    avatar: string;
   },
   storeReviewText: string,
   conclusion: string,

@@ -10,6 +10,7 @@ interface RecentReview {
   createdBy: {
     email: string;
     nickname: string;
+    avatar: string;
   },
   storeReviewText: string,
   conclusion: string,
@@ -29,7 +30,9 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => 
         {reviews ? reviews.map((review, index) => (
           <li key={index} className="mb-4">
             <div className="flex items-center mb-2">
-              <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                <div className="w-10 h-10 bg-gray-300 rounded-full">
+                  <img src={review.createdBy.avatar} className='rounded-full w-10 h-10' />
+                </div>
               <div className="ml-2">
                 <div className="font-semibold">{review.createdBy.email}</div>
               </div>

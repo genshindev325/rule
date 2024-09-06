@@ -10,11 +10,10 @@ export async function POST(req: NextRequest) {
     try {
         const query = storeReview.find();
         if(body.storeId){
-            console.log(body.storeId)
             query.where("storeId").equals(body.storeId);
             query.populate({
                 path: 'createdBy',
-                select: 'nickname email'
+                select: 'nickname email avatar'
             })
         }
 

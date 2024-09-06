@@ -17,6 +17,7 @@ interface RecentReview {
   createdBy: {
     email: string;
     nickname: string;
+    avatar: string
   },
   storeReviewText: string,
   conclusion: string,
@@ -53,15 +54,19 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) =
           {reviews.map((review, index) => (
             <li key={index} className="mb-4">
               <div className="flex items-center mb-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                <div className="w-10 h-10 bg-gray-300 rounded-full">
+                  <img src={review.createdBy.avatar} className='rounded-full w-10 h-10' />
+                </div>
                 <div className="ml-2">
                   <div className="font-semibold">{review.createdBy.email}</div>
                 </div>
               </div>
               <div className="flex items-center mb-2">
-                {Array.from({ length: review.storeRating }).map((_, i) => (
-                  <FaStar key={i} className="text-yellow-500" />
-                ))}
+                <div className='w-1/4'>
+                  {Array.from({ length: review.storeRating }).map((_, i) => (
+                    <FaStar key={i} className="text-yellow-500" />
+                  ))}
+                </div>
                 <div className="text-sm text-gray-500 ml-4">{formatDateTime(review.createdAt)}</div>
               </div>
               <p>{review.storeReviewText}</p>
