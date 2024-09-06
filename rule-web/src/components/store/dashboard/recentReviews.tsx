@@ -38,9 +38,11 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => 
               </div>
             </div>
             <div className="flex items-center mb-2">
-              {Array.from({ length: review.storeRating }).map((_, i) => (
-                <FaStar key={i} className="text-yellow-500" />
-              ))}
+              <div className='w-1/4 flex flex-row'>
+                {Array.from({ length: review.storeRating }).map((_, i) => (
+                  <FaStar key={i} className="text-yellow-500" />
+                ))}
+              </div>
               <div className="text-sm text-gray-500 ml-4">{review.createdAt}</div>
             </div>
             <p>{review.storeReviewText}</p>

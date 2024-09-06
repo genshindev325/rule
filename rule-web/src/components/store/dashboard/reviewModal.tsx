@@ -62,7 +62,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose }) =
                 </div>
               </div>
               <div className="flex items-center mb-2">
-                <div className='w-1/4'>
+                <div className='w-1/4 flex flex-row'>
                   {Array.from({ length: review.storeRating }).map((_, i) => (
                     <FaStar key={i} className="text-yellow-500" />
                   ))}
