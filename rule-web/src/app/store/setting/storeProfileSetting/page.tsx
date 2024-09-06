@@ -114,13 +114,13 @@ const StoreProfileSettings = () => {
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
               <h2 className="text-2xl font-bold mb-6">店舗プロフィール設定</h2>
               <form onSubmit={handleSubmit}>
-                <h3 className='text-gray-600 py-2'>店名</h3>
+                <h3 className='text-gray-600 py-2'>店舗名</h3>
                 <div className="mb-4">
                   <input
                     type="name"
                     name='storeName'
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="店名"
+                    placeholder="店舗名"
                     required
                   />
                 </div>
@@ -134,13 +134,13 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>食べ物のジャンル</h3>
+                <h3 className='text-gray-600 py-2'>食材ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
                     name='foodGenre'
                     className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="食べ物のジャンル"
+                    placeholder="食材ジャンル"
                     required
                   />
                 </div>
