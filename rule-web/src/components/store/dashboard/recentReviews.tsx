@@ -35,7 +35,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => 
                   <img src={review.createdBy.avatar} className='rounded-full w-10 h-10' />
                 </div>
               <div className="ml-2">
-                <div className="font-semibold">{review.createdBy.email}</div>
+                <div className="font-semibold">{review.createdBy.nickname}</div>
               </div>
             </div>
             <div className="flex items-center mb-2">
