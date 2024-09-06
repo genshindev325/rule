@@ -73,7 +73,7 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
       
       // fetch address from lat and lng
       try {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}&language=ja`);
 
         if (response) {
           const result = await response.json();
