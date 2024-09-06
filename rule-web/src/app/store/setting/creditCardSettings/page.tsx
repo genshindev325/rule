@@ -52,7 +52,7 @@ const CreditCardSettings = () => {
                     <h3 className='text-black text-xl'>****_****_****_4224</h3>
                   </div>
                   <div className='flex flex-row-reverse'>
-                    <button type="button" className="w-20 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                    <button type="button" className="w-20 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
                       削除
                     </button>
                   </div>
@@ -101,10 +101,10 @@ const CreditCardSettings = () => {
                 </div>
                 {/* buttons */}
                 <div className='flex flex-row justify-end gap-4 pt-12'>
-                  <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                  <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
                     保存
                   </button>
-                  <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
+                  <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
                     <a href='/store/setting'>キャンセル</a>
                   </button>
                 </div>

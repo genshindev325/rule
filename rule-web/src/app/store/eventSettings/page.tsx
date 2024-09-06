@@ -111,10 +111,10 @@ const EventSettings = () => {
             <form onSubmit={handleSubmit}>
               {/* buttons */}
               <div className='flex flex-row justify-end gap-4 pt-12'>
-                <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
                   保存
                 </button>
-                <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
+                <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
                   <a href='/store/dashboard'>下書き</a>
                 </button>
               </div>
@@ -258,10 +258,10 @@ const EventSettings = () => {
               </div>
               {/* buttons */}
               <div className='flex flex-row justify-end gap-4 pt-12'>
-                <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
                   保存
                 </button>
-                <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400">
+                <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
                   <a href='/store/dashboard'>下書き</a>
                 </button>
               </div>

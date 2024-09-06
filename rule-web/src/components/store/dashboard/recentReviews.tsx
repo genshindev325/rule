@@ -58,7 +58,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
         )) : <p className='text-center py-10'>まだレビューはありません。</p>}
         <div className='text-center mt-8 mb-2'>
           {reviews &&
-          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300' onClick={onSeeMore}>
+          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300' onClick={onSeeMore}>
             もっと見る
           </button>}
         </div>
