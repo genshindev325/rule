@@ -87,7 +87,7 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold mb-6">ダッシュボード</h1>
             <MainPanel {...mainPanelData} />
           <div className="mt-8">
-            <h3 className="text-lg font-semibold mb-4">ユーザーリスト</h3>
+            <h3 className="text-lg font-semibold mb-4">ユーザー一覧</h3>
             <UserList users={userList} />
           </div>
           <div className="mt-8">
