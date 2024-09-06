@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
+import { formatDateTime } from '@/utils/datetime';
 
 interface RecentReview {
   createdAt: string,
@@ -43,7 +44,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews }) => 
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
               </div>
-              <div className="text-sm text-gray-500 ml-4">{review.createdAt}</div>
+              <div className="text-sm text-gray-500 ml-4">{formatDateTime(review.createdAt)}</div>
             </div>
             <p>{review.storeReviewText}</p>
             <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
