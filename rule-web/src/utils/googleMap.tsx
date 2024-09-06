@@ -12,7 +12,7 @@ const containerStyle = {
 };
 
 const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''; // Use env variable for API key
+  const apiKey = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
   const mapRef = useRef<google.maps.Map | null>(null);
   const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
