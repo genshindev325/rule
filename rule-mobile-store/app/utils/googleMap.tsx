@@ -37,7 +37,7 @@ const getMainAddress = (data: GeocodeResponse) => {
 const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
   const apiKey = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
   const mapRef = useRef<google.maps.Map | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>({ lat: 35, lng: 135 });
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleMapLoad = useCallback((map: google.maps.Map) => {
@@ -51,7 +51,8 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
         (position) => {
           const { latitude, longitude } = position.coords;
           const userPosition = { lat: latitude, lng: longitude };
-          setCurrentPosition(userPosition);
+          // setCurrentPosition(userPosition);
+          setCurrentPosition({ lat: 35, lng: 135 });
           onLocationSelect(userPosition, null); // Notify parent of initial location
         },
         (error) => {
