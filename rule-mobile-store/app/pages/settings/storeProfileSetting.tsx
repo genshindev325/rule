@@ -18,7 +18,7 @@ const StoreProfileSetting = () => {
   const textSm = 'text-sm sm:text-md font-semibold text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const router = useIonRouter();
-  const [storeID, setStoreID] = useState('');  
+  const [storeID, setStoreID] = useState('');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [storeImages, setStoreImages] = useState<string>();
   const [address, setAddress] = useState('');
@@ -100,15 +100,19 @@ const StoreProfileSetting = () => {
     });
 
     if (response.status === 200) {
-      router.push('/settings');
-      console.log('store profile setting success')
+      setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
       setTimeout(() => {
-        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
-      }, 1500);
+        router.push('/settings');
+      }, 1000);
+      console.log('store profile setting success')
     } else {
       setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
     }
   })
+  
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -224,11 +228,12 @@ const StoreProfileSetting = () => {
                   保存
                 </button>
                 <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
-                  <IonRouterLink routerLink='/settings' className='text-white'>キャンセル</IonRouterLink>
+                  <IonRouterLink routerLink='/settings' className='text-gray-800'>キャンセル</IonRouterLink>
                 </button>
               </div>
             </form>
           </div>
+          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </IonContent>
       </IonPage>
     </AuthWrapper>

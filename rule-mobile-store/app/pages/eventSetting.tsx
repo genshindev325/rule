@@ -99,11 +99,11 @@ const EventSetting = () => {
     });
 
     if (response.status === 201) {
+      setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
       setTimeout(() => {
-        setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
+        sessionStorage.setItem('selectedMenu', 'dashboard');
+        router.push('/dashboard');
       }, 1500);
-      sessionStorage.setItem('selectedMenu', 'dashboard');
-      router.push('/dashboard');
     } else {
       console.log(response.status);
       console.log("try again.");
