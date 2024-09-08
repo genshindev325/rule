@@ -10,15 +10,16 @@ interface TotalSalesProps {
 }
 
 const TotalSales: React.FC<TotalSalesProps> = ({ totalSales }) => {
+  const textXl = 'text-xl sm:text-2xl font-bold';
+  const textMd = 'text-md sm:text-lg font-bold';
+  const textSm = 'text-sm sm:text-md font-semibold';
   return (
-    // <div className="p-4 bg-white shadow-md rounded-md flex flex-wrap">
-      <div className="w-40 sm:w-48 md:w-56 bg-white">
-        <div className="border-gray-200 border-solid border-2 p-4 rounded-md text-center">
-          <div className='text-sm md:text-md text-gray-400 py-2'>総売上</div>
-          <div className="text-md sm:text-xl md:text-2xl font-bold py-2">{formatNumber(totalSales)} 円</div>
-        </div>
+    <div className="w-40 sm:w-48 md:w-56 bg-white">
+      <div className="border-gray-200 border-solid border-2 p-2 rounded-md text-center">
+        <div className={`${textSm} py-2`}>総合売上</div>
+        <div className={`${textXl} py-2`}>{formatNumber(totalSales)} 円</div>
       </div>
-    // </div>
+    </div>
   );
 };
 

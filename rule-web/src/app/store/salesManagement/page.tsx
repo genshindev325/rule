@@ -3,17 +3,16 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import AuthWrapper from '@/components/auth/authWrapper';
+import Navbar from '@/components/store/navbar';
+import TotalSales from '@/components/store/salesManagement/totalSales';
+import EventHistory from '@/components/store/salesManagement/eventHistory';
 
 interface EventProps {
   name: string,
   date: string,
   earnings: number
 }
-
-import AuthWrapper from '@/components/auth/authWrapper';
-import Navbar from '@/components/store/navbar';
-import TotalSales from '@/components/store/salesManagement/totalSales';
-import EventHistory from '@/components/store/salesManagement/eventHistory';
 
 const SalesManagement = () => {
   const [loading, setLoading] = useState(true); 
@@ -24,7 +23,7 @@ const SalesManagement = () => {
     const fetchData = async () => {
       try {
         // Fetch salesManagement Data
-        const response_salesManagement = await fetch('/api/store/salesManagement');
+        const response_salesManagement = await fetch('/api/stores/sales-management');
         if (response_salesManagement.ok) {
           const result_salesManagement = await response_salesManagement.json();
           setEvents(result_salesManagement.events);
@@ -60,7 +59,7 @@ const SalesManagement = () => {
                 2022年 11月 14日
               </span>
               <span className='p-2 border-none rounded-lg bg-gray-300 w-48 text-sm mt-auto'>
-                2022年 11月 14日
+                2023年 11月 14日
               </span>
             </div>
             <EventHistory events={events} />
