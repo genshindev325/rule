@@ -24,12 +24,15 @@ const SideMenu: React.FC = () => {
             <IonItem button onClick={() => navigateTo('/eventSetting')}>
               イベント設定
             </IonItem>
+            <IonItem button onClick={() => navigateTo('/eventList')}>
+              イベント一覧
+            </IonItem>
             <IonItem button onClick={() => navigateTo('/salesManagement')}>
               売り上げ管理
             </IonItem>
-            <IonItem button onClick={() => navigateTo('/chat')}>
+            {/* <IonItem button onClick={() => navigateTo('/chat')}>
               お問い合わせ
-            </IonItem>
+            </IonItem> */}
             <IonItem button onClick={() => navigateTo('/settings')}>
               設定
             </IonItem>
