@@ -1,7 +1,7 @@
 // components/auth/authWrapper.tsx
 
 import { ReactNode, useState, useEffect } from 'react';
-import { useAuth } from '@/components/auth/authContext';
+import { useAuth } from '@/app/components/auth/authContext';
 import { useRouter } from 'next/navigation';
 
 interface AuthWrapperProps {

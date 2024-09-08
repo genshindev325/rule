@@ -2,8 +2,8 @@
 
 import { createContext, useContext, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn as reduxLogin, signOut as reduxLogout } from '@/store/features/auth/AuthSlice';
-import { RootState } from '@/store/store';
+import { signIn as reduxLogin, signOut as reduxLogout } from '@/app/store/features/auth/AuthSlice';
+import { RootState } from '@/app/store/store';
 
 interface ProfileProps {
   [key: string] : any

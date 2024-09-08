@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import { formatDateTime } from '@/app/utils/datetime';
+import { formatDateTime } from '@/utils/datetime';
 
 interface UpcomingEvent {
   eventName: string | "---",

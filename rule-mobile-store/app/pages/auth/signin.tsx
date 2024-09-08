@@ -42,11 +42,11 @@ const SignIn: React.FC = () => {
           profile,
           token
         } = result.data;
-        if (role === 'user') {
+        if (role === 'store') {
           signin(email, role, profile, token);
           setNotification({ message: 'サインインに成功しました!', type: 'success' });
           setTimeout(() => {
-            router.push('/home');
+            router.push('/dashboard');
           }, 1500);
         }
       } else {

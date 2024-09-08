@@ -4,7 +4,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/components/auth/authContext';
-import MainPanel from '@/components/admin/dashboard/mainPanel';
+import MainPanel from '@/components/test/dashboard/mainPanel';
+import UpcomingEvents from '@/components/test/dashboard/upcomingEvents';
+import RecentReviews from '@/components/test/dashboard/recentReviews';
+import ReviewModal from '@/components/test/dashboard/reviewModal';
+import ReplyModal from '@/components/test/dashboard/replyModal';
 
 interface UpcomingEvent {
   eventName: string,
@@ -126,6 +130,15 @@ const test: React.FC = () => {
   return (
     <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100'>
       <MainPanel {...mainPanelData} />
+      <div className="mt-4">
+        <h3 className={`${textXl} mb-4`}>今後のイベント</h3>
+        <UpcomingEvents events={upcomingEvents} />
+      </div>
+      <div className='w-auto p-10 mt-4'>
+        <RecentReviews onSeeMore={handleOpenReviewModal} reviews={recentReviews} onSelectReview={handleOpenReplyModal} />        
+      </div>
+      <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
+      {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
     </div>
   );
 };

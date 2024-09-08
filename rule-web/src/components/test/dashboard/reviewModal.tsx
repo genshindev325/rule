@@ -4,7 +4,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { FaStar } from 'react-icons/fa';
-import { formatDateTime } from '@/app/utils/datetime';
+import { formatDateTime } from '@/utils/datetime';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -49,7 +49,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose, onS
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div ref={modalRef} className="bg-white p-4 m-4 rounded shadow-md w-full max-w-lg">
+      <div ref={modalRef} className="bg-white p-4 rounded shadow-md w-full max-w-lg">
       <h3 className="text-lg font-semibold mb-4">レビュー</h3>
         <ul>
           {reviews.map((review, index) => (

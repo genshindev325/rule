@@ -3,15 +3,26 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { IonPage, IonContent } from '@ionic/react';
+import { SERVER_URL } from '@/app/config';
 import { useAuth } from '@/app/components/auth/authContext';
+import MainPanel from '@/app/components/store/dashboard/mainPanel';
+import SideMenu from '@/app/components/store/IonMenu';
+import EventCard from '@/app/components/event/eventCard';
+import RecentReviews from '@/app/components/store/dashboard/recentReviews';
+import ReviewModal from '@/app/components/store/dashboard/reviewModal';
+import ReplyModal from '@/app/components/store/dashboard/replyModal';
 
 interface UpcomingEvent {
-  eventName: string,
-  eventDate: string,
-  maleTotal: number,
-  males: number,
-  femaleTotal: number,
-  females: number,
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
 };
 
 interface RecentReview {
@@ -37,7 +48,9 @@ interface MainPanelProps {
 
 const Dashboard = () => {
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textMd = 'text-md sm:text-lg font-bold';
+  const textSm = 'text-sm sm:text-md font-semibold';
+  const textXs = 'text-xs sm:text-sm';
   const [mainPanelData, setMainPanelData] = useState<MainPanelProps>({
     lastMonthSales: 0,
     thisMonthSales: 0,
@@ -58,7 +71,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch mainPanel Data
-        const response_mainPanel = await fetch('/api/stores/main-panel');
+        const response_mainPanel = await fetch(`${SERVER_URL}/api/stores/main-panel`);
         if (response_mainPanel.ok) {
           const result_mainPanel = await response_mainPanel.json();
           setMainPanelData(result_mainPanel);
@@ -67,7 +80,7 @@ const Dashboard = () => {
         }
 
         // Fetch recentReviews Data
-        const response_recentReviews = await fetch('/api/reviews/store/filter', {
+        const response_recentReviews = await fetch(`${SERVER_URL}/api/reviews/store/filter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ storeId: profile?._id })
@@ -80,7 +93,7 @@ const Dashboard = () => {
         }
 
         // Fetch upcomingEvents Data
-        const response_upcomingEvents = await fetch('/api/stores/upcoming-events', {
+        const response_upcomingEvents = await fetch(`${SERVER_URL}/api/stores/upcoming-events`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ store: profile?._id }),
@@ -121,10 +134,37 @@ const Dashboard = () => {
   const handleCloseReplyModal = () => {
     setIsReplyModalOpen(false);
   };
-  return (
-    <div className='min-h-screen min-w-full flex flex-col bg-gray-300'>
 
-    </div>
+  const onSeeMoreEvent = () => {
+
+  };
+
+  return (
+    <>
+    <SideMenu />
+    <IonPage>
+      <IonContent>
+        <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
+          <MainPanel {...mainPanelData} />
+          {/* upcoming events */}
+          <div className={`${textMd}`}>今後のイベント</div>
+          {upcomingEvents.map((event, index) => (          
+            <div key={index}>
+              <EventCard { ...event } />
+            </div>
+          ))}
+          <span className='underline underline-offset-2 mx-auto text-gray-800' onClick={onSeeMoreEvent}>
+            もっと見る
+          </span>
+          {/* recent reviews */}
+          <div className={`${textMd}`}>最近のレビュー</div>
+          <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
+          <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
+          {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
+        </div>
+      </IonContent>
+    </IonPage>
+    </>
   )
 }
 

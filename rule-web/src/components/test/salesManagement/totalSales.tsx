@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import { formatNumber } from '@/app/utils/formatNumber';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface TotalSalesProps {
   totalSales: number

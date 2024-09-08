@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import { formatNumber } from '@/app/utils/formatNumber';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface MainPanelProps {
   lastMonthSales: number,
@@ -18,7 +18,7 @@ const MainPanel: React.FC<MainPanelProps> = ({
   lastMonthSales, thisMonthSales, scheduledEvents, unreachedCases, reviews, reviewResponseRate
 }) => {
   return (
-    <div className="py-4 sm:py-6 bg-gray-100 space-y-4">
+    <div className="p-4 sm:p-6 bg-gray-100 space-y-4">
       <div className="w-full flex flex-row space-x-4">
         <div className="flex-1 border-gray-300 border-solid border p-4 rounded-md text-center bg-white">
         <div className="text-sm text-gray-600">前月の売上</div>
