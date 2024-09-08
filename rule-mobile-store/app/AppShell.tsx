@@ -12,6 +12,10 @@ import EventList from "./pages/eventList";
 import SalesManagement from "@/app/pages/salesManagement";
 import Chat from "@/app/pages/chat";
 import Settings from "@/app/pages/settings";
+import StoreProfileSetting from "./pages/settings/storeProfileSetting";
+import PasswordSetting from "./pages/settings/passwordSetting";
+import CreditCardSetting from "./pages/settings/creditCardSetting";
+import TransferAccountSetting from "./pages/settings/transferAccountSetting";
 import Unauthorized from "@/app/pages/auth/unauthorized";
 
 setupIonicReact({});
@@ -33,6 +37,10 @@ const AppShell = () => {
               <Route path="/salesManagement" render={() => <SalesManagement />} exact={true} />
               <Route path="/chat" render={() => <Chat />} exact={true} />
               <Route path="/settings" render={() => <Settings />} exact={true} />
+              <Route path="/settings/storeProfileSetting" render={() => <StoreProfileSetting />} exact={true} />
+              <Route path="/settings/passwordSetting" render={() => <PasswordSetting />} exact={true} />
+              <Route path="/settings/creditCardSetting" render={() => <CreditCardSetting />} exact={true} />
+              <Route path="/settings/transferAccountSetting" render={() => <TransferAccountSetting />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* redirect */}
               <Route path="/" render={() => <Redirect to="/auth/signin" />} exact={true} />

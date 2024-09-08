@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter, IonRouterLink } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import SideMenu from '@/app/components/store/IonMenu';
 import { useAuth } from '@/app/components/auth/authContext';
@@ -267,7 +267,7 @@ const EventSetting = () => {
                   保存
                 </button>
                 <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
-                  <a href='/store/dashboard'>下書き</a>
+                  <IonRouterLink routerLink='/dashboard'>下書き</IonRouterLink>
                 </button>
               </div>
             </form>
