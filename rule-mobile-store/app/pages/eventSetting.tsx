@@ -267,7 +267,7 @@ const EventSetting = () => {
                   保存
                 </button>
                 <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
-                  <IonRouterLink routerLink='/dashboard'>下書き</IonRouterLink>
+                  <IonRouterLink routerLink='/dashboard' className='text-gray-800'>下書き</IonRouterLink>
                 </button>
               </div>
             </form>
