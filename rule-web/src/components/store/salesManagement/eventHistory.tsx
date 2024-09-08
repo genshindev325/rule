@@ -3,6 +3,8 @@
 'use client';
 
 import React from 'react';
+import { formatDateTime } from '@/utils/datetime';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface EventProps {
   name: string,
@@ -29,8 +31,8 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
           {events.map((event, index) => (
             <tr key={index}>
               <td>{event.name}</td>
-              <td>{event.date}</td>
-              <td>{event.earnings} 円</td>
+              <td>{formatDateTime(event.date)}</td>
+              <td>{formatNumber(event.earnings)} 円</td>
             </tr>
           ))}
         </tbody>
