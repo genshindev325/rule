@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
                 earnings: '8535'
             },
             {
-                name: '20代限定】恋活パーティー★一人参加・初参...',
+                name: '[20代限定]恋活パーティー★一人参加・初参...',
                 date: '2023-12-15T18:00.000+00:00',
                 earnings: '9389'
             },
