@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
         const events = [
             {
                 name: '街コン・合コン・飲み会イベント',
-                date: '2023-9-20T17:00:00.000+00:00',
+                date: '2023-09-20T17:00:00.000+00:00',
                 earnings: '12356'
             },
             {
