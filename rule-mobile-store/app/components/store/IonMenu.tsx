@@ -1,16 +1,10 @@
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonMenuToggle, IonList, IonItem } from '@ionic/react';
 import { useIonRouter } from '@ionic/react';
-import { Dispatch, SetStateAction } from 'react';
 
-interface SideMenuProps {
-  setPageTitle: Dispatch<SetStateAction<string>>;
-}
-
-const SideMenu: React.FC<SideMenuProps> = ({ setPageTitle }) => {
+const SideMenu: React.FC = () => {
   const router = useIonRouter();
 
-  const navigateTo = (path: string, title: string) => {
-    setPageTitle(title); // Update the title state
+  const navigateTo = (path: string) => {
     router.push(path);
   };
 
@@ -24,19 +18,19 @@ const SideMenu: React.FC<SideMenuProps> = ({ setPageTitle }) => {
       <IonContent>
         <IonList>
           <IonMenuToggle>
-            <IonItem button onClick={() => navigateTo('/dashboard', 'ダッシュボード')}>
+            <IonItem button onClick={() => navigateTo('/dashboard')}>
               ダッシュボード
             </IonItem>
-            <IonItem button onClick={() => navigateTo('/eventSetting', 'イベント設定')}>
+            <IonItem button onClick={() => navigateTo('/eventSetting')}>
               イベント設定
             </IonItem>
-            <IonItem button onClick={() => navigateTo('/salesManagement', '売り上げ管理')}>
+            <IonItem button onClick={() => navigateTo('/salesManagement')}>
               売り上げ管理
             </IonItem>
-            <IonItem button onClick={() => navigateTo('/chat', 'お問い合わせ')}>
+            <IonItem button onClick={() => navigateTo('/chat')}>
               お問い合わせ
             </IonItem>
-            <IonItem button onClick={() => navigateTo('/settings', '設定')}>
+            <IonItem button onClick={() => navigateTo('/settings')}>
               設定
             </IonItem>
           </IonMenuToggle>

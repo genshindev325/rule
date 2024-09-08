@@ -2,7 +2,7 @@
 
 import { ReactNode, useState, useEffect } from 'react';
 import { useAuth } from '@/app/components/auth/authContext';
-import { useRouter } from 'next/navigation';
+import { useIonRouter } from '@ionic/react';
 
 interface AuthWrapperProps {
   allowedRoles: string[];
@@ -11,7 +11,7 @@ interface AuthWrapperProps {
 
 const AuthWrapper = ({ allowedRoles, children }: AuthWrapperProps) => {
   const { isAuthenticated, role } = useAuth();
-  const router = useRouter();
+  const router = useIonRouter();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

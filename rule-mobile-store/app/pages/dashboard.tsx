@@ -66,7 +66,6 @@ const Dashboard = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
-  const [pageTitle, setPageTitle] = useState('ダッシュボード');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -142,12 +141,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <SideMenu setPageTitle={setPageTitle} />
+      <SideMenu />
       <IonPage id='main-content'>
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle>{pageTitle}</IonTitle> {/* Default title */}
+              <IonTitle>ダッシュボード</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>

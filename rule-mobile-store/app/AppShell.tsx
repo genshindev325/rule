@@ -4,13 +4,14 @@ import { LoadScriptNext } from "@react-google-maps/api";
 import { Redirect, Route } from "react-router-dom";
 import Providers from "@/app/provider";
 
-import SignIn from "./pages/auth/signin";
-import SignUp from "./pages/auth/signup";
+import SignIn from "@/app/pages/auth/signin";
+import SignUp from "@/app/pages/auth/signup";
 import Dashboard from '@/app/pages/dashboard';
 import EventSetting from "@/app/pages/eventSetting";
 import SalesManagement from "@/app/pages/salesManagement";
 import Chat from "@/app/pages/chat";
 import Settings from "@/app/pages/settings";
+import Unauthorized from "@/app/pages/auth/unauthorized";
 
 setupIonicReact({});
 
@@ -30,6 +31,7 @@ const AppShell = () => {
               <Route path="/salesManagement" render={() => <SalesManagement />} exact={true} />
               <Route path="/chat" render={() => <Chat />} exact={true} />
               <Route path="/settings" render={() => <Settings />} exact={true} />
+              <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* redirect */}
               <Route path="/" render={() => <Redirect to="/auth/signin" />} exact={true} />
             </IonRouterOutlet>

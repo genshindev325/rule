@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthWrapper from '@/components/auth/authWrapper';
 import { useAuth } from '@/components/auth/authContext';
