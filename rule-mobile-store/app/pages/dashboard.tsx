@@ -1,9 +1,9 @@
-// app/pages/dashboard/page.tsx
+// app/pages/dashboard.tsx
 
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import { useAuth } from '@/app/components/auth/authContext';
 import MainPanel from '@/app/components/store/dashboard/mainPanel';
@@ -66,6 +66,7 @@ const Dashboard = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
+  const [pageTitle, setPageTitle] = useState('ダッシュボード');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -141,29 +142,35 @@ const Dashboard = () => {
 
   return (
     <>
-    <SideMenu />
-    <IonPage>
-      <IonContent>
-        <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
-          <MainPanel {...mainPanelData} />
-          {/* upcoming events */}
-          <div className={`${textMd}`}>今後のイベント</div>
-          {upcomingEvents.map((event, index) => (          
-            <div key={index}>
-              <EventCard { ...event } />
-            </div>
-          ))}
-          <span className='underline underline-offset-2 mx-auto text-gray-800' onClick={onSeeMoreEvent}>
-            もっと見る
-          </span>
-          {/* recent reviews */}
-          <div className={`${textMd}`}>最近のレビュー</div>
-          <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
-          <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
-          {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
-        </div>
-      </IonContent>
-    </IonPage>
+      <SideMenu setPageTitle={setPageTitle} />
+      <IonPage id='main-content'>
+        <IonHeader>
+            <IonToolbar>
+              <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
+              <IonTitle>{pageTitle}</IonTitle> {/* Default title */}
+            </IonToolbar>
+          </IonHeader>
+        <IonContent>
+          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
+            <MainPanel {...mainPanelData} />
+            {/* upcoming events */}
+            <div className={`${textMd}`}>今後のイベント</div>
+            {upcomingEvents.map((event, index) => (          
+              <div key={index}>
+                <EventCard { ...event } />
+              </div>
+            ))}
+            <span className='underline underline-offset-2 mx-auto text-gray-800' onClick={onSeeMoreEvent}>
+              もっと見る
+            </span>
+            {/* recent reviews */}
+            <div className={`${textMd}`}>最近のレビュー</div>
+            <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
+            <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
+            {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
+          </div>
+        </IonContent>
+      </IonPage>
     </>
   )
 }

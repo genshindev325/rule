@@ -1,4 +1,4 @@
-// app/user/terms.tsx
+// app/pages/terms.tsx
 
 'use client';
 

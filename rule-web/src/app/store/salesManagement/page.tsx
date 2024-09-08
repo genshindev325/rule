@@ -51,7 +51,7 @@ const SalesManagement = () => {
           <Navbar />
         </div>
         <div className="w-full p-10">
-          <h1 className="text-3xl font-bold mb-6">販売管理</h1>
+          <h1 className="text-3xl font-bold mb-6">売り上げ管理</h1>
           <TotalSales totalSales={totalSales} />
           <div className="mt-8">
             <h3 className='text-sm pt-4'>期間指定</h3>

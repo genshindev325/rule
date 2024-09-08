@@ -6,7 +6,11 @@ import Providers from "@/app/provider";
 
 import SignIn from "./pages/auth/signin";
 import SignUp from "./pages/auth/signup";
-import Dashboard from '@/app/pages/dashboard/page';
+import Dashboard from '@/app/pages/dashboard';
+import EventSetting from "@/app/pages/eventSetting";
+import SalesManagement from "@/app/pages/salesManagement";
+import Chat from "@/app/pages/chat";
+import Settings from "@/app/pages/settings";
 
 setupIonicReact({});
 
@@ -22,6 +26,10 @@ const AppShell = () => {
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/signin" render={() => <SignIn />} exact={true} />
               <Route path="/dashboard" render={() => <Dashboard />} exact={true} />
+              <Route path="/eventSetting" render={() => <EventSetting />} exact={true} />
+              <Route path="/salesManagement" render={() => <SalesManagement />} exact={true} />
+              <Route path="/chat" render={() => <Chat />} exact={true} />
+              <Route path="/settings" render={() => <Settings />} exact={true} />
               {/* redirect */}
               <Route path="/" render={() => <Redirect to="/auth/signin" />} exact={true} />
             </IonRouterOutlet>
