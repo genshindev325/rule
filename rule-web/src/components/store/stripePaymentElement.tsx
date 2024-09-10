@@ -162,7 +162,7 @@ const CheckoutForm: React.FC = () => {
       <h3 className='text-gray-600 py-2'>登録済みカード</h3>
       { registeredCard &&
         <div className="mb-4 w-full p-2 gap-8 bg-gray-100 rounded-md flex flex-col">
-          <div className='flex flex-row'>
+          <div className='flex flex-col'>
             <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
             <img src={`${visaSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />
             <h4 className="text-md md:text-lg text-left font-semibold">{exDate}</h4>
