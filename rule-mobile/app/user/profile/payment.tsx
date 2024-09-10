@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
-import FormInput from '@/app/components/user/event/formInput';
+import FormInput from '@/app/components/user/event/stripePaymentElement';
 import RegisteredCard from '@/app/components/user/event/registeredCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 

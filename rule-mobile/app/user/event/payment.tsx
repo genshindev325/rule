@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
-import RegisteredCard from '@/app/components/user/event/registeredCard';
-import FormInput from '@/app/components/user/event/formInput';
+import StripePaymentElement from '@/app/components/user/event/stripePaymentElement';
 import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import { RootState } from '@/app/store/store';
 import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/components/utils/notification';
+import { formatNumber } from '@/app/components/utils/formatNumber';
 
 const EventPayment: React.FC = () => {
   const router = useIonRouter();
@@ -103,28 +103,16 @@ const EventPayment: React.FC = () => {
                   <h3 className="text-lg text-gray-800 font-bold">クレジット決済</h3>
                   <div className="flex items-center justify-between mt-2">
                     <div className="text-gray-600">参加費（税込み）</div>
-                    <div className="text-gray-800">{selectedEvent.maleFee}円</div>
+                    <div className="text-gray-800">{formatNumber(selectedEvent.maleFee)}円</div>
                   </div>
                   <div className="flex items-center font-bold justify-between mt-2 border-t-2 border-gray-300 pt-2 md:pt-4">
                     <div className="text-gray-600">決済金額（税込み）</div>
-                    <div className="text-gray-800">{selectedEvent.maleFee}円</div>
+                    <div className="text-gray-800">{formatNumber(selectedEvent.maleFee * 1.05)}円</div>
                   </div>
                 </div>
                 {/* Registration Form */}
                 <form onSubmit={handleSubmit} className="mt-6 md:mt-10 bg-white">
-                  <RegisteredCard />
-                  <div className="flex justify-center py-8">
-                    <button
-                      type="button"
-                      className="bg-[#808080] text-white flex items-center px-8 md:px-12 lg:px-16 py-2 md:py-4 lg:py-6"
-                    >
-                      <div className="rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 lg:h-10 w-6 md:w-8 lg:w-10 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center">
-                        +
-                      </div>
-                      新しいカードを登録する
-                    </button>
-                  </div>
-                  <FormInput />
+                  <StripePaymentElement />
                   <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
                   <div className="mt-4 flex items-center justify-center">
                     <input type="checkbox" className="form-checkbox" />
