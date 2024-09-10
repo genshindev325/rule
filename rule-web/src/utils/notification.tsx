@@ -11,7 +11,7 @@ interface NotificationProps {
 const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) => {
   useEffect(() => {
     // Automatically close the notification after 3 seconds
-    const timer = setTimeout(onClose, 300000);
+    const timer = setTimeout(onClose, 2000);
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, [onClose]);
 
@@ -23,9 +23,6 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) =
     >
       <div className="flex justify-between items-center">
         <span>{message}</span>
-        <button onClick={onClose} className="text-white font-bold">
-          &times;
-        </button>
       </div>
     </div>
   );

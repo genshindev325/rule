@@ -14,10 +14,8 @@ export interface IUser extends Document {
   resetPasswordExpires?: Date;
 
   creditCards: [{
-    cardNumber: String,
-    holderName: String,
-    expiresDate: Date,
-    securityCode: String,
+    paymentMethodId: string,
+    cardholderName: string,
   }];
 
   status: string;
@@ -40,10 +38,8 @@ const userSchema = new Schema<IUser>({
   resetPasswordExpires: { type: Date },
 
   creditCards: { type: [{
-    cardNumber: String,
-    holderName: String,
-    expiresDate: Date,
-    securityCode: String,
+    paymentMethodId: String,
+    cardholderName: String,
   }]},
 
   status: { type: String, enum: ["active", "inactive", "blocked"], default: "active" },

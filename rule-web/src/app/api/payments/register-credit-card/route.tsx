@@ -11,11 +11,8 @@ export async function POST(req: NextRequest) {
     const {
         holderId,
         holderRole,
-        // holderEmail,
-        cardNumber,
-        holderName,
-        expiresDate,
-        securityCode,
+        paymentMethodId,
+        cardholderName,
      } = body;
 
     try {
@@ -24,10 +21,8 @@ export async function POST(req: NextRequest) {
             if (existingUser) {
                 const creditCards = existingUser.creditCards;
                 creditCards.push({
-                    cardNumber,
-                    holderName,
-                    expiresDate,
-                    securityCode,
+                    paymentMethodId,
+                    cardholderName,
                 });
                 const updatedUser = await existingUser.updateOne({creditCards: creditCards});
                 if(updatedUser){
@@ -53,10 +48,8 @@ export async function POST(req: NextRequest) {
             if (existingStore) {
                 const creditCards = existingStore.creditCards;
                 creditCards.push({
-                    cardNumber,
-                    holderName,
-                    expiresDate,
-                    securityCode,
+                    paymentMethodId,
+                    cardholderName,
                 });
                 const updatedStore = await existingStore.updateOne({creditCards: creditCards});
                 if(updatedStore){

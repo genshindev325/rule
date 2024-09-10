@@ -16,10 +16,8 @@ export interface IStore extends Document {
   description: string;
   monthlyRate: number;
   creditCards: [{
-    cardNumber: String,
-    holderName: String,
-    expiresDate: Date,
-    securityCode: String,
+    paymentMethodId: string,
+    cardholderName: string,
   }];
   rating: number;
   ratingCount: number;
@@ -48,10 +46,8 @@ const storeSchema = new Schema<IStore>({
   description: { type: String },
   monthlyRate: { type: Number, default: 5000 },
   creditCards: { type: [{
-    cardNumber: String,
-    holderName: String,
-    expiresDate: Date,
-    securityCode: String,
+    paymentMethodId: String,
+    cardholderName: String,
   }]},
   rating: { type: Number, default: 0 },
   ratingCount: { type: Number, default: 0 },
