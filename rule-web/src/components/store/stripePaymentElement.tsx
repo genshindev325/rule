@@ -175,7 +175,7 @@ const CheckoutForm: React.FC = () => {
       <h3 className='text-gray-600 py-4'>カード登録</h3>
       <h3 className='text-gray-600 py-2'>カード番号</h3>
       <div className="mb-4">
-        <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' />
+        <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' options={{showIcon: true}} />
       </div>
       <label className='text-gray-600 py-2' htmlFor="cardholder-name">カード名義</label>
       <div className="mb-4">
