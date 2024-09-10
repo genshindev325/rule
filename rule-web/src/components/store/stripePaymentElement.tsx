@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import Notification from '@/utils/notification';
 import Stripe from 'stripe';
+import { useRouter } from 'next/navigation';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 
 interface RegisterCardInterface {
@@ -28,6 +29,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
   const [cardholderName, setCardholderName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const { profile } = useSelector((state: RootState) => state.auth);
@@ -149,8 +151,9 @@ const CheckoutForm: React.FC = () => {
       setIsProcessing(false);
       setRegisteredCard(result.data);
       fetchRegisteredCard();
+      setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
       setTimeout(() => {
-        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
+        router.push('/store/setting');
       }, 2000);
     } else {
       console.error('Error saving payment method:', result.error);

@@ -99,9 +99,11 @@ const SignUp = () => {
         profile,
         token
       } = result.data;
-
       signin(email, role, profile, token);
-      router.push('/store/dashboard');
+      setNotification({ message: `ユーザーのサインアップに成功しました。`, type: 'success'});
+      setTimeout(() => {
+        router.push('/store/dashboard');
+      }, 1500);
     } else {
       setNotification({ message: `ユーザー名とパスワードが一致しません。${response.status} エラー`, type: 'error'});
     }

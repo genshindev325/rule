@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import { useAuth } from '@/components/auth/authContext';
+import Notification from '@/utils/notification';
 
 const PasswordSetting = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -15,6 +16,7 @@ const PasswordSetting = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const minLength = 6;
   const maxLength = 20;
 
@@ -34,8 +36,10 @@ const PasswordSetting = () => {
         body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
       });
       if (response.status === 200) {
-        router.push('/store/setting');
-        console.log("Password setting success.")
+        setNotification({message: 'パスワード設定に成功しました。', type: 'success'});
+        setTimeout(() => {
+          router.push('/store/setting');
+        }, 1500);
       } else {
         console.log(response.status);
         console.log("Password setting failed.");
@@ -144,6 +148,7 @@ const PasswordSetting = () => {
             </div>
           </div>
         </div>
+        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       </div>
     </AuthWrapper>
   );

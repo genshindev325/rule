@@ -96,10 +96,10 @@ const StoreProfileSettings = () => {
     });
 
     if (response.status === 200) {
-      router.push('/store/setting');
-      console.log('store profile setting success')
+      setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
       setTimeout(() => {
-        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+        router.push('/store/setting');
+        console.log('store profile setting success')
       }, 1500);
     } else {
       setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});

@@ -2,14 +2,16 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
+import Notification from '@/utils/notification';
 
 const TransferAccountSetting = () => {
   const router = useRouter();
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,8 +29,10 @@ const TransferAccountSetting = () => {
     });
 
     if (response.status === 200) {
-      router.push('/store/setting');
-      console.log(response);
+      setNotification({message: '振込口座の設定に成功しました。', type: 'success'});
+      setTimeout(() => {
+        router.push('/store/setting');
+      }, 1500);
     } else {
       console.log(response.status);
       console.log("Failed.");
@@ -100,6 +104,7 @@ const TransferAccountSetting = () => {
             </div>
           </div>
         </div>
+        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       </div>
     </AuthWrapper>
   );
