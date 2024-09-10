@@ -2,16 +2,15 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import FormInput from '@/app/components/user/event/stripePaymentElement';
-import RegisteredCard from '@/app/components/user/event/registeredCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 const ProfilePayment: React.FC = () => {
   const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-gray-100 -mt-56 pb-6 sm:pb-10 md:pb-14 flex flex-col shadow-md';
+  const container = 'rounded-xl bg-gray-100 -mt-56 pb-6 sm:pb-10 md:pb-14 flex flex-col shadow-md w-[92vw]';
 
   const textLg = 'text-center text-xl sm:text-3xl md:text-3xl font-bold';
   const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
@@ -29,12 +28,11 @@ const ProfilePayment: React.FC = () => {
               <h2 className='grow text-xl text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <div className={`${container} w-5/6`}>
+            <div className={`${container}`}>
               <div className='flex flex-col items-center bg-white rounded-t-xl py-8'>
                 <h2 className={`${textLg}`}>クレジット設定</h2>
               </div>
               <div className=''>
-                <RegisteredCard />
                 <FormInput />
               </div>
             </div>

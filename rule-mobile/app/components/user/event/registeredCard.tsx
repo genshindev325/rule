@@ -12,8 +12,8 @@ const RegisteredCard: React.FC<RegisterCardInterface> = ({ last4, exDate, setDel
   const visaSVG = "/svg/visa.svg";
 
   return (
-    <div className='px-4 md:px-8 bg-gray-100 pb-8'>
-      <label className="block font-bold text-gray-800 pt-8">登録済みカード</label>
+    <div className='px-4 sm:px-6 md:px-8 bg-gray-100 pb-4'>
+      <label className="block font-bold text-gray-800 pt-4">登録済みカード</label>
       <div className="mt-4 bg-white rounded-md">
         <div className="flex flex-col p-4">
           <h4 className="text-md md:text-lg text-left font-semibold">{`****_****_****_${last4}`}</h4>

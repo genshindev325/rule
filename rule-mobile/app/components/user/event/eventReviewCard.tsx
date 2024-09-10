@@ -46,7 +46,7 @@ const EventReviewCard: React.FC<CardProps> = ({
           <h2 className={`${textSm}`}>{formatDateTime(eventDate)}</h2>
           <div className='flex flex-row space-x-1'>
             <div className={`${maleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>男性</div>
-            <h2 className={`${textSm}`}>{maleFee}円 募集 : {males}/{maleTotal}</h2>
+            <h2 className={`${textSm}`}>{maleFee}円 {males}/{maleTotal}</h2>
             <div className="w-16 md:w-28 bg-gray-300 h-2 rounded-full my-auto">
               <div 
                 className={`h-2 ${maleGradient}`} 
@@ -56,7 +56,7 @@ const EventReviewCard: React.FC<CardProps> = ({
           </div>
           <div className='flex flex-row space-x-1'>
             <div className={`${femaleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
-            <h2 className={`${textSm}`}>{femaleFee}円 募集 : {females}/{femaleTotal}</h2>
+            <h2 className={`${textSm}`}>{femaleFee}円 {females}/{femaleTotal}</h2>
             <div className="w-16 md:w-28 bg-gray-200 h-2 rounded-full my-auto">
               <div 
                 className={`h-2 ${femaleGradient}`} 

@@ -87,7 +87,7 @@ const EventPayment: React.FC = () => {
           <div className="flex items-start justify-center min-h-screen w-screen bg-white">
             <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
               {/* Header Section */}
-              <div className="py-6 md:py-12 px-4 md:px-8 flex flex-row text-xl text-white md:text-3xl font-bold text-center">
+              <div className="py-4 md:py-12 px-4 md:px-8 flex flex-row text-xl text-white md:text-3xl font-bold text-center">
                 <h2 className="grow">イベントに参加</h2>
               </div>
               {/* Event Details */}
@@ -99,19 +99,19 @@ const EventPayment: React.FC = () => {
                 <div className="rounded-md border-2 border-solid border-gray-500 py-2 md:py-4 mx-8 md:mx-20 text-gray-800 font-bold text-center">
                   お支払い手続き
                 </div>
-                <div className="flex flex-col mx-8 md:mx-20 mt-6 md:mt-10">
-                  <h3 className="text-lg text-gray-800 font-bold">クレジット決済</h3>
-                  <div className="flex items-center justify-between mt-2">
+                <div className="flex flex-col mx-8 md:mx-20 mt-4 sm:mt-6">
+                  <h3 className="text-md text-gray-800 font-bold">クレジット決済</h3>
+                  <div className="flex items-center justify-between mt-1">
                     <div className="text-gray-600">参加費（税込み）</div>
                     <div className="text-gray-800">{formatNumber(selectedEvent.maleFee)}円</div>
                   </div>
-                  <div className="flex items-center font-bold justify-between mt-2 border-t-2 border-gray-300 pt-2 md:pt-4">
+                  <div className="flex items-center font-bold justify-between mt-1 border-t-2 border-gray-300 pt-2 md:pt-4">
                     <div className="text-gray-600">決済金額（税込み）</div>
                     <div className="text-gray-800">{formatNumber(selectedEvent.maleFee * 1.05)}円</div>
                   </div>
                 </div>
                 {/* Registration Form */}
-                <form onSubmit={handleSubmit} className="mt-6 md:mt-10 bg-white">
+                <form onSubmit={handleSubmit} className="mt-4 sm:mt-6 bg-white">
                   <StripePaymentElement />
                   <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
                   <div className="mt-4 flex items-center justify-center">

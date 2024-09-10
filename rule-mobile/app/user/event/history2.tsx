@@ -59,7 +59,7 @@ const EventHistory2: React.FC = () => {
   }
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-16 px-1 md:px-2 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[95vw]';
+  const container = 'rounded-xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
@@ -112,7 +112,7 @@ const EventHistory2: React.FC = () => {
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
             <div className={`h-40 md:h-88 w-full ${maleGradient}`}>
               {/* header */}
-              <div className='flex flex-row text-xl text-center text-white pt-10 px-4'>
+              <div className='flex flex-row text-xl text-center text-white pt-6 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

@@ -165,9 +165,9 @@ const FormInput: React.FC = () => {
   };
 
   return (
-    <div className='px-4 md:px-8 bg-gray-100 pb-8'>
+    <div className='bg-gray-100 pb-4'>
       {registeredCard && <RegisteredCard last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />}
-      <div className="flex justify-center py-8">
+      <div className="flex justify-center py-4">
         <button
           type="button"
           onClick={handleRegister}
@@ -179,7 +179,7 @@ const FormInput: React.FC = () => {
           新しいカードを登録する
         </button>
       </div>
-      <label className="block font-bold text-gray-800 pt-8">カード登録</label>
+      <label className="block font-bold text-gray-800 pt-2">カード登録</label>
       <div className="mt-4 bg-white rounded-md">
         <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
         <div className="flex justify-around pb-4">
