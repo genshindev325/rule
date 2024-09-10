@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import Notification from '@/app/utils/notification';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
@@ -88,9 +88,9 @@ const SignIn: React.FC = () => {
               サインイン
             </button>
             <div className='my-6 text-center'>
-              <a href='/auth/signup' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
+              <IonRouterLink routerLink='/auth/signup' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
                 アカウントを作成する
-              </a>
+              </IonRouterLink>
             </div>
         </div>
         {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}

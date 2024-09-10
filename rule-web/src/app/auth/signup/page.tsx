@@ -167,6 +167,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
+      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
     </div>
   );
 };
