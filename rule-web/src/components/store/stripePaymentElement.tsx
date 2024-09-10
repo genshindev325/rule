@@ -24,10 +24,9 @@ interface RegisterCardInterface {
 const stripeGet = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-const CheckoutForm: React.FC<{ options?: StripeElementsOptions }> = ({ options }) => {
+const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
-  if (!stripe || !elements) return;
   const [cardholderName, setCardholderName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const { profile } = useSelector((state: RootState) => state.auth);
@@ -37,15 +36,21 @@ const CheckoutForm: React.FC<{ options?: StripeElementsOptions }> = ({ options }
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-  const handleCancel = () => {
-    setDeleteConfirmModalVisible(false);
-  };
-
   useEffect(() => {
     if (profile) {
       setStoreID(profile._id);
     }
   }, [profile])
+
+  useEffect(() => {
+    fetchRegisteredCard();
+  }, [storeID]);
+
+  if (!stripe || !elements) return;
+
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
+  };
 
   // Fetch registered card details
   const fetchRegisteredCard = async () => {
@@ -74,10 +79,6 @@ const CheckoutForm: React.FC<{ options?: StripeElementsOptions }> = ({ options }
       console.error('Error fetching card details:', error);
     }
   };
-
-  useEffect(() => {
-    fetchRegisteredCard();
-  }, [storeID]);
 
   const handleDeleteCard = async () => {
     setDeleteConfirmModalVisible(false);
@@ -254,7 +255,7 @@ const StripePaymentElement: React.FC = () => {
 
   return options ? (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm options={options} />
+      <CheckoutForm />
     </Elements>
   ) : (
     <div>読み込み中...</div>
