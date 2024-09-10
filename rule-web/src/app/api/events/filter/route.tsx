@@ -11,6 +11,10 @@ export async function POST(req: NextRequest) {
         const query = Event.find();
         if(body.upcoming){
             query.where("eventDate").gte(new Date().getTime());
+            query.populate({
+                path: 'store',
+                select: 'storeLat storeLng storeName address access1 access2 description'
+            })
         } else if(body.openAt) {
             query.where("eventDate").equals(body.openAt);
         } else if(body.past){
