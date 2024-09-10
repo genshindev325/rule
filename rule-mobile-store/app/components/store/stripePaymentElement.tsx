@@ -1,5 +1,8 @@
-// components/StripePaymentElement.tsx
-import React, { useState, useEffect } from "react";
+// app/pages/settings/creditCardSetting.tsx
+
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import {
   useStripe,
   useElements,
@@ -8,12 +11,16 @@ import {
   CardCvcElement,
   Elements,
 } from "@stripe/react-stripe-js";
+import { IonRouterLink } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import Notification from '@/utils/notification';
+import { RootState } from '@/app/store/store';
 import Stripe from 'stripe';
-import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
+import DeleteConfirmationModal from '@/app/utils/deleteConfirmModal';
+import { SERVER_URL } from '@/app/config';
+import Notification from '@/app/utils/notification';
+import { STRIPE_SECRET_KEY } from '@/app/config';
+import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
 
 interface RegisterCardInterface {
   _id: string;
@@ -21,35 +28,33 @@ interface RegisterCardInterface {
   cardholderName: string;
 }
 
-const stripeGet = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripeGet = new Stripe(STRIPE_SECRET_KEY);
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutForm: React.FC = () => {
+const FormInput = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardholderName, setCardholderName] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeID, setStoreID] = useState('');
   const [last4, setLast4] = useState('');
+  const [exDate, setExDate] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-
+  const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
+  const visaSVG = "/svg/visa.svg";
+  
   useEffect(() => {
     if (profile) {
       setStoreID(profile._id);
     }
   }, [profile]);
 
-  const handleCancel = () => {
-    setDeleteConfirmModalVisible(false);
-  };
-
   // Fetch registered card details
   const fetchRegisteredCard = async () => {
     try {
-      const response = await fetch('/api/payments/credit-cards', {
+      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +70,9 @@ const CheckoutForm: React.FC = () => {
         setRegisteredCard(result.data);
         const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.paymentMethodId as string);
         const last4 = paymentMethod.card?.last4;
+        const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
         last4 && setLast4(last4); 
+        setExDate(exDate);
       } else {
         console.error(`Error fetching card details: ${response.status}`);
       }
@@ -80,10 +87,18 @@ const CheckoutForm: React.FC = () => {
 
   if (!stripe || !elements) return;
 
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
+
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
+  };
+  
   const handleDeleteCard = async () => {
     setDeleteConfirmModalVisible(false);
     try {
-      const response = await fetch('/api/payments/credit-cards', {
+      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -104,10 +119,9 @@ const CheckoutForm: React.FC = () => {
       console.error('Error deleting card:', error);
     }
   };
-  
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsProcessing(true);
 
     const cardNumberElement = elements.getElement(CardNumberElement);
     if (!cardNumberElement) return;
@@ -127,7 +141,7 @@ const CheckoutForm: React.FC = () => {
       return;
     }
 
-    const response = await fetch('/api/payments/register-credit-card', {
+    const response = await fetch(`${SERVER_URL}/api/payments/register-credit-card`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -142,7 +156,6 @@ const CheckoutForm: React.FC = () => {
 
     const result = await response.json();
     if (result.success) {
-      setIsProcessing(false);
       setRegisteredCard(result.data);
       fetchRegisteredCard();
       setTimeout(() => {
@@ -154,66 +167,68 @@ const CheckoutForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
-      <h3 className='text-gray-600 py-2'>登録済みカード</h3>
-      { registeredCard &&
-        <div className="mb-4 w-full p-2 gap-8 bg-gray-100 rounded-md flex flex-col">
-          <div className='flex flex-row'>
-            <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
+    <div className='bg-white w-full p-4'>
+      <form onSubmit={handleSubmit}>
+        <h3 className='text-gray-600 py-2'>登録済みカード</h3>
+        { registeredCard &&
+          <div className="mb-4 w-full p-2 gap-4 bg-gray-100 rounded-md flex flex-col">
+            <div className='flex flex-col'>
+              <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
+              <img src={`${visaSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />
+              <h4 className="text-md md:text-lg text-left font-semibold">{exDate}</h4>
+            </div>
+            <div className='flex flex-row-reverse'>
+              <button
+                type="button" 
+                onClick={() => setDeleteConfirmModalVisible(true)}
+                className="w-20 py-1 px-4 bg-red-300 text-white rounded-md hover:bg-red-500 duration-300"
+              >
+                削除
+              </button>
+            </div>
           </div>
-          <div className='flex flex-row-reverse'>
-            <button
-              type="button" 
-              onClick={() => setDeleteConfirmModalVisible(true)}
-              className="w-20 py-1 px-4 bg-red-300 text-white rounded-md hover:bg-red-500 duration-300"
-            >
-              削除
-            </button>
-          </div>
+        }
+        {/* Card registration */}
+        <h3 className='text-gray-600 py-4'>カード登録</h3>
+        <h3 className='text-gray-600 py-2'>カード番号</h3>
+        <div className="mb-4">
+          <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' options={{showIcon: true}} />
         </div>
-      }
-      <h3 className='text-gray-600 py-4'>カード登録</h3>
-      <h3 className='text-gray-600 py-2'>カード番号</h3>
-      <div className="mb-4">
-        <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' options={{showIcon: true}} />
-      </div>
-      <label className='text-gray-600 py-2' htmlFor="cardholder-name">カード名義</label>
-      <div className="mb-4">
-        <input
-          type="text"
-          id='cardholder-name'
-          value={cardholderName}
-          onChange={(e) => setCardholderName(e.target.value)}
-          className="w-full p-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-          placeholder="カード名義"
-          required
-        />
-      </div>
-      <h3 className='text-gray-600 py-2'>有効期限</h3>
-      <div className="mb-4">
-        <CardExpiryElement id="card-expiry" className='w-full p-3 bg-gray-100 rounded-md' />
-      </div>
-      <h3 className='text-gray-600 py-2'>セキュリティコード</h3>
-      <div className="mb-4">
-        <CardCvcElement id="card-cvc" className='w-full p-3 bg-gray-100 rounded-md' />
-      </div>
-      <div className="flex flex-row space-x-4">
-        <button
-          type="submit"
-          disabled={isProcessing || !stripe}
-          className={`flex-1 bg-blue-500 text-white p-2 rounded ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600 duration-300'}`}
-        >
-          {isProcessing ? "登録中..." : "新しくカードを登録"}
-        </button>
-        <button type="button" className="flex-1 py-2 p-2 bg-gray-300 text-black rounded hover:bg-gray-400 duration-300">
-          <a href='/store/setting'>キャンセル</a>
-        </button>
-      </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
-      <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
-    </form>
+        <h3 className='text-gray-600 py-2'>カード名義</h3>
+        <div className="mb-4">
+          <input
+            type="text"
+            id='cardholder-name'
+            value={cardholderName}
+            onChange={(e) => setCardholderName(e.target.value)}
+            className="w-full p-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+            placeholder="カード名義"
+            required
+          />
+        </div>
+        <h3 className='text-gray-600 py-2'>有効期限</h3>
+        <div className="mb-4">
+          <CardExpiryElement id="card-expiry" className='w-full p-3 bg-gray-100 rounded-md' />
+        </div>
+        <h3 className='text-gray-600 py-2'>セキュリティコード</h3>
+        <div className="mb-4">
+          <CardCvcElement id="card-cvc" className='w-full p-3 bg-gray-100 rounded-md' />
+        </div>
+        {/* buttons */}
+        <div className='flex flex-col pt-2 space-y-4'>
+          <button type="submit" className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
+            新しくカードを登録
+          </button>
+          <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
+            <IonRouterLink routerLink='/settings' className='text-gray-800'>キャンセル</IonRouterLink>
+          </button>
+        </div>
+      </form>
+    {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
+    <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
+    </div>
   );
-};
+}
 
 const StripePaymentElement: React.FC = () => {
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
@@ -221,7 +236,7 @@ const StripePaymentElement: React.FC = () => {
   useEffect(() => {
     const getClientSecret = async () => {
       try {
-        const response = await fetch('/api/payments/create-payment-intent', {
+        const response = await fetch(`${SERVER_URL}/api/payments/create-payment-intent`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({}),
@@ -255,7 +270,7 @@ const StripePaymentElement: React.FC = () => {
 
   return options ? (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm />
+      <FormInput />
     </Elements>
   ) : (
     <div>読み込み中...</div>
