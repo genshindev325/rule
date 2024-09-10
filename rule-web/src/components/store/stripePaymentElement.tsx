@@ -21,6 +21,7 @@ interface RegisterCardInterface {
   cardholderName: string;
 }
 
+const visaSVG = "/svg/visa.svg";
 const stripeGet = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -32,6 +33,7 @@ const CheckoutForm: React.FC = () => {
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeID, setStoreID] = useState('');
   const [last4, setLast4] = useState('');
+  const [exDate, setExDate] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -65,7 +67,9 @@ const CheckoutForm: React.FC = () => {
         setRegisteredCard(result.data);
         const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.paymentMethodId as string);
         const last4 = paymentMethod.card?.last4;
-        last4 && setLast4(last4); 
+        const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
+        last4 && setLast4(last4);
+        setExDate(exDate);
       } else {
         console.error(`Error fetching card details: ${response.status}`);
       }
@@ -160,6 +164,8 @@ const CheckoutForm: React.FC = () => {
         <div className="mb-4 w-full p-2 gap-8 bg-gray-100 rounded-md flex flex-col">
           <div className='flex flex-row'>
             <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
+            <img src={`${visaSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />
+            <h4 className="text-md md:text-lg text-left font-semibold">{exDate}</h4>
           </div>
           <div className='flex flex-row-reverse'>
             <button
