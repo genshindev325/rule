@@ -85,11 +85,10 @@ export async function DELETE(req: NextRequest) {
 
     try {
         if(holderRole === "user"){
-            const existingUser = await User.findById(holderId);
+            const existingUser = await Store.findByIdAndUpdate(holderId, { creditCards: [] });
             if (existingUser) {
                 const creditCards = existingUser.creditCards;
                 if (creditCards) {
-                    existingUser.updateOne({creditCards: []});
                     return NextResponse.json({
                         success: true,
                         message: ""
