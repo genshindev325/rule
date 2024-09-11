@@ -20,7 +20,15 @@ interface EventCardProps {
   femaleFee: number,
   femaleTotal: number,
   females: number,
-  store: string;
+  store: {
+    storeLat: number,
+    storeLng: number,
+    storeName: string,
+    address: string,
+    access1: string,
+    access2: string,
+    description: string,
+  };
   status: string,
   createdAt: string
 }
