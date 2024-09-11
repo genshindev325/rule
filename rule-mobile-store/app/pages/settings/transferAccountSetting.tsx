@@ -61,7 +61,7 @@ const TransferAccountSetting = () => {
           <div className='bg-white w-full p-4'>
             <form onSubmit={handleSubmit}>
               {/* Transfer account setting */}
-              <h3 className='text-gray-600 py-2'>銀行名</h3>
+              <h3 className='font-semibold py-2'>銀行名</h3>
               <div className="mb-4">
                 <input
                   type="name"
@@ -71,7 +71,7 @@ const TransferAccountSetting = () => {
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>支店名</h3>
+              <h3 className='font-semibold py-2'>支店名</h3>
               <div className="mb-4">
                 <input
                   type="name"
@@ -81,7 +81,7 @@ const TransferAccountSetting = () => {
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>口座番号</h3>
+              <h3 className='font-semibold py-2'>口座番号</h3>
               <div className="mb-4">
                 <input
                   type="name"
@@ -91,7 +91,7 @@ const TransferAccountSetting = () => {
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>口座名義</h3>
+              <h3 className='font-semibold py-2'>口座名義</h3>
               <div className="mb-4">
                 <input
                   type="name"
