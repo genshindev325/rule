@@ -14,7 +14,7 @@ interface EventProps {
   name: string;
   date: string;
   earnings: number;
-  // coverImage: string;
+  coverImage: string;
 }
 
 const SalesManagement = () => {
