@@ -12,9 +12,9 @@ interface IReview extends Document {
 }
 
 const reviewStoreSchema = new Schema<IReview>({
-    storeId: { type: mongoose.Types.ObjectId, ref: 'Store' }, // Check if this field is necessary
-    storeRating: { type: Number },
-    storeReviewText: { type: String },
+    storeId: { type: mongoose.Types.ObjectId, required: true, ref: 'Store' }, // Check if this field is necessary
+    storeRating: { type: Number, required: true },
+    storeReviewText: { type: String, required: true},
 
     storeReplyText: {type: String },
 

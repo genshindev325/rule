@@ -64,7 +64,11 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch mainPanel Data
-        const response_mainPanel = await fetch('/api/stores/main-panel');
+        const response_mainPanel = await fetch('/api/stores/main-panel', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ storeId: profile?._id }),
+        });
         if (response_mainPanel.ok) {
           const result_mainPanel = await response_mainPanel.json();
           setMainPanelData(result_mainPanel);
