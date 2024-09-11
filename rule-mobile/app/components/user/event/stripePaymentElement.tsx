@@ -165,7 +165,7 @@ const FormInput: React.FC = () => {
   };
 
   return (
-    <div className='bg-gray-100 pb-4'>
+    <div className='bg-gray-100 pb-4 px-4 sm:px-6 md:px-8'>
       {registeredCard && <RegisteredCard last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />}
       <div className="flex justify-center py-4">
         <button

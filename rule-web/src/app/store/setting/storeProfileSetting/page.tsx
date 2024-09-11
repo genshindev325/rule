@@ -117,7 +117,7 @@ const StoreProfileSettings = () => {
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
               <h2 className="text-2xl font-bold mb-6">店舗プロフィール設定</h2>
               <form onSubmit={handleSubmit}>
-                <h3 className='text-gray-600 py-2'>店舗名</h3>
+                <h3 className='font-semibold py-2'>店舗名</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -127,7 +127,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>店舗ジャンル</h3>
+                <h3 className='font-semibold py-2'>店舗ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -137,7 +137,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>食材ジャンル</h3>
+                <h3 className='font-semibold py-2'>食材ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -147,7 +147,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>料理ジャンル</h3>
+                <h3 className='font-semibold py-2'>料理ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -157,7 +157,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>住所</h3>
+                <h3 className='font-semibold py-2'>住所</h3>
                 <div className="mb-4">
                   <input
                     type="address"
@@ -169,7 +169,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>アクセス</h3>
+                <h3 className='font-semibold py-2'>アクセス</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -206,7 +206,7 @@ const StoreProfileSettings = () => {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <h3 className='text-gray-600 py-2'>説明文</h3>
+                  <h3 className='font-semibold py-2'>説明文</h3>
                   <textarea
                     name='description'
                     className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"

@@ -162,7 +162,7 @@ const CheckoutForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
-      <h3 className='text-gray-600 py-2'>登録済みカード</h3>
+      <h3 className='font-semibold py-2'>登録済みカード</h3>
       { registeredCard &&
         <div className="mb-4 w-full p-2 gap-8 bg-gray-100 rounded-md flex flex-col">
           <div className='flex flex-col'>
@@ -181,12 +181,12 @@ const CheckoutForm: React.FC = () => {
           </div>
         </div>
       }
-      <h3 className='text-gray-600 py-4'>カード登録</h3>
-      <h3 className='text-gray-600 py-2'>カード番号</h3>
+      <h3 className='font-semibold py-4'>カード登録</h3>
+      <h3 className='font-semibold py-2'>カード番号</h3>
       <div className="mb-4">
         <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' options={{showIcon: true}} />
       </div>
-      <label className='text-gray-600 py-2' htmlFor="cardholder-name">カード名義</label>
+      <label className='font-semibold py-2' htmlFor="cardholder-name">カード名義</label>
       <div className="mb-4">
         <input
           type="text"
@@ -198,11 +198,11 @@ const CheckoutForm: React.FC = () => {
           required
         />
       </div>
-      <h3 className='text-gray-600 py-2'>有効期限</h3>
+      <h3 className='font-semibold py-2'>有効期限</h3>
       <div className="mb-4">
         <CardExpiryElement id="card-expiry" className='w-full p-3 bg-gray-100 rounded-md' />
       </div>
-      <h3 className='text-gray-600 py-2'>セキュリティコード</h3>
+      <h3 className='font-semibold py-2'>セキュリティコード</h3>
       <div className="mb-4">
         <CardCvcElement id="card-cvc" className='w-full p-3 bg-gray-100 rounded-md' />
       </div>

@@ -122,17 +122,17 @@ const EventHistory2: React.FC = () => {
             {/* container */}
             <div className={`${container}`}>
               {/* tab */}
-              <div className='flex flex-row sm:px-2 md:px-6 lg:px-10'>
+              <div className='flex flex-row px-2 sm:px-4 md:px-6 lg:px-10'>
                 <button
                   type='button'
-                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4`}
+                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-xl ${textMd} px-3`}
                   onClick={showUpcomingEvents}
                 >
                   今後のイベント
                 </button>
                 <button
                   type='button'
-                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textLg} px-4 ml-auto`}
+                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-xl ${textMd} px-3 ml-auto`}
                   onClick={showPastEvents}
                 >
                   過去のイベント

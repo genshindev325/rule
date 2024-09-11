@@ -54,8 +54,8 @@ const ChatList: React.FC = () => {
                 selectedChat === chat ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'}`} />
               <div className='flex flex-col gap-2'>
                 <div className='flex flex-row gap-4'>
-                  <div>{chat.name}</div>
-                  <div className="text-sm text-gray-500">{chat.date}</div>
+                  <div className='font-semibold'>{chat.name}</div>
+                  <div className="text-sm text-gray-800">{chat.date}</div>
                 </div>
                 <div>{chat.lastMessage}</div>
               </div>

@@ -48,7 +48,7 @@ const ChatPage: React.FC = () => {
               className="w-10 h-10 rounded-full mr-4"
             />
             <div>
-              <div className='text-lg'>男性</div>
+              <div className='text-lg font-bold'>仕事</div>
             </div>
           </div>
           <div className='flex flex-row h-full'>

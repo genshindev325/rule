@@ -100,7 +100,7 @@ const PasswordSetting = () => {
               <h2 className="text-2xl font-bold mb-6">パスワード設定</h2>
               <form onSubmit={handleSubmit}>
                 {/* Password setting */}
-                <h3 className='text-gray-600 py-2'>現在のパスワード</h3>
+                <h3 className='font-semibold py-2'>現在のパスワード</h3>
                 <div className="mb-4">
                   <input
                     type="password"
@@ -111,7 +111,7 @@ const PasswordSetting = () => {
                     required
                   />
                 </div>
-                <h3 className='text-gray-600 py-2'>新しいパスワード</h3>
+                <h3 className='font-semibold py-2'>新しいパスワード</h3>
                 <div className="mb-4">
                   <input
                     type="password"
@@ -123,7 +123,7 @@ const PasswordSetting = () => {
                   />
                   {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
                 </div>
-                <h3 className='text-gray-600 py-2'>新しいパスワード (再入力)</h3>
+                <h3 className='font-semibold py-2'>新しいパスワード (再入力)</h3>
                 <div className="mb-4">
                   <input
                     type="password"
