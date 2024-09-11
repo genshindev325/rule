@@ -38,16 +38,16 @@ const EventReviewCard: React.FC<CardProps> = ({
   const textSm = 'text-xs sm:text-sm md:text-md';
 
   return (
-    <div className='flex flex-col bg-white rounded-xl shadow-[0_2px_10px_3px_rgba(0,0,0,0.2)] px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6 text-gray-800'>
+    <div className='flex flex-col bg-white rounded-xl shadow-[0_2px_10px_3px_rgba(0,0,0,0.2)] p-2 sm:p-3 text-zinc-800'>
       <div className="flex flex-row space-x-2">
-        <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
+        <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-28 h-20 sm:h-18" />
         <div className='flex flex-col space-y-1'>
           <h2 className={`${textSm} font-bold`}>{eventName}</h2>
           <h2 className={`${textSm}`}>{formatDateTime(eventDate)}</h2>
           <div className='flex flex-row space-x-1'>
             <div className={`${maleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>男性</div>
             <h2 className={`${textSm}`}>{maleFee}円 {males}/{maleTotal}</h2>
-            <div className="w-16 md:w-28 bg-gray-300 h-2 rounded-full my-auto">
+            <div className="w-20 sm:w-24 bg-gray-300 h-2 rounded-xl rounded-l-none my-auto">
               <div 
                 className={`h-2 ${maleGradient}`} 
                 style={{ width: `${maleRate * 100}%` }}
@@ -57,7 +57,7 @@ const EventReviewCard: React.FC<CardProps> = ({
           <div className='flex flex-row space-x-1'>
             <div className={`${femaleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
             <h2 className={`${textSm}`}>{femaleFee}円 {females}/{femaleTotal}</h2>
-            <div className="w-16 md:w-28 bg-gray-200 h-2 rounded-full my-auto">
+            <div className="w-20 sm:w-24 bg-gray-300 h-2 rounded-xl rounded-l-none my-auto">
               <div 
                 className={`h-2 ${femaleGradient}`} 
                 style={{ width: `${femaleRate * 100}%` }}

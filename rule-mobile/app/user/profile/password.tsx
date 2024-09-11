@@ -93,48 +93,47 @@ const ProfilePassword: React.FC = () => {
   };
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md';
-  const textLg = 'text-center text-xl sm:text-3xl md:text-3xl font-bold';
-  const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
+  const container = 'w-11/12 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
+  const textMd = 'text-md sm:text-xl md:text-3xl font-bold';
 
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-            <div className={`h-80 md:h-88 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
+            <div className={`h-56 sm:h-60 md:h-72 w-full px-6 md:px-8 py-4 sm:py-6 md:py-8 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/profile/myPage'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-xl text-center text-white pr-10'>マイページ</h2>
+              <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <form onSubmit={handleSubmit} className={`${container} w-5/6`}>
+            <form onSubmit={handleSubmit} className={`${container}`}>
               <div className='flex flex-col items-center'>
-                <h2 className={`${textLg}`}>パスワード変更</h2>
+                <h2 className={`${textMd} pt-6`}>パスワード変更</h2>
               </div>
               {/* current password */}
-              <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
+              <div className='flex flex-col pt-8 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>現在のパスワード</h2>
                 <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               {/* new password */}
-              <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
+              <div className='flex flex-col pt-4 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>新規パスワード</h2>
                 <PasswordInput value={newPassword} onChange={handlePasswordChange} />
               </div>
               {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
               {/* confirm new password */}
-              <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
+              <div className='flex flex-col pt-4 border-b-2 border-solid border-gray-300'>
                 <h2 className={`${textMd}`}>新規パスワード確認</h2>
                 <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
               </div>
               {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               {/* buttons */}
-              <div className='flex flex-col space-y-4 py-6'>
-                <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textMd}`}>登録する</button>
-                <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white text-center ${textMd}`}>キャンセル</button>
+              <div className='flex flex-col space-y-2 py-4'>
+                <button type='submit' className={`${maleGradient} rounded-full py-1 text-white ${textMd}`}>登録する</button>
+                <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-1 text-white text-center ${textMd}`}>キャンセル</button>
               </div>
             </form>
           </div>

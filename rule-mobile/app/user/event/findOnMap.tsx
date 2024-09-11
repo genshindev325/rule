@@ -97,44 +97,44 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* header */}
-            <div className={`h-32 md:h-48 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-xl text-center text-white pt-4 px-4'>
+            <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
                 <h2 className='grow pr-4'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-4 md:mt-6">
-                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6" onClick={handleOpenModal}/>
-                <h2 className="text-lg font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
-                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-4">
+                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-4" onClick={handleOpenModal}/>
+                <h2 className="text-sm font-semibold py-1 md:py-4 pl-2 text-left">イベントを検索する</h2>
+                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-3" />
               </div>
             </div>
             {/* Google Map background */}
             <GoogleMapBackground events={upcomingEvents} address='Osaka, Japan' className='w-full' />
             {/* content */}
-            <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4 z-10'>
+            <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-2 z-10'>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
             </div>
-            <div className='bg-white h-36 mt-[220px] sm:mt-[230px] md:mt-[240px] z-10 shadow'>
+            <div className='h-28 mt-[280px] sm:mt-[230px] md:mt-[240px] z-10 shadow bg-white/70'>
               {/* events should be changed into upcomingEvents after adding API call */}
               <EventCarousel events={upcomingEvents}/>
             </div>
             {/* buttons */}
-            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-8 z-10'>
-              <button className={`rounded-md w-12 h-12 ${maleGradient} fill-white`}>
-                <img src={searchSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
+            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
+              <button className={`rounded-md w-10 h-10 ${maleGradient} fill-white`}>
+                <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
               </button>
-              <button className={`rounded-md w-12 h-12 ${maleGradient} text-white`}>
+              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
                 <IonRouterLink routerLink='/home'>
-                  <img src={detailSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
+                  <img src={detailSVG} className="rounded-md mx-auto w-4 fill-white" />
                 </IonRouterLink>
               </button>
-              <button className={`rounded-md w-12 h-12 ${maleGradient} text-white`}>
-                <img src={locationSVG} className="rounded-md rounded-br-none mx-auto w-6 fill-white" />
+              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
+                <img src={locationSVG} className="rounded-md mx-auto w-4 fill-white" />
               </button>
             </div>
             {/* Find event with more detail conditions */}

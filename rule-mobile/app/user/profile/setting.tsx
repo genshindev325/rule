@@ -9,9 +9,9 @@ import AuthWrapper from '@/app/components/auth/authWrapper';
 const ProfileSetting: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-xl bg-white -mt-56 px-4 md:px-8 py-6 sm:py-10 md:py-14 flex flex-col shadow-md';
+  const container = 'w-11/12 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
 
-  const textLg = 'text-center text-xl sm:text-3xl md:text-3xl font-bold';
+  const textLg = 'text-center text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
   const textSm = 'text-center text-sm sm:text-md md:text-lg';
 
@@ -20,17 +20,17 @@ const ProfileSetting: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-            <div className={`h-80 md:h-88 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`}>
+            <div className={`h-56 sm:h-60 md:h-72 w-full px-6 md:px-8 py-4 sm:py-6 md:py-8 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/profile/myPage'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-xl text-center text-white pr-10'>マイページ</h2>
+              <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <div className={`${container} w-5/6`}>
+            <div className={`${container}`}>
               <div className='flex flex-col items-center'>
-                <h2 className={`${textLg}`}>プロフィール設定</h2>
+                <h2 className={`${textLg} pt-6`}>プロフィール設定</h2>
               </div>
               {/* profile photo */}
               <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>

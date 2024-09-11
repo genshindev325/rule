@@ -20,6 +20,8 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
   const maxLength = 20;
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const textXs = 'text-xs sm:text-sm md:text-md';
+  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,25 +80,25 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-      <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-        <h2 className="text-xl md:text-3xl font-bold pt-12 md:pt-20 px-12 text-center">パスワードを</h2>
-        <h2 className="text-xl md:text-3xl font-bold pb-12 md:pb-20 px-12 text-center">登録してください</h2>
+      <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">パスワードを</h2>
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">登録してください</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 text-md md:text-xl font-bold">
+          <div className="mb-4">
             <input
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
+              className={`${input}`}
               placeholder="パスワード"
               required
             />
             {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
           </div>
-          <div className="mb-4 text-md md:text-xl font-bold">
+          <div className="mb-4">
             <input
               type="password"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
+              className={`${input}`}
               placeholder="パスワード(確認用)"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}

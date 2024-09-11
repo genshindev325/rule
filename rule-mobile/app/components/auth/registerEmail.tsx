@@ -17,6 +17,9 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
   const [emailError, setEmailError] = useState('');
   const [confirmError, setConfirmError] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm md:text-md font-semibold';
+  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,14 +60,14 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-      <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-        <h2 className="text-xl md:text-3xl font-bold pt-12 md:pt-20 px-12 text-center">メールアドレスを</h2>
-        <h2 className="text-xl md:text-3xl font-bold pb-12 md:pb-20 px-12 text-center">登録してください</h2>
+      <div className="bg-white rounded-lg shadow-xl px-6 md:px-12 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-20">
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">メールアドレスを</h2>
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">登録してください</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 text-md md:text-xl font-bold">
+          <div className="mb-4">
             <input
               type="text"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
+              className={`${input}`}
               placeholder="メールアドレス"
               value={email}
               onChange={handleEmailChange}
@@ -72,10 +75,10 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
             />
             {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
           </div>
-          <div className="mb-4 text-md md:text-xl font-bold">
+          <div className="mb-4">
             <input
               type="text"
-              className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg text-center focus:outline-none"
+              className={`${input}`}
               placeholder="メールアドレス(確認用)"
               value={confirmEmail}
               onChange={handleConfirmEmailChange}
@@ -86,7 +89,7 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
           <div className='flex justify-center'>
             <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
           </div>
-          <div className='text-center text-sm pt-6 font-bold'>
+          <div className={`text-center ${textXs} pt-6`}>
             <IonRouterLink routerLink='/auth/login'>
               すでにアカウントを持っています
             </IonRouterLink>

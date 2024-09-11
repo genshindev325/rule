@@ -62,7 +62,7 @@ const EventHistory2: React.FC = () => {
   const container = 'rounded-xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
 
   const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg md:text-xl py-2 sm:py-4 md:py-6 font-bold';
+  const textMd = 'text-md sm:text-lg md:text-xl py-1 sm:py-2 md:py-3 font-bold';
   const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const EventHistory2: React.FC = () => {
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
             <div className={`h-40 md:h-88 w-full ${maleGradient}`}>
               {/* header */}
-              <div className='flex flex-row text-xl text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-xl font-semibold text-center text-white pt-6 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -125,14 +125,14 @@ const EventHistory2: React.FC = () => {
               <div className='flex flex-row px-2 sm:px-4 md:px-6 lg:px-10'>
                 <button
                   type='button'
-                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-xl ${textMd} px-3`}
+                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textMd} px-3 duration-300`}
                   onClick={showUpcomingEvents}
                 >
                   今後のイベント
                 </button>
                 <button
                   type='button'
-                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-xl ${textMd} px-3 ml-auto`}
+                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textMd} px-3 ml-auto duration-300`}
                   onClick={showPastEvents}
                 >
                   過去のイベント

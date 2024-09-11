@@ -173,7 +173,7 @@ const FormInput: React.FC = () => {
           onClick={handleRegister}
           className="bg-[#808080] text-white flex items-center px-8 md:px-12 lg:px-16 py-2 md:py-4 lg:py-6"
         >
-          <div className="rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 lg:h-10 w-6 md:w-8 lg:w-10 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center">
+          <div className="rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 w-6 md:w-8 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center">
             +
           </div>
           新しいカードを登録する

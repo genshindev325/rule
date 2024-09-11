@@ -18,8 +18,8 @@ const LoginWith: React.FC = () => {
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
           <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-            <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20">
-              <h2 className="text-xl font-bold py-12 md:py-20 px-12 text-center">ログイン</h2>
+            <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
+              <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
               <div className="space-y-6 pb-12 md:pb-28">
                 <button
                   onClick={() => handleLogin('LINE')}

@@ -11,6 +11,8 @@ import { SERVER_URL } from '@/app/config';
 const Login: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textSm = 'text-sm md:text-md font-semibold';
+  const textXs = 'text-xs sm:text-sm md:text-md';
+  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -69,14 +71,14 @@ const Login: React.FC = () => {
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white">
           <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
-          <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20">
-            <h2 className="text-xl font-bold py-12 md:py-20 px-12 text-center">ログイン</h2>
+          <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
+            <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
                   type="address"
                   name='email'
-                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg focus:outline-none"
+                  className={`${input}`}
                   placeholder="メールアドレス"
                   value={emailAddress}
                   onChange={(e) => setEmailAddress(e.target.value)}
@@ -87,26 +89,26 @@ const Login: React.FC = () => {
                 <input
                   type="password"
                   name='password'
-                  className="w-full px-3 py-2 md:px-8 md:py-4 border border-gray-700 rounded-lg focus:outline-none"
+                  className={`${input}`}
                   placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
-              <div className={`${textSm} text-right text-gray-400`}>
+              <div className={`${textXs} text-right text-gray-400`}>
                 <IonRouterLink routerLink={`/auth/passwordResetSend`}>パスワードをお忘れですか？</IonRouterLink>
               </div>
-              <div className={`${textSm} text-right text-gray-400`}>
+              <div className={`${textXs} text-right text-gray-400`}>
                 <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink>
               </div>
               <button
                 type="submit"
-                className={`w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 ${maleGradient} text-white rounded-full font-bold focus:outline-none`}
+                className={`w-full py-2 md:py-4 px-4 my-8 sm:my-10 md:my-12 ${textSm} ${maleGradient} text-white rounded-full focus:outline-none`}
               >
                 サインイン
               </button>
-              <div className={`${textSm} text-center text-gray-400 pb-10`}>                  
+              <div className={`${textXs} text-center text-gray-400 pb-10`}>                  
                 <IonRouterLink routerLink='/auth/signup'>アカウントを作成する</IonRouterLink>
               </div>
             </form>

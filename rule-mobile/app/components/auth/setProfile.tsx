@@ -14,6 +14,9 @@ interface SetProfileInterface {
 
 const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange, onCancel }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm md:text-md font-semibold';
+  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
   const [localAvatar, setAvatar] = useState('');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
@@ -59,12 +62,12 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-      <div className="bg-white rounded-3xl shadow-xl px-6 md:px-12 mx-8 md:mx-20 mt-12 md:mt-20 pb-12 md:pb-20">
-        <h2 className="text-xl md:text-3xl font-bold pt-12 md:pt-20 text-center">プロフィール画像を</h2>
-        <h2 className="text-xl md:text-3xl font-bold pb-12 md:pb-20 text-center">設定してください</h2>
+      <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">プロフィール画像を</h2>
+        <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">設定してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="py-2 md:py-4 flex flex-col items-center justify-center h-full">
-            <div>
+            <div className='w-full'>
               <input
                 type="file"
                 accept="image/*"
@@ -74,10 +77,10 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
               />
               <label
                 htmlFor="file-input"
-                className="py-2 md:py-4 px-6 sm:px-10 flex items-center justify-center border-2 border-solid border-gray-500 rounded-md cursor-pointer"
+                className="w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 flex items-center justify-center border border-gray-500 rounded-md cursor-pointer"
               >
-                <span className="text-xl md:text-3xl text-gray-400 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-solid border-gray-400 border-2">+</span>
-                <span className='text-sm md:text-md font-bold text-gray-400'>プロフィール画像を選ぶ</span>
+                <span className="text-md text-gray-400 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-400">+</span>
+                <span className={`${textXs} text-gray-400`}>プロフィール画像を選ぶ</span>
               </label>
             </div>
             {localAvatar && (

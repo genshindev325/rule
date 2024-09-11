@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         <div className={`flex flex-col items-center min-h-screen w-screen`}>
           {/* header */}
           <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
-            <h2 className='text-xl text-center text-white font-semibold pt-10'>居酒屋マッチングサービス</h2>
+            <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
           <div className='px-12 pt-20 w-full space-y-12'>
