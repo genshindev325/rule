@@ -49,8 +49,8 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
             </div>
             <p className='font-semibold'>{review.storeReviewText}</p>
             <div className='text-sm mt-4'>{review.conclusion}</div>
-            <div className="text-md text-gray-800 mt-4 mb-10 cursor-pointer">
-              <span onClick={() => onSelectReview(review)} className='underline underline-offset-2'>
+            <div className="text-md text-gray-800 mt-4 mb-10">
+              <span onClick={() => onSelectReview(review)} className='underline underline-offset-2 cursor-pointer font-semibold p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300'>
                 返事する
               </span>
             </div>
@@ -58,7 +58,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
         )) : <p className='text-center py-10'>まだレビューはありません。</p>}
         <div className='text-center mt-8 mb-2'>
           {reviews &&
-          <button id="seeMore" className='p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300' onClick={onSeeMore}>
+          <button id="seeMore" className='underline underline-offset-2 font-semibold p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300' onClick={onSeeMore}>
             もっと見る
           </button>}
         </div>

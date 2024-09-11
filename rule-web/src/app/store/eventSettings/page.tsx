@@ -123,7 +123,7 @@ const EventSettings = () => {
                 </button>
               </div>
               {/* Event settings */}
-              <h3 className='text-gray-600 py-2'>イベント名</h3>
+              <h3 className='font-semibold py-2'>イベント名</h3>
               <div className="mb-4">
                 <input
                   type="name"
@@ -133,7 +133,7 @@ const EventSettings = () => {
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>カテゴリ</h3>
+              <h3 className='font-semibold py-2'>カテゴリ</h3>
               <div className="mb-4"> {/*will be modified*/}
                 <select
                   id="category"
@@ -149,7 +149,7 @@ const EventSettings = () => {
                   <option value="category3">カテゴリー 3</option>
                 </select>
               </div>
-              <h3 className='text-gray-600 py-2'>表紙画像</h3>
+              <h3 className='font-semibold py-2'>表紙画像</h3>
               <div className='mb-4'>
                 <input
                   type="file"
@@ -165,7 +165,7 @@ const EventSettings = () => {
                   </div>
                 )}
               </div>
-              <h3 className='text-gray-600 py-2'>説明文</h3>
+              <h3 className='font-semibold py-2'>説明文</h3>
               <div className="mb-4">
                 <textarea
                   name='description'
@@ -179,7 +179,7 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>日程</h3>
+                    <h3 className='font-semibold py-2'>日程</h3>
                     <input
                       type="date"
                       name='schedule'
@@ -189,7 +189,7 @@ const EventSettings = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>開始時間</h3>
+                    <h3 className='font-semibold py-2'>開始時間</h3>
                     <input
                       type="time"
                       name='startTime'
@@ -199,7 +199,7 @@ const EventSettings = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>終了時間</h3>
+                    <h3 className='font-semibold py-2'>終了時間</h3>
                     <input
                       type="time"
                       name='endTime'
@@ -214,7 +214,7 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>男性の募集人数</h3>
+                    <h3 className='font-semibold py-2'>男性の募集人数</h3>
                     <input
                       type="number"
                       name='maleTotal'
@@ -224,7 +224,7 @@ const EventSettings = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>女性の募集人数</h3>
+                    <h3 className='font-semibold py-2'>女性の募集人数</h3>
                     <input
                       type="number"
                       name='femaleTotal'
@@ -239,7 +239,7 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>男性の料金</h3>
+                    <h3 className='font-semibold py-2'>男性の料金</h3>
                     <input
                       type="number"
                       name='maleFee'
@@ -249,7 +249,7 @@ const EventSettings = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>女性の料金</h3>
+                    <h3 className='font-semibold py-2'>女性の料金</h3>
                     <input
                       type="number"
                       name='femaleFee'
