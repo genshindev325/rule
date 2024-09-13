@@ -97,10 +97,10 @@ const PasswordSetting = () => {
         <div className='w-auto mx-auto'>
           <div className="min-h-screen flex items-start py-20 justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-              <h2 className="text-2xl font-bold mb-6">パスワード設定</h2>
+              <h2 className="text-lg font-bold mb-6">パスワード設定</h2>
               <form onSubmit={handleSubmit}>
                 {/* Password setting */}
-                <h3 className='font-semibold py-2'>現在のパスワード</h3>
+                <h3 className='font-semibold py-2 text-md'>現在のパスワード</h3>
                 <div className="mb-4">
                   <input
                     type="password"
@@ -111,7 +111,7 @@ const PasswordSetting = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2'>新しいパスワード</h3>
+                <h3 className='font-semibold py-2 text-md'>新しいパスワード</h3>
                 <div className="mb-4">
                   <input
                     type="password"
@@ -123,7 +123,7 @@ const PasswordSetting = () => {
                   />
                   {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
                 </div>
-                <h3 className='font-semibold py-2'>新しいパスワード (再入力)</h3>
+                <h3 className='font-semibold py-2 text-md'>新しいパスワード (再入力)</h3>
                 <div className="mb-4">
                   <input
                     type="password"
