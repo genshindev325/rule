@@ -4,7 +4,7 @@ import React from 'react';
 
 const ChatMessages: React.FC = () => {
   return (
-    <div className="flex-1 bg-gray-100">
+    <div className="flex-1 bg-gray-100 text-gray-800">
       <div className="flex flex-col space-y-2 p-4">
         {/* conversations */}
         <div className="self-start bg-gray-300 py-2 pl-4 pr-36 rounded-2xl rounded-bl-none">

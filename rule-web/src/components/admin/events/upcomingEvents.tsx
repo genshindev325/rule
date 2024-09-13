@@ -100,24 +100,24 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
   };
 
   return (
-    <div className="p-0">
-    <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
-      <input
-        type="text"
-        placeholder="検索..."
-        className="border p-2 rounded focus:outline-none"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button className="border border-width-0 py-2 px-6 rounded-lg text-white text-lg bg-green-700 hover:bg-green-800 focus:outline-none duration-300">
-        検索
-      </button>
-      <div className="flex ml-auto items-center space-x-2">
-        <span>1ページあたりの項目数:</span>
-        <input type="number" value={itemsPerPage} onChange={handleItemsPerPageChange}
-          className="w-10 p-2 bg-gray-100 text-center rounded no-spinner focus:outline-none" min="1" max={totalPages} />
+    <div className="p-0 text-gray-800">
+      <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
+        <input
+          type="text"
+          placeholder="検索..."
+          className="border p-2 rounded focus:outline-none"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button className="border border-width-0 py-2 px-6 rounded-lg text-white text-lg bg-green-700 hover:bg-green-800 focus:outline-none duration-300">
+          検索
+        </button>
+        <div className="flex ml-auto items-center space-x-2">
+          <span>1ページあたりの項目数:</span>
+          <input type="number" value={itemsPerPage} onChange={handleItemsPerPageChange}
+            className="w-10 p-2 bg-gray-100 text-center rounded no-spinner focus:outline-none" min="1" max={totalPages} />
+        </div>
       </div>
-    </div>
       <div className="p-10 bg-white shadow-md rounded-md g-4">
         <table className="w-full">
           <thead>

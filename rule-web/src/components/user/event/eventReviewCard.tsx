@@ -33,7 +33,7 @@ const EventReviewCard: React.FC<CardProps> = ({
   const textSm = 'text-xs sm:text-sm md:text-md';
 
   return (
-    <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6'>
+    <div className='flex flex-col space-y-2 bg-white rounded-xl shadow-xl px-2 sm:px-6 md:px-8 py-4 md:py-10 md:mt-6 text-gray-800'>
       <div className="flex flex-row space-x-2">
         <img src={imageUrl} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
         <div className='flex flex-col space-y-1'>

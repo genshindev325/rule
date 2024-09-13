@@ -20,32 +20,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
     slidesToScroll: 1,
     arrows: false,
     draggable: true,
-    // responsive: [
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 1,
-    //       infinite: true,
-    //       dots: true,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 600,
-    //     settings: {
-    //       slidesToShow: 2,
-    //       slidesToScroll: 1,
-    //       initialSlide: 2,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 480,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +36,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
   };
 
   return (
-    <div className="bg-gray-200 rounded w-full">
+    <div className="bg-gray-200 rounded w-full text-gray-800">
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index} className="relative w-full h-28 -mb-2">

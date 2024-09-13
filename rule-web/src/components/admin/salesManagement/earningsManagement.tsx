@@ -40,7 +40,7 @@ const EarningsManagement: React.FC<EarningsProps> = ({
   ];
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 text-gray-800">
       <h1 className="text-3xl font-bold mb-6">売上</h1>
       <div className="p-4 mb-6 bg-white shadow-md rounded-md flex flex-wrap w-5/12">
         <div className="w-full md:w-1/2 p-4">

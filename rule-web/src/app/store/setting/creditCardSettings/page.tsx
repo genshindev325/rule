@@ -11,7 +11,7 @@ import StripePaymentElement from '@/components/store/stripePaymentElement';
 const CreditCardSettings: React.FC = () => {
   return (
     <AuthWrapper allowedRoles={['store']}>
-      <div className="min-h-screen min-w-full flex bg-gray-100 text-sm">
+      <div className="min-h-screen min-w-full flex bg-gray-100 text-sm text-gray-800">
         <div className="w-20">
           <Navbar />
         </div>

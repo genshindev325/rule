@@ -8,7 +8,7 @@ const RegisteredCard: React.FC = () => {
   const limitedDate = "11/2026";
 
   return (
-    <div className='px-4 md:px-8 bg-gray-100 pb-8'>
+    <div className='px-4 md:px-8 bg-gray-100 pb-8 text-gray-800'>
       <label className="block font-bold text-gray-800 pt-8">登録済みカード</label>
       <div className="mt-4 bg-white rounded-md">
         <div className="flex flex-col p-4">

@@ -18,7 +18,7 @@ const MainPanel: React.FC<MainPanelProps> = ({
   lastMonthSales, thisMonthSales, scheduledEvents, unreachedCases, reviews, reviewResponseRate
 }) => {
   return (
-    <div className="p-4 bg-white shadow-md rounded-md flex flex-wrap">
+    <div className="p-4 bg-white shadow-md rounded-md flex flex-wrap text-gray-800">
       <div className="w-full md:w-1/3 p-4">
         <div className="border-gray-200 border-solid border-2 p-6 rounded-md text-center">
           <div className="text-sm font-semibold">前月の売上</div>

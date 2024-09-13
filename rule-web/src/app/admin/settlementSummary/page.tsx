@@ -40,11 +40,11 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
 
   return (
     <AuthWrapper allowedRoles={['admin']}>
-      <div className="min-h-screen w-full flex bg-gray-100">
+      <div className="min-h-screen w-full flex bg-gray-100 text-gray-800">
         <div className="w-20">
           <Navbar />
         </div>

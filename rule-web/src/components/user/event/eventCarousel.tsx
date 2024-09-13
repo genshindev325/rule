@@ -43,7 +43,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 text-gray-800">
       <Slider {...settings}>
         {events.map((event, index) => (
           <div key={index} className="px-4 mt-12">

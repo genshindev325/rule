@@ -32,7 +32,7 @@ const FullCarousel: React.FC<CarouselProps> = ({ items }) => {
   });
 
   return (
-    <div {...handlers} className="relative overflow-hidden">
+    <div {...handlers} className="relative overflow-hidden text-gray-800">
       <div
         className="flex transition-transform ease-out duration-500"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}

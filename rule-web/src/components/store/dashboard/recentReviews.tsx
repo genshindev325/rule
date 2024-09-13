@@ -26,7 +26,7 @@ interface RecentReviewsProps {
 
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSelectReview }) => {
   return (
-    <div className="p-4 bg-white shadow-md rounded-md min-w-80">
+    <div className="p-4 bg-white shadow-md rounded-md min-w-80 text-gray-800">
       <h3 className="text-lg font-semibold mb-4">最近のレビュー</h3>
       <ul>
         {reviews ? reviews.map((review, index) => (

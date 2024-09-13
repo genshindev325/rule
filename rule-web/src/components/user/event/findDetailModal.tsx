@@ -58,7 +58,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-gray-800">
       <div ref={modalRef} className="bg-white px-6 py-12 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
           {/*location and date*/}
           <div className="flex mb-4 space-x-2">

@@ -51,7 +51,7 @@ const StoreList: React.FC<StoreSalesProps> = ({ stores }) => {
   };
 
   return (
-    <div className="p-0">
+    <div className="p-0 text-gray-800">
       <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
         <input
           type="text"

@@ -99,7 +99,7 @@ const MemberStoreList: React.FC<StoresProps> = ({ stores: initialStores }) => {
 
   return (
     <div className="p-0">
-      <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
+      <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4 text-gray-800">
         <input
           type="text"
           placeholder="検索..."

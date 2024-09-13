@@ -21,7 +21,7 @@ interface UpcomingEvents {
 
 const UpcomingEvents: React.FC<UpcomingEvents> = ({ events }) => {
   return (
-    <div className="p-10 bg-white shadow-md rounded-md g-4">
+    <div className="p-10 bg-white shadow-md rounded-md g-4 text-gray-800">
       <table className="w-full">
         <thead>
           <tr>

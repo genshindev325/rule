@@ -29,7 +29,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ onDelete, onEdit }) => {
   }, []);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left text-gray-800" ref={dropdownRef}>
       {/* This is the ... button */}
       <div className="cursor-pointer">
         <button

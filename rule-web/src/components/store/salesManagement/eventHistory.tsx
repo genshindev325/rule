@@ -18,7 +18,7 @@ interface EventHistoryProps {
 
 const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
   return (
-    <div className="p-10 bg-white shadow-md rounded-md w-full">
+    <div className="p-10 bg-white shadow-md rounded-md w-full text-gray-800">
       <table className="w-full table-auto">
         <thead>
           <tr>

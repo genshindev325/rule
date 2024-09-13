@@ -161,7 +161,7 @@ const CheckoutForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
+    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto text-gray-800">
       <h3 className='font-semibold py-2'>登録済みカード</h3>
       { registeredCard &&
         <div className="mb-4 w-full p-2 gap-8 bg-gray-100 rounded-md flex flex-col">
