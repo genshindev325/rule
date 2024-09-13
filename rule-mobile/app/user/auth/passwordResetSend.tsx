@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 
 const PasswordResetSend: React.FC = () => {
@@ -57,10 +57,15 @@ const PasswordResetSend: React.FC = () => {
               </p>}
               <button
                 type="submit"
-                className={`w-full py-2 md:py-4 px-4 mb-16 md:mb-24 mt-16 md:mt-32 ${textSm} ${maleGradient} text-white rounded-full`}
+                className={`w-full py-2 md:py-4 px-4 mt-16 sm:mt-18 md:mt-20 ${textSm} ${maleGradient} text-white rounded-full`}
               >
                 送信する
               </button>
+              <div className={`text-right text-sm ${textXs} py-8 font-bold`}>
+                <IonRouterLink routerLink='/auth/login'>
+                  キャンセル
+                </IonRouterLink>
+              </div>
             </form>
           </div>
           </div>
