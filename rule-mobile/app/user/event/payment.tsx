@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,12 +8,10 @@ import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import { RootState } from '@/app/store/store';
-import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/components/utils/notification';
 import { formatNumber } from '@/app/components/utils/formatNumber';
 
 const EventPayment: React.FC = () => {
-  const router = useIonRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -33,39 +31,27 @@ const EventPayment: React.FC = () => {
         console.error('Failed to parse event data from URL:', error);
       }
     }
-  }, [eventString, dispatch]);
+  }, [eventString, dispatch]);  
+
+  if (!userInfo || !selectedEvent) {
+    console.log("Missing user information or event data.");
+    return;
+  }
+
+  const { 
+    _id: userId,
+    gender: gender,
+  } = userInfo;
+  const {
+    _id: eventId,
+    maleFee: maleFee,
+    femaleFee: femaleFee,
+   } = selectedEvent;
+  const eventPrice = gender === 'male' ? maleFee : femaleFee;
+  const totalPrice = eventPrice * 1.05;
 
   const handleCloseNotification = () => {
     setNotification(null);
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!userInfo || !selectedEvent) {
-      console.log("Missing user information or event data.");
-      return;
-    }
-
-    const { _id: userId } = userInfo;
-    const { _id: eventId } = selectedEvent;
-    
-    try {
-      const response = await fetch(`${SERVER_URL}/api/events/participate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, eventId }),
-      });
-
-      if (response.status === 201) {
-        setNotification({ message: '参加成功!', type: 'success' });
-        router.push('/participate');
-      } else {
-        setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
-      }
-    } catch (error) {
-      setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
-    }
   };
 
   if (!selectedEvent) {
@@ -103,36 +89,24 @@ const EventPayment: React.FC = () => {
                   <h3 className="text-md text-gray-800 font-bold">クレジット決済</h3>
                   <div className="flex items-center justify-between mt-1">
                     <div className="text-gray-600">参加費（税込み）</div>
-                    <div className="text-gray-800">{formatNumber(selectedEvent.maleFee)}円</div>
+                    <div className="text-gray-800">{formatNumber(eventPrice)}円</div>
                   </div>
                   <div className="flex items-center font-bold justify-between mt-1 border-t-2 border-gray-300 pt-2 md:pt-4">
                     <div className="text-gray-600">決済金額（税込み）</div>
-                    <div className="text-gray-800">{formatNumber(selectedEvent.maleFee * 1.05)}円</div>
+                    <div className="text-gray-800">{formatNumber(totalPrice)}円</div>
                   </div>
                 </div>
                 {/* Registration Form */}
-                <form onSubmit={handleSubmit} className="mt-4 sm:mt-6 bg-white">
-                  <StripePaymentElement />
-                  <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
-                  <div className="mt-4 flex items-center justify-center">
-                    <input type="checkbox" className="form-checkbox" />
-                    <span className="ml-2 text-gray-600">
-                      <a href="" className="text-blue-400 font-bold">利用規約</a>に同意する
-                    </span>
-                  </div>
-                  <div className="mt-6 justify-center flex">
-                    <button type="submit" className={`mx-4 md:mx-8 w-full ${maleGradient} text-white py-2 rounded-full hover:bg-purple-600`}>
-                      決済する
+                <div className="mt-4 sm:mt-6 bg-white">
+                  <StripePaymentElement totalPrice={totalPrice} eventId={eventId} />
+                  <div className="mt-4 pb-12 md:pb-20 flex justify-center">
+                    <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">
+                      <IonRouterLink routerLink='/home' className='text-white'>
+                        キャンセル
+                      </IonRouterLink>
                     </button>
                   </div>
-                  <div className="mt-4 pb-12 md:pb-20 flex justify-center">
-                  <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">
-                    <IonRouterLink routerLink='/home' className='text-white'>
-                      キャンセル
-                    </IonRouterLink>
-                  </button>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ import {
   CardCvcElement,
   Elements,
 } from "@stripe/react-stripe-js";
+import { useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
@@ -19,11 +20,24 @@ import DeleteConfirmationModal from '@/app/components/utils/deleteConfirmModal';
 import { STRIPE_SECRET_KEY } from '@/app/config';
 import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
 import { SERVER_URL } from '@/app/config';
+import PayConfirmationModal from '@/app/components/utils/payConfirmModal';
 
 interface RegisterCardInterface {
   _id: string;
-  paymentMethodId: string;
+  cardNumber: string;
   cardholderName: string;
+  expiryDate: string;
+  cvc: number;
+}
+
+interface StripePaymentInterface {
+  totalPrice: number;
+  eventId: string;
+}
+
+interface FormInputInterface {
+  totalPrice: number;
+  eventId: string;
 }
 
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
@@ -32,19 +46,22 @@ const americanExpressSVG = "/svg/american_express.svg";
 const jcbSVG = "/svg/jcb.svg";
 const masterCardSVG = "/svg/mastercard.svg";
 const visaSVG = "/svg/visa.svg";
+const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 
-const FormInput: React.FC = () => {
+const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useIonRouter();
   const [cardholderName, setCardholderName] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
   const { profile } = useSelector((state: RootState) => state.auth);
   const [userId, setUserId] = useState('');
   const [last4, setLast4] = useState('');
   const [exDate, setExDate] = useState('');
+  const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
 
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
@@ -67,10 +84,28 @@ const FormInput: React.FC = () => {
       if (response.status === 200) {
         const result = await response.json();
         setRegisteredCard(result.data);
-        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.paymentMethodId as string);
+        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
         const last4 = paymentMethod.card?.last4;
+        const brand = paymentMethod.card?.brand;
         const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
         last4 && setLast4(last4);
+        switch (brand) {
+          case "visa":
+              setCardSVG(visaSVG);
+            break;
+          case "mastercard":
+              setCardSVG(masterCardSVG);
+            break;
+          case "amex":
+              setCardSVG(americanExpressSVG);
+            break;
+          case "jcb":
+              setCardSVG(jcbSVG);
+            break;        
+          default:
+              setCardSVG('');
+            break;
+        }
         setExDate(exDate);
       } else {
         console.error(`Error fetching card details: ${response.status}`);
@@ -106,9 +141,7 @@ const FormInput: React.FC = () => {
 
       if (response.status === 200) {
         setRegisteredCard(null);
-        setTimeout(() => {
-          setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
-        }, 2000);
+        setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
       } else {
         console.error(`Error deleting card: ${response.status}`);
       }
@@ -118,11 +151,8 @@ const FormInput: React.FC = () => {
   };
   
   const handleRegister = async () => {
-    setIsProcessing(true);
-
     const cardNumberElement = elements.getElement(CardNumberElement);
     if (!cardNumberElement) return;
-
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardNumberElement,
@@ -131,10 +161,8 @@ const FormInput: React.FC = () => {
       },
     });
 
-    if (error) console.error('Error creating payment method:', error);
-    // Ensure paymentMethod is defined before proceeding
-    if (!paymentMethod) {
-      console.error('Payment method is undefined.');
+    if (error) {
+      console.log(error);
       return;
     }
 
@@ -144,8 +172,7 @@ const FormInput: React.FC = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        paymentMethodId: paymentMethod.id,
-        cardholderName,
+        creditCard: paymentMethod.id,
         holderRole: "user",
         holderId: userId
       }),
@@ -153,71 +180,123 @@ const FormInput: React.FC = () => {
 
     const result = await response.json();
     if (result.success) {
-      setIsProcessing(false);
       setRegisteredCard(result.data);
       fetchRegisteredCard();
-      setTimeout(() => {
-        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
-      }, 2000);
+      setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
     } else {
       console.error('Error saving payment method:', result.error);
     }
   };
 
+  const handleCancelPay = () => {
+    setPayConfirmModalVisible(false);
+  };
+
+  const handleConfirmPay = async () => {
+    // make payment
+    try {
+      const response = await fetch(`${SERVER_URL}/api/payments/make-payment`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          holderId: userId,
+          holderRole: 'user',
+        }),
+      });
+      if (response.status === 200) {
+        try {
+          const response = await fetch(`${SERVER_URL}/api/events/participate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, eventId }),
+          });
+    
+          if (response.status === 201) {
+            setNotification({ message: '参加成功!', type: 'success' });
+            router.push('/participate');
+          } else {
+            setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+          }
+        } catch (error) {
+          setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+        }
+      } else {
+        console.log("error related to participate and pay for event: " + response.status);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <div className='bg-gray-100 pb-4 px-4 sm:px-6 md:px-8'>
-      {registeredCard && <RegisteredCard last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />}
-      <div className="flex justify-center py-4">
-        <button
-          type="button"
-          onClick={handleRegister}
-          className="bg-[#808080] text-white flex items-center px-8 md:px-12 lg:px-16 py-2 md:py-4 lg:py-6"
-        >
-          <div className="rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 w-6 md:w-8 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center">
-            +
+    <div>
+      <div className='bg-gray-100 pb-4 px-4 sm:px-6 md:px-8'>
+        {registeredCard && <RegisteredCard last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />}
+        <div className="flex justify-center py-4">
+          <button
+            type="button"
+            onClick={handleRegister}
+            className="bg-[#808080] text-white flex items-center px-8 md:px-12 lg:px-16 py-2 md:py-4 lg:py-6"
+          >
+            <div className="rounded-full bg-white text-[#808080] text-2xl h-6 md:h-8 w-6 md:w-8 mr-4 md:mr-6 lg:mr-8 flex justify-center items-center">
+              +
+            </div>
+            新しいカードを登録する
+          </button>
+        </div>
+        <label className="block font-bold text-gray-800 pt-2">カード登録</label>
+        <div className="mt-4 bg-white rounded-md">
+          <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
+          <div className="flex justify-around pb-4">
+            <img src={`${visaSVG}`} alt="Visa" className="h-12" />
+            <img src={`${masterCardSVG}`} alt="MasterCard" className="h-12" />
+            <img src={`${jcbSVG}`} alt="JCB" className="h-12" />
+            <img src={`${americanExpressSVG}`} alt="American Express" className="h-12" />
           </div>
-          新しいカードを登録する
+        </div>
+        <div className="mt-4">
+          <label className="block font-bold text-gray-600">カード番号</label>
+          <CardNumberElement id="card-number" className='w-full p-3 border bg-white rounded-md' options={{showIcon: true}} />
+        </div>
+        <div className="mt-4">
+          <label className="block font-bold text-gray-800">カード名義</label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none"
+            placeholder="カード名義"
+            value={cardholderName}
+            onChange={(e) => setCardholderName(e.target.value)}
+          />
+        </div>
+        <div className="mt-4">
+          <label className="block font-bold text-gray-600">有効期限</label>
+          <CardExpiryElement id="card-expiry" className='w-full p-3 border bg-white rounded-md' />
+        </div>
+        <div className="mt-4">
+          <label className="block font-bold text-gray-600">セキュリティコード</label>
+          <CardCvcElement id="card-cvc" className='w-full p-3 border bg-white rounded-md' />
+        </div>
+        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
+        <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
+      </div>
+      <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
+      <div className="mt-4 flex items-center justify-center">
+        <input type="checkbox" className="form-checkbox" />
+        <span className="ml-2 text-gray-600">
+          <a href="" className="text-blue-400 font-bold">利用規約</a>に同意する
+        </span>
+      </div>
+      <div className="mt-6 justify-center flex">
+        <button type="submit" className={`mx-4 md:mx-8 w-full ${maleGradient} text-white py-2 rounded-full hover:bg-purple-600`}>
+          決済する
         </button>
       </div>
-      <label className="block font-bold text-gray-800 pt-2">カード登録</label>
-      <div className="mt-4 bg-white rounded-md">
-        <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
-        <div className="flex justify-around pb-4">
-          <img src={`${visaSVG}`} alt="Visa" className="h-12" />
-          <img src={`${masterCardSVG}`} alt="MasterCard" className="h-12" />
-          <img src={`${jcbSVG}`} alt="JCB" className="h-12" />
-          <img src={`${americanExpressSVG}`} alt="American Express" className="h-12" />
-        </div>
-      </div>
-      <div className="mt-4">
-        <label className="block font-bold text-gray-600">カード番号</label>
-        <CardNumberElement id="card-number" className='w-full p-3 border bg-white rounded-md' options={{showIcon: true}} />
-      </div>
-      <div className="mt-4">
-        <label className="block font-bold text-gray-800">カード名義</label>
-        <input
-          type="text"
-          className="w-full px-3 py-2 border rounded-md focus:outline-none"
-          placeholder="カード名義"
-          value={cardholderName}
-          onChange={(e) => setCardholderName(e.target.value)}
-        />
-      </div>
-      <div className="mt-4">
-        <label className="block font-bold text-gray-600">有効期限</label>
-        <CardExpiryElement id="card-expiry" className='w-full p-3 border bg-white rounded-md' />
-      </div>
-      <div className="mt-4">
-        <label className="block font-bold text-gray-600">セキュリティコード</label>
-        <CardCvcElement id="card-cvc" className='w-full p-3 border bg-white rounded-md' />
-      </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
-      <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
+      <PayConfirmationModal totalPrice={totalPrice} isVisible={isPayConfirmModalVisible} onCancel={handleCancelPay} onConfirm={handleConfirmPay} />
     </div>
   );
 };
 
-const StripePaymentElement: React.FC = () => {
+const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, eventId }) => {
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -226,7 +305,9 @@ const StripePaymentElement: React.FC = () => {
         const response = await fetch(`${SERVER_URL}/api/payments/create-payment-intent`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
+          body: JSON.stringify({
+            amount: totalPrice
+          }),
         });
 
         if (response.status === 200) {
@@ -257,7 +338,7 @@ const StripePaymentElement: React.FC = () => {
 
   return options ? (
     <Elements stripe={stripePromise} options={options}>
-      <FormInput />
+      <FormInput totalPrice={totalPrice} eventId={eventId} />
     </Elements>
   ) : (
     <div>読み込み中...</div>

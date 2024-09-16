@@ -130,7 +130,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       }}
       mapContainerClassName={`absolute inset-0 ${className}`}
     >
-      {events.map((event) => renderCustomMarker(event))}      
+      {events.map((event) => event.store && renderCustomMarker(event))}      
       {selectedEvent && renderCustomInfoWindow(selectedEvent)}
     </GoogleMap>
   );

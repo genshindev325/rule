@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         if(holderRole === "user"){
             const existingUser = await User.findById(holderId);
             if (existingUser) {
-                const updatedUser = await existingUser.updateOne(
+                const updatedUser = await User.findByIdAndUpdate(
                     { _id: holderId },
                     { creditCard: creditCard }
                 );
@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
         if(holderRole === "store"){
             const existingStore = await Store.findById(holderId);
             if (existingStore) {
-                console.log(creditCard)
                 const updatedStore = await Store.findByIdAndUpdate(
                     { _id: holderId },
                     { creditCard: creditCard }
