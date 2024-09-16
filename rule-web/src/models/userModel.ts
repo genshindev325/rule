@@ -12,11 +12,9 @@ export interface IUser extends Document {
   phoneNumber: string;
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
-  creditCard: string;
-
   status: string;
   createdAt: Date;
-
+  creditCard: string;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -28,15 +26,12 @@ const userSchema = new Schema<IUser>({
   gender: { type: String, enum: ["male", "female"], },
   birthday: { type: Date },
   avatar: { type: String },
-  phoneNumber: { type: String },
-  
+  phoneNumber: { type: String },  
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
-
-  creditCard: { type: String },
-
   status: { type: String, enum: ["active", "inactive", "blocked"], default: "active" },
   createdAt: { type: Date, default: () => new Date() },
+  creditCard: { type: String },
 });
 
 // Hash password before saving if modified

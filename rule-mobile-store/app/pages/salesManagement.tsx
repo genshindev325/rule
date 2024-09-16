@@ -18,7 +18,6 @@ interface EventProps {
 }
 
 const SalesManagement = () => {
-  const textXl = 'text-xl sm:text-2xl font-bold';
   const textSm = 'text-sm sm:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm';
   const [loading, setLoading] = useState(true); 

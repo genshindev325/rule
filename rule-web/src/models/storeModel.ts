@@ -15,16 +15,13 @@ export interface IStore extends Document {
   storeImages: string;
   description: string;
   monthlyRate: number;
-  creditCard: string;
   rating: number;
   ratingCount: number;
-
   storeLat: number;
   storeLng: number;
-
   status: string;
   createdAt: Date;
-  
+  creditCard: string;  
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -42,7 +39,6 @@ const storeSchema = new Schema<IStore>({
   storeImages: { type: String },
   description: { type: String },
   monthlyRate: { type: Number, default: 5000 },
-  creditCard: { type: String, default: ''},
   rating: { type: Number, default: 0 },
   ratingCount: { type: Number, default: 0 },
   storeLat: { type: Number, default: 35 },
@@ -53,6 +49,7 @@ const storeSchema = new Schema<IStore>({
     default: 'active',
   },
   createdAt: { type: Date, default: () => new Date() },
+  creditCard: { type: String, default: ''},
 });
 
 storeSchema.pre<IStore>('save', async function (next) {
