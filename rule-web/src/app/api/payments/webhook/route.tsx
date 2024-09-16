@@ -8,11 +8,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 // Webhook signing secret for verifying events (from your Stripe dashboard)
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-export const config = {
-  api: {
-    bodyParser: false, // Disabling the body parser so we can verify the Stripe signature
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false, // Disabling the body parser so we can verify the Stripe signature
+//   },
+// };
 
 // Handler for Stripe webhook events
 export async function handler(req: NextApiRequest, res: NextApiResponse) {
