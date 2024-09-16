@@ -100,7 +100,7 @@ const EventPayment: React.FC = () => {
                 <div className="mt-4 sm:mt-6 bg-white">
                   <StripePaymentElement totalPrice={totalPrice} eventId={eventId} />
                   <div className="mt-4 pb-12 md:pb-20 flex justify-center">
-                    <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full bg-[#b3b3b3] hover:bg-gray-400">
+                    <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 rounded-full hover:bg-gray-400">
                       <IonRouterLink routerLink='/home' className='text-white'>
                         キャンセル
                       </IonRouterLink>

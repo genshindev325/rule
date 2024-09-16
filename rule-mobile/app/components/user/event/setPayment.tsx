@@ -1,7 +1,6 @@
 // components/event/StripePaymentElement.tsx
 
 import React, { useState, useEffect } from 'react';
-import RegisteredCard from './registeredCard';
 import {
   useStripe,
   useElements,
@@ -11,7 +10,7 @@ import {
   Elements,
 } from "@stripe/react-stripe-js";
 import { useIonRouter } from '@ionic/react';
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
 import Notification from '@/app/components/utils/notification';
@@ -174,7 +173,7 @@ const FormInput: React.FC = () => {
     if (result.success) {
       setRegisteredCard(result.data);
       fetchRegisteredCard();
-      setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
+      setNotification({ message: '支払い方法が正常に登録されました。', type: 'success' });
     } else {
       console.error('Error saving payment method:', result.error);
     }
@@ -187,7 +186,25 @@ const FormInput: React.FC = () => {
           <h2 className={`text-center text-neutral-800 font-bold ${textMd}`}>クレジット設定</h2>
         </div>
         <div className='bg-gray-100 pb-12 px-4 sm:px-5 md:px-6'>
-          {registeredCard && <RegisteredCard last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />}
+          {registeredCard &&
+            <div className='bg-gray-100 pb-4'>
+              <label className="block font-bold text-gray-800 pt-2">登録済みカード</label>
+              <div className="mt-4 bg-white rounded-md">
+                <div className="flex flex-col p-2">
+                  <h4 className={`${textSm} text-left font-semibold`}>{`****_****_****_${last4}`}</h4>
+                  {cardSVG && <img src={`${cardSVG}`} alt="Visa" className="h-10 sm:h-12 mr-auto" />}
+                  <h4 className={`${textSm}  text-left font-semibold`}>{exDate}</h4>
+                  <div className='text-right'>
+                    <button type='button' onClick={() => setDeleteConfirmModalVisible(true)}
+                      className={`rounded-full bg-[#ff9c9c] ${textSm} font-semibold text-center px-6 sm:px-8`}
+                    >
+                      削除
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
           <label className={`${textSm} block font-bold text-gray-800 pt-2`}>カード登録</label>
           <div className="mt-4 bg-white rounded-md">
             <h4 className={`${textSm} text-center font-semibold py-2`}>対応ブランド</h4>
@@ -229,7 +246,7 @@ const FormInput: React.FC = () => {
         <button type='button' onClick={handleRegister} className={`${maleGradient} rounded-full py-2 text-white ${textSm} py-2 sm:py-4 md:py-6 font-bold`}>
           登録する
         </button>
-        <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white text-center ${textSm}`}>
+        <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white font-bold text-center ${textSm}`}>
           キャンセル
         </button>
       </div>
