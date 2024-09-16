@@ -12,7 +12,7 @@ import {
   Elements,
 } from "@stripe/react-stripe-js";
 import { IonRouterLink, useIonRouter } from '@ionic/react';
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
 import Stripe from 'stripe';
@@ -36,6 +36,8 @@ const americanExpressSVG = "/svg/american_express.svg";
 const jcbSVG = "/svg/jcb.svg";
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+const textXs = 'text-xs sm:text-sm md:text-md';
+const textSm = 'text-sm sm:text-md md:text-lg';
 
 const FormInput = () => {
   const stripe = useStripe();
@@ -193,19 +195,19 @@ const FormInput = () => {
   return (
     <div className='bg-white w-full p-4'>
       <form onSubmit={handleSubmit}>
-        <h3 className='font-semibold py-2'>登録済みカード</h3>
+        <h3 className={`${textSm} font-semibold pb-2`}>登録済みカード</h3>
         { registeredCard &&
-          <div className="mb-4 w-full p-2 gap-4 bg-gray-100 rounded-md flex flex-col">
+          <div className="mb-4 w-full p-2 bg-gray-100 rounded-md flex flex-col">
             <div className='flex flex-col'>
-              <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
-              {cardSVG && <img src={`${cardSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />}
-              <h4 className="text-md md:text-lg text-left font-semibold">{exDate}</h4>
+              <h3 className={`text-black ${textSm} pb-1`}>{`****_****_****_${last4}`}</h3>
+              {cardSVG && <img src={`${cardSVG}`} alt="Visa" className="h-10 sm:h-12 mr-auto" />}
+              <h4 className={`${textSm} text-left font-semibold`}>{exDate}</h4>
             </div>
             <div className='flex flex-row-reverse'>
               <button
                 type="button" 
                 onClick={() => setDeleteConfirmModalVisible(true)}
-                className="w-20 py-1 px-4 bg-red-300 text-white rounded-md hover:bg-red-500 duration-300"
+                className={`${textSm} w-20 px-4 bg-red-300 text-white rounded-full hover:bg-red-500 duration-300`}
               >
                 削除
               </button>
@@ -213,37 +215,37 @@ const FormInput = () => {
           </div>
         }
         {/* Card registration */}
-        <h3 className='font-semibold py-4'>カード登録</h3>
-        <h3 className='font-semibold py-2'>カード番号</h3>
+        <h3 className={`${textSm} font-semibold py-2`}>カード登録</h3>
+        <h3 className={`${textSm} font-semibold py-2`}>カード番号</h3>
         <div className="mb-4">
-          <CardNumberElement id="card-number" className='w-full p-3 bg-gray-100 rounded-md' options={{showIcon: true}} />
+          <CardNumberElement id="card-number" className={`${textXs} w-full p-3 bg-gray-100 rounded-md`} options={{showIcon: true}} />
         </div>
-        <h3 className='font-semibold py-2'>カード名義</h3>
+        <h3 className={`${textSm} font-semibold py-2`}>カード名義</h3>
         <div className="mb-4">
           <input
             type="text"
             id='cardholder-name'
             value={cardholderName}
             onChange={(e) => setCardholderName(e.target.value)}
-            className="w-full p-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+            className={`${textXs} w-full p-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
             placeholder="カード名義"
             required
           />
         </div>
-        <h3 className='font-semibold py-2'>有効期限</h3>
+        <h3 className={`${textSm} font-semibold py-2`}>有効期限</h3>
         <div className="mb-4">
-          <CardExpiryElement id="card-expiry" className='w-full p-3 bg-gray-100 rounded-md' />
+          <CardExpiryElement id="card-expiry" className={`${textXs} w-full p-3 bg-gray-100 rounded-md`} />
         </div>
-        <h3 className='font-semibold py-2'>セキュリティコード</h3>
+        <h3 className={`${textSm} font-semibold py-2`}>セキュリティコード</h3>
         <div className="mb-4">
-          <CardCvcElement id="card-cvc" className='w-full p-3 bg-gray-100 rounded-md' />
+          <CardCvcElement id="card-cvc" className={`${textXs} w-full p-3 bg-gray-100 rounded-md`} />
         </div>
         {/* buttons */}
         <div className='flex flex-col pt-2 space-y-4'>
-          <button type="submit" className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
+          <button type="submit" className={`${textSm} w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300`}>
             新しくカードを登録
           </button>
-          <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
+          <button type="button" className={`${textSm} w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300`}>
             <IonRouterLink routerLink='/settings' className='text-gray-800'>キャンセル</IonRouterLink>
           </button>
         </div>

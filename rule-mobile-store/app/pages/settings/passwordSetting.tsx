@@ -11,8 +11,6 @@ import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/utils/notification';
 
 const PasswordSetting = () => {
-  const textXl = 'text-xl sm:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-bold';
   const textSm = 'text-sm sm:text-md font-semibold text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const [currentPassword, setCurrentPassword] = useState('');
@@ -111,36 +109,36 @@ const PasswordSetting = () => {
           <div className='bg-white w-full p-4'>
             <form onSubmit={handleSubmit}>
               {/* Password setting */}
-              <h3 className='font-semibold py-2'>現在のパスワード</h3>
+              <h3 className={`${textSm} font-semibold py-2`}>現在のパスワード</h3>
               <div className="mb-4">
                 <input
                   type="password"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="現在のパスワード"
                   required
                 />
               </div>
-              <h3 className='font-semibold py-2'>新しいパスワード</h3>
+              <h3 className={`${textSm} font-semibold py-2`}>新しいパスワード</h3>
               <div className="mb-4">
                 <input
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード"
                   required
                 />
                 {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
               </div>
-              <h3 className='font-semibold py-2'>新しいパスワード (再入力)</h3>
+              <h3 className={`${textSm} font-semibold py-2`}>新しいパスワード (再入力)</h3>
               <div className="mb-4">
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード (再入力)"
                   required
                 />
@@ -148,10 +146,10 @@ const PasswordSetting = () => {
               </div>
               {/* buttons */}
               <div className='flex flex-col pt-2 space-y-4'>
-                <button type="submit" className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
+                <button type="submit" className={`${textSm} w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300`}>
                   保存
                 </button>
-                <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
+                <button type="button" className={`${textSm} w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300`}>
                   <IonRouterLink routerLink='/settings' className='text-gray-800'>キャンセル</IonRouterLink>
                 </button>
               </div>

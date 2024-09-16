@@ -75,7 +75,6 @@ const FormInput: React.FC = () => {
         const last4 = paymentMethod.card?.last4;
         const brand = paymentMethod.card?.brand;
         const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
-        console.log(paymentMethod);
         last4 && setLast4(last4);
         switch (brand) {
           case "visa":
