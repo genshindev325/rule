@@ -12,11 +12,7 @@ export interface IUser extends Document {
   phoneNumber: string;
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
-
-  creditCards: [{
-    paymentMethodId: string,
-    cardholderName: string,
-  }];
+  creditCard: string;
 
   status: string;
   createdAt: Date;
@@ -37,10 +33,7 @@ const userSchema = new Schema<IUser>({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
 
-  creditCards: { type: [{
-    paymentMethodId: String,
-    cardholderName: String,
-  }]},
+  creditCard: { type: String },
 
   status: { type: String, enum: ["active", "inactive", "blocked"], default: "active" },
   createdAt: { type: Date, default: () => new Date() },

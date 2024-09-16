@@ -17,20 +17,18 @@ export async function POST(req: NextRequest) {
         if(holderRole === "user"){
             const existingUser = await User.findById(holderId);
             if (existingUser) {
-                const creditCards = existingUser.creditCards;
-                if (creditCards) {
+                const creditCard = existingUser.creditCard;
+                if (creditCard) {
                     return NextResponse.json({
                         success: true,
                         data: {
-                            paymentMethodId: creditCards[0].paymentMethodId,
-                            cardholderName: creditCards[0].cardholderName,
+                            creditCard: creditCard,
                         },
                         message: ""
                     }, { status: 200 });
                 } else {
                     return NextResponse.json({
                         success: false,
-                        data: creditCards,
                         message: "User didn't register card."
                     }, { status: 404 });
                 }
@@ -44,21 +42,19 @@ export async function POST(req: NextRequest) {
         if(holderRole === "store"){
             const existingStore = await Store.findById(holderId);
             if (existingStore) {
-                const creditCards = existingStore.creditCards;
-                if (creditCards) {
+                const creditCard = existingStore.creditCard;
+                if (creditCard) {
                     return NextResponse.json({
                         success: true,
                         data: {
-                            paymentMethodId: creditCards[0].paymentMethodId,
-                            cardholderName: creditCards[0].cardholderName,
+                            creditCard: creditCard,
                         },
                         message: ""
                     }, { status: 200 });
                 } else {
                     return NextResponse.json({
                         success: false,
-                        data: creditCards,
-                        message: "User didn't register card."
+                        message: "Store didn't register card."
                     }, { status: 404 });
                 }
             } else {
@@ -85,10 +81,10 @@ export async function DELETE(req: NextRequest) {
 
     try {
         if(holderRole === "user"){
-            const existingUser = await User.findByIdAndUpdate(holderId, { creditCards: [] });
+            const existingUser = await User.findById(holderId);
             if (existingUser) {
-                const creditCards = existingUser.creditCards;
-                if (creditCards) {
+                const creditCard = await User.findByIdAndUpdate(holderId, {creditCard: ''});
+                if (creditCard) {
                     return NextResponse.json({
                         success: true,
                         message: ""
@@ -96,7 +92,6 @@ export async function DELETE(req: NextRequest) {
                 } else {
                     return NextResponse.json({
                         success: false,
-                        data: creditCards,
                         message: "User didn't register card."
                     }, { status: 404 });
                 }
@@ -108,10 +103,10 @@ export async function DELETE(req: NextRequest) {
             }
         }
         if(holderRole === "store"){
-            const existingStore = await Store.findByIdAndUpdate(holderId, { creditCards: [] });
+            const existingStore = await Store.findById(holderId);
             if (existingStore) {
-                const creditCards = existingStore.creditCards;
-                if (creditCards) {
+                const creditCard = await Store.findByIdAndUpdate(holderId, {creditCard: ''});
+                if (creditCard) {
                     return NextResponse.json({
                         success: true,
                         message: ""
@@ -119,7 +114,7 @@ export async function DELETE(req: NextRequest) {
                 } else {
                     return NextResponse.json({
                         success: false,
-                        data: creditCards,
+                        data: creditCard,
                         message: "User didn't register card."
                     }, { status: 404 });
                 }

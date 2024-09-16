@@ -11,32 +11,29 @@ export async function POST(req: NextRequest) {
     const {
         holderId,
         holderRole,
-        paymentMethodId,
-        cardholderName,
+        creditCard
      } = body;
 
     try {
         if(holderRole === "user"){
             const existingUser = await User.findById(holderId);
             if (existingUser) {
-                const creditCards = existingUser.creditCards;
-                creditCards.push({
-                    paymentMethodId,
-                    cardholderName,
-                });
-                const updatedUser = await existingUser.updateOne({creditCards: creditCards});
+                const updatedUser = await existingUser.updateOne(
+                    { _id: holderId },
+                    { creditCard: creditCard }
+                );
                 if(updatedUser){
                     return NextResponse.json({
                         success: true,
                         message: "Credit card is registered successfully"
                     }, { status: 201 });
-                }else{
+                } else {
                     return NextResponse.json({
                         success: false,
                         message: "Credit card is not registered"
                     }, { status: 400 });
                 }
-            }else{
+            } else {
                 return NextResponse.json({
                     success: false,
                     message: "Invalid user"
@@ -46,24 +43,23 @@ export async function POST(req: NextRequest) {
         if(holderRole === "store"){
             const existingStore = await Store.findById(holderId);
             if (existingStore) {
-                const creditCards = existingStore.creditCards;
-                creditCards.push({
-                    paymentMethodId,
-                    cardholderName,
-                });
-                const updatedStore = await existingStore.updateOne({creditCards: creditCards});
+                console.log(creditCard)
+                const updatedStore = await Store.findByIdAndUpdate(
+                    { _id: holderId },
+                    { creditCard: creditCard }
+                );
                 if(updatedStore){
                     return NextResponse.json({
                         success: true,
                         message: "Credit card is registered successfully"
                     }, { status: 201 });
-                }else{
+                } else {
                     return NextResponse.json({
                         success: false,
                         message: "Credit card is not registered"
                     }, { status: 400 });
                 }
-            }else{
+            } else {
                 return NextResponse.json({
                     success: false,
                     message: "Invalid store"

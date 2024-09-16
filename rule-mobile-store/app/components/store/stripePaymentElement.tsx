@@ -11,7 +11,7 @@ import {
   CardCvcElement,
   Elements,
 } from "@stripe/react-stripe-js";
-import { IonRouterLink } from '@ionic/react';
+import { IonRouterLink, useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
@@ -24,26 +24,32 @@ import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
 
 interface RegisterCardInterface {
   _id: string;
-  paymentMethodId: string;
+  cardNumber: string;
   cardholderName: string;
+  expiryDate: string;
+  cvc: number;
 }
 
+const visaSVG = "/svg/visa.svg";
+const masterCardSVG = "/svg/mastercard.svg";
+const americanExpressSVG = "/svg/american_express.svg";
+const jcbSVG = "/svg/jcb.svg";
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
 const FormInput = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useIonRouter();
   const [cardholderName, setCardholderName] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeID, setStoreID] = useState('');
   const [last4, setLast4] = useState('');
   const [exDate, setExDate] = useState('');
+  const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
-  const visaSVG = "/svg/visa.svg";
   
   useEffect(() => {
     if (profile) {
@@ -68,10 +74,28 @@ const FormInput = () => {
       if (response.status === 200) {
         const result = await response.json();
         setRegisteredCard(result.data);
-        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.paymentMethodId as string);
+        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
         const last4 = paymentMethod.card?.last4;
+        const brand = paymentMethod.card?.brand;
         const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
         last4 && setLast4(last4); 
+        switch (brand) {
+          case "visa":
+              setCardSVG(visaSVG);
+            break;
+          case "mastercard":
+              setCardSVG(masterCardSVG);
+            break;
+          case "amex":
+              setCardSVG(americanExpressSVG);
+            break;
+          case "jcb":
+              setCardSVG(jcbSVG);
+            break;        
+          default:
+              setCardSVG('');
+            break;
+        }
         setExDate(exDate);
       } else {
         console.error(`Error fetching card details: ${response.status}`);
@@ -147,8 +171,7 @@ const FormInput = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        paymentMethodId: paymentMethod.id,
-        cardholderName,
+        creditCard: paymentMethod.id,
         holderRole: "store",
         holderId: storeID
       }),
@@ -158,8 +181,9 @@ const FormInput = () => {
     if (result.success) {
       setRegisteredCard(result.data);
       fetchRegisteredCard();
+      setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
       setTimeout(() => {
-        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
+        router.push('/settings');
       }, 2000);
     } else {
       console.error('Error saving payment method:', result.error);
@@ -174,7 +198,7 @@ const FormInput = () => {
           <div className="mb-4 w-full p-2 gap-4 bg-gray-100 rounded-md flex flex-col">
             <div className='flex flex-col'>
               <h3 className='text-black text-xl'>{`****_****_****_${last4}`}</h3>
-              <img src={`${visaSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />
+              {cardSVG && <img src={`${cardSVG}`} alt="Visa" className="h-12 md:h-16 mr-auto" />}
               <h4 className="text-md md:text-lg text-left font-semibold">{exDate}</h4>
             </div>
             <div className='flex flex-row-reverse'>
@@ -231,49 +255,10 @@ const FormInput = () => {
 }
 
 const StripePaymentElement: React.FC = () => {
-  const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    const getClientSecret = async () => {
-      try {
-        const response = await fetch(`${SERVER_URL}/api/payments/create-payment-intent`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
-        });
-
-        if (response.status === 200) {
-          const result = await response.json();
-          setClientSecret(result.clientSecret);
-        } else {
-          console.error(`Error fetching client secret: ${response.status}`);
-        }
-      } catch (error) {
-        console.error('Error fetching client secret:', error);
-      }
-    };
-
-    getClientSecret();
-  }, []);
-
-  const appearance = {
-    theme: "stripe" as "stripe",
-  };
-
-  const options: StripeElementsOptions | undefined = clientSecret
-    ? {
-        clientSecret,
-        appearance,
-        locale: "ja",
-      }
-    : undefined;
-
-  return options ? (
-    <Elements stripe={stripePromise} options={options}>
+  return (
+    <Elements stripe={stripePromise}>
       <FormInput />
     </Elements>
-  ) : (
-    <div>読み込み中...</div>
   );
 };
 
