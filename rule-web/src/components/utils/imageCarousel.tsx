@@ -12,6 +12,8 @@ interface ImageCarouselProps {
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
   const [images, setImages] = useState<string[]>([]);
+  const [isVisibleRemoveImageModal, setIsVisibleRemoveImageModal] = useState(false);
+  const [selectedImageId, setSelectedImageIndex] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
 
   // Update slider when images change
@@ -32,13 +34,25 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
     draggable: true,
   };
 
+  // handle images in image carousel...
   const handleAddImage = (newImage: string) => {
     setImages((prevImages) => [...prevImages, newImage]);
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setIsVisibleRemoveImageModal(true);
+    setSelectedImageIndex(index);
   };
+
+  // RevomeImageModal
+  const handleCancelRemoveImageModal = () => {
+    setIsVisibleRemoveImageModal(false);
+  };
+
+  const handleConfirmRemoveImageModal = (index: number) => {
+    setIsVisibleRemoveImageModal(false);
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  }
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("stress")
@@ -100,6 +114,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
           </label>
         </div>
       </Slider>
+      <RemoveImageModal onCancel={handleCancelRemoveImageModal} onConfirm={() => handleConfirmRemoveImageModal(selectedImageId)} isVisible={isVisibleRemoveImageModal} />
     </div>
   );
 };
