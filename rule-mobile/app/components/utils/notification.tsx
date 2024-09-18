@@ -15,7 +15,7 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) =
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onClose, 300); // Trigger onClose after the fade-out transition
-    }, 3000);
+    }, 1500);
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, [onClose]);
 

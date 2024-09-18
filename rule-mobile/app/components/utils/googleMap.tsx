@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, forwardRef } from 'react';
 import { GoogleMap, InfoWindow, OverlayView } from '@react-google-maps/api';
 import { formatDateTime } from './datetime';
 
@@ -33,6 +33,7 @@ interface GoogleMapComponentProps {
   events: EventProps[];
   address: string;
   className: string;
+  moveToLocation: (latLng: google.maps.LatLng) => void;
 }
 
 const mapContainerStyle = {
@@ -40,7 +41,8 @@ const mapContainerStyle = {
   height: '100%',
 };
 
-const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address, className }) => {
+const GoogleMapComponent = forwardRef<google.maps.Map | null, GoogleMapComponentProps>(
+  ({ events, address, className, moveToLocation }, ref) => {
   const mapRef = useRef<google.maps.Map | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
@@ -134,6 +136,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       {selectedEvent && renderCustomInfoWindow(selectedEvent)}
     </GoogleMap>
   );
-};
+});
 
 export default GoogleMapComponent;

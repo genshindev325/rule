@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
 import EventCarousel from '@/app/components/user/event/eventCarousel';
@@ -42,15 +42,16 @@ interface EventProps {
 const FindOnMap: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const searchSVG = '/svg/search.svg';
+  const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([])
+  const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
+  const mapRef = useRef<google.maps.Map | null>(null);
   
-  // will be released after adding api...
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -83,12 +84,53 @@ const FindOnMap: React.FC = () => {
   const handleSocial = () => {};
   const handleAnime = () => {};
 
+  // handle find modal...
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  // Function to move the map to the new location (this will be passed to the GoogleMapBackground component)
+  const moveToLocation = (latLng: google.maps.LatLng) => {
+    if (mapRef.current) {
+      mapRef.current.panTo(latLng); // Move the map to the new coordinates
+    }
+  };
+
+  // This function will handle the location button click
+  const handleLocationClick = () => {
+    // Use Geolocation to get the user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          moveToLocation(latLng);
+        },
+        () => {
+          // If Geolocation fails, fall back to a default location (e.g., 'Osaka, Japan')
+          geocodeAddress('Osaka, Japan');
+        }
+      );
+    } else {
+      // If geolocation is not available, geocode the default address
+      geocodeAddress('Osaka, Japan');
+    }
+  };
+
+  // Fallback: Geocode an address into latitude and longitude
+  const geocodeAddress = (address: string) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === 'OK' && results && results[0]) {
+        const latLng = results[0].geometry.location;
+        moveToLocation(latLng);
+      } else {
+        console.error('Geocode was not successful for the following reason:', status);
+      }
+    });
   };
 
   return (
@@ -107,11 +149,11 @@ const FindOnMap: React.FC = () => {
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 md:mx-20 mt-4">
                 <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-4" onClick={handleOpenModal}/>
                 <h2 className="text-sm font-semibold py-1 md:py-4 pl-2 text-left">イベントを検索する</h2>
-                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-3" />
+                <img src={searchBlackSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-3" />
               </div>
             </div>
             {/* Google Map background */}
-            <GoogleMapBackground events={upcomingEvents} address='Osaka, Japan' className='w-full' />
+            <GoogleMapBackground ref={mapRef} events={upcomingEvents} address='Osaka, Japan' className='w-full' moveToLocation={moveToLocation} />
             {/* content */}
             <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-2 z-10'>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
@@ -133,7 +175,7 @@ const FindOnMap: React.FC = () => {
                   <img src={detailSVG} className="rounded-md mx-auto w-4 fill-white" />
                 </IonRouterLink>
               </button>
-              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
+              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`} onClick={handleLocationClick}>
                 <img src={locationSVG} className="rounded-md mx-auto w-4 fill-white" />
               </button>
             </div>
