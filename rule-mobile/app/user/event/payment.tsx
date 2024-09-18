@@ -31,7 +31,7 @@ const EventPayment: React.FC = () => {
         console.error('Failed to parse event data from URL:', error);
       }
     }
-  }, [eventString, dispatch]);  
+  }, [eventString, dispatch]);
 
   if (!userInfo || !selectedEvent) {
     console.log("Missing user information or event data.");

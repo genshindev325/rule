@@ -31,7 +31,7 @@ import EventPayment from "./user/event/payment";
 import RegistSuccess from "./user/event/registSuccess";
 import SearchResult1 from "./user/event/searchResult1";
 import SearchResult2 from "./user/event/searchResult2";
-import SearchResult3 from "./user/event/searchResult3";
+import EventDetail from "./user/event/eventDetail";
 import SearchResult4 from "./user/event/searchResult4";
 import Success from "./user/event/success";
 
@@ -75,7 +75,7 @@ const AppShell = () => {
               <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
               <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
               <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
-              <Route path="/event/eventResult3" render={() => <SearchResult3 />} exact={true} />
+              <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
               <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
               <Route path="/event/success" render={() => <Success />} exact={true} />
               <Route

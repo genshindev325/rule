@@ -51,7 +51,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
       <Slider {...settings}>
         {events.map((event, index) => (
           <div key={index} className="px-4 my-2">
-            <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
+            <IonRouterLink routerLink={`/event/eventDetail?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
               <EventCard {...event} />
             </IonRouterLink>
           </div>

@@ -2,12 +2,20 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
 import FullCarousel from '@/app/components/user/search/fullCarousel';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import { useSearchParams } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
+import { RootState } from '@/app/store/store';
 
-const SearchResult3: React.FC = () => {
+const EventDetail: React.FC = () => {
+  const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+
+  const eventString = searchParams.get('event');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'absolute top-24 w-11/12 rounded-xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-md space-y-2';
@@ -52,6 +60,28 @@ const SearchResult3: React.FC = () => {
   const handleStudent = () => {};
   const handleAnime = () => {};
 
+  // Redux state selectors
+  const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
+  const userInfo = useSelector((state: RootState) => state.auth.profile);
+
+  useEffect(() => {
+    if (eventString) {
+      try {
+        const parsedEvent = JSON.parse(decodeURIComponent(eventString));
+        dispatch(setSelectedEvent(parsedEvent));
+      } catch (error) {
+        console.error('Failed to parse event data from URL:', error);
+      }
+    }
+  }, [eventString, dispatch]);
+
+  if (!userInfo || !selectedEvent) {
+    console.log("Missing user information or event data.");
+    return;
+  }
+
+  console.log("selectedEvent: " + JSON.stringify(selectedEvent));
+
   return (
     <IonPage>
       <IonContent>
@@ -81,7 +111,7 @@ const SearchResult3: React.FC = () => {
                     <h2 className={`${textSm} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{males}/{maleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2 ml-auto">
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${maleGradient}`} 
                         style={{ width: `${maleRate * 100}%` }}
@@ -99,7 +129,7 @@ const SearchResult3: React.FC = () => {
                     <h2 className={`${textSm} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{females}/{femaleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2 ml-auto">
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${femaleGradient}`} 
                         style={{ width: `${femaleRate * 100}%` }}
@@ -155,4 +185,4 @@ const SearchResult3: React.FC = () => {
   );
 };
 
-export default SearchResult3;
+export default EventDetail;
