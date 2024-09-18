@@ -13,13 +13,7 @@ import AuthWrapper from '@/components/auth/authWrapper';
 const MemberStoreAddition = () => {
   const router = useRouter();
 
-  const [storeName, setStoreName] = useState('');
-
-  const [images, setImages] = useState<string[]>([
-    '/image/img_1.png',
-    // '/image/img_1.png',
-    // Add more image paths here
-  ]);
+  const [images, setImages] = useState<string[]>([]);
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -148,7 +142,7 @@ const MemberStoreAddition = () => {
                 </div>
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>店舗画像</h3>                
-                  <ImageCarousel images={images} onAddImage={handleAddImage} />
+                  {/* <ImageCarousel onAddImage={handleAddImage} /> */}
                 </div>
                 <div className="mb-4">
                   <h3 className='text-gray-600 py-2'>説明文</h3>

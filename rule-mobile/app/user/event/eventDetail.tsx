@@ -1,4 +1,4 @@
-// app/user/event/searchResult3.tsx
+// app/user/event/EventDetail.tsx
 
 'use client';
 
@@ -14,7 +14,6 @@ import { RootState } from '@/app/store/store';
 const EventDetail: React.FC = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
-
   const eventString = searchParams.get('event');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';

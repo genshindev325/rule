@@ -1,17 +1,27 @@
-// components/utils/authContext.tsx
-
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import Notification from '@/utils/notification';
+import RemoveImageModal from './removeImageModal';
 
 interface ImageCarouselProps {
-  images: string[];
   onAddImage: (newImage: string) => void;
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => {
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
+  const [images, setImages] = useState<string[]>([]);
+  const sliderRef = useRef<Slider>(null);
+
+  // Update slider when images change
+  useEffect(() => {
+    if (sliderRef.current) {
+      // sliderRef.current.slickGoTo(images.length - 1);
+      sliderRef.current.slickPlay();
+    }
+  }, [images]);
+
   const settings = {
     dots: false,
     infinite: false,
@@ -22,28 +32,53 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
     draggable: true,
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddImage = (newImage: string) => {
+    setImages((prevImages) => [...prevImages, newImage]);
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("stress")
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          onAddImage(reader.result as string);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          // onAddImage(data.url); // Propagate image URL to parent if needed
+          handleAddImage(data.url); // Add to internal state
+        } else {
+          console.log(`Failed to upload image. Status: ${response.status}`);
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
   };
 
   return (
     <div className="bg-gray-200 rounded w-full text-gray-800">
-      <Slider {...settings}>
+      <Slider ref={sliderRef} {...settings}>
         {images.map((src, index) => (
-          <div key={index} className="relative w-full h-28 -mb-2">
+          <div
+            key={index}
+            className="relative w-full h-28 mr-2 -mb-2"
+            onClick={() => handleRemoveImage(index)}
+          >
             <Image
               src={src}
               alt={`image-${index}`}
-              layout='fill'
+              layout="fill"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
               className="rounded object-cover"
             />
@@ -53,7 +88,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onAddImage }) => 
           <input
             type="file"
             accept="image/*"
-            onChange={handleFileChange}
+            onChange={handleImageUpload}
             className="hidden"
             id="file-input"
           />

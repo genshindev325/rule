@@ -10,44 +10,26 @@ import Notification from '@/utils/notification';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import GoogleMapComponent from '@/utils/googleMap';
+import ImageCarousel from '@/components/utils/imageCarousel';
 
 const StoreProfileSettings = () => {
   const router = useRouter();
   const [storeID, setStoreID] = useState('');
   
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  const [storeImages, setStoreImages] = useState<string>();
+  const [storeImages, setStoreImages] = useState<string[]>([]);
   const [address, setAddress] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
-  
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const formData = new FormData();
-      formData.append('file', event.target.files[0]);
 
-      try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          setStoreImages(data.url);
-        } else {
-          console.log(response.status);
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    }
+  const handleAddImage = (newImage: string) => {
+    setStoreImages((prevImages) => [...prevImages, newImage]);
   };
 
   useEffect(() => {}, [storeImages]);
 
   const handleDeleteImage = () => {
-    setStoreImages('');
+    setStoreImages([]);
   };
 
   // Callback to receive the new marker location
@@ -113,8 +95,8 @@ const StoreProfileSettings = () => {
           <Navbar />
         </div>
         <div className='w-auto mx-auto'>
-          <div className="min-h-screen flex items-start py-20 justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+          <div className="min-h-screen flex items-start py-12 justify-center bg-gray-100">
+            <div className="bg-white py-8 px-6 rounded-lg shadow-md w-full max-w-4xl">
               <h2 className="text-lg font-bold mb-6">店舗プロフィール設定</h2>
               <form onSubmit={handleSubmit}>
                 <h3 className='font-semibold py-2 text-md'>店舗名</h3>
@@ -122,7 +104,7 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='storeName'
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="店舗名"
                     required
                   />
@@ -132,7 +114,7 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='storeGenre'
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="店舗ジャンル"
                     required
                   />
@@ -142,7 +124,7 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='foodGenre'
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="食材ジャンル"
                     required
                   />
@@ -152,7 +134,7 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='cookingGenre'
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="料理ジャンル"
                     required
                   />
@@ -164,7 +146,7 @@ const StoreProfileSettings = () => {
                     name='address'
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪府大阪市中央区東心斎橋1-17-2 アニーズビル 1F"
                     required
                   />
@@ -174,13 +156,13 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='access1'
-                    className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 mb-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪メトロ 御堂筋線 心斎橋駅から徒歩10分"
                   />
                   <input
                     type="name"
                     name='access2'
-                    className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪メトロ 長堀鶴見緑地線 長堀橋駅から徒歩5分"
                   />
                 </div>
@@ -188,11 +170,10 @@ const StoreProfileSettings = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={handleFileChange}
                     className="hidden"
-                    id="file-input"
+                    id="add-access"
                   />
-                  <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                  <label htmlFor="add-access" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
                   {/* store images */}
                   {storeImages && (
                     <div className='flex-1 justify-center items-center w-40 pt-6'>
@@ -205,11 +186,14 @@ const StoreProfileSettings = () => {
                     <GoogleMapComponent onLocationSelect={handleLocationSelect} />
                   </div>
                 </div>
+                <div className='mb-4'>
+                  <ImageCarousel onAddImage={handleAddImage} />
+                </div>
                 <div className="mb-4">
                   <h3 className='font-semibold py-2 text-md'>説明文</h3>
                   <textarea
                     name='description'
-                    className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="説明文"
                     rows={5}
                   />
