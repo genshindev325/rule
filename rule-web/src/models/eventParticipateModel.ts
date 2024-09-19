@@ -2,9 +2,8 @@ import mongoose, { Document, Schema, Model } from 'mongoose';
 
 interface IEventParticipate extends Document {
     userId: mongoose.ObjectId;
-    eventId: mongoose.ObjectId;
+    eventId: mongoose.ObjectId;    
     status: string;
-
     createdAt: Date;
 }
 

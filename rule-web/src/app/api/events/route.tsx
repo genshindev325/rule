@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
     await dbConnect();
 
     const body = await req.json();
-    console.log(body);
     try {
         const event = await Event.create(body);
         return NextResponse.json({ success: true, data: event }, { status: 201 });

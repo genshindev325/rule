@@ -19,7 +19,6 @@ interface IEvent extends Document {
 
     store: mongoose.ObjectId;
     status: string;
-
     createdAt: Date;
 }
 

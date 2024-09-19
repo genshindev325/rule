@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { GoogleMap, OverlayView } from '@react-google-maps/api';
 import { formatDateTime } from './datetime';
 import EventCarousel from '@/app/components/user/event/eventCarousel';
+import FindDetailModal from '../user/event/findDetailModal';
 
 interface EventProps {
   _id: string;
@@ -45,10 +46,20 @@ const mapContainerStyle = {
 const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address, className }, ref) => {
   const mapRef = useRef<google.maps.Map | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const searchSVG = '/svg/search.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
+
+  // handle find modal...
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleMapLoad = useCallback(
     (map: google.maps.Map) => {
@@ -167,7 +178,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
           <EventCarousel events={events}/>
         </div>
         <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
-          <button className={`rounded-md w-10 h-10 ${maleGradient} fill-white`}>
+          <button className={`rounded-md w-10 h-10 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-700`} onClick={handleOpenModal}>
             <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
           <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
@@ -178,6 +189,8 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
           </button>
         </div>
       </div>
+      {/* Find event with more detail conditions */}
+      <FindDetailModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </GoogleMap>
   );
 };
