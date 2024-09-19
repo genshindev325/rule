@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
         userId,
-        eventId
+        eventId,
+        totalPrice
     } = body;
     try {
         const alreadyParticipate = await EventParticipate.findOne(body);

@@ -13,7 +13,7 @@ import {
 import { useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store/store';
+import { RootState, store } from '@/app/store/store';
 import Notification from '@/app/components/utils/notification';
 import Stripe from 'stripe';
 import DeleteConfirmationModal from '@/app/components/utils/deleteConfirmModal';
@@ -21,8 +21,6 @@ import { STRIPE_SECRET_KEY } from '@/app/config';
 import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
 import { SERVER_URL } from '@/app/config';
 import PayConfirmationModal from '@/app/components/utils/payConfirmModal';
-import { register } from 'module';
-import { json } from 'stream/consumers';
 
 interface StripePaymentInterface {
   totalPrice: number;
@@ -171,7 +169,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId, eventId }),
+              body: JSON.stringify({ userId, eventId, totalPrice }),
             });
       
             if (response.status === 201) {
@@ -210,7 +208,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId, eventId }),
+              body: JSON.stringify({ userId, eventId, totalPrice }),
             });
       
             if (response.status === 201) {

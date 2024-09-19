@@ -178,7 +178,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
           <EventCarousel events={events}/>
         </div>
         <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
-          <button className={`rounded-md w-10 h-10 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-700`} onClick={handleOpenModal}>
+          <button className={`rounded-md w-10 h-10 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-1000`} onClick={handleOpenModal}>
             <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
           <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
