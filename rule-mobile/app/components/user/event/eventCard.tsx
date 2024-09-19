@@ -27,14 +27,14 @@ const EventCard: React.FC<CardProps> = ({
 
   return (
     <div className="flex flex-row space-x-2 bg-white rounded-xl shadow-[0_2px_10px_3px_rgba(0,0,0,0.2)] p-2 sm:p-3">
-      <img src={coverImage} alt={`event-profile`} className="rounded-xl rounded-br-none w-24 sm:w-28 h-18 sm:h-20" />
+      <img src={coverImage} alt={`event-profile`} className="rounded-xl rounded-br-none w-24 sm:w-28 h-20 sm:h-24" />
       <div className='flex flex-col space-y-1'>
         <h2 className="text-xs sm:text-sm md:text-md font-bold">{eventName}</h2>
         <h2 className="text-xs sm:text-sm md:text-md">{formatDateTime(eventDate)}</h2>
         <div className='flex flex-row space-x-1'>
           <div className={`${maleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>男性</div>
           <h2 className='text-xs sm:text-sm md:text-md'>{maleFee}円 {males}/{maleTotal}</h2>
-          <div className="w-16 sm:w-18 md:w-20 bg-gray-300 h-2 rounded-full my-auto">
+          <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-2 rounded-full my-auto">
             <div
               className={`h-2 ${maleGradient}`} 
               style={{ width: `${maleRate * 100}%` }}
@@ -44,7 +44,7 @@ const EventCard: React.FC<CardProps> = ({
         <div className='flex flex-row space-x-1'>
           <div className={`${femaleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
           <h2 className='text-xs sm:text-sm md:text-md'>{femaleFee}円 {females}/{femaleTotal}</h2>
-          <div className="w-16 sm:w-18 md:w-20 bg-gray-200 h-2 rounded-full my-auto">
+          <div className="w-16 sm:w-20 md:w-24 bg-gray-200 h-2 rounded-full my-auto">
             <div 
               className={`h-2 ${femaleGradient}`} 
               style={{ width: `${femaleRate * 100}%` }}

@@ -162,11 +162,9 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
         const result = await stripe.confirmCardPayment(clientSecret, {
           payment_method: registeredCard
         });
-        console.log("confirm payment result: " + JSON.stringify(result));
-        console.log("userId: " + userId);
-        console.log("eventId: " + eventId);
 
         if (result.error) {
+          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
           console.log("error related to participate and pay for event: " + result.error.message);
         } else if (result.paymentIntent?.status === 'succeeded') {
           try {
@@ -203,12 +201,9 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
             },
           },
         });
-        
-        console.log("confirm payment result: " + JSON.stringify(result));
-        console.log("userId: " + userId);
-        console.log("eventId: " + eventId);
   
         if (result.error) {
+          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
           console.log("error related to participate and pay for event: " + result.error.message);
         } else if (result.paymentIntent?.status === 'succeeded') {
           try {
@@ -249,9 +244,9 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
           <RegisteredCard cardSVG={cardSVG} last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />
           :
           <>
-            <label className="block font-bold text-gray-800 pt-2">カード登録</label>
+            <label className={`${textSm} block font-semibold text-gray-800 pt-2`}>カード登録</label>
             <div className="mt-4 bg-white rounded-md">
-              <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
+              <h4 className={`${textSm} text-center font-semibold py-2`}>対応ブランド</h4>
               <div className="flex justify-around pb-4">
                 <img src={`${visaSVG}`} alt="Visa" className="h-12" />
                 <img src={`${masterCardSVG}`} alt="MasterCard" className="h-12" />
@@ -260,11 +255,11 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
               </div>
             </div>
             <div className="mt-4">
-              <label className="block font-bold text-gray-600">カード番号</label>
+              <label className={`${textSm} block font-semibold text-gray-600`}>カード番号</label>
               <CardNumberElement id="card-number" className='w-full p-3 border bg-white rounded-md' options={{showIcon: true}} />
             </div>
             <div className="mt-4">
-              <label className="block font-bold text-gray-800">カード名義</label>
+              <label className={`${textSm} block font-semibold text-gray-800`}>カード名義</label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border rounded-md focus:outline-none"
@@ -274,11 +269,11 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
               />
             </div>
             <div className="mt-4">
-              <label className="block font-bold text-gray-600">有効期限</label>
+              <label className={`${textSm} block font-semibold text-gray-600`}>有効期限</label>
               <CardExpiryElement id="card-expiry" className='w-full p-3 border bg-white rounded-md' />
             </div>
             <div className="mt-4">
-              <label className="block font-bold text-gray-600">セキュリティコード</label>
+              <label className={`${textSm} block font-semibold text-gray-600`}>セキュリティコード</label>
               <CardCvcElement id="card-cvc" className='w-full p-3 border bg-white rounded-md' />
             </div>
           </>
@@ -286,15 +281,15 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
         {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
         <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
       </div>
-      <h2 className="text-xs sm:text-sm md:text-md text-center pt-6 px-4">%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
+      <h2 className={`${textXs} text-center pt-6 px-4`}>%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
       <div className="mt-4 flex items-center justify-center">
         <input type="checkbox" className="form-checkbox" />
-        <span className="ml-2 text-gray-600">
-          <a href="" className="text-blue-400 font-bold">利用規約</a>に同意する
+        <span className={`${textSm} ml-2 text-gray-600`}>
+          <a href="" className={`text-blue-400 font-semibold`}>利用規約</a>に同意する
         </span>
       </div>
       <div className="mt-6 justify-center flex">
-        <button type="button" onClick={() => setPayConfirmModalVisible(true)} className={`mx-4 md:mx-8 w-full ${maleGradient} text-white py-2 rounded-full hover:bg-purple-600`}>
+        <button type="button" onClick={() => setPayConfirmModalVisible(true)} className={`${textSm} mx-4 md:mx-8 w-full ${maleGradient} text-white py-1 sm:py-2 md:py-3 rounded-full hover:bg-purple-600`}>
           決済する
         </button>
       </div>

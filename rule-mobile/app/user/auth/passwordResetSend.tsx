@@ -57,7 +57,7 @@ const PasswordResetSend: React.FC = () => {
               </p>}
               <button
                 type="submit"
-                className={`w-full py-2 md:py-4 px-4 mt-16 sm:mt-18 md:mt-20 ${textSm} ${maleGradient} text-white rounded-full`}
+                className={`w-full py-2 md:py-4 px-4 mt-16 sm:mt-20 md:mt-24 ${textSm} ${maleGradient} text-white rounded-full`}
               >
                 送信する
               </button>

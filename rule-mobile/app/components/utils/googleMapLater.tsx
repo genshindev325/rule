@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { GoogleMap, OverlayView } from '@react-google-maps/api';
 import { formatDateTime } from './datetime';
-import EventCarousel from '@/app/components/user/event/eventCarousel';
 
 interface EventProps {
   _id: string;
@@ -21,7 +20,6 @@ interface EventProps {
   store: {
     storeLat: number;
     storeLng: number;
-    storeName: string;
     address: string,
     access1: string,
     access2: string,
@@ -162,10 +160,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       {selectedEvent && renderCustomInfoWindow(selectedEvent)}
       
       {/* image carousel and buttons */}
-      <div className='absolute bottom-11 left-0 right-0 flex flex-col items-center justify-center'>
-        <div className='h-28 w-full shadow bg-white/70'>
-          <EventCarousel events={events}/>
-        </div>
+      <div className='absolute bottom-11 flex flex-col items-center justify-center'>
         <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
           <button className={`rounded-md w-10 h-10 ${maleGradient} fill-white`}>
             <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />

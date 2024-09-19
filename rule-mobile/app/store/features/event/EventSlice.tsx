@@ -16,7 +16,18 @@ interface EventProps {
   femaleFee: number,
   femaleTotal: number,
   females: number,
-  store: string,
+  store: {
+    _id: string;
+    storeName: string;
+    address: string;
+    access1: string;
+    access2: string;
+    description: string;
+    storeLat: number;
+    storeLng: number;
+    status: string;
+    createdAt: Date;
+  },
   status: string,
   createdAt: string,
 }

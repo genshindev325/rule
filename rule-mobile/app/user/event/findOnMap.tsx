@@ -2,10 +2,9 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
 
-import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
@@ -41,16 +40,12 @@ interface EventProps {
 
 const FindOnMap: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const searchSVG = '/svg/search.svg';
   const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
-  const detailSVG = '/svg/detail.svg';
-  const locationSVG = '/svg/location.svg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
-  const mapRef = useRef<google.maps.Map | null>(null);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -93,46 +88,6 @@ const FindOnMap: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // Function to move the map to the new location (this will be passed to the GoogleMapBackground component)
-  const moveToLocation = (latLng: google.maps.LatLng) => {
-    if (mapRef.current) {
-      mapRef.current.panTo(latLng); // Move the map to the new coordinates
-    }
-  };
-
-  // This function will handle the location button click
-  const handleLocationClick = () => {
-    // Use Geolocation to get the user's current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          moveToLocation(latLng);
-        },
-        () => {
-          // If Geolocation fails, fall back to a default location (e.g., 'Osaka, Japan')
-          geocodeAddress('Osaka, Japan');
-        }
-      );
-    } else {
-      // If geolocation is not available, geocode the default address
-      geocodeAddress('Osaka, Japan');
-    }
-  };
-
-  // Fallback: Geocode an address into latitude and longitude
-  const geocodeAddress = (address: string) => {
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address }, (results, status) => {
-      if (status === 'OK' && results && results[0]) {
-        const latLng = results[0].geometry.location;
-        moveToLocation(latLng);
-      } else {
-        console.error('Geocode was not successful for the following reason:', status);
-      }
-    });
-  };
-
   return (
     <IonPage>
       <IonContent>
@@ -153,31 +108,13 @@ const FindOnMap: React.FC = () => {
               </div>
             </div>
             {/* Google Map background */}
-            <GoogleMapBackground ref={mapRef} events={upcomingEvents} address='Osaka, Japan' className='w-full' moveToLocation={moveToLocation} />
+            <GoogleMapBackground events={upcomingEvents} address='Osaka, Japan' className='w-full' />
             {/* content */}
             <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-2 z-10'>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
               <button className='rounded-full bg-white shadow-lg px-2 sm:px-3 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
-            </div>
-            <div className='h-28 mt-[280px] sm:mt-[230px] md:mt-[240px] z-10 shadow bg-white/70'>
-              {/* events should be changed into upcomingEvents after adding API call */}
-              <EventCarousel events={upcomingEvents}/>
-            </div>
-            {/* buttons */}
-            <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
-              <button className={`rounded-md w-10 h-10 ${maleGradient} fill-white`}>
-                <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
-              </button>
-              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
-                <IonRouterLink routerLink='/home'>
-                  <img src={detailSVG} className="rounded-md mx-auto w-4 fill-white" />
-                </IonRouterLink>
-              </button>
-              <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`} onClick={handleLocationClick}>
-                <img src={locationSVG} className="rounded-md mx-auto w-4 fill-white" />
-              </button>
             </div>
             {/* Find event with more detail conditions */}
             <FindDetailModal isOpen={isModalOpen} onClose={handleCloseModal} />
