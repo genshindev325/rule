@@ -12,22 +12,20 @@ export async function POST(req: NextRequest) {
     const start = new Date(startDate as string);
     const end = new Date(endDate as string);
     const storeId = store;
+    let totalSales = 0;
   try {
     const query = Event.find();
     query.where("eventDate").gte(start.getTime());
     query.where("eventDate").lte(end.getTime());
     query.where("store").equals(storeId);
     const events = await query.exec();
-    // events.map(async (e) => {
-    //   const query = EventParticipate.find();
-    //   query.where("eventId").equals(e._id);
-    //   const participate = await query.exec();
-    //   if (participate.length > 0) console.log(`${e._id}-totalPrice: ` + participate[0].totalPrice);
-    //   e
-    // })
+    events.map((e) => {
+      if (e.totalEarnings > 0) totalSales += e.totalEarnings;
+    })
+    console.log("totalSales: " + totalSales);
 
     return NextResponse.json({
-      events: events
+      events: events, totalSales: totalSales
     }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ success: false, error }, { status: 500 });

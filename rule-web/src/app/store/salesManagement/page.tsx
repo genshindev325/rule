@@ -36,9 +36,6 @@ const SalesManagement = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("startDate: " + startDate);
-      const start = new Date(startDate as string);
-      console.log("start: " + start);
       try {
         // Fetch salesManagement Data
         const response_salesManagement = await fetch('/api/stores/sales-management', {
@@ -50,9 +47,9 @@ const SalesManagement = () => {
         });
         if (response_salesManagement.ok) {
           const result_salesManagement = await response_salesManagement.json();
-          console.log("FGHFGH: " + result_salesManagement.events[0]);
           setEvents(result_salesManagement.events);
           setTotalSales(result_salesManagement.totalSales)
+          console.log("totalSales: " + totalSales);
         } else {
           console.error('Failed to fetch salesManagement data');
         }
@@ -64,7 +61,7 @@ const SalesManagement = () => {
     };
 
     fetchData();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, totalSales]);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
