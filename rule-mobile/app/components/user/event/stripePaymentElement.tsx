@@ -155,7 +155,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, cli
 
   const handleConfirmPay = async () => {
     // check whether user already participate into the event...
-    const response = await fetch(`${SERVER_URL}/api/event/participate/check`, {
+    const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, eventId }),
