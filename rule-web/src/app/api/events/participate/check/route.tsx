@@ -5,7 +5,6 @@ import EventParticipate from '@/models/eventParticipateModel';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
-  console.log("SDFSDFSDF")
 
   const body = await req.json();
   try {

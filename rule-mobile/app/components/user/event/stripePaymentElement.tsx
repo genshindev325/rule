@@ -166,7 +166,6 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, cli
         try {
           // try to pay
           const paymentMethod = await stripeGet.paymentMethods.retrieve(registeredCard as string);
-          console.log(paymentMethod)
 
           const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: registeredCard
@@ -174,7 +173,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, cli
 
           if (result.error) {
             setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
-            console.log("error related to participate and pay for event: " + result.error.message);
+            console.log(result.error.message);
           } else if (result.paymentIntent?.status === 'succeeded') {
             try {
               const response = await fetch(`${SERVER_URL}/api/events/participate`, {
