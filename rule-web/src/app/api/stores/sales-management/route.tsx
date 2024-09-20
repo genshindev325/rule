@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
       const query = Event.find();
       query.where("eventDate").gte(start.getTime());
       query.where("eventDate").lte(end.getTime());
+      query.where("store").equals(storeId);
     // const events = await Event.aggregate([
       // {
       //   $match: {
