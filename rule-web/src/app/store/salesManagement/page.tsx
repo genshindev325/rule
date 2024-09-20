@@ -13,7 +13,7 @@ import { formatDateTime } from '@/utils/datetime';
 interface EventProps {
   eventName: string;
   eventDate: string;
-  storeEarnings: number;
+  // storeEarnings: number;
 }
 
 const SalesManagement = () => {

@@ -22,24 +22,24 @@ export async function POST(req: NextRequest) {
           eventEndTime: { $lte: end }       // Filter by end time
         }
       },
-      {
-        $lookup: {
-          from: 'eventparticipates',  // Match the name of the EventParticipate collection
-          localField: '_id',
-          foreignField: 'eventId',
-          as: 'participants'
-        }
-      },
-      {
-        $addFields: {
-          storeEarnings: { $sum: '$participants.totalPrice' }  // Calculate the total earnings
-        }
-      },
+      // {
+      //   $lookup: {
+      //     from: 'eventparticipates',  // Match the name of the EventParticipate collection
+      //     localField: '_id',
+      //     foreignField: 'eventId',
+      //     as: 'participants'
+      //   }
+      // },
+      // {
+      //   $addFields: {
+      //     storeEarnings: { $sum: '$participants.totalPrice' }  // Calculate the total earnings
+      //   }
+      // },
       {
         $project: {
           eventName: 1,
           eventDate: 1,
-          storeEarnings: 1
+          // storeEarnings: 1
         }
       }
     ]);
