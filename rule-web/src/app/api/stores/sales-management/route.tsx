@@ -7,7 +7,6 @@ import EventParticipate from '@/models/eventParticipateModel';
 export async function POST(req: NextRequest) {
   await dbConnect();
 
-
   try {
     const body = await req.json();
     const { store, startDate, endDate } = body;
@@ -44,6 +43,7 @@ export async function POST(req: NextRequest) {
         }
       }
     ]);
+    console.log("events: " + events[0]);
 
     return NextResponse.json({
       events: events

@@ -49,6 +49,7 @@ const SalesManagement = () => {
         });
         if (response_salesManagement.ok) {
           const result_salesManagement = await response_salesManagement.json();
+          console.log("FGHFGH: " + result_salesManagement.events[0]);
           setEvents(result_salesManagement.events);
           setTotalSales(result_salesManagement.totalSales)
         } else {
