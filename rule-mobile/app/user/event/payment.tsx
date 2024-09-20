@@ -36,6 +36,7 @@ const EventPayment: React.FC = () => {
   } = selectedEvent;
   const eventPrice = gender === 'male' ? maleFee : femaleFee;
   const totalPrice = eventPrice * 1.05;
+  const fee = eventPrice * 0.05;
 
   const handleCloseNotification = () => {
     setNotification(null);
@@ -88,7 +89,7 @@ const EventPayment: React.FC = () => {
                 </div>
                 {/* Registration Form */}
                 <div className="mt-4 sm:mt-6 bg-white">
-                  <StripePaymentElement totalPrice={totalPrice} eventId={eventId} />
+                  <StripePaymentElement totalPrice={totalPrice} fee={fee} eventId={eventId} />
                   <div className="mt-4 pb-12 md:pb-20 flex justify-center">
                     <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-1 sm:py-2 md:py-3 rounded-full hover:bg-gray-400">
                       <IonRouterLink routerLink='/event/findOnMap' className='text-white'>

@@ -25,12 +25,14 @@ import PayConfirmationModal from '@/app/components/utils/payConfirmModal';
 interface StripePaymentInterface {
   totalPrice: number;
   eventId: string;
+  fee: number;
 }
 
 interface FormInputInterface {
   totalPrice: number;
   eventId: string;
   clientSecret: string;
+  fee: number;
 }
 
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
@@ -44,7 +46,7 @@ const textMd = 'text-md sm:text-lg md:text-xl';
 const textXs = 'text-xs sm:text-sm md:text-md';
 const textSm = 'text-sm sm:text-md md:text-lg';
 
-const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSecret }) => {
+const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const router = useIonRouter();
@@ -169,7 +171,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId, eventId, totalPrice }),
+              body: JSON.stringify({ userId, eventId, totalPrice, fee }),
             });
       
             if (response.status === 201) {
@@ -208,7 +210,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId, eventId, totalPrice }),
+              body: JSON.stringify({ userId, eventId, totalPrice, fee }),
             });
       
             if (response.status === 201) {
@@ -296,7 +298,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, clientSe
   );
 };
 
-const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, eventId }) => {
+const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fee, eventId }) => {
   const [clientSecret, setClientSecret] = useState<string>('');
 
   useEffect(() => {
@@ -338,7 +340,7 @@ const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, ev
 
   return options ? (
     <Elements stripe={stripePromise} options={options}>
-      <FormInput totalPrice={totalPrice} eventId={eventId} clientSecret={clientSecret} />
+      <FormInput totalPrice={totalPrice} eventId={eventId} clientSecret={clientSecret} fee={fee} />
     </Elements>
   ) : (
     <div>読み込み中...</div>

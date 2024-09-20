@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
     const {
         userId,
         eventId,
-        totalPrice
     } = body;
     try {
         const alreadyParticipate = await EventParticipate.findOne(body);
