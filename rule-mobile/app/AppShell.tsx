@@ -33,7 +33,6 @@ import SearchResult1 from "./user/event/searchResult1";
 import SearchResult2 from "./user/event/searchResult2";
 import EventDetail from "./user/event/eventDetail";
 import SearchResult4 from "./user/event/searchResult4";
-import Success from "./user/event/success";
 
 setupIonicReact({});
 
@@ -77,7 +76,6 @@ const AppShell = () => {
               <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
               <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
               <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
-              <Route path="/event/success" render={() => <Success />} exact={true} />
               <Route
                 path="/"
                 render={() => <Redirect to="/auth/login" />}

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import dbConnect from '@/lib/mongoose';
 import Event from '@/models/eventModel';
-import EventParticipate from '@/models/eventParticipateModel';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -19,10 +18,11 @@ export async function POST(req: NextRequest) {
     query.where("eventDate").lte(end.getTime());
     query.where("store").equals(storeId);
     const events = await query.exec();
-    events.map((e) => {
-      if (e.totalEarnings > 0) totalSales += e.totalEarnings;
+    events.forEach((e) => {
+      if (e.totalEarnings > 0) {
+        totalSales += e.totalEarnings;
+      }
     })
-    console.log("totalSales: " + totalSales);
 
     return NextResponse.json({
       events: events, totalSales: totalSales

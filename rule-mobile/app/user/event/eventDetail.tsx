@@ -25,9 +25,6 @@ const EventDetail: React.FC = () => {
   const textMd = 'text-md sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-md md:text-lg';
   const textXs = 'text-xs sm:text-sm md:text-md';
-
-  const imageUrl = '/image/img_1.png';
-  const imageUrl5 = '/image/img_5.png';
   
   const items = [
     {
@@ -170,14 +167,14 @@ const EventDetail: React.FC = () => {
                 </div>
                 <h2 className={`${textXs}`}>{selectedEvent.store.description}</h2>
                 <div className={`pt-6 pb-2 flex w-full`}>
-                  <button className={`grow ${maleGradient} ${textSm} rounded-full py-1 sm:py-2 md:py-3`}>
+                  <button className={`grow ${maleGradient} ${textSm} rounded-full py-2 sm:py-3`}>
                     <IonRouterLink routerLink='/event/payment' className='text-white'>
                       参加をして決済する
                     </IonRouterLink>
                   </button>
                 </div>
                 <div className={`pb-10 flex w-full`}>
-                  <button className={`grow bg-gray-300 ${textSm} rounded-full py-1 sm:py-2 md:py-3`}>
+                  <button className={`grow bg-gray-300 ${textSm} rounded-full py-2 sm:py-3`}>
                     <IonRouterLink routerLink='/event/findOnMap' className='text-white'>
                       戻る
                     </IonRouterLink>

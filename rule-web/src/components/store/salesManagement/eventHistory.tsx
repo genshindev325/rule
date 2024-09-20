@@ -24,7 +24,7 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
           <tr>
             <th className="text-left">イベント名</th>
             <th className="text-left">日時</th>
-            <th className="text-left">売上</th>
+            <th className="text-left">売上(円)</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
             <tr key={index}>
               <td>{event.eventName}</td>
               <td>{formatDateTime(event.eventDate)}</td>
-              <td>{formatNumber(event.totalEarnings)} 円</td>
+              <td>{formatNumber(event.totalEarnings)}</td>
             </tr>
           ))}
         </tbody>

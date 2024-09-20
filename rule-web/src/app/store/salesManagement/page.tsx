@@ -8,31 +8,29 @@ import Navbar from '@/components/store/navbar';
 import TotalSales from '@/components/store/salesManagement/totalSales';
 import EventHistory from '@/components/store/salesManagement/eventHistory';
 import { useAuth } from '@/components/auth/authContext';
-import { formatDateTime } from '@/utils/datetime';
 
 interface EventProps {
   eventName: string;
   eventDate: string;
   totalEarnings: number;
-  // storeEarnings: number;
 }
+// Get today's date in the YYYY-MM-DD format
+const today = new Date();
+const getTodayDate = (): string => {
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const SalesManagement = () => {
   const [loading, setLoading] = useState(true); 
   const [events, setEvents] = useState<EventProps[]>([]);
   const [totalSales, setTotalSales] = useState(0);
-  const today = new Date();
-  const [startDate, setStartDate] = useState(today.toISOString().split('T')[0]);
-  const [endDate, setEndDate] = useState(today.toISOString().split('T')[0]);
+  const [startDate, setStartDate] = useState(getTodayDate());
+  const [endDate, setEndDate] = useState(getTodayDate());
   const { profile } = useAuth();
   const store = profile?._id;
-  // Get today's date in the YYYY-MM-DD format
-  const getTodayDate = (): string => {
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // months are zero-indexed
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,14 +79,14 @@ const SalesManagement = () => {
                 type="date"
                 onChange={(e) => setStartDate(e.target.value)}
                 className="w-48 p-3 bg-gray-300 rounded-md focus:outline-none focus:border-blue-100"
-                placeholder={getTodayDate()}
+                value={startDate}
                 required
               />
               <input
                 type="date"
                 onChange={(e) => setEndDate(e.target.value)}
                 className="w-48 p-3 bg-gray-300 rounded-md focus:outline-none focus:border-blue-100"
-                placeholder="2023年 11月 14日"
+                value={endDate}
                 required
               />
             </div>

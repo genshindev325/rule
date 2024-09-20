@@ -9,12 +9,22 @@ import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
 import Notification from '@/utils/notification';
 
+// Get today's date in the YYYY-MM-DD format
+const today = new Date();
+const getTodayDate = (): string => {
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const EventSettings = () => {
   const router = useRouter();
   const { profile } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [eventDate, setEventDate] = useState(getTodayDate());
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
@@ -34,7 +44,6 @@ const EventSettings = () => {
 
         if (response.status === 200) {
           const data = await response.json();
-          console.log("storeIamge-url: " + data.url);
           setPhotoImageUrl(data.url);
         } else {
           console.log(response.status);
@@ -58,7 +67,6 @@ const EventSettings = () => {
     const eventName = formData.get('eventName');
     const category = selectedCategory;
     const description = formData.get('description');
-    const eventDate = formData.get('schedule');
     const _eventStartTime = formData.get('startTime');
     const _eventEndTime = formData.get('endTime');
     let eventStartTime, eventEndTime;
@@ -183,8 +191,9 @@ const EventSettings = () => {
                     <input
                       type="date"
                       name='schedule'
+                      onChange={(e) => setEventDate(e.target.value)}
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="2023年 11月 14日"
+                      value={eventDate}
                       required
                     />
                   </div>

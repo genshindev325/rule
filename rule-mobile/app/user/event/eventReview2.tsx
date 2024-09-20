@@ -305,7 +305,7 @@ const EventReview2: React.FC = () => {
                 placeholder="お店のレビューを書く"
                 rows={6}
               />
-              <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-1 text-white ${textMd}`}>送信する</button>
+              <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>送信する</button>
               <div className={`pb-6 pt-2 flex w-full`}>
                 <button onClick={() => router.back()} className={`grow bg-gray-300 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
               </div>
