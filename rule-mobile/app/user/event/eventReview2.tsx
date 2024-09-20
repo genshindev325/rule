@@ -206,7 +206,7 @@ const EventReview2: React.FC = () => {
                     <h2 className={`${textSm} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.males}/{selectedEvent?.maleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2 ml-auto">
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${maleGradient}`} 
                         style={{ width: `${selectedEvent ? selectedEvent.males/selectedEvent.maleTotal * 100 : 0}%` }}
@@ -224,7 +224,7 @@ const EventReview2: React.FC = () => {
                     <h2 className={`${textSm} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2 ml-auto">
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${femaleGradient}`} 
                         style={{ width: `${selectedEvent ? selectedEvent.females/selectedEvent.femaleTotal * 100 : 0}%` }}
