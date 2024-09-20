@@ -18,12 +18,13 @@ export async function POST(req: NextRequest) {
     query.where("eventDate").lte(end.getTime());
     query.where("store").equals(storeId);
     const events = await query.exec();
-    events.map(async (e) => {
-      const query = EventParticipate.find();
-      query.where("eventId").equals(e._id);
-      const participate = await query.exec();
-      if (participate) console.log(`${e._id}-totalPrice: ` + participate);
-    })
+    // events.map(async (e) => {
+    //   const query = EventParticipate.find();
+    //   query.where("eventId").equals(e._id);
+    //   const participate = await query.exec();
+    //   if (participate.length > 0) console.log(`${e._id}-totalPrice: ` + participate[0].totalPrice);
+    //   e
+    // })
 
     return NextResponse.json({
       events: events

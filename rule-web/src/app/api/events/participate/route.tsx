@@ -12,6 +12,8 @@ export async function POST(req: NextRequest) {
     const {
         userId,
         eventId,
+        totalPrice,
+        fee
     } = body;
     try {
         const alreadyParticipate = await EventParticipate.findOne(body);
@@ -23,12 +25,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: false, message: "Invalid user" }, { status: 404 });
         }
         if(user?.gender === "male"){
-            const updatedEvent = await Event.findByIdAndUpdate(eventId, {$inc: {males: 1}});
+            const updatedEvent = await Event.findByIdAndUpdate(eventId, {$inc: {males: 1, totalEarnings: totalPrice} });
             if(!updatedEvent){
                 return NextResponse.json({ success: false, message: "Invalid store" }, { status: 404 });
             }
         }else if(user?.gender === "female"){
-            const updatedEvent = await Event.findByIdAndUpdate(eventId, {$inc: {females: 1}});
+            const updatedEvent = await Event.findByIdAndUpdate(eventId, {$inc: {females: 1, totalEarnings: totalPrice}});
             if(!updatedEvent){
                 return NextResponse.json({ success: false, message: "Invalid store" }, { status: 404 });
             }

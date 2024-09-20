@@ -16,7 +16,7 @@ interface IEvent extends Document {
     femaleFee: number;
     rating: number;
     ratingCount: number;
-
+    totalEarnings: number;
     store: mongoose.ObjectId;
     status: string;
     createdAt: Date;
@@ -38,6 +38,7 @@ const eventSchema = new Schema<IEvent>({
     femaleFee: { type: Number, required: true },
     rating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
+    totalEarnings: { type: Number, default: 0 },
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
     status: {
         type: String,

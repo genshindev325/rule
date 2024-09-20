@@ -13,6 +13,7 @@ import { formatDateTime } from '@/utils/datetime';
 interface EventProps {
   eventName: string;
   eventDate: string;
+  totalEarnings: number;
   // storeEarnings: number;
 }
 

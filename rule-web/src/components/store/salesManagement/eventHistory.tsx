@@ -9,7 +9,7 @@ import { formatNumber } from '@/utils/formatNumber';
 interface EventProps {
   eventName: string;
   eventDate: string;
-  // storeEarnings: number;
+  totalEarnings: number;
 }
 
 interface EventHistoryProps {
@@ -32,8 +32,7 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
             <tr key={index}>
               <td>{event.eventName}</td>
               <td>{formatDateTime(event.eventDate)}</td>
-              {/* <td>{formatNumber(event.storeEarnings)} 円</td> */}
-              <td>{0} 円</td>
+              <td>{formatNumber(event.totalEarnings)} 円</td>
             </tr>
           ))}
         </tbody>
