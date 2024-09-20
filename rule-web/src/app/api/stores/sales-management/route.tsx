@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       const query = EventParticipate.find();
       query.where("eventId").equals(e._id);
       const participate = await query.exec();
-      if (participate) console.log(`${e._id}-totalPrice: ` + participate[0].totalPrice);
+      if (participate) console.log(`${e._id}-totalPrice: ` + participate);
     })
 
     return NextResponse.json({
