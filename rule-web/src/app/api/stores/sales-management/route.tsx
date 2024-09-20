@@ -7,21 +7,23 @@ import EventParticipate from '@/models/eventParticipateModel';
 export async function POST(req: NextRequest) {
   await dbConnect();
 
-  try {
     const body = await req.json();
     const { store, startDate, endDate } = body;
     const start = new Date(startDate as string);
     const end = new Date(endDate as string);
     const storeId = store;
-  
-    const events = await Event.aggregate([
-      {
-        $match: {
-          store: storeId,  // Filter by storeId
-          eventStartTime: { $gte: start },  // Filter by start time
-          eventEndTime: { $lte: end }       // Filter by end time
-        }
-      },
+    try {
+      const query = Event.find();
+      query.where("eventDate").gte(start.getTime());
+      query.where("eventDate").lte(end.getTime());
+    // const events = await Event.aggregate([
+      // {
+      //   $match: {
+      //     store: storeId,  // Filter by storeId
+      //     eventStartTime: { $gte: start },  // Filter by start time
+      //     eventEndTime: { $lte: end }       // Filter by end time
+      //   }
+      // },
       // {
       //   $lookup: {
       //     from: 'eventparticipates',  // Match the name of the EventParticipate collection
@@ -35,14 +37,15 @@ export async function POST(req: NextRequest) {
       //     storeEarnings: { $sum: '$participants.totalPrice' }  // Calculate the total earnings
       //   }
       // },
-      {
-        $project: {
-          eventName: 1,
-          eventDate: 1,
-          // storeEarnings: 1
-        }
-      }
-    ]);
+    //   {
+    //     $project: {
+    //       eventName: 1,
+    //       eventDate: 1,
+    //       // storeEarnings: 1
+    //     }
+    //   }
+    // ]);
+    const events = await query.exec();
     console.log("events: " + events[0]);
 
     return NextResponse.json({
