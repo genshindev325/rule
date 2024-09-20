@@ -93,8 +93,9 @@ const ProfilePassword: React.FC = () => {
   };
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'w-11/12 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
-  const textMd = 'text-md sm:text-xl md:text-3xl font-bold';
+  const container = 'w-full rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-10 sm:pb-8 md:py-10 flex flex-col shadow-md';
+  const textMd = 'text-md sm:text-lg md:text-xl font-semibold';
+  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
 
   return (
     <IonPage>
@@ -109,31 +110,33 @@ const ProfilePassword: React.FC = () => {
               <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <form onSubmit={handleSubmit} className={`${container}`}>
-              <div className='flex flex-col items-center'>
-                <h2 className={`${textMd} pt-6`}>パスワード変更</h2>
+            <form onSubmit={handleSubmit} className='w-11/12 flex flex-col items-center px-2'>
+              <div className={`${container}`}>
+                <div className='flex flex-col items-center'>
+                  <h2 className={`${textSm} pt-6`}>パスワード変更</h2>
+                </div>
+                {/* current password */}
+                <div className='flex flex-col pt-8 border-b-2 border-solid border-gray-300'>
+                  <h2 className={`${textSm}`}>現在のパスワード</h2>
+                  <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
+                </div>
+                {/* new password */}
+                <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
+                  <h2 className={`${textSm}`}>新規パスワード</h2>
+                  <PasswordInput value={newPassword} onChange={handlePasswordChange} />
+                </div>
+                {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+                {/* confirm new password */}
+                <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
+                  <h2 className={`${textSm}`}>新規パスワード確認</h2>
+                  <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
+                </div>
+                {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               </div>
-              {/* current password */}
-              <div className='flex flex-col pt-8 border-b-2 border-solid border-gray-300'>
-                <h2 className={`${textMd}`}>現在のパスワード</h2>
-                <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
-              </div>
-              {/* new password */}
-              <div className='flex flex-col pt-4 border-b-2 border-solid border-gray-300'>
-                <h2 className={`${textMd}`}>新規パスワード</h2>
-                <PasswordInput value={newPassword} onChange={handlePasswordChange} />
-              </div>
-              {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
-              {/* confirm new password */}
-              <div className='flex flex-col pt-4 border-b-2 border-solid border-gray-300'>
-                <h2 className={`${textMd}`}>新規パスワード確認</h2>
-                <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
-              </div>
-              {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
               {/* buttons */}
-              <div className='flex flex-col space-y-2 py-4'>
-                <button type='submit' className={`${maleGradient} rounded-full py-1 text-white ${textMd}`}>登録する</button>
-                <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-1 text-white text-center ${textMd}`}>キャンセル</button>
+              <div className='flex flex-col space-y-4 py-10 w-full'>
+                <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textSm}`}>登録する</button>
+                <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white text-center ${textSm}`}>キャンセル</button>
               </div>
             </form>
           </div>
