@@ -11,9 +11,9 @@ import { useAuth } from '@/components/auth/authContext';
 import { formatDateTime } from '@/utils/datetime';
 
 interface EventProps {
-  name: string,
-  date: string,
-  earnings: number
+  eventName: string;
+  eventDate: string;
+  storeEarnings: number;
 }
 
 const SalesManagement = () => {
@@ -36,8 +36,8 @@ const SalesManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       console.log("startDate: " + startDate);
-      console.log("endDate: " + endDate);
-      console.log("store: " + store);
+      const start = new Date(startDate as string);
+      console.log("start: " + start);
       try {
         // Fetch salesManagement Data
         const response_salesManagement = await fetch('/api/stores/sales-management', {
