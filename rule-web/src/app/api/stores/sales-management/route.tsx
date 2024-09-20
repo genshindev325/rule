@@ -12,42 +12,18 @@ export async function POST(req: NextRequest) {
     const start = new Date(startDate as string);
     const end = new Date(endDate as string);
     const storeId = store;
-    try {
-      const query = Event.find();
-      query.where("eventDate").gte(start.getTime());
-      query.where("eventDate").lte(end.getTime());
-      query.where("store").equals(storeId);
-    // const events = await Event.aggregate([
-      // {
-      //   $match: {
-      //     store: storeId,  // Filter by storeId
-      //     eventStartTime: { $gte: start },  // Filter by start time
-      //     eventEndTime: { $lte: end }       // Filter by end time
-      //   }
-      // },
-      // {
-      //   $lookup: {
-      //     from: 'eventparticipates',  // Match the name of the EventParticipate collection
-      //     localField: '_id',
-      //     foreignField: 'eventId',
-      //     as: 'participants'
-      //   }
-      // },
-      // {
-      //   $addFields: {
-      //     storeEarnings: { $sum: '$participants.totalPrice' }  // Calculate the total earnings
-      //   }
-      // },
-    //   {
-    //     $project: {
-    //       eventName: 1,
-    //       eventDate: 1,
-    //       // storeEarnings: 1
-    //     }
-    //   }
-    // ]);
+  try {
+    const query = Event.find();
+    query.where("eventDate").gte(start.getTime());
+    query.where("eventDate").lte(end.getTime());
+    query.where("store").equals(storeId);
     const events = await query.exec();
-    console.log("events: " + events[0]);
+    events.map(async (e) => {
+      const query = EventParticipate.find();
+      query.where("eventId").equals(e._id);
+      const participate = await query.exec();
+      if (participate) console.log(`${e._id}-totalPrice: ` + participate[0].totalPrice);
+    })
 
     return NextResponse.json({
       events: events
