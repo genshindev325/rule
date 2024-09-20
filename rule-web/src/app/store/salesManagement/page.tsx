@@ -7,6 +7,7 @@ import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import TotalSales from '@/components/store/salesManagement/totalSales';
 import EventHistory from '@/components/store/salesManagement/eventHistory';
+import { useAuth } from '@/components/auth/authContext';
 import { formatDateTime } from '@/utils/datetime';
 
 interface EventProps {
@@ -22,6 +23,8 @@ const SalesManagement = () => {
   const today = new Date();
   const [startDate, setStartDate] = useState(today.toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(today.toISOString().split('T')[0]);
+  const { profile } = useAuth();
+  const store = profile?._id;
   // Get today's date in the YYYY-MM-DD format
   const getTodayDate = (): string => {
     const year = today.getFullYear();
@@ -32,9 +35,18 @@ const SalesManagement = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("startDate: " + startDate);
+      console.log("endDate: " + endDate);
+      console.log("store: " + store);
       try {
         // Fetch salesManagement Data
-        const response_salesManagement = await fetch('/api/stores/sales-management');
+        const response_salesManagement = await fetch('/api/stores/sales-management', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            startDate, endDate, store
+          })
+        });
         if (response_salesManagement.ok) {
           const result_salesManagement = await response_salesManagement.json();
           setEvents(result_salesManagement.events);
@@ -66,12 +78,6 @@ const SalesManagement = () => {
           <div className="mt-8">
             <h3 className='text-sm font-semibold pt-4'>期間指定</h3>
             <div className='flex flex-row py-4 gap-4'>
-              {/* <span className='p-2 border-none rounded-lg bg-gray-300 w-48 text-sm mt-auto'>
-                2022年 11月 14日
-              </span>
-              <span className='p-2 border-none rounded-lg bg-gray-300 w-48 text-sm mt-auto'>
-                2023年 11月 14日
-              </span> */}
               <input
                 type="date"
                 onChange={(e) => setStartDate(e.target.value)}

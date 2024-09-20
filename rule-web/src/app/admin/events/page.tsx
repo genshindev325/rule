@@ -24,8 +24,10 @@ interface PastEvent {
   eventDate: string | "---",
   maleTotal: number,
   males: number,
+  maleFee: number,
   femaleTotal: number,
   females: number,
+  femaleFee: number,
   earnings: number
 }
 

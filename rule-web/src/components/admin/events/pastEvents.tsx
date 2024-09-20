@@ -11,8 +11,10 @@ interface PastEvent {
   eventDate: string | "---",
   maleTotal: number,
   males: number,
+  maleFee: number,
   femaleTotal: number,
   females: number,
+  femaleFee: number,
   earnings: number
 }
 
@@ -40,7 +42,7 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
               <td>{formatDateTime(event.eventDate)}</td>
               <td>{event.males}/{event.maleTotal}</td>
               <td>{event.females}/{event.femaleTotal}</td>
-              <td>{event.earnings} (円)</td>
+              <td>{(event.males * event.maleFee + event.females * event.femaleFee) * 0.05} (円)</td>
             </tr>
           ))}
         </tbody>

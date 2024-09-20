@@ -3,8 +3,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongoose';
 import Store from '@/models/storeModel';
 
-export async function GET(req: NextRequest) {
-    //await dbConnect();
+export async function POST(req: NextRequest) {
+    await dbConnect();
+
+    const body = await req.json();
+    const { store, startDate, endDate } = body;
+
     try {
         const totalSales = 12345;
         const events = [
