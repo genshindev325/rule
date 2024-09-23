@@ -19,29 +19,33 @@ interface StorePayment {
   createdAt: Date;
 }
 
-interface StorePaymentsProps {
-  storePayments: StorePayment[],
-}
-
-const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStorePayments }) => {
+const StorePaymentsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [storePayments, setStorePayments] = useState<StorePayment[]>(initialStorePayments);
+  const [storePayments, setStorePayments] = useState<StorePayment[]>([{
+    _id: '12345',
+    storeId: '67890',
+    storeName: 'My Store',
+    paymentDate: '2024-09-23',
+    paymentAmount: 10000,
+    status: '未払い',
+    createdAt: new Date()
+  }]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchStatus, setSearchStatus] = useState(''); // NEW STATE for payment status search
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
   const [selectedStoreName, setSelectedStoreName] = useState('');
   const [selectedPayAmount, setSelectedPayAmount] = useState(0);
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
 
+  // Fetch storePayments data on mount (if not passed from server-side)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // fetch store management data
         const response = await fetch('/api/admin/storePayment');
         if (response.status === 200) {
           const result = await response.json();
-          console.log(result);
           setStorePayments(result.data);
         } else {
           console.log('Failed to fetch store management data');
@@ -58,13 +62,13 @@ const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStor
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
-  // pay store logic
+  // Handle payment action
   const handlePay = (rowId: string, storeName: string, payAmount: number) => {
     setSelectedRowId(rowId);
     setSelectedStoreName(storeName);
     setSelectedPayAmount(payAmount);
     setPayConfirmModalVisible(true);
-  }
+  };
 
   const handleConfirmPay = async () => {
     if (selectedRowId !== null) {
@@ -75,24 +79,23 @@ const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStor
       });
       if (response.status === 200) {
         const result = await response.json();
-        console.log(result.message);
         setCurrentPage(1);
       } else {
-        console.log(response.status);
         console.log('Payment failed.');
       }
       setSelectedRowId(null);
     }
     setPayConfirmModalVisible(false);
-  }
+  };
 
   const handleCancel = () => {
     setPayConfirmModalVisible(false);
   };
-  // pay store logic end
 
+  // Filtering based on both store name and payment status
   const filteredStores = storePayments.filter(store =>
-    store.storeName && store.storeName.toLowerCase().includes(searchTerm.toLowerCase())
+    store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    store.status.toLowerCase().includes(searchStatus.toLowerCase())
   );
 
   const paginatedStores = filteredStores.slice(
@@ -124,21 +127,39 @@ const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStor
           <Navbar />
         </div>
         <div className='w-full p-10 pb-16'>
-          <div className="w-full mb-4 flex justify-start gap-8 bg-white shadow-md rounded-md p-4">
-            <input
-              type="text"
-              placeholder="検索..."
-              className="border p-2 rounded focus:outline-none"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="border border-width-0 py-2 px-6 rounded-lg text-white text-lg bg-green-700 hover:bg-green-800 focus:outline-none duration-300">
-              検索
-            </button>
+          <div className="w-full mb-4 flex justify-start bg-white shadow-md rounded-md p-4">
+            {/* Store name search input */}
+            <div className='flex flex-col space-y-2'>
+              <h2 className='text-sm md:text-md font-bold text-gray-700'>
+                店名
+              </h2>
+              <input
+                type="text"
+                placeholder="選択してください"
+                className="border p-2 rounded focus:outline-none bg-gray-100"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            {/* Payment status search dropdown */}
+            <div className='flex flex-col space-y-2 ml-4'>
+              <h2 className='text-sm md:text-md font-bold text-gray-700'>
+                決済ステータス
+              </h2>
+              <select
+                className="border p-2 rounded focus:outline-none bg-gray-100"
+                value={searchStatus} // Bind the select to searchStatus state
+                onChange={(e) => setSearchStatus(e.target.value)} // Update the searchStatus state on option change
+              >
+                <option value=''>すべて</option>
+                <option value='未払い'>未払い</option>
+                <option value='支払い済'>支払い済</option>
+              </select>
+            </div>
             <div className="flex ml-auto items-center space-x-2">
               <span>1ページあたりの項目数:</span>
               <input type="number" value={itemsPerPage} onChange={handleItemsPerPageChange}
-                className="w-10 p-2 bg-gray-100 text-center rounded no-spinner focus:outline-none" min="1" max={totalPages} />
+                className="w-10 p-2 bg-gray-100 text-center rounded no-spinner focus:outline-none" min="1" />
             </div>
           </div>
           <div className='p-6 bg-white shadow-md rounded-md g-4'>
@@ -182,7 +203,7 @@ const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStor
               &lt;&lt;
             </button>
               <input type="number" value={currentPage} onChange={handlePageInputChange}
-                className="w-10 p-1 border items-center text-center no-spinner rounded focus:outline-none" min="1" max={totalPages} />
+                className="w-10 p-1 border items-center text-center no-spinner rounded focus:outline-none" min="1" />
               <span>&nbsp;/&nbsp;{totalPages}</span>
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
@@ -196,7 +217,7 @@ const StorePayment: React.FC<StorePaymentsProps> = ({ storePayments: initialStor
         </div>
       </div>
     </AuthWrapper>
-  )
-}
+  );
+};
 
-export default StorePayment;
+export default StorePaymentsPage;
