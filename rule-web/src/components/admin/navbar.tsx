@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaHome, FaCalendar, FaComments, FaChartArea, FaClipboardList, FaBell } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaComments, FaChartArea, FaClipboardList, FaBell, FaStore } from 'react-icons/fa';
 
 const Navbar = () => {
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
@@ -63,6 +63,14 @@ const Navbar = () => {
             onClick={() => handleMenuClick('salesManagement')}
           >
             <FaChartArea className="w-8 h-8" />
+          </button>
+        </Link>
+        <Link href="/admin/storePayment">
+          <button
+            className={`hover:text-blue-400 ${selectedMenu === 'storeManagement' ? 'text-blue-400' : ''} duration-300`}
+            onClick={() => handleMenuClick('storeManagement')}
+          >
+            <FaStore className="w-8 h-8" />
           </button>
         </Link>
       </div>

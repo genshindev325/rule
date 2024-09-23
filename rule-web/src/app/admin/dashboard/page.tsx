@@ -42,7 +42,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch mainPanel Data
-        const response_mainPanel = await fetch('/api/admin/dashboard/mainPanel');
+        const response_mainPanel = await fetch('/api/admin/main-panel');
         if (response_mainPanel.status === 200) {
           const result_mainPanel = await response_mainPanel.json();
           setMainPanelData(result_mainPanel);
