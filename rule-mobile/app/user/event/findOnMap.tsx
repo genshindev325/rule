@@ -33,6 +33,7 @@ interface EventProps {
     access1: string,
     access2: string,
     description: string,
+    status: string,
   };
   status: string,
   createdAt: string

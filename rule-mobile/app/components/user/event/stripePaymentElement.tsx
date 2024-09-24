@@ -26,6 +26,9 @@ interface StripePaymentInterface {
   totalPrice: number;
   eventId: string;
   fee: number;
+  eventDate: string;
+  storeId: string;
+  storeName: string;
 }
 
 interface FormInputInterface {
@@ -33,6 +36,9 @@ interface FormInputInterface {
   eventId: string;
   clientSecret: string;
   fee: number;
+  eventDate: string;
+  storeId: string;
+  storeName: string;
 }
 
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
@@ -46,7 +52,7 @@ const textMd = 'text-md sm:text-lg md:text-xl';
 const textXs = 'text-xs sm:text-sm md:text-md';
 const textSm = 'text-sm sm:text-md md:text-lg';
 
-const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, clientSecret }) => {
+const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eventDate, storeId, storeName, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const router = useIonRouter();
@@ -309,7 +315,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, cli
   );
 };
 
-const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fee, eventId }) => {
+const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fee, eventId, eventDate, storeId, storeName }) => {
   const [clientSecret, setClientSecret] = useState<string>('');
 
   useEffect(() => {
@@ -351,7 +357,7 @@ const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fe
 
   return options ? (
     <Elements stripe={stripePromise} options={options}>
-      <FormInput totalPrice={totalPrice} eventId={eventId} clientSecret={clientSecret} fee={fee} />
+      <FormInput totalPrice={totalPrice} eventId={eventId} clientSecret={clientSecret} fee={fee} eventDate={eventDate} storeId={storeId} storeName={storeName} />
     </Elements>
   ) : (
     <div>読み込み中...</div>

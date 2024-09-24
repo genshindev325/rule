@@ -33,14 +33,32 @@ const EventPayment: React.FC = () => {
     _id: eventId,
     maleFee: maleFee,
     femaleFee: femaleFee,
+    eventDate: eventDate
   } = selectedEvent;
+  console.log("selected event: " + JSON.stringify(selectedEvent));
   const eventPrice = gender === 'male' ? maleFee : femaleFee;
   const totalPrice = eventPrice * 1.05;
   const fee = eventPrice * 0.05;
+  const storeId = selectedEvent.store._id;
+  const storeName = selectedEvent.store.storeName;
+  const storeStatus = selectedEvent.store.status;
+  const eventStatus = selectedEvent.status;
 
   const handleCloseNotification = () => {
     setNotification(null);
   };
+
+  if (eventStatus !== 'active' || storeStatus !== 'active') {
+    return (
+      <IonPage>
+        <IonContent>
+          <div className="flex items-center justify-center min-h-screen w-screen bg-white">
+            <div className="text-center text-red-500 text-xl font-bold">このイベントの予約は終了しました。</div>
+          </div>
+        </IonContent>
+      </IonPage>
+    );
+  }
 
   if (!selectedEvent) {
     return (
@@ -89,7 +107,7 @@ const EventPayment: React.FC = () => {
                 </div>
                 {/* Registration Form */}
                 <div className="mt-4 sm:mt-6 bg-white">
-                  <StripePaymentElement totalPrice={totalPrice} fee={fee} eventId={eventId} />
+                  <StripePaymentElement totalPrice={totalPrice} fee={fee} eventId={eventId} eventDate={eventDate} storeId={storeId} storeName={storeName} />
                   <div className="mt-4 pb-12 md:pb-20 flex justify-center">
                     <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 sm:py-3 md:py-4 rounded-full hover:bg-gray-400">
                       <IonRouterLink routerLink='/event/findOnMap' className='text-white'>

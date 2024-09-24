@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
             query.where("eventDate").gte(new Date().getTime());
             query.populate({
                 path: 'store',
-                select: 'storeLat storeLng storeName address access1 access2 description'
+                select: 'storeLat storeLng storeName address access1 access2 description status'
             })
         } else if(body.openAt) {
             query.where("eventDate").equals(body.openAt);
