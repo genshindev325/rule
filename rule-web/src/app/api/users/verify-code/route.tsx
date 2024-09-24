@@ -1,23 +1,24 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { verificationCodes } from '../verificationCodes';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { email, code } = req.body;
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const { email, code } = body;
 
   if (!email || !code) {
-    return res.status(400).json({ message: 'Email and code are required' });
+    return NextResponse.json({success: false, message: 'Email and code are required'}, {status: 400});
   }
 
   const savedCode = verificationCodes[email];
 
   if (!savedCode || savedCode.expiresAt < Date.now()) {
-    return res.status(400).json({ message: 'Verification code expired' });
+    return NextResponse.json({success: false, message: 'Verification code expired'}, {status: 400});
   }
 
   if (savedCode.code !== code) {
-    return res.status(400).json({ message: 'Invalid verification code' });
+    return NextResponse.json({success: false, message: 'Invalid verification code'}, {status: 400});
   }
 
   // Verification successful
-  res.status(200).json({ message: 'Code verified successfully' });
+  return NextResponse.json({success: true, message: 'Code verified successfully'}, {status: 200});
 }
