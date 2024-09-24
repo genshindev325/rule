@@ -43,7 +43,7 @@ const StorePaymentsPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/admin/storePayment');
+        const response = await fetch('/api/admin/store-payment');
         if (response.status === 200) {
           const result = await response.json();
           setStorePayments(result.data);
@@ -72,7 +72,7 @@ const StorePaymentsPage: React.FC = () => {
 
   const handleConfirmPay = async () => {
     if (selectedRowId !== null) {
-      const response = await fetch(`/api/admin/storePayment/${selectedRowId}`, {
+      const response = await fetch(`/api/admin/store-payment/${selectedRowId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ selectedRowId }),

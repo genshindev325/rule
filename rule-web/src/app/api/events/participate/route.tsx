@@ -4,7 +4,7 @@ import dbConnect from '@/lib/mongoose';
 import EventParticipate from '@/models/eventParticipateModel';
 import Event from '@/models/eventModel';
 import User from '@/models/userModel';
-import Payment from '@/models/paymentModel';
+import StorePayment from '@/models/storePaymentModel';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
     totalPrice,
     fee,
     paymentDate,
-    storeId,
-    storeName,
+    // storeId,
+    // storeName,
   } = body;
   const storeIncome = totalPrice - fee * 2;
 
@@ -30,6 +30,12 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ success: false, message: "Invalid user" }, { status: 404 });
     }
+
+    const event = await Event.findById(eventId);
+    if (!user) {
+      return NextResponse.json({ success: false, message: "Invalid event" }, { status: 404 });
+    }
+
     if (user?.gender === "male") {
       const updatedEvent = await Event.findByIdAndUpdate(eventId, { $inc: { males: 1, totalEarnings: totalPrice } });
       if (!updatedEvent) {
@@ -45,6 +51,20 @@ export async function POST(req: NextRequest) {
     const eventParticipate = await EventParticipate.create(body);
     if (!eventParticipate)
       return NextResponse.json({ success: false, message: "Failed to participate" }, { status: 400 });
+
+    const storeId = event?.store;
+    const storePayment = await StorePayment.findOne({store: storeId, paymentDate: paymentDate});
+    if(storePayment){
+
+    }else{
+      const newStorePayment = await StorePayment.create({
+        store: storeId,
+        paymentDate: paymentDate,
+        paymentAmount: storeIncome,
+      });
+
+    }
+
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ success: false, error }, { status: 500 });

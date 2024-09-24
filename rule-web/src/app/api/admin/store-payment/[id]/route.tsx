@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongoose';
-import Payment from '@/models/paymentModel';
+import StorePayment from '@/models/storePaymentModel';
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
@@ -9,9 +9,9 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   console.log('content: ' + content);
 
   try {
-    const payment = await Payment.findByIdAndUpdate(params.id, { title, content }, { new: true, runValidators: true });
-    if (!payment) {
-      return NextResponse.json({ success: false, message: 'Payment not found' }, { status: 404 });
+    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { title, content }, { new: true, runValidators: true });
+    if (!storePayment) {
+      return NextResponse.json({ success: false, message: 'Store payment not found' }, { status: 404 });
     }
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
