@@ -5,14 +5,14 @@ import User from '@/models/userModel';
 export async function POST(req: NextRequest) {
   await dbConnect();
 
-  const { email, password, newPassword } = await req.json();
+  const { email, newPassword } = await req.json();
 
   try {
     // Find user by email
     const user = await User.findOne({ email });
 
     // Check if the user exists and if the provided password matches the stored password
-    if (user && (await user.comparePassword(password))) {
+    if (user) {
       // Update the store with the new password
       const updatedUser = await User.findOneAndUpdate(
         { email: email },
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     // If password does not match
     return NextResponse.json({
-      message: "Old password does not match.",
+      message: "User email does not match.",
       success: false,
     }, { status: 401 });
   } catch (error) {

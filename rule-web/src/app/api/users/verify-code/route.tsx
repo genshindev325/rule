@@ -10,9 +10,6 @@ export async function POST(req: NextRequest) {
   }
 
   const savedCode = verificationCodes[email];
-  console.log("savedCode: " + savedCode);
-  console.log("code: " + code);
-
   if (!savedCode || savedCode.expiresAt < Date.now()) {
     return NextResponse.json({success: false, message: 'Verification code expired', savedCode: savedCode, code: code}, {status: 400});
   }

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     // Send email (this is a simplified example)
     const transporter = nodemailer.createTransport({
-      service: 'dentel.practice.3@outlook.com', // e.g., 'gmail'
+      service: 'dentel.practice.3@outlook.com', // e.g., 'gmail' will be modified into admin's email
       auth: {
         user: 'dentel.practice.3@outlook.com',
         pass: 'Hpccloud21',
