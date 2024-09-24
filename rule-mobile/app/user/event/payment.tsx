@@ -49,27 +49,11 @@ const EventPayment: React.FC = () => {
   };
 
   if (eventStatus !== 'active' || storeStatus !== 'active') {
-    return (
-      <IonPage>
-        <IonContent>
-          <div className="flex items-center justify-center min-h-screen w-screen bg-white">
-            <div className="text-center text-red-500 text-xl font-bold">このイベントの予約は終了しました。</div>
-          </div>
-        </IonContent>
-      </IonPage>
-    );
+    setNotification({ message: 'このイベントの予約は終了しました。', type: 'error' });
   }
 
   if (!selectedEvent) {
-    return (
-      <IonPage>
-        <IonContent>
-          <div className="flex items-center justify-center min-h-screen w-screen bg-white">
-            <div className="text-center text-red-500 text-xl font-bold">無効なイベントデータ</div>
-          </div>
-        </IonContent>
-      </IonPage>
-    );
+    setNotification({ message: '無効なイベントデータ。', type: 'error' });
   }
 
   return (
@@ -109,7 +93,7 @@ const EventPayment: React.FC = () => {
                 <div className="mt-4 sm:mt-6 bg-white">
                   <StripePaymentElement totalPrice={totalPrice} fee={fee} eventId={eventId} eventDate={eventDate} storeId={storeId} storeName={storeName} />
                   <div className="mt-4 pb-12 md:pb-20 flex justify-center">
-                    <button type="button" className="mx-4 md:mx-8 w-full bg-gray-500 text-white py-2 sm:py-3 md:py-4 rounded-full hover:bg-gray-400">
+                    <button type="button" className={`mx-4 ${textSm} w-full bg-gray-500 text-white py-2 sm:py-3 md:py-4 rounded-full hover:bg-gray-400`}>
                       <IonRouterLink routerLink='/event/findOnMap' className='text-white'>
                         キャンセル
                       </IonRouterLink>

@@ -21,6 +21,7 @@ import { STRIPE_SECRET_KEY } from '@/app/config';
 import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
 import { SERVER_URL } from '@/app/config';
 import PayConfirmationModal from '@/app/components/utils/payConfirmModal';
+import { getPaymentDate } from '@/app/components/utils/getPaymentDate';
 
 interface StripePaymentInterface {
   totalPrice: number;
@@ -67,6 +68,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
+  const paymentDate = getPaymentDate(eventDate);
 
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
@@ -185,7 +187,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               const response = await fetch(`${SERVER_URL}/api/events/participate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, eventId, totalPrice, fee }),
+                body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
               });
         
               if (response.status === 201) {
@@ -224,7 +226,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               const response = await fetch(`${SERVER_URL}/api/events/participate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, eventId, totalPrice, fee }),
+                body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
               });
         
               if (response.status === 201) {
