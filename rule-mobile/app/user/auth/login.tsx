@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textSm = 'text-sm md:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const input = `${textXs} w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none`;
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
                 <input
                   type="address"
                   name='email'
-                  className={`${input}`}
+                  className={input}
                   placeholder="メールアドレス"
                   value={emailAddress}
                   onChange={(e) => setEmailAddress(e.target.value)}
@@ -89,7 +89,7 @@ const Login: React.FC = () => {
                 <input
                   type="password"
                   name='password'
-                  className={`${input}`}
+                  className={input}
                   placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

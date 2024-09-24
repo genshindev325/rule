@@ -76,7 +76,6 @@ const ProfilePassword: React.FC = () => {
       setConfirmError('パスワードが一致しません。');
     } else {
       setConfirmError('');
-      console.log("AAAAAAA")
       const response = await fetch(`${SERVER_URL}/api/users/change-pwd`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
