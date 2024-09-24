@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: false, message: 'ユーザーが見つかりません。' }, { status: 400 });
     }
 
-    const code = crypto.randomBytes(1).toString('hex');
+    const code = crypto.randomBytes(2).toString('hex');
     const expiresAt = Date.now() + 120000; // 2 minute
     verificationCodes[email] = { code, expiresAt };
 
