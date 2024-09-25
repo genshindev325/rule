@@ -87,6 +87,7 @@ const SalesManagement = () => {
                 onChange={(e) => setEndDate(e.target.value)}
                 className="w-48 p-3 bg-gray-300 rounded-md focus:outline-none focus:border-blue-100"
                 value={endDate}
+                max={new Date().toISOString().split('T')[0]}
                 required
               />
             </div>

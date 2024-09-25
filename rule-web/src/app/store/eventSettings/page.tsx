@@ -194,6 +194,7 @@ const EventSettings = () => {
                       onChange={(e) => setEventDate(e.target.value)}
                       className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       value={eventDate}
+                      min={new Date().toISOString().split('T')[0]}
                       required
                     />
                   </div>
