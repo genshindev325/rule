@@ -14,19 +14,17 @@ import ImageCarousel from '@/components/utils/imageCarousel';
 
 const StoreProfileSettings = () => {
   const router = useRouter();
-  const [storeID, setStoreID] = useState('');
-  
+  const [storeID, setStoreID] = useState('');  
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [storeImages, setStoreImages] = useState<string[]>([]);
   const [address, setAddress] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [access, setAccess] = useState<string[]>(['']);
 
   const handleAddImage = (newImage: string) => {
     setStoreImages((prevImages) => [...prevImages, newImage]);
   };
-
-  useEffect(() => {}, [storeImages]);
 
   const handleDeleteImage = () => {
     setStoreImages([]);
@@ -46,6 +44,24 @@ const StoreProfileSettings = () => {
     }
   }, [profile])
 
+  // Handle dynamically adding new access input fields
+  const handleAddAccess = () => {
+    setAccess([...access, '']); // Add an empty string for a new input field
+  };
+
+  // Handle updating the value of each access field
+  const handleAccessChange = (index: number, value: string) => {
+    const updatedAccess = [...access];
+    updatedAccess[index] = value; // Update the specific access input at index
+    setAccess(updatedAccess);
+  };
+
+  // Handle removing an access input field
+  const handleRemoveAccess = (index: number) => {
+    const updatedAccess = access.filter((_, i) => i !== index); // Remove the specific input at index
+    setAccess(updatedAccess);
+  };
+
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add StoreProfileSettings logic here
@@ -54,38 +70,36 @@ const StoreProfileSettings = () => {
     const storeGenre = formData.get('storeGenre');
     const foodGenre = formData.get('foodGenre');
     const cookingGenre = formData.get('cookingGenre');
-    const access1 = formData.get('access1');
-    const access2 = formData.get('access2');
     const description = formData.get('description');
-    console.log("storeLocation: " + storeLocation);
 
-    const response = await fetch(`/api/stores/${storeID}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        storeName,
-        storeGenre,
-        foodGenre,
-        cookingGenre,
-        address,
-        access1,
-        access2,
-        storeImages,
-        description,
-        storeLat: storeLocation?.lat,
-        storeLng: storeLocation?.lng,
-      }),
-    });
+    console.log("access: " + JSON.stringify(access));
+    console.log("storeImages: " + JSON.stringify(storeImages));
 
-    if (response.status === 200) {
-      setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
-      setTimeout(() => {
-        router.push('/store/setting');
-        console.log('store profile setting success')
-      }, 1500);
-    } else {
-      setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
-    }
+    // const response = await fetch(`/api/stores/${storeID}`, {
+    //   method: 'PUT',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     storeName,
+    //     storeGenre,
+    //     foodGenre,
+    //     cookingGenre,
+    //     address,
+    //     access,
+    //     storeImages,
+    //     description,
+    //     storeLat: storeLocation?.lat,
+    //     storeLng: storeLocation?.lng,
+    //   }),
+    // });
+
+    // if (response.status === 200) {
+    //   setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+    //   setTimeout(() => {
+    //     router.push('/store/setting');
+    //   }, 1500);
+    // } else {
+    //   setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+    // }
   })
 
   return (
@@ -94,12 +108,12 @@ const StoreProfileSettings = () => {
         <div className="w-20">
           <Navbar />
         </div>
-        <div className='w-auto mx-auto'>
+        <div className='flex-1 mx-auto max-w-xl'>
           <div className="min-h-screen flex items-start py-12 justify-center bg-gray-100">
             <div className="bg-white py-8 px-6 rounded-lg shadow-md w-full max-w-4xl">
               <h2 className="text-lg font-bold mb-6">店舗プロフィール設定</h2>
               <form onSubmit={handleSubmit}>
-                <h3 className='font-semibold py-2 text-md'>店舗名</h3>
+                <h3 className='py-2 text-md'>店舗名</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -109,7 +123,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2 text-md'>店舗ジャンル</h3>
+                <h3 className='py-2 text-md'>店舗ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -119,7 +133,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2 text-md'>食材ジャンル</h3>
+                <h3 className='py-2 text-md'>食材ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -129,7 +143,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2 text-md'>料理ジャンル</h3>
+                <h3 className='py-2 text-md'>料理ジャンル</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -139,7 +153,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2 text-md'>住所</h3>
+                <h3 className='py-2 text-md'>住所</h3>
                 <div className="mb-4">
                   <input
                     type="address"
@@ -151,35 +165,36 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='font-semibold py-2 text-md'>アクセス</h3>
-                <div className="mb-4">
-                  <input
-                    type="name"
-                    name='access1'
-                    className="w-full p-2 mb-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="大阪メトロ 御堂筋線 心斎橋駅から徒歩10分"
-                  />
-                  <input
-                    type="name"
-                    name='access2'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="大阪メトロ 長堀鶴見緑地線 長堀橋駅から徒歩5分"
-                  />
-                </div>
+                <h3 className='py-2 text-md'>アクセス</h3>
+                {access.map((value, index) => (
+                  <div className="relative mb-1" key={index}>
+                    <input
+                      type="text"
+                      name={`access${index}`}
+                      value={value}
+                      onChange={(e) => handleAccessChange(index, e.target.value)}
+                      className="w-full p-2 mb-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      placeholder={`大阪メトロ 御堂筋線 心斎橋駅から徒歩10分`}
+                    />
+                    {index > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveAccess(index)}
+                        className="absolute right-2 top-5 hover:font-bold duration-300 transform -translate-y-1/2 text-gray-500 hover:text-red-700"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                ))}
                 <div className='mb-4'>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    id="add-access"
-                  />
-                  <label htmlFor="add-access" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
-                  {/* store images */}
-                  {storeImages && (
-                    <div className='flex-1 justify-center items-center w-40 pt-6'>
-                      <img src={`${storeImages}`} onClick={handleDeleteImage} />
-                    </div>
-                  )}
+                  <button
+                    type='button'
+                    onClick={handleAddAccess}
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-400 duration-700 text-2xl text-gray-700 flex flex-col justify-center items-center'
+                  >
+                    +
+                  </button>
                   {/* google map */}
                   <div className="my-4">
                     {/* {loading ? <p>Googleマップを読み込んでいます...</p> : <GoogleMapComponent onLocationSelect={handleLocationSelect} />} */}
@@ -190,7 +205,7 @@ const StoreProfileSettings = () => {
                   <ImageCarousel onAddImage={handleAddImage} />
                 </div>
                 <div className="mb-4">
-                  <h3 className='font-semibold py-2 text-md'>説明文</h3>
+                  <h3 className='py-2 text-md'>説明文</h3>
                   <textarea
                     name='description'
                     className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
