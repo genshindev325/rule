@@ -66,7 +66,6 @@ const EventReview2: React.FC = () => {
   const container = 'w-full rounded-xl -mt-40 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
 
-  const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg md:text-xl font-bold';
   const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
   const textXs = 'text-xs sm:text-sm md:text-md';

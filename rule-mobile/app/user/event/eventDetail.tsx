@@ -42,12 +42,8 @@ const EventDetail: React.FC = () => {
     // will be added or get from database
   ];
 
-  const description = 'イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。イベントの説明が入ります。';
+  const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';
   
-  const handle20Over = () => {};
-  const handleStudent = () => {};
-  const handleAnime = () => {};
-
   // Redux state selectors
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
   const userInfo = useSelector((state: RootState) => state.auth.profile);
@@ -88,12 +84,6 @@ const EventDetail: React.FC = () => {
                 {/* title */}
                 <h2 className={`${textMd} font-semibold`}>{selectedEvent.eventName}</h2>
                 <h2 className={`${textSm}`}>{formatDateTime(selectedEvent.eventDate)}</h2>
-                {/* buttons */}
-                <div className={`flex flex-row space-x-2 ${textXs} mt-4`}>
-                  <button className='rounded-full bg-gray-200 px-3 md:px-4' onClick={handle20Over}>20代以上</button>
-                  <button className='rounded-full bg-gray-200 px-3 md:px-4' onClick={handleStudent}>大学生Only</button>
-                  <button className='rounded-full bg-gray-200 px-3 md:px-4' onClick={handleAnime}>アニメ好き</button>
-                </div>
                 <img src={selectedEvent.coverImage} className='py-2' />
                 {/* male */}
                 <div className='rounded-lg bg-gray-200 p-4 sm:p-6 flex flex-col space-y-1'>
@@ -148,7 +138,7 @@ const EventDetail: React.FC = () => {
                 <div className='pt-2'>
                   <FullCarousel items={items} />
                 </div>
-                <h2 className={`${textXs}`}>{description}</h2>
+                <h2 className={`${textXs}`}>{selectedEvent.store.description}</h2>
               </div>
               {/* Access */}
               <div className='flex flex-col space-y-1 w-full'>
@@ -165,7 +155,7 @@ const EventDetail: React.FC = () => {
                 <div className={`py-6 flex w-full`}>
                   <button className={`grow rounded-xl border-2 border-solid border-gray-800 ${textSm} py-1 sm:py-2 md:py-3 font-semibold`}>注意事項</button>
                 </div>
-                <h2 className={`${textXs}`}>{selectedEvent.store.description}</h2>
+                <h2 className={`${textXs}`}>{caution}</h2>
                 <div className={`pt-6 pb-2 flex w-full`}>
                   <button className={`grow ${maleGradient} ${textSm} rounded-full py-2 sm:py-3`}>
                     <IonRouterLink routerLink='/event/payment' className='text-white'>

@@ -7,7 +7,9 @@ import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import EventCard from '@/app/components/user/event/eventCard';
 import EventReviewCard from '@/app/components/user/event/eventReviewCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import { RootState } from '@/app/store/store';
 import { SERVER_URL } from '@/app/config';
+import { useSelector } from 'react-redux';
 
 interface UpcomingEventProps {
   eventName: string;
@@ -48,6 +50,8 @@ const EventHistory2: React.FC = () => {
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
+  const [userId ,setUserId] = useState('');
+  const userProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useIonRouter();
 
   const showUpcomingEvents = () => {
@@ -57,6 +61,12 @@ const EventHistory2: React.FC = () => {
   const showPastEvents = () => {
     setTab('past');
   }
+  
+  useEffect(() => {
+    if(userProfile) {
+      setUserId(userProfile._id);
+    }
+  }, [userProfile])
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'rounded-xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 flex flex-col shadow-md space-y-4 w-[92vw]';
@@ -86,7 +96,7 @@ const EventHistory2: React.FC = () => {
         const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ past: true })
+          body: JSON.stringify({ past: true, user: userId })
         });
         if (response_pastEvents.status === 200) {
           const result = await response_pastEvents.json();

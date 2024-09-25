@@ -179,7 +179,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
           <select id="food" name="food" value={foodGenre} onChange={handleFoodGenreChange}
             className={`relative w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
-            <option value="">食ジャンルを選択</option>
+            <option value="">食材ジャンルを選択</option>
             <option value="food1">10</option>
             <option value="food2">20</option>
             <option value="food3">30</option>

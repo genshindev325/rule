@@ -100,7 +100,7 @@ const Login: React.FC = () => {
                 <IonRouterLink routerLink={`/auth/passwordResetSend`}>パスワードをお忘れですか？</IonRouterLink>
               </div>
               <div className={`${textXs} text-right text-gray-400`}>
-                <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink>
+                {/* <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink> */}
               </div>
               <button
                 type="submit"
