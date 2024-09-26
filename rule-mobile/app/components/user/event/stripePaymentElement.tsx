@@ -61,6 +61,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   const [cardholderName, setCardholderName] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [userId, setUserId] = useState('');
+  const [gender, setGender] = useState<'male' | 'female'>('male');
   const [last4, setLast4] = useState('');
   const [exDate, setExDate] = useState('');
   const [cardSVG, setCardSVG] = useState('');
@@ -125,6 +126,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   useEffect(() => {
     if (profile) {
       setUserId(profile._id);
+      setGender(profile.gender);
     }
   }, [profile]);
 
@@ -166,7 +168,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
     const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, eventId }),
+      body: JSON.stringify({ userId, eventId, gender }),
     });
 
     if (response.status === 200) {

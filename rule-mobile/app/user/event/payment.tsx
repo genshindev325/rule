@@ -35,7 +35,6 @@ const EventPayment: React.FC = () => {
     femaleFee: femaleFee,
     eventDate: eventDate
   } = selectedEvent;
-  console.log("selected event: " + JSON.stringify(selectedEvent));
   const eventPrice = gender === 'male' ? maleFee : femaleFee;
   const totalPrice = eventPrice * 1.05;
   const fee = eventPrice * 0.05;

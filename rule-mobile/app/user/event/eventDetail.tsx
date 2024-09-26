@@ -131,8 +131,8 @@ const EventDetail: React.FC = () => {
                   <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold my-auto`}>アクセス</h2>
                 </div>
                 <h2 className={`${textXs} border-b-2 border-solid border-gray-300`}>{selectedEvent.store.address}</h2>
-                {selectedEvent.store.access && selectedEvent.store.access.map((acc) => (
-                  <h2 className={`${textXs}`}>{acc}</h2>
+                {selectedEvent.store.access && selectedEvent.store.access.map((acc, index) => (
+                  <h2 key={index} className={`${textXs}`}>{acc}</h2>
                 ))}
                 <div className='py-1'>
                   <GoogleMapLocation lat={selectedEvent.store.storeLat} lng={selectedEvent.store.storeLng} />

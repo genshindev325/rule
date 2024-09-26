@@ -7,6 +7,10 @@ export async function POST(req: NextRequest) {
   await dbConnect();
 
   const body = await req.json();
+  const userId = body.userId;
+  const eventId = body.eventId;
+  const gender = body.gender;
+  console.log(userId, eventId, gender);
   try {
     const alreadyParticipate = await EventParticipate.findOne(body);
     if (alreadyParticipate) {
