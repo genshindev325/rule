@@ -14,14 +14,19 @@ import ImageCarousel from '@/components/utils/imageCarousel';
 
 const StoreProfileSettings = () => {
   const router = useRouter();
-  const [storeID, setStoreID] = useState('');  
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [storeID, setStoreID] = useState('');
+  const [storeName, setStoreName] = useState('');
   const [storeImages, setStoreImages] = useState<string[]>([]);
+  const [storeGenre, setStoreGenre] = useState('');
+  const [foodGenre, setFoodGenre] = useState('');
+  const [cookingGenre, setCookingGenre] = useState('');
   const [address, setAddress] = useState('');
-  const { profile } = useSelector((state: RootState) => state.auth);
-  const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [access, setAccess] = useState<string[]>(['']);
+  const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [description, setDescription] = useState('');
+  const { profile } = useSelector((state: RootState) => state.auth);
   const token = useSelector((state: RootState) => state.auth.token);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleAddImage = (newImage: string) => {
     setStoreImages((prevImages) => [...prevImages, newImage]);
@@ -64,14 +69,6 @@ const StoreProfileSettings = () => {
       router.push('/auth/login');
       } else {
       e.preventDefault();
-      // Add StoreProfileSettings logic here
-      const formData = new FormData(e.currentTarget);
-      const storeName = formData.get('storeName');
-      const storeGenre = formData.get('storeGenre');
-      const foodGenre = formData.get('foodGenre');
-      const cookingGenre = formData.get('cookingGenre');
-      const description = formData.get('description');
-
       const response = await fetch(`/api/stores/${storeID}`, {
         method: 'PUT',
         headers: {
@@ -80,12 +77,12 @@ const StoreProfileSettings = () => {
         },
         body: JSON.stringify({
           storeName,
+          storeImages,
           storeGenre,
           foodGenre,
           cookingGenre,
           address,
           access,
-          storeImages,
           description,
           storeLat: storeLocation?.lat,
           storeLng: storeLocation?.lng,
@@ -119,40 +116,80 @@ const StoreProfileSettings = () => {
                   <input
                     type="name"
                     name='storeName'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="店舗名"
+                    value={storeName}
+                    onChange={(e) => setStoreName(e.target.value)}
                     required
                   />
                 </div>
                 <h3 className='py-2 text-md'>店舗ジャンル</h3>
                 <div className="mb-4">
-                  <input
-                    type="name"
+                  <select
+                    id="name"
                     name='storeGenre'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="店舗ジャンル"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
+                    value={storeGenre}
+                    onChange={(e) => setStoreGenre(e.target.value)}
                     required
-                  />
+                  >
+                    <option value="">選択してください</option>
+                    <option value="カフェ">カフェ</option>
+                    <option value="居酒屋">居酒屋</option>
+                    <option value="レストラン">レストラン</option>
+                    <option value="和食">和食</option>
+                    <option value="バー">バー</option>
+                    <option value="ラウンジ">ラウンジ</option>
+                    <option value="屋外ガーデン">屋外ガーデン</option>
+                    <option value="専門料理店">専門料理店</option>
+                    <option value="その他">その他 ...</option>
+                  </select>
                 </div>
                 <h3 className='py-2 text-md'>食材ジャンル</h3>
                 <div className="mb-4">
-                  <input
-                    type="name"
+                  <select
+                    id="name"
                     name='foodGenre'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="食材ジャンル"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
+                    value={foodGenre}
+                    onChange={(e) => setFoodGenre(e.target.value)}
                     required
-                  />
+                  >
+                    <option value="">選択してください</option>
+                    <option value="肉系">肉系</option>
+                    <option value="魚介系">魚介系</option>
+                    <option value="野菜系">野菜系</option>
+                    <option value="その他">その他 ...</option>
+                  </select>
                 </div>
                 <h3 className='py-2 text-md'>料理ジャンル</h3>
                 <div className="mb-4">
-                  <input
-                    type="name"
+                  <select
+                    id="name"
                     name='cookingGenre'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                    placeholder="料理ジャンル"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
+                    value={cookingGenre}
+                    onChange={(e) => setCookingGenre(e.target.value)}
                     required
-                  />
+                  >
+                    <option value="">選択してください</option>
+                    <option value="和食">和食</option>
+                    <option value="焼肉">焼肉</option>
+                    <option value="寿司">寿司</option>
+                    <option value="天ぷら">天ぷら</option>
+                    <option value="しゃぶしゃぶ">しゃぶしゃぶ</option>
+                    <option value="フレンチ">フレンチ</option>
+                    <option value="イタリアン">イタリアン</option>
+                    <option value="中華料理">中華料理</option>
+                    <option value="韓国料理">韓国料理</option>
+                    <option value="地中海料理">地中海料理</option>
+                    <option value="エスニック料理">エスニック料理</option>
+                    <option value="タイ料理">タイ料理</option>
+                    <option value="インド料理">インド料理</option>
+                    <option value="ヴィーガン・ベジタリアン料理">ヴィーガン・ベジタリアン料理</option>
+                    <option value="創作料理">創作料理</option>
+                    <option value="その他">その他 ...</option>
+                  </select>
                 </div>
                 <h3 className='py-2 text-md'>住所</h3>
                 <div className="mb-4">
@@ -161,7 +198,7 @@ const StoreProfileSettings = () => {
                     name='address'
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪府大阪市中央区東心斎橋1-17-2 アニーズビル 1F"
                     required
                   />
@@ -211,6 +248,8 @@ const StoreProfileSettings = () => {
                     name='description'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="説明文"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     rows={5}
                   />
                 </div>

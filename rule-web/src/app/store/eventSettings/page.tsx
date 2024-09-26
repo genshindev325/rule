@@ -136,11 +136,11 @@ const EventSettings = () => {
           <Navbar />
         </div>
         <div className="min-h-screen w-auto py-20 mx-auto bg-gray-100">
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+          <div className="bg-white py-8 px-6 rounded-lg shadow-md w-full max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">イベント設定</h2>
             <form onSubmit={handleSubmit}>
               {/* buttons */}
-              <div className='flex flex-row justify-end gap-4 pt-12'>
+              <div className='flex flex-row justify-end gap-4 pt-8 pb-4'>
                 <button type="submit" className="w-48 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
                   保存
                 </button>
@@ -149,33 +149,36 @@ const EventSettings = () => {
                 </button>
               </div>
               {/* Event settings */}
-              <h3 className='font-semibold py-2'>イベント名</h3>
+              <h3 className='py-2'>イベント名</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                   placeholder="イベント名"
                   required
                 />
               </div>
-              <h3 className='font-semibold py-2'>カテゴリ</h3>
+              <h3 className='py-2'>カテゴリ</h3>
               <div className="mb-4"> {/*will be modified*/}
                 <select
                   id="category"
                   name="category"
-                  className="block w-full px-6 py-3 text-base bg-gray-100 rounded-md focus:outline-none sm:text-sm"
+                  className="block w-full p-2 bg-gray-100 rounded-md focus:outline-none text-sm sm:text-md"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                   required
                 >
-                  <option value="">選んでください</option>
-                  <option value="category1">カテゴリー 1</option>
-                  <option value="category2">カテゴリー 2</option>
-                  <option value="category3">カテゴリー 3</option>
+                  <option value="">選択してください</option>
+                  <option value="ランチ">ランチ</option>
+                  <option value="ディナー">ディナー</option>
+                  <option value="合コン">合コン</option>
+                  <option value="婚活">婚活</option>
+                  <option value="趣味交流会">趣味交流会</option>
+                  <option value="その他">その他 ...</option>
                 </select>
               </div>
-              <h3 className='font-semibold py-2'>表紙画像</h3>
+              <h3 className='py-2'>表紙画像</h3>
               <div className='mb-4'>
                 <input
                   type="file"
@@ -184,18 +187,20 @@ const EventSettings = () => {
                   className="hidden"
                   id="file-input"
                 />
-                <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-300 duration-500 font-bold text-xl flex flex-col justify-center items-center'>
+                  +
+                </label>
                 {photoImageUrl && (
                   <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
                     <img src={`${photoImageUrl}`} onClick={handleDeleteImage} />
                   </div>
                 )}
               </div>
-              <h3 className='font-semibold py-2'>説明文</h3>
+              <h3 className='py-2'>説明文</h3>
               <div className="mb-4">
                 <textarea
                   name='description'
-                  className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                   placeholder="説明文"
                   rows={5}
                   required
@@ -205,33 +210,33 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>日程</h3>
+                    <h3 className='py-2'>日程</h3>
                     <input
                       type="date"
                       name='schedule'
                       onChange={(e) => setEventDate(e.target.value)}
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       value={eventDate}
                       min={new Date().toISOString().split('T')[0]}
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>開始時間</h3>
+                    <h3 className='py-2'>開始時間</h3>
                     <input
                       type="time"
                       name='startTime'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="17:00"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>終了時間</h3>
+                    <h3 className='py-2'>終了時間</h3>
                     <input
                       type="time"
                       name='endTime'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="21:00"
                       required
                     />
@@ -242,21 +247,21 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>男性の募集人数</h3>
+                    <h3 className='py-2'>男性の募集人数</h3>
                     <input
                       type="number"
                       name='maleTotal'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="男性の募集人数"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>女性の募集人数</h3>
+                    <h3 className='py-2'>女性の募集人数</h3>
                     <input
                       type="number"
                       name='femaleTotal'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="女性の募集人数"
                       required
                     />
@@ -267,21 +272,21 @@ const EventSettings = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>男性の料金</h3>
+                    <h3 className='py-2'>男性の料金</h3>
                     <input
                       type="number"
                       name='maleFee'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="男性料金"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='font-semibold py-2'>女性の料金</h3>
+                    <h3 className='py-2'>女性の料金</h3>
                     <input
                       type="number"
                       name='femaleFee'
-                      className="w-full px-6 py-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
                       placeholder="女性料金"
                       required
                     />
