@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 
 import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
@@ -31,6 +31,8 @@ interface EventProps {
     storeName: string,
     storeImages: string[],
     cookingGenre: string,
+    foodGenre: string,
+    storeGenre: string,
     address: string,
     access: string[],
     description: string,
@@ -44,7 +46,7 @@ const FindOnMap: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
-
+  const router = useIonRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
@@ -52,17 +54,22 @@ const FindOnMap: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch upcomingEvents Data
-        const response = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ upcoming: true, limit: 6 })
-        });
-        if (response.status === 200) {
-          const result = await response.json();
-          setUpcomingEvents(result.data);
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          router.push('/auth/login');
         } else {
-          console.error('Failed to fetch upcomingEvents data');
+          // Fetch upcomingEvents Data
+          const response = await fetch(`${SERVER_URL}/api/events/filter`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ upcoming: true, limit: 6 })
+          });
+          if (response.status === 200) {
+            const result = await response.json();
+            setUpcomingEvents(result.data);
+          } else {
+            console.error('Failed to fetch upcomingEvents data');
+          }
         }
       } catch (error) {
         console.error('Error:', error);

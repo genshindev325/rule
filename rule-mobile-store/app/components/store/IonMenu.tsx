@@ -36,6 +36,9 @@ const SideMenu: React.FC = () => {
             <IonItem button onClick={() => navigateTo('/settings')}>
               設定
             </IonItem>
+            <IonItem button onClick={() => navigateTo('/logout')} className='font-semibold text-red-400'>
+              ログアウト
+            </IonItem>
           </IonMenuToggle>
         </IonList>
       </IonContent>

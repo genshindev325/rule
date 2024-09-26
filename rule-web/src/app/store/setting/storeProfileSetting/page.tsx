@@ -201,7 +201,7 @@ const StoreProfileSettings = () => {
                   <h3 className='py-2 text-md'>説明文</h3>
                   <textarea
                     name='description'
-                    className="w-full p-2  bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="説明文"
                     rows={5}
                   />

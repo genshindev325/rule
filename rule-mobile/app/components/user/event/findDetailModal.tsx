@@ -152,14 +152,33 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             className={`block w-28 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">年齢</option>
-            <option value="age1">10</option>
-            <option value="age2">20</option>
-            <option value="age3">30</option>
+            <option value="age1">20代以上</option>
+            <option value="age2">30代以上</option>
+            <option value="age3">40代以上</option>
+            <option value="age3">50代以上</option>
+            <option value="age3">60代以上</option>
           </select>
           <h2 className={`${textXs} my-auto`}>歳</h2>
         </div>
         {/* category, store, food, genre */}
         <div className='flex flex-col space-y-3 py-3'>
+          {/* <div className='relative'>
+            <input
+              type="text"
+              name={`access${index}`}
+              value={value}
+              onChange={(e) => handleAccessChange(index, e.target.value)}
+              className="w-full p-2 mb-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+              placeholder={`大阪メトロ 御堂筋線 心斎橋駅から徒歩10分`}
+            />
+            <button
+              type="button"
+              onClick={() => handleRemoveAccess(index)}
+              className="absolute right-2 top-5 hover:font-bold duration-300 transform -translate-y-1/2 text-gray-500 hover:text-red-700"
+            >
+              +
+            </button>
+          </div> */}
           <select id="category" name="category" value={category} onChange={handleCategoryChange}
             className={`block w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
@@ -194,7 +213,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="genre4">居酒屋</option>
           </select>
         </div>
-        <button type='submit' id='searchWith' className={`rounded-full w-full py-2 ${maleGradient} ${textSm} font-semibold text-white`} onClick={handleSubmit}>この条件で検索</button>
+        <button type='submit' id='searchWith' className={`rounded-full w-full py-2 mt-6 ${maleGradient} ${textSm} font-semibold text-white`} onClick={handleSubmit}>この条件で検索</button>
       </div>
     </div>
   );
