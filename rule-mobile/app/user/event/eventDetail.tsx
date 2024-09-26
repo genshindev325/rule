@@ -2,8 +2,8 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import FullCarousel from '@/app/components/user/search/fullCarousel';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { useSearchParams } from 'next/navigation';
@@ -12,11 +12,15 @@ import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import { RootState } from '@/app/store/store';
 import { formatDateTime } from '@/app/components/utils/datetime';
 import GoogleMapLocation from '@/app/components/utils/googleMapLocate';
+import { SERVER_URL } from '@/app/config';
+import Notification from '@/app/components/utils/notification';
 
 const EventDetail: React.FC = () => {
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const eventString = searchParams.get('event');
+  const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'rounded-xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-lg space-y-1';
@@ -47,6 +51,24 @@ const EventDetail: React.FC = () => {
     console.log("Missing user information or event data.");
     return;
   };
+
+  const checkParticipation = async () => {
+    // check whether user already participate into the event...
+    const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        userId: userInfo._id,
+        eventId: selectedEvent._id,
+        gender: userInfo.gender }),
+    });
+    if (response.status === 200) {
+      router.push('/event/payment');
+    } else {
+      const result = await response.json();
+      setNotification({ message: result.message, type: 'error' });
+    }
+  }
 
   return (
     <IonPage>
@@ -95,7 +117,7 @@ const EventDetail: React.FC = () => {
                     <h2 className={`${textXs} pl-2 my-auto`}>|</h2>
                     <h2 className={`${textXs} pl-2 my-auto`}>{selectedEvent.females}/{selectedEvent.femaleTotal}</h2>
                     <div className="w-24 sm:w-28 md:w-32 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
-                      <div 
+                      <div
                         className={`h-3 md:h-6 ${femaleGradient}`} 
                         style={{ width: `${selectedEvent.females / selectedEvent.femaleTotal * 100}%` }}
                       ></div>
@@ -142,10 +164,8 @@ const EventDetail: React.FC = () => {
                 </div>
                 <h2 className={`${textXs}`}>{caution}</h2>
                 <div className={`pt-6 pb-2 flex w-full`}>
-                  <button className={`grow ${maleGradient} ${textSm} rounded-full py-2 sm:py-3`}>
-                    <IonRouterLink routerLink='/event/payment' className='text-white'>
-                      参加をして決済する
-                    </IonRouterLink>
+                  <button className={`grow ${maleGradient} ${textSm} rounded-full py-2 sm:py-3 text-white`} onClick={checkParticipation}>
+                    参加をして決済する
                   </button>
                 </div>
                 <div className={`pb-10 flex w-full`}>
@@ -157,6 +177,7 @@ const EventDetail: React.FC = () => {
                 </div>
               </div>
             </div>
+            {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
           </div>
         </AuthWrapper>
       </IonContent>

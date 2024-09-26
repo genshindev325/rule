@@ -164,97 +164,83 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   };
 
   const handleConfirmPay = async () => {
-    // check whether user already participate into the event...
-    const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, eventId, gender }),
-    });
+    if (registeredCard) {
+      try {
+        // try to pay
+        const result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: registeredCard
+        });
 
-    if (response.status === 200) {
-      if (registeredCard) {
-        try {
-          // try to pay
-          const paymentMethod = await stripeGet.paymentMethods.retrieve(registeredCard as string);
+        if (result.error) {
+          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
+          console.log(result.error.message);
+        } else if (result.paymentIntent?.status === 'succeeded') {
+          try {
+            const response = await fetch(`${SERVER_URL}/api/events/participate`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
+            });
+      
+            if (response.status === 201) {
+              setNotification({ message: '参加成功!', type: 'success' });
+              router.push('/participate');
+            } else {
+              setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+            }
+          } catch (error) {
+            setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (elements.getElement(CardNumberElement)) {
+      const cardNumberElement = elements.getElement(CardNumberElement);
+      if (!cardNumberElement) return;
 
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: registeredCard
-          });
-
-          if (result.error) {
-            setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
-            console.log(result.error.message);
-          } else if (result.paymentIntent?.status === 'succeeded') {
-            try {
-              const response = await fetch(`${SERVER_URL}/api/events/participate`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
-              });
-        
-              if (response.status === 201) {
-                setNotification({ message: '参加成功!', type: 'success' });
-                router.push('/participate');
+      try {
+        // Confirm the payment
+        const result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardNumberElement,
+            billing_details: {
+              name: cardholderName,
+            },
+          },
+        });
+  
+        if (result.error) {
+          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
+          console.log("error related to participate and pay for event: " + result.error.message);
+        } else if (result.paymentIntent?.status === 'succeeded') {
+          try {
+            const response = await fetch(`${SERVER_URL}/api/events/participate`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
+            });
+      
+            if (response.status === 201) {
+              setNotification({ message: '参加成功!', type: 'success' });
+              router.push('/participate');
+            } else {
+              const result = await response.json();
+              if (result.message === "Already participated") {
+                setNotification({ message: `このイベントはすでに予約済みです。`, type: 'success' });
               } else {
                 setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
               }
-            } catch (error) {
-              setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
             }
+          } catch (error) {
+            setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
           }
-        } catch (error) {
-          console.log(error);
         }
-      } else if (elements.getElement(CardNumberElement)) {
-        const cardNumberElement = elements.getElement(CardNumberElement);
-        if (!cardNumberElement) return;
-  
-        try {
-          // Confirm the payment
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-              card: cardNumberElement,
-              billing_details: {
-                name: cardholderName,
-              },
-            },
-          });
-    
-          if (result.error) {
-            setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
-            console.log("error related to participate and pay for event: " + result.error.message);
-          } else if (result.paymentIntent?.status === 'succeeded') {
-            try {
-              const response = await fetch(`${SERVER_URL}/api/events/participate`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
-              });
-        
-              if (response.status === 201) {
-                setNotification({ message: '参加成功!', type: 'success' });
-                router.push('/participate');
-              } else {
-                const result = await response.json();
-                if (result.message === "Already participated") {
-                  setNotification({ message: `このイベントはすでに予約済みです。`, type: 'success' });
-                } else {
-                  setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
-                }
-              }
-            } catch (error) {
-              setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        setNotification({ message: 'カードを登録するか、以下のカード詳細を入力してください。', type: 'error' });      
+      } catch (error) {
+        console.log(error);
       }
     } else {
-      const result = await response.json();
-      setNotification({ message: result.message, type: 'error' });
+      setNotification({ message: 'カードを登録するか、以下のカード詳細を入力してください。', type: 'error' });      
     }
     setPayConfirmModalVisible(false);
   }
