@@ -252,8 +252,9 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
       } else {
         setNotification({ message: 'カードを登録するか、以下のカード詳細を入力してください。', type: 'error' });      
       }
-    } else {          
-      setNotification({ message: `あなたはすでにこのイベントに参加しています。`, type: 'error' });
+    } else {
+      const result = await response.json();
+      setNotification({ message: result.message, type: 'error' });
     }
     setPayConfirmModalVisible(false);
   }
