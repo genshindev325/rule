@@ -54,6 +54,7 @@ export async function POST(req: NextRequest) {
     }
 
     const events = await query.exec();
+    console.log("events: " + JSON.stringify(events));
     return NextResponse.json({ success: true, data: events }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ success: false, error }, { status: 500 });
