@@ -4,11 +4,21 @@ import dbConnect from '@/lib/mongoose';
 import User from '@/models/userModel';
 
 export async function GET(request: NextRequest) {
+  const authHeader = request.headers.get('authorization');
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
+  }
   const users = await User.find({});
   return NextResponse.json({ success: true, data: users }, { status: 200 });
 }
 
 export async function POST(req: NextRequest) {
+  const authHeader = req.headers.get('authorization');
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
+  }
   await dbConnect();
   
   const body = await req.json();

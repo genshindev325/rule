@@ -4,39 +4,44 @@ import dbConnect from '@/lib/mongoose';
 import Store from '@/models/storeModel';
 
 export async function GET(req: NextRequest) {
-    await dbConnect();
+  const authHeader = req.headers.get('authorization');
 
-    try {
-        const stores = await Store.find({});
-        return NextResponse.json({ success: true, data: stores }, { status: 200 });
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 500 });
-    }
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
+  }
+  await dbConnect();
+
+  try {
+    const stores = await Store.find({});
+    return NextResponse.json({ success: true, data: stores }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
-    await dbConnect();
-    
-    const body = await req.json();
-    const { email } = body;
+  await dbConnect();
 
-    try {
-        const existingStore = await Store.findOne({ email });
-        if (existingStore) {
-            return NextResponse.json({ success: false, message: 'Store already exists' }, { status: 400 });
-        }
+  const body = await req.json();
+  const { email } = body;
 
-        const store = await Store.create(body);
-        return NextResponse.json({
-            success: true,
-            data: {
-                email: email,
-                role: "store",
-                profile: store,
-                token: "jwt",
-            },
-        }, { status: 201 });
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 500 });
+  try {
+    const existingStore = await Store.findOne({ email });
+    if (existingStore) {
+      return NextResponse.json({ success: false, message: 'Store already exists' }, { status: 400 });
     }
+
+    const store = await Store.create(body);
+    return NextResponse.json({
+      success: true,
+      data: {
+        email: email,
+        role: "store",
+        profile: store,
+        token: "jwt",
+      },
+    }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error }, { status: 500 });
+  }
 }

@@ -7,6 +7,11 @@ import User from '@/models/userModel';
 import { verificationCodes } from '../verificationCodes';
 
 export async function POST(req: NextRequest) {
+  const authHeader = req.headers.get('authorization');
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
+  }
   await dbConnect();
   
   const body = await req.json();
