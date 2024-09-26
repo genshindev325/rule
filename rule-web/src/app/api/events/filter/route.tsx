@@ -18,10 +18,10 @@ export async function POST(req: NextRequest) {
     if (body.upcoming) {
       console.log('upcoming')
       query.where("eventDate").gte(new Date().getTime());
-      query.populate({
-        path: 'store',
-        select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
-      })
+      // query.populate({
+      //   path: 'store',
+      //   select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
+      // })
     } else if (body.date) {
       console.log('date')
       query.where("eventDate").equals(body.date);
