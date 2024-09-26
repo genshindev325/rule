@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       query.where("eventDate").gte(new Date().getTime());
       query.populate({
         path: 'store',
-        select: 'storeLat storeLng storeName address access1 access2 description status'
+        select: 'storeLat storeLng storeName storeImages address access description status'
       })
     } else if (body.openAt) {
       query.where("eventDate").equals(body.openAt);
@@ -35,13 +35,13 @@ export async function POST(req: NextRequest) {
           eventDate: { $lt: new Date() },
         }).populate({
           path: 'store',
-          select: 'rating address access1 access2 description storeImages storeName'
+          select: 'rating address access description storeImages storeName'
         })
       } else {
         query.where("eventDate").lt(new Date().getTime());
         query.populate({
           path: 'store',
-          select: 'rating address access1 access2 description storeImages storeName'
+          select: 'rating address access description storeImages storeName'
         })
       }
     }
