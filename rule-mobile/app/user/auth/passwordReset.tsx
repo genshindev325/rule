@@ -45,7 +45,9 @@ const PasswordReset: React.FC = () => {
       setConfirmError('');
       const response = await fetch(`${SERVER_URL}/api/users/forgot-pwd`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ email: email, newPassword: password }),
       });
       if (response.status === 200) {

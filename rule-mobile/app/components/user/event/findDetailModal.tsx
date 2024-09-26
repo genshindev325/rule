@@ -5,6 +5,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useIonRouter } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store';
 
 interface EventProps {
   _id: string,
@@ -54,24 +56,36 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   const [storeGenre, setStoreGenre] = useState('');
   const [foodGenre, setFoodGenre] = useState('');
   const [cookingGenre, setCookingGenre] = useState('');
+  const token = useSelector((state: RootState) => state.auth.token);
  
   const router = useIonRouter();
 
   const handleSubmit = async () => {
-    const response = await fetch(`${SERVER_URL}/api/events/filter`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre, upcoming: true }),
-    });
-    if (response.status === 200) {
-      const result = await response.json();
-      const result_events: EventProps[] = result.data;
-      const filterEvents = result_events.filter(event => event && event.store !== null);
-      router.push(`/event/eventResult4?events=${JSON.stringify(filterEvents)}`);
-    } else {
-      console.log(response.status);
+    try {
+      if (!token) {
+        router.push('/auth/login');
+      } else {
+        const response = await fetch(`${SERVER_URL}/api/events/filter`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre, upcoming: true }),
+        });
+        if (response.status === 200) {
+          const result = await response.json();
+          const result_events: EventProps[] = result.data;
+          const filterEvents = result_events.filter(event => event && event.store !== null);
+          router.push(`/event/eventResult4?events=${JSON.stringify(filterEvents)}`);
+        } else {
+          console.log(response.status);
+        }
+        onClose();
+      }
+    } catch (error) {
+      console.log(error);
     }
-    onClose();
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

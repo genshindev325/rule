@@ -36,10 +36,9 @@ interface EventProps {
     _id: string;
     rating: number;
     address: string;
-    access1: string;
-    access2: string;
+    access: string[];
     description: string;
-    storeImages: string;
+    storeImages: string[];
     storeName: string;
   };
   status: string,
@@ -60,12 +59,12 @@ const EventReview2: React.FC = () => {
   const eventString = searchParams.get('event');
   const router = useIonRouter();
   const userProfile = useSelector((state: RootState) => state.auth.profile);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'w-full rounded-xl -mt-40 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
-
   const textMd = 'text-md sm:text-lg md:text-xl font-bold';
   const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
   const textXs = 'text-xs sm:text-sm md:text-md';
@@ -102,28 +101,35 @@ const EventReview2: React.FC = () => {
   // send event review
   const handleSubmitEventReview = () => {
     try {
-      const submitEventReview = async () => {
-        const eventId = selectedEvent?._id;
-        const eventReviewText = reviewEvent;
-        const eventRating = ratingEvent;
-        const createdBy = userId;
-        console.log('eventRating: ' + eventRating);
-        // send event review
-        const response = await fetch(`${SERVER_URL}/api/reviews/event`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ eventId, eventReviewText, eventRating, createdBy }),
-        });
-        if (response.status === 201) {
-          console.log("Sending event review success.");
-          const result = await response.json();
-          console.log(result.data);
-        } else {
-          console.log(response.status);
-          console.log("Sending event review failed.");
-        }
-      };
-      submitEventReview();
+      if (!token) {
+        router.push('/auth/login');
+      } else {
+        const submitEventReview = async () => {
+          const eventId = selectedEvent?._id;
+          const eventReviewText = reviewEvent;
+          const eventRating = ratingEvent;
+          const createdBy = userId;
+          console.log('eventRating: ' + eventRating);
+          // send event review
+          const response = await fetch(`${SERVER_URL}/api/reviews/event`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ eventId, eventReviewText, eventRating, createdBy }),
+          });
+          if (response.status === 201) {
+            console.log("Sending event review success.");
+            const result = await response.json();
+            console.log(result.data);
+          } else {
+            console.log(response.status);
+            console.log("Sending event review failed.");
+          }
+        };
+        submitEventReview();
+      }
     } catch(error) {
       console.error("An error occurred sending event review:", error);
     }
@@ -140,7 +146,10 @@ const EventReview2: React.FC = () => {
         // send store review
         const response = await fetch(`${SERVER_URL}/api/reviews/store`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy }),
         });
         if (response.status === 201) {
@@ -268,7 +277,8 @@ const EventReview2: React.FC = () => {
               <h2 className={`${textMd}`}>{selectedEvent?.store.storeName}</h2>
               <h2 className={`${textSm}`}>料理ジャンル: 居酒屋、海鮮、日本酒バー</h2>
               <div className='pt-3'>
-                <FullCarousel items={items} />
+                {selectedEvent?.store.storeImages && 
+                <FullCarousel items={selectedEvent?.store.storeImages} />}
               </div>
               <h2 className={`${textSm}`}>{selectedEvent?.store.description}</h2>
             </div>
@@ -276,12 +286,9 @@ const EventReview2: React.FC = () => {
             <div className='px-4 sm:px-6 md:px-8 flex flex-col space-y-1'>
               <h2 className={`${textMd} flex`}><img src={`${locationSVG}`} className='w-6 h-6 mr-4'/>アクセス</h2>
               <h2 className={`${textSm} border-b-2 border-solid border-gray-300`}>{selectedEvent?.store.address}</h2>
-              {selectedEvent?.store.access1 &&
-                <h2 className={`${textSm}`}>{selectedEvent?.store.access1}</h2>
-              }
-              {selectedEvent?.store.access2 &&
-                <h2 className={`${textSm}`}>{selectedEvent?.store.access2}</h2>
-              }
+              {selectedEvent?.store.access.map((access, index) => (
+                <h2 key={index} className={`${textSm}`}>{access}</h2>
+              ))}
               <img src={`${map}`} className='py-2' />
               <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
                 <button className={`grow rounded-xl border-2 border-solid border-gray-800 ${textMd}`}>注意事項</button>

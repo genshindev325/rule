@@ -53,6 +53,7 @@ const EventHistory2: React.FC = () => {
   const [userId ,setUserId] = useState('');
   const userProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useIonRouter();
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -78,35 +79,45 @@ const EventHistory2: React.FC = () => {
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        // get upcoming events
-        const response_upcomingEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ upcoming: true }),
-        });
-        if (response_upcomingEvents.status === 200) {
-          const result = await response_upcomingEvents.json();
-          setUpcomingEvents(result.data);
+        if (!token) {
+          router.push('/auth/login');
         } else {
-          console.log(response_upcomingEvents.status);
-          console.log("Getting upcoming events failed.");
-        }
+          // get upcoming events
+          const response_upcomingEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ upcoming: true }),
+          });
+          if (response_upcomingEvents.status === 200) {
+            const result = await response_upcomingEvents.json();
+            setUpcomingEvents(result.data);
+          } else {
+            console.log(response_upcomingEvents.status);
+            console.log("Getting upcoming events failed.");
+          }
 
-        // get past events
-        const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ past: true, user: userId })
-        });
-        console.log(userId)
-        if (response_pastEvents.status === 200) {
-          const result = await response_pastEvents.json();
-          const result_events: PastEventProps[] = result.data;
-          const filterEvents = result_events.filter(event => event && event.store !== null);
-          setPastEvents(filterEvents);
-        } else {
-          console.log(response_pastEvents.status);
-          console.log("Getting past events failed.")
+          // get past events
+          const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ past: true, user: userId })
+          });
+          console.log(userId)
+          if (response_pastEvents.status === 200) {
+            const result = await response_pastEvents.json();
+            const result_events: PastEventProps[] = result.data;
+            const filterEvents = result_events.filter(event => event && event.store !== null);
+            setPastEvents(filterEvents);
+          } else {
+            console.log(response_pastEvents.status);
+            console.log("Getting past events failed.")
+          }
         }
       } catch(error) {
         console.error("An error occurred during get events:", error);

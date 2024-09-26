@@ -35,6 +35,7 @@ const EventDetail: React.FC = () => {
   // Redux state selectors
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
   const userInfo = useSelector((state: RootState) => state.auth.profile);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     if (eventString) {
@@ -54,19 +55,26 @@ const EventDetail: React.FC = () => {
 
   const checkParticipation = async () => {
     // check whether user already participate into the event...
-    const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        userId: userInfo._id,
-        eventId: selectedEvent._id,
-        gender: userInfo.gender }),
-    });
-    if (response.status === 200) {
-      router.push('/event/payment');
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      const result = await response.json();
-      setNotification({ message: result.message, type: 'error' });
+      const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          userId: userInfo._id,
+          eventId: selectedEvent._id,
+          gender: userInfo.gender }),
+      });
+      if (response.status === 200) {
+        router.push('/event/payment');
+      } else {
+        const result = await response.json();
+        setNotification({ message: result.message, type: 'error' });
+      }
     }
   }
 

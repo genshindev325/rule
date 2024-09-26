@@ -13,7 +13,7 @@ import {
 import { useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
-import { RootState, store } from '@/app/store/store';
+import { RootState } from '@/app/store/store';
 import Notification from '@/app/components/utils/notification';
 import Stripe from 'stripe';
 import DeleteConfirmationModal from '@/app/components/utils/deleteConfirmModal';
@@ -70,6 +70,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
   const paymentDate = getPaymentDate(eventDate);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
@@ -78,45 +79,50 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   // Fetch registered card details
   const fetchRegisteredCard = async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          holderRole: "user",
-          holderId: userId
-        }),
-      });
-      
-      if (response.status === 200) {
-        const result = await response.json();
-        setRegisteredCard(result.data.creditCard);
-        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
-        const last4 = paymentMethod.card?.last4;
-        const brand = paymentMethod.card?.brand;
-        const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
-        last4 && setLast4(last4);
-        switch (brand) {
-          case "visa":
-              setCardSVG(visaSVG);
-            break;
-          case "mastercard":
-              setCardSVG(masterCardSVG);
-            break;
-          case "amex":
-              setCardSVG(americanExpressSVG);
-            break;
-          case "jcb":
-              setCardSVG(jcbSVG);
-            break;        
-          default:
-              setCardSVG('');
-            break;
-        }
-        setExDate(exDate);
+      if (!token) {
+        router.push('/auth/login');
       } else {
-        console.error(`Error fetching card details: ${response.status}`);
+        const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            holderRole: "user",
+            holderId: userId
+          }),
+        });
+        
+        if (response.status === 200) {
+          const result = await response.json();
+          setRegisteredCard(result.data.creditCard);
+          const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
+          const last4 = paymentMethod.card?.last4;
+          const brand = paymentMethod.card?.brand;
+          const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
+          last4 && setLast4(last4);
+          switch (brand) {
+            case "visa":
+                setCardSVG(visaSVG);
+              break;
+            case "mastercard":
+                setCardSVG(masterCardSVG);
+              break;
+            case "amex":
+                setCardSVG(americanExpressSVG);
+              break;
+            case "jcb":
+                setCardSVG(jcbSVG);
+              break;        
+            default:
+                setCardSVG('');
+              break;
+          }
+          setExDate(exDate);
+        } else {
+          console.error(`Error fetching card details: ${response.status}`);
+        }
       }
     } catch (error) {
       console.error('Error fetching card details:', error);
@@ -178,7 +184,10 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
           try {
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+              },
               body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
             });
       
@@ -217,7 +226,10 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
           try {
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+              },
               body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
             });
       

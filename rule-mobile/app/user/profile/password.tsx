@@ -20,6 +20,7 @@ const ProfilePassword: React.FC = () => {
   const minLength = 6;
   const maxLength = 20;
   const userInfo = useSelector((state: RootState) => state.auth.profile);
+  const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
 
   const validatePassword = (newPassword: string) => {
@@ -76,17 +77,24 @@ const ProfilePassword: React.FC = () => {
       setConfirmError('パスワードが一致しません。');
     } else {
       setConfirmError('');
-      const response = await fetch(`${SERVER_URL}/api/users/change-pwd`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, password: password, newPassword: newPassword }),
-      });
-      if (response.status === 200) {
-        router.push('/profile/myPage');
-        console.log("Password setting success.")
+      if (!token) {
+        router.push('/auth/login');
       } else {
-        console.log(response.status);
-        console.log("Password setting failed.");
+        const response = await fetch(`${SERVER_URL}/api/users/change-pwd`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ email: email, password: password, newPassword: newPassword }),
+        });
+        if (response.status === 200) {
+          router.push('/profile/myPage');
+          console.log("Password setting success.")
+        } else {
+          console.log(response.status);
+          console.log("Password setting failed.");
+        }
       }
     }
   };

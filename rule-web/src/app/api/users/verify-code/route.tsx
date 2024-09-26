@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verificationCodes } from '../verificationCodes';
 
 export async function POST(req: NextRequest) {
-  const authHeader = req.headers.get('authorization');
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
-  }
   const body = await req.json();
   const { email, code } = body;
 

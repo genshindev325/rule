@@ -46,6 +46,7 @@ const FormInput: React.FC = () => {
   const router = useIonRouter();
   const [cardholderName, setCardholderName] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
+  const token = useSelector((state: RootState) => state.auth.token);
   const [userId, setUserId] = useState('');
   const [last4, setLast4] = useState('');
   const [exDate, setExDate] = useState('');
@@ -61,45 +62,50 @@ const FormInput: React.FC = () => {
   // Fetch registered card details
   const fetchRegisteredCard = async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          holderRole: "user",
-          holderId: userId
-        }),
-      });
-      
-      if (response.status === 200) {
-        const result = await response.json();
-        setRegisteredCard(result.data);
-        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
-        const last4 = paymentMethod.card?.last4;
-        const brand = paymentMethod.card?.brand;
-        const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
-        last4 && setLast4(last4);
-        switch (brand) {
-          case "visa":
-              setCardSVG(visaSVG);
-            break;
-          case "mastercard":
-              setCardSVG(masterCardSVG);
-            break;
-          case "amex":
-              setCardSVG(americanExpressSVG);
-            break;
-          case "jcb":
-              setCardSVG(jcbSVG);
-            break;        
-          default:
-              setCardSVG('');
-            break;
-        }
-        setExDate(exDate);
+      if (!token) {
+        router.push('/auth/login');
       } else {
-        console.error(`Error fetching card details: ${response.status}`);
+        const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            holderRole: "user",
+            holderId: userId
+          }),
+        });
+        
+        if (response.status === 200) {
+          const result = await response.json();
+          setRegisteredCard(result.data);
+          const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
+          const last4 = paymentMethod.card?.last4;
+          const brand = paymentMethod.card?.brand;
+          const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
+          last4 && setLast4(last4);
+          switch (brand) {
+            case "visa":
+                setCardSVG(visaSVG);
+              break;
+            case "mastercard":
+                setCardSVG(masterCardSVG);
+              break;
+            case "amex":
+                setCardSVG(americanExpressSVG);
+              break;
+            case "jcb":
+                setCardSVG(jcbSVG);
+              break;        
+            default:
+                setCardSVG('');
+              break;
+          }
+          setExDate(exDate);
+        } else {
+          console.error(`Error fetching card details: ${response.status}`);
+        }
       }
     } catch (error) {
       console.error('Error fetching card details:', error);
@@ -123,7 +129,10 @@ const FormInput: React.FC = () => {
     try {
       const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           holderRole: "user",
           holderId: userId
@@ -160,7 +169,8 @@ const FormInput: React.FC = () => {
     const response = await fetch(`${SERVER_URL}/api/payments/register-credit-card`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         creditCard: paymentMethod.id,

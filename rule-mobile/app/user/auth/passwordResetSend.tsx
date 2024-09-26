@@ -44,7 +44,9 @@ const PasswordResetSend: React.FC = () => {
     const verificationCode = code.join('');
     const res = await fetch(`${SERVER_URL}/api/users/verify-code`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ email, code: verificationCode }),
     });
 
@@ -65,7 +67,9 @@ const PasswordResetSend: React.FC = () => {
     try {
       const res = await fetch(`${SERVER_URL}/api/users/send-verification-email`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ email }),
       });
 
