@@ -11,7 +11,7 @@ import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/utils/notification';
 
 const PasswordSetting = () => {
-  const textSm = 'text-sm sm:text-md font-semibold text-gray-800';
+  const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');

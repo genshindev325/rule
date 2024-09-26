@@ -1,6 +1,6 @@
 // components/utils/notification.tsx
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface NotificationProps {
   message: string;
@@ -9,17 +9,27 @@ interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
-    // Automatically close the notification after 4 seconds
-    const timer = setTimeout(onClose, 4000);
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      setTimeout(onClose, 300); // Trigger onClose after the fade-out transition
+    }, 1500);
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, [onClose]);
 
   return (
-    <div className={`fixed top-12 right-2 p-2 rounded-lg shadow-lg z-50 text-white text-sm ${
-      type === 'success' ? 'bg-green-500 max-w-56' : 'bg-red-500 max-w-80' }`}
+    <div
+      className={`absolute top-4 right-4 p-2 rounded-lg shadow-lg text-white text-sm z-50 flex items-center justify-between transition-transform duration-300 ease-in-out transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      } ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} 
+      w-5/9 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl`}
+      style={{ transition: 'opacity 0.3s ease, transform 0.3s ease' }} // Smooth transition
     >
-      {message}
+      <div className="flex justify-between items-center">
+        <span>{message}</span>
+      </div>
     </div>
   );
 };

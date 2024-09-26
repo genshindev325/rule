@@ -11,46 +11,25 @@ import { RootState } from '@/app/store/store';
 import Notification from '@/app/utils/notification';
 import GoogleMapComponent from '@/app/utils/googleMap';
 import { SERVER_URL } from '@/app/config';
+import ImageCarousel from '@/app/components/imageCarousel';
 
 const StoreProfileSetting = () => {
-  const textSm = 'text-sm sm:text-md font-semibold text-gray-800';
+  const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const router = useIonRouter();
   const [storeID, setStoreID] = useState('');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  const [storeImages, setStoreImages] = useState<string>();
+  const [storeImages, setStoreImages] = useState<string[]>([]);
   const [address, setAddress] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
-  
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const formData = new FormData();
-      formData.append('file', event.target.files[0]);
+  const [access, setAccess] = useState<string[]>(['']);
 
-      try {
-        const response = await fetch(`${SERVER_URL}/api/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          setStoreImages(data.url);
-        } else {
-          console.log(response.status);
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    }
+  const handleAddImage = (newImage: string) => {
+    setStoreImages((prevImages) => [...prevImages, newImage]);
   };
 
   useEffect(() => {}, [storeImages]);
-
-  const handleDeleteImage = () => {
-    setStoreImages('');
-  };
 
   // Callback to receive the new marker location
   const handleLocationSelect = (position: { lat: number; lng: number }, mainAddress: string | null) => {
@@ -66,6 +45,24 @@ const StoreProfileSetting = () => {
     }
   }, [profile])
 
+  // Handle dynamically adding new access input fields
+  const handleAddAccess = () => {
+    setAccess([...access, '']); // Add an empty string for a new input field
+  };
+
+  // Handle updating the value of each access field
+  const handleAccessChange = (index: number, value: string) => {
+    const updatedAccess = [...access];
+    updatedAccess[index] = value; // Update the specific access input at index
+    setAccess(updatedAccess);
+  };
+
+  // Handle removing an access input field
+  const handleRemoveAccess = (index: number) => {
+    const updatedAccess = access.filter((_, i) => i !== index); // Remove the specific input at index
+    setAccess(updatedAccess);
+  };
+
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add StoreProfileSettings logic here
@@ -74,10 +71,7 @@ const StoreProfileSetting = () => {
     const storeGenre = formData.get('storeGenre');
     const foodGenre = formData.get('foodGenre');
     const cookingGenre = formData.get('cookingGenre');
-    const access1 = formData.get('access1');
-    const access2 = formData.get('access2');
     const description = formData.get('description');
-    console.log("storeLocation: " + storeLocation);
 
     const response = await fetch(`${SERVER_URL}/api/stores/${storeID}`, {
       method: 'PUT',
@@ -88,8 +82,7 @@ const StoreProfileSetting = () => {
         foodGenre,
         cookingGenre,
         address,
-        access1,
-        access2,
+        access,
         storeImages,
         description,
         storeLat: storeLocation?.lat,
@@ -101,8 +94,7 @@ const StoreProfileSetting = () => {
       setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
       setTimeout(() => {
         router.push('/settings');
-      }, 1000);
-      console.log('store profile setting success')
+      }, 1500);
     } else {
       setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
     }
@@ -178,39 +170,42 @@ const StoreProfileSetting = () => {
                 />
               </div>
               <h3 className={`${textSm} font-semibold py-1`}>アクセス</h3>
-              <div className="mb-2">
-                <input
-                  type="name"
-                  name='access1'
-                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
-                  placeholder="大阪メトロ 御堂筋線 心斎橋駅から徒歩10分"
-                />
-                <input
-                  type="name"
-                  name='access2'
-                  className={`${textXs} w-full p-2 mt-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
-                  placeholder="大阪メトロ 長堀鶴見緑地線 長堀橋駅から徒歩5分"
-                />
-              </div>
+              {access.map((value, index) => (
+                <div className="relative mb-1" key={index}>
+                  <input
+                    type="text"
+                    name={`access${index}`}
+                    value={value}
+                    onChange={(e) => handleAccessChange(index, e.target.value)}
+                    className={`${textXs} w-full p-2 mb-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                    placeholder={`大阪メトロ 御堂筋線 心斎橋駅から徒歩10分`}
+                  />
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveAccess(index)}
+                      className="absolute right-2 top-5 hover:font-bold duration-300 transform -translate-y-1/2 text-gray-500 hover:text-red-700"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              ))}
               <div className='mb-2'>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  id="file-input"
-                />
-                <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
-                {/* store images */}
-                {storeImages && (
-                  <div className='flex-1 justify-center items-center w-40 pt-6'>
-                    <img src={`${storeImages}`} onClick={handleDeleteImage} />
-                  </div>
-                )}
+                <button
+                  type='button'
+                  onClick={handleAddAccess}
+                  className='w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-400 duration-700 text-xl text-gray-700 flex flex-col justify-center items-center'
+                >
+                  +
+                </button>
                 {/* google map */}
                 <div className="my-2">
                   <GoogleMapComponent onLocationSelect={handleLocationSelect} />
                 </div>
+              </div>
+              <div className='mb-4'>
+                <ImageCarousel onAddImage={handleAddImage} />
               </div>
               <div className="mb-2">
                 <h3 className={`${textSm} font-semibold py-2`}>説明文</h3>

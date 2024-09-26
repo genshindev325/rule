@@ -26,10 +26,6 @@ const StoreProfileSettings = () => {
     setStoreImages((prevImages) => [...prevImages, newImage]);
   };
 
-  const handleDeleteImage = () => {
-    setStoreImages([]);
-  };
-
   // Callback to receive the new marker location
   const handleLocationSelect = (position: { lat: number; lng: number }, mainAddress: string | null) => {
     setStoreLocation(position); // Update the location in the state
@@ -72,34 +68,31 @@ const StoreProfileSettings = () => {
     const cookingGenre = formData.get('cookingGenre');
     const description = formData.get('description');
 
-    console.log("access: " + JSON.stringify(access));
-    console.log("storeImages: " + JSON.stringify(storeImages));
+    const response = await fetch(`/api/stores/${storeID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        storeName,
+        storeGenre,
+        foodGenre,
+        cookingGenre,
+        address,
+        access,
+        storeImages,
+        description,
+        storeLat: storeLocation?.lat,
+        storeLng: storeLocation?.lng,
+      }),
+    });
 
-    // const response = await fetch(`/api/stores/${storeID}`, {
-    //   method: 'PUT',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     storeName,
-    //     storeGenre,
-    //     foodGenre,
-    //     cookingGenre,
-    //     address,
-    //     access,
-    //     storeImages,
-    //     description,
-    //     storeLat: storeLocation?.lat,
-    //     storeLng: storeLocation?.lng,
-    //   }),
-    // });
-
-    // if (response.status === 200) {
-    //   setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
-    //   setTimeout(() => {
-    //     router.push('/store/setting');
-    //   }, 1500);
-    // } else {
-    //   setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
-    // }
+    if (response.status === 200) {
+      setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+      setTimeout(() => {
+        router.push('/store/setting');
+      }, 1500);
+    } else {
+      setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+    }
   })
 
   return (

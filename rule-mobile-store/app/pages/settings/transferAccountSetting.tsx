@@ -10,7 +10,7 @@ import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/utils/notification';
 
 const TransferAccountSetting = () => {
-  const textSm = 'text-sm sm:text-md font-semibold text-gray-800';
+  const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useIonRouter();
