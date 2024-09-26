@@ -9,6 +9,8 @@ import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
 import { SERVER_URL } from '@/app/config';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store';
 
 interface EventProps {
   _id: string,
@@ -50,18 +52,21 @@ const FindOnMap: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
+  const token = useSelector((state: RootState) => state.auth.token);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = sessionStorage.getItem('token');
         if (!token) {
           router.push('/auth/login');
         } else {
           // Fetch upcomingEvents Data
           const response = await fetch(`${SERVER_URL}/api/events/filter`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ upcoming: true, limit: 6 })
           });
           if (response.status === 200) {
