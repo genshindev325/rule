@@ -8,6 +8,8 @@ import AuthWrapper from '@/components/auth/authWrapper';
 import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
 import Notification from '@/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 // Get today's date in the YYYY-MM-DD format
 const today = new Date();
@@ -25,6 +27,7 @@ const EventSettings = () => {
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [eventDate, setEventDate] = useState(getTodayDate());
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
@@ -32,24 +35,32 @@ const EventSettings = () => {
 
   // Handle file selection  
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const formData = new FormData();
-      formData.append('file', event.target.files[0]);
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      if (event.target.files && event.target.files[0]) {
+        const formData = new FormData();
+        formData.append('file', event.target.files[0]);
 
-      try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+          });
 
-        if (response.status === 200) {
-          const data = await response.json();
-          setPhotoImageUrl(data.url);
-        } else {
-          console.log(response.status);
+          if (response.status === 200) {
+            const data = await response.json();
+            setPhotoImageUrl(data.url);
+          } else {
+            console.log(response.status);
+          }
+        } catch (error) {
+          console.error('Error uploading image:', error);
         }
-      } catch (error) {
-        console.error('Error uploading image:', error);
       }
     }
   };
@@ -59,57 +70,64 @@ const EventSettings = () => {
   }
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Add event settings logic here
-    const coverImage = `${photoImageUrl}`;
-    const formData = new FormData(e.currentTarget);
-    const eventName = formData.get('eventName');
-    const category = selectedCategory;
-    const description = formData.get('description');
-    const _eventStartTime = formData.get('startTime');
-    const _eventEndTime = formData.get('endTime');
-    let eventStartTime, eventEndTime;
-    if(eventDate && _eventStartTime)
-      eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
-    if(eventDate && _eventEndTime)
-      eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
-    const maleTotal = formData.get('maleTotal');
-    const femaleTotal = formData.get('femaleTotal');
-    const maleFee = formData.get('maleFee');
-    const femaleFee = formData.get('femaleFee');
-    const store = profile?._id;
-    
-    const response = await fetch('/api/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        eventName,
-        category,
-        coverImage,
-        description,
-        eventDate,
-        eventStartTime,
-        eventEndTime,
-        maleTotal,
-        femaleTotal,
-        maleFee,
-        femaleFee,
-        store
-      }),
-    });
-
-    if (response.status === 201) {
-      setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
-      setTimeout(() => {
-        router.push('/store/dashboard');
-        sessionStorage.setItem('selectedMenu', 'dashboard');
-      }, 1500);
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      console.log(response.status);
-      console.log("Create event failed.");
-    }    
-  })
+      e.preventDefault();
+
+      // Add event settings logic here
+      const coverImage = `${photoImageUrl}`;
+      const formData = new FormData(e.currentTarget);
+      const eventName = formData.get('eventName');
+      const category = selectedCategory;
+      const description = formData.get('description');
+      const _eventStartTime = formData.get('startTime');
+      const _eventEndTime = formData.get('endTime');
+      let eventStartTime, eventEndTime;
+      if(eventDate && _eventStartTime)
+        eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
+      if(eventDate && _eventEndTime)
+        eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
+      const maleTotal = formData.get('maleTotal');
+      const femaleTotal = formData.get('femaleTotal');
+      const maleFee = formData.get('maleFee');
+      const femaleFee = formData.get('femaleFee');
+      const store = profile?._id;
+      
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          eventName,
+          category,
+          coverImage,
+          description,
+          eventDate,
+          eventStartTime,
+          eventEndTime,
+          maleTotal,
+          femaleTotal,
+          maleFee,
+          femaleFee,
+          store
+        }),
+      });
+
+      if (response.status === 201) {
+        setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
+        setTimeout(() => {
+          router.push('/store/dashboard');
+          sessionStorage.setItem('selectedMenu', 'dashboard');
+        }, 1500);
+      } else {
+        console.log(response.status);
+        console.log("Create event failed.");
+      }
+    }
+  });
 
   return (
     <AuthWrapper allowedRoles={['store']}>

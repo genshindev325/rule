@@ -8,6 +8,9 @@ import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/admin/navbar';
 import UpcomingEvents from '@/components/admin/events/upcomingEvents';
 import PastEvents from '@/components/admin/events/pastEvents';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
   _id: number,
@@ -35,45 +38,57 @@ const Events = () => {
   const [pastEvents, setPastEvents] = useState<PastEvent[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [loading, setLoading] = useState(true); 
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // get upcoming events
-        const response_upcomingEvents = await fetch('/api/events/filter', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ upcoming: true }),
-        });
-        if (response_upcomingEvents.status === 200) {
-          const result = await response_upcomingEvents.json();
-          setUpcomingEvents(result.data);
-        } else {
-          console.log(response_upcomingEvents.status);
-          console.log("Getting upcoming events failed.");
-        }
+    if (!token) {
+      router.push('/auth/login');
+    } else {
+      const fetchData = async () => {
+        try {
+          // get upcoming events
+          const response_upcomingEvents = await fetch('/api/events/filter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ upcoming: true }),
+          });
+          if (response_upcomingEvents.status === 200) {
+            const result = await response_upcomingEvents.json();
+            setUpcomingEvents(result.data);
+          } else {
+            console.log(response_upcomingEvents.status);
+            console.log("Getting upcoming events failed.");
+          }
 
-        // get past events
-        const response_pastEvents = await fetch('/api/events/filter', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ past: true })
-        });
-        if (response_pastEvents.status === 200) {
-          const result = await response_pastEvents.json();
-          setPastEvents(result.data);
-        } else {
-          console.log(response_pastEvents.status);
-          console.log("Getting past events failed.")
+          // get past events
+          const response_pastEvents = await fetch('/api/events/filter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ past: true })
+          });
+          if (response_pastEvents.status === 200) {
+            const result = await response_pastEvents.json();
+            setPastEvents(result.data);
+          } else {
+            console.log(response_pastEvents.status);
+            console.log("Getting past events failed.")
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

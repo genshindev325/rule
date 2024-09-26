@@ -9,38 +9,47 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/components/admin/navbar';
 import ImageCarousel from '@/components/utils/imageCarousel';
 import AuthWrapper from '@/components/auth/authWrapper';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 const MemberStoreAddition = () => {
   const router = useRouter();
-
+  const token = useSelector((state: RootState) => state.auth.token);
   const [images, setImages] = useState<string[]>([]);
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add memberStoreAddition logic here
-    const formData = new FormData(e.currentTarget);
-    const storeName = formData.get('storeName');
-    const storeGenre = formData.get('storeGenre');
-    const foodGenre = formData.get('foodGenre');
-    const cuisine = formData.get('cuisine');
-    const address = formData.get('address');
-    const access1 = formData.get('access1');
-    const access2 = formData.get('access2');
-    const storeImages = images;
-    const description = formData.get('description');
-
-    const response = await fetch('/api/admin/dashboard/memberStoreAddition', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ storeName, storeGenre, foodGenre, cuisine, address, access1, access2, storeImages, description }),
-    });
-
-    if (response.status === 200) {
-      router.push('/admin/dashboard');
-      console.log("Add memberStore success.");
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      console.log(response.status);
-      console.log("Add memberStore failed.");
+      e.preventDefault();
+      // Add memberStoreAddition logic here
+      const formData = new FormData(e.currentTarget);
+      const storeName = formData.get('storeName');
+      const storeGenre = formData.get('storeGenre');
+      const foodGenre = formData.get('foodGenre');
+      const cuisine = formData.get('cuisine');
+      const address = formData.get('address');
+      const access1 = formData.get('access1');
+      const access2 = formData.get('access2');
+      const storeImages = images;
+      const description = formData.get('description');
+
+      const response = await fetch('/api/admin/dashboard/memberStoreAddition', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ storeName, storeGenre, foodGenre, cuisine, address, access1, access2, storeImages, description }),
+      });
+
+      if (response.status === 200) {
+        router.push('/admin/dashboard');
+        console.log("Add memberStore success.");
+      } else {
+        console.log(response.status);
+        console.log("Add memberStore failed.");
+      }
     }
   });
 

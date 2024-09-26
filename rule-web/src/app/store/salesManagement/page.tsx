@@ -8,6 +8,9 @@ import Navbar from '@/components/store/navbar';
 import TotalSales from '@/components/store/salesManagement/totalSales';
 import EventHistory from '@/components/store/salesManagement/eventHistory';
 import { useAuth } from '@/components/auth/authContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface EventProps {
   eventName: string;
@@ -31,34 +34,43 @@ const SalesManagement = () => {
   const [endDate, setEndDate] = useState(getTodayDate());
   const { profile } = useAuth();
   const store = profile?._id;
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch salesManagement Data
-        const response_salesManagement = await fetch('/api/stores/sales-management', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            startDate, endDate, store
-          })
-        });
-        if (response_salesManagement.ok) {
-          const result_salesManagement = await response_salesManagement.json();
-          setEvents(result_salesManagement.events);
-          setTotalSales(result_salesManagement.totalSales)
-          console.log("totalSales: " + totalSales);
-        } else {
-          console.error('Failed to fetch salesManagement data');
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      const fetchData = async () => {
+        try {
+          // Fetch salesManagement Data
+          const response_salesManagement = await fetch('/api/stores/sales-management', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              startDate, endDate, store
+            })
+          });
+          if (response_salesManagement.ok) {
+            const result_salesManagement = await response_salesManagement.json();
+            setEvents(result_salesManagement.events);
+            setTotalSales(result_salesManagement.totalSales)
+            console.log("totalSales: " + totalSales);
+          } else {
+            console.error('Failed to fetch salesManagement data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, [startDate, endDate, totalSales]);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

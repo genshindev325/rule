@@ -7,6 +7,9 @@ import React, { useState, useEffect } from 'react';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/admin/navbar';
 import SettlementSummary from '@/components/admin/salesManagement/settlementSummary';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface StoreSale {
   storeName: string,
@@ -17,27 +20,39 @@ interface StoreSale {
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
-  const [storeSalesList, setStoreSalesList] = useState<StoreSale[]>([])
+  const [storeSalesList, setStoreSalesList] = useState<StoreSale[]>([]);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch settlementSummary Data
-        const response_settlementSummary = await fetch('/api/admin/settlementSummary');
-        if (response_settlementSummary.ok) {
-          const result_settlementSummary = await response_settlementSummary.json();
-          setStoreSalesList(result_settlementSummary.storeSales);
-        } else {
-          console.error('Failed to fetch mainPanel data');
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      const fetchData = async () => {
+        try {
+          // Fetch settlementSummary Data
+          const response_settlementSummary = await fetch('/api/admin/settlementSummary', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_settlementSummary.ok) {
+            const result_settlementSummary = await response_settlementSummary.json();
+            setStoreSalesList(result_settlementSummary.storeSales);
+          } else {
+            console.error('Failed to fetch mainPanel data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;

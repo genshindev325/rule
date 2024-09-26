@@ -8,6 +8,9 @@ import MainPanel from '@/components/admin/dashboard/mainPanel';
 import UserList from '@/components/admin/dashboard/userList';
 import MemberStoreList from '@/components/admin/dashboard/memberStoreList';
 import AuthWrapper from '@/components/auth/authWrapper';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 interface MainPanelProps {
   lastMonthSales: number,
@@ -37,33 +40,57 @@ const Dashboard = () => {
   });
   const [memberStores, setMemberStores] = useState<Store[]>([]);
   const [userList, setUserList] = useState<User[]>([]);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch mainPanel Data
-        const response_mainPanel = await fetch('/api/admin/main-panel');
-        if (response_mainPanel.status === 200) {
-          const result_mainPanel = await response_mainPanel.json();
-          setMainPanelData(result_mainPanel);
+        if (!token) {
+          router.push('/auth/login');
         } else {
-          console.error('Failed to fetch mainpanel data');
-        }
-        // Fetch memberstore Data
-        const response_memberstore = await fetch('/api/stores');
-        if (response_memberstore.status === 200) {
-          const result_memberstore = await response_memberstore.json();
-          setMemberStores(result_memberstore.data);
-        } else {
-          console.error('Failed to fetch memberstore data');
-        }
-        // Fetch userList Data
-        const response_userList = await fetch('/api/users');
-        if (response_userList.status === 200) {
-          const result_userList = await response_userList.json();
-          setUserList(result_userList.data);
-        } else {
-          console.error('Failed to fetch userList data');
+          // Fetch mainPanel Data
+          const response_mainPanel = await fetch('/api/admin/main-panel', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_mainPanel.status === 200) {
+            const result_mainPanel = await response_mainPanel.json();
+            setMainPanelData(result_mainPanel);
+          } else {
+            console.error('Failed to fetch mainpanel data');
+          }
+          // Fetch memberstore Data
+          const response_memberstore = await fetch('/api/stores', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_memberstore.status === 200) {
+            const result_memberstore = await response_memberstore.json();
+            setMemberStores(result_memberstore.data);
+          } else {
+            console.error('Failed to fetch memberstore data');
+          }
+          // Fetch userList Data
+          const response_userList = await fetch('/api/users', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_userList.status === 200) {
+            const result_userList = await response_userList.json();
+            setUserList(result_userList.data);
+          } else {
+            console.error('Failed to fetch userList data');
+          }
         }
       } catch (error) {
         console.error('Error:', error);

@@ -8,6 +8,9 @@ import Navbar from '@/components/admin/navbar';
 import { formatDate } from '@/utils/formatDate';
 import { formatNumber } from '@/utils/formatNumber';
 import PayConfirmationModal from '@/components/utils/payConfirmModal';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface StorePayment {
   _id: string;
@@ -38,26 +41,38 @@ const StorePaymentsPage: React.FC = () => {
   const [selectedStoreName, setSelectedStoreName] = useState('');
   const [selectedPayAmount, setSelectedPayAmount] = useState(0);
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   // Fetch storePayments data on mount (if not passed from server-side)
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/admin/store-payment');
-        if (response.status === 200) {
-          const result = await response.json();
-          setStorePayments(result.data);
-        } else {
-          console.log('Failed to fetch store management data');
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('/api/admin/store-payment', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response.status === 200) {
+            const result = await response.json();
+            setStorePayments(result.data);
+          } else {
+            console.log('Failed to fetch store management data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

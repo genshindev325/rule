@@ -9,6 +9,8 @@ import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import { useAuth } from '@/components/auth/authContext';
 import Notification from '@/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 const PasswordSetting = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -19,30 +21,37 @@ const PasswordSetting = () => {
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const minLength = 6;
   const maxLength = 20;
-
+  const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
   const { profile } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add Password setting logic here
-    if (confirmPassword !== password) {
-      setConfirmError('パスワードが一致しません。');
-    } else {
-      setConfirmError('');
-      const response = await fetch('/api/stores/change-pwd', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
-      });
-      if (response.status === 200) {
-        setNotification({message: 'パスワード設定に成功しました。', type: 'success'});
-        setTimeout(() => {
-          router.push('/store/setting');
-        }, 1500);
+    if (!token) {
+      router.push('/auth/login');
       } else {
-        console.log(response.status);
-        console.log("Password setting failed.");
+      e.preventDefault();
+      // Add Password setting logic here
+      if (confirmPassword !== password) {
+        setConfirmError('パスワードが一致しません。');
+      } else {
+        setConfirmError('');
+        const response = await fetch('/api/stores/change-pwd', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
+        });
+        if (response.status === 200) {
+          setNotification({message: 'パスワード設定に成功しました。', type: 'success'});
+          setTimeout(() => {
+            router.push('/store/setting');
+          }, 1500);
+        } else {
+          console.log(response.status);
+          console.log("Password setting failed.");
+        }
       }
     }
   };

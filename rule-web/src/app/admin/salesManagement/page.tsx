@@ -8,6 +8,9 @@ import AuthWrapper from '@/components/auth/authWrapper';
 import EarningsManagement from '@/components/admin/salesManagement/earningsManagement';
 import Navbar from '@/components/admin/navbar';
 import Notification from '@/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface EarningsProps {
   sales: number,
@@ -17,7 +20,9 @@ interface EarningsProps {
 
 const SalesManagement: React.FC = () => {
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
   const [earnings, setEarnings] = useState<EarningsProps>({
     sales: 1,
     salesTotal: 0,
@@ -29,25 +34,35 @@ const SalesManagement: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch earning Data
-        const response_earningData = await fetch('/api/admin/earningsManagement');
-        if (response_earningData.ok) {
-          const result_earning = await response_earningData.json();
-          setEarnings(result_earning);
-        } else {
-          setNotification({ message: 'データの取得に失敗しました。', type: 'error' });
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      const fetchData = async () => {
+        try {
+          // Fetch earning Data
+          const response_earningData = await fetch('/api/admin/earningsManagement', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_earningData.ok) {
+            const result_earning = await response_earningData.json();
+            setEarnings(result_earning);
+          } else {
+            setNotification({ message: 'データの取得に失敗しました。', type: 'error' });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          setNotification({ message: `エラー: ${error}`, type: 'error' });
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-        setNotification({ message: `エラー: ${error}`, type: 'error' });
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

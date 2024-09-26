@@ -8,34 +8,44 @@ import { useRouter } from 'next/navigation';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import Notification from '@/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 const TransferAccountSetting = () => {
   const router = useRouter();
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add transfer account setting logic here
-    const formData = new FormData(e.currentTarget);
-    const bankName = formData.get('bankName');
-    const branchName = formData.get('branchName');
-    const accountNumber = formData.get('accountNumber');
-    const accountHolder = formData.get('accountHolder');
+    if (!token) {
+      router.push('/auth/login');
+      } else {
+      e.preventDefault();
+      // Add transfer account setting logic here
+      const formData = new FormData(e.currentTarget);
+      const bankName = formData.get('bankName');
+      const branchName = formData.get('branchName');
+      const accountNumber = formData.get('accountNumber');
+      const accountHolder = formData.get('accountHolder');
 
-    const response = await fetch('/api/store/setting/storeProfileSetting', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
-    });
+      const response = await fetch('/api/store/setting/storeProfileSetting', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
+      });
 
-    if (response.status === 200) {
-      setNotification({message: '振込口座の設定に成功しました。', type: 'success'});
-      setTimeout(() => {
-        router.push('/store/setting');
-      }, 1500);
-    } else {
-      console.log(response.status);
-      console.log("Failed.");
+      if (response.status === 200) {
+        setNotification({message: '振込口座の設定に成功しました。', type: 'success'});
+        setTimeout(() => {
+          router.push('/store/setting');
+        }, 1500);
+      } else {
+        console.log(response.status);
+        console.log("Failed.");
+      }
     }
   })
 
