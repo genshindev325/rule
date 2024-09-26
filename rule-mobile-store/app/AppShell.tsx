@@ -6,6 +6,8 @@ import Providers from "@/app/provider";
 
 import SignIn from "@/app/pages/auth/signin";
 import SignUp from "@/app/pages/auth/signup";
+import PasswordReset from "@/app/pages/auth/passwordReset";
+import PasswordResetSend from "@/app/pages/auth/passwordResetSend";
 import Dashboard from '@/app/pages/dashboard';
 import EventSetting from "@/app/pages/eventSetting";
 import EventList from "./pages/eventList";
@@ -31,6 +33,8 @@ const AppShell = () => {
             <IonRouterOutlet id="main">
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/signin" render={() => <SignIn />} exact={true} />
+              <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
+              <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />              
               <Route path="/dashboard" render={() => <Dashboard />} exact={true} />
               <Route path="/eventSetting" render={() => <EventSetting />} exact={true} />
               <Route path="/eventList" render={() => <EventList />} exact={true} />

@@ -24,9 +24,9 @@ interface EventCardProps {
     storeLat: number,
     storeLng: number,
     storeName: string,
+    storeImages: string[],
     address: string,
-    access1: string,
-    access2: string,
+    access: string[],
     description: string,
     status: string,
   };

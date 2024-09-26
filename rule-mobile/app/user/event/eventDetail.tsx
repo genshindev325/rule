@@ -25,22 +25,6 @@ const EventDetail: React.FC = () => {
   const textMd = 'text-md sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-md md:text-lg';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  
-  const items = [
-    {
-      imageUrl: '/image/img_1.png',
-    },
-    {
-      imageUrl: '/image/img_2.png',
-    },
-    {
-      imageUrl: '/image/img_3.png',
-    },
-    {
-      imageUrl: '/image/img_4.png',
-    },
-    // will be added or get from database
-  ];
 
   const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';
   
@@ -133,10 +117,10 @@ const EventDetail: React.FC = () => {
               </div>
               {/* store info */}
               <div className=''>
-                <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold`}>店舗名 (店舗名が入ります)</h2>
-                <h2 className={`${textXs}`}>料理ジャンル: 居酒屋、海鮮、日本酒バー</h2>
+                <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold`}>{selectedEvent.store.storeName}</h2>
+                <h2 className={`${textXs}`}>料理ジャンル: {selectedEvent.store.cookingGenre}</h2>
                 <div className='pt-2'>
-                  <FullCarousel items={items} />
+                  <FullCarousel items={selectedEvent.store.storeImages} />
                 </div>
                 <h2 className={`${textXs}`}>{selectedEvent.store.description}</h2>
               </div>
@@ -147,8 +131,9 @@ const EventDetail: React.FC = () => {
                   <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold my-auto`}>アクセス</h2>
                 </div>
                 <h2 className={`${textXs} border-b-2 border-solid border-gray-300`}>{selectedEvent.store.address}</h2>
-                <h2 className={`${textXs}`}>{selectedEvent.store.access1}</h2>
-                <h2 className={`${textXs}`}>{selectedEvent.store.access2}</h2>
+                {selectedEvent.store.access && selectedEvent.store.access.map((acc) => (
+                  <h2 className={`${textXs}`}>{acc}</h2>
+                ))}
                 <div className='py-1'>
                   <GoogleMapLocation lat={selectedEvent.store.storeLat} lng={selectedEvent.store.storeLng} />
                 </div>

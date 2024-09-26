@@ -10,7 +10,7 @@ import { SERVER_URL } from '@/app/config';
 
 const SignIn: React.FC = () => {
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textSm = 'text-sm md:text-md';
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -67,7 +67,7 @@ const SignIn: React.FC = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="メールアドレス"
               required
             />
@@ -75,15 +75,19 @@ const SignIn: React.FC = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="パスワード"
               required
             />
-            <a href="#" className={`${textSm} mr-auto pb-4`}> パスワードをお忘れですか？ </a>
+            <h2 className={`${textSm} font-semibold mr-auto pb-4`}>
+              <IonRouterLink routerLink='/auth/passwordResetSend'>
+                パスワードをお忘れですか？
+              </IonRouterLink>
+            </h2>
             <button
               type="button"
               onClick={handleSubmit}
-              className="w-full py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300"
+              className={`${textSm} w-full py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300`}
             >
               サインイン
             </button>

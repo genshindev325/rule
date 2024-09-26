@@ -22,7 +22,7 @@ const PasswordResetSend: React.FC = () => {
   const router = useIonRouter();
 
   useEffect(() => {
-    setCode(Array(6).fill(''));
+    setCode(Array(4).fill(''));
     setErrorMessage('');
     setTimer(120);
   }, [verificationSent])
@@ -50,7 +50,7 @@ const PasswordResetSend: React.FC = () => {
 
     if (res.ok) {
       setCodeVerified(true);
-      setCode(Array(6).fill(''));
+      setCode(Array(4).fill(''));
       setErrorMessage('');
       router.push(`/auth/passwordReset?email=${encodeURIComponent(JSON.stringify(email))}`);
     } else {
@@ -73,7 +73,7 @@ const PasswordResetSend: React.FC = () => {
         setVerificationSent(true);
         setTimer(120);
         startTimer();
-        // setMessage('確認メールが送信されました。メールを確認してください。');
+        setMessage('確認コードが送信されました。メールの受信箱を確認してください。');
       } else {
         setMessage('エラーが発生しました。もう一度お試しください。');
       }
@@ -117,7 +117,7 @@ const PasswordResetSend: React.FC = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                {message ? <p>{message}</p> :
+                {message ? <p className={textXs}>{message}</p> :
                 <p className={`${textXs} text-gray-400`}>
                   登録したメールアドレスに確認コードが送信されます。
                 </p>}

@@ -19,9 +19,10 @@ interface EventProps {
   store: {
     _id: string;
     storeName: string;
+    storeImages: string[],
     address: string;
-    access1: string;
-    access2: string;
+    access: string[],
+    cookingGenre: string;
     description: string;
     storeLat: number;
     storeLng: number;

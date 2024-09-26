@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 interface CarouselProps {
-  items: {
-    imageUrl: string;
-  }[];
+  items: string[];
 }
 
 const FullCarousel: React.FC<CarouselProps> = ({ items }) => {
@@ -40,7 +38,7 @@ const FullCarousel: React.FC<CarouselProps> = ({ items }) => {
         {items.map((item, index) => (
           <div key={index} className="min-w-full flex-shrink-0">
             <img
-              src={item.imageUrl}
+              src={item}
               alt={`Slide ${index + 1}`}
               className="w-full h-[200px] md:h-[400px] object-cover"
             />
