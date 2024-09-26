@@ -16,6 +16,7 @@ import Setting from './user/profile/setting';
 // Auth
 import Login from "./user/auth/login";
 import LoginWith from "./user/auth/loginWith";
+import LogOut from "./user/auth/logout";
 import PasswordReset from "./user/auth/passwordReset";
 import PasswordResetSend from "./user/auth/passwordResetSend";
 import Unauthorized from "./user/auth/unauthorized";
@@ -61,6 +62,7 @@ const AppShell = () => {
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/login" component={Login} />
               <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
+              <Route path="/auth/logout" component={LogOut} />
               <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
               <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />

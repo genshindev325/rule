@@ -28,6 +28,9 @@ const Home: React.FC = () => {
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/profile/myPage' className='font-semibold text-white'>マイページ</IonRouterLink>
             </button>
+            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
+              <IonRouterLink routerLink='/auth/logout' className='font-semibold text-white'>ログイン</IonRouterLink>
+            </button>
           </div>
         </div>
       </IonContent>

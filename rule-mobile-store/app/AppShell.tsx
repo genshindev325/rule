@@ -6,6 +6,7 @@ import Providers from "@/app/provider";
 
 import SignIn from "@/app/pages/auth/signin";
 import SignUp from "@/app/pages/auth/signup";
+import SignOut from "@/app/pages/auth/signout";
 import PasswordReset from "@/app/pages/auth/passwordReset";
 import PasswordResetSend from "@/app/pages/auth/passwordResetSend";
 import Dashboard from '@/app/pages/dashboard';
@@ -33,6 +34,7 @@ const AppShell = () => {
             <IonRouterOutlet id="main">
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/signin" render={() => <SignIn />} exact={true} />
+              <Route path="/auth/signout" render={() => <SignOut />} exact={true} />
               <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
               <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />              
               <Route path="/dashboard" render={() => <Dashboard />} exact={true} />
