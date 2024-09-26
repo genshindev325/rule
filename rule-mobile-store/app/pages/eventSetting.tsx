@@ -9,6 +9,8 @@ import SideMenu from '@/app/components/store/IonMenu';
 import { useAuth } from '@/app/components/auth/authContext';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import Notification from '@/app/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const EventSetting = () => {
   const router = useIonRouter();
@@ -17,7 +19,7 @@ const EventSetting = () => {
   const textMd = 'text-md sm:text-lg font-bold';
   const textSm = 'text-sm sm:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm';
-
+  const token = useSelector((state: RootState) => state.auth.token);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -33,18 +35,26 @@ const EventSetting = () => {
       formData.append('file', event.target.files[0]);
 
       try {
-        setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
-        const response = await fetch(`${SERVER_URL}/api/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          console.log("storeIamge-url: " + data.url);
-          setPhotoImageUrl(data.url);
+        if (!token) {
+          router.push('/auth/login');
         } else {
-          console.log(response.status);
+          setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
+          const response = await fetch(`${SERVER_URL}/api/upload`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+          });
+
+          if (response.status === 200) {
+            const data = await response.json();
+            console.log("storeIamge-url: " + data.url);
+            setPhotoImageUrl(data.url);
+          } else {
+            console.log(response.status);
+          }
         }
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -57,56 +67,63 @@ const EventSetting = () => {
   }
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Add event settings logic here
-    const coverImage = `${photoImageUrl}`;
-    const formData = new FormData(e.currentTarget);
-    const eventName = formData.get('eventName');
-    const category = selectedCategory;
-    const description = formData.get('description');
-    const eventDate = formData.get('schedule');
-    const _eventStartTime = formData.get('startTime');
-    const _eventEndTime = formData.get('endTime');
-    let eventStartTime, eventEndTime;
-    if(eventDate && _eventStartTime)
-      eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
-    if(eventDate && _eventEndTime)
-      eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
-    const maleTotal = formData.get('maleTotal');
-    const femaleTotal = formData.get('femaleTotal');
-    const maleFee = formData.get('maleFee');
-    const femaleFee = formData.get('femaleFee');
-    const store = profile?._id;
-    
-    const response = await fetch(`${SERVER_URL}/api/events`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        eventName,
-        category,
-        coverImage,
-        description,
-        eventDate,
-        eventStartTime,
-        eventEndTime,
-        maleTotal,
-        femaleTotal,
-        maleFee,
-        femaleFee,
-        store
-      }),
-    });
-
-    if (response.status === 201) {
-      setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
-      setTimeout(() => {
-        sessionStorage.setItem('selectedMenu', 'dashboard');
-        router.push('/dashboard');
-      }, 1500);
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      console.log(response.status);
-      console.log("try again.");
+      e.preventDefault();
+
+      // Add event settings logic here
+      const coverImage = `${photoImageUrl}`;
+      const formData = new FormData(e.currentTarget);
+      const eventName = formData.get('eventName');
+      const category = selectedCategory;
+      const description = formData.get('description');
+      const eventDate = formData.get('schedule');
+      const _eventStartTime = formData.get('startTime');
+      const _eventEndTime = formData.get('endTime');
+      let eventStartTime, eventEndTime;
+      if(eventDate && _eventStartTime)
+        eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
+      if(eventDate && _eventEndTime)
+        eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
+      const maleTotal = formData.get('maleTotal');
+      const femaleTotal = formData.get('femaleTotal');
+      const maleFee = formData.get('maleFee');
+      const femaleFee = formData.get('femaleFee');
+      const store = profile?._id;
+      
+      const response = await fetch(`${SERVER_URL}/api/events`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          eventName,
+          category,
+          coverImage,
+          description,
+          eventDate,
+          eventStartTime,
+          eventEndTime,
+          maleTotal,
+          femaleTotal,
+          maleFee,
+          femaleFee,
+          store
+        }),
+      });
+
+      if (response.status === 201) {
+        setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
+        setTimeout(() => {
+          sessionStorage.setItem('selectedMenu', 'dashboard');
+          router.push('/dashboard');
+        }, 1500);
+      } else {
+        console.log(response.status);
+        console.log("try again.");
+      }
     }
   });
   

@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import { useAuth } from '@/app/components/auth/authContext';
 import MainPanel from '@/app/components/store/dashboard/mainPanel';
@@ -12,6 +12,8 @@ import EventCard from '@/app/components/event/eventCard';
 import RecentReviews from '@/app/components/store/dashboard/recentReviews';
 import ReviewModal from '@/app/components/store/dashboard/reviewModal';
 import ReplyModal from '@/app/components/store/dashboard/replyModal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface UpcomingEvent {
   eventName: string;
@@ -66,57 +68,72 @@ const Dashboard = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useIonRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch mainPanel Data
-        const response_mainPanel = await fetch(`${SERVER_URL}/api/stores/main-panel`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ storeId: profile?._id }),
-        });
-        if (response_mainPanel.ok) {
-          const result_mainPanel = await response_mainPanel.json();
-          setMainPanelData(result_mainPanel);
-        } else {
-          console.error('Failed to fetch mainPanel data');
-        }
+    if (!token) {
+      router.push('/auth/login');
+    } else {
+      const fetchData = async () => {
+        try {
+          // Fetch mainPanel Data
+          const response_mainPanel = await fetch(`${SERVER_URL}/api/stores/main-panel`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ storeId: profile?._id }),
+          });
+          if (response_mainPanel.ok) {
+            const result_mainPanel = await response_mainPanel.json();
+            setMainPanelData(result_mainPanel);
+          } else {
+            console.error('Failed to fetch mainPanel data');
+          }
 
-        // Fetch recentReviews Data
-        const response_recentReviews = await fetch(`${SERVER_URL}/api/reviews/store/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ storeId: profile?._id })
-        });
-        if (response_recentReviews.ok) {
-          const result_recentReviews = await response_recentReviews.json();
-          setRecentReviews(result_recentReviews.data);
-        } else {
-          console.error('Failed to fetch recentReviews data');
-        }
+          // Fetch recentReviews Data
+          const response_recentReviews = await fetch(`${SERVER_URL}/api/reviews/store/filter`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ storeId: profile?._id })
+          });
+          if (response_recentReviews.ok) {
+            const result_recentReviews = await response_recentReviews.json();
+            setRecentReviews(result_recentReviews.data);
+          } else {
+            console.error('Failed to fetch recentReviews data');
+          }
 
-        // Fetch upcomingEvents Data
-        const response_upcomingEvents = await fetch(`${SERVER_URL}/api/stores/upcoming-events`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ store: profile?._id }),
-        });
-        if (response_upcomingEvents.ok) {
-          const result_upcomingEvents = await response_upcomingEvents.json();
-          setUpcomingEvents(result_upcomingEvents.data);
-        } else {
-          // Error handler
-          console.error('Failed to fetch upcoming events data');
+          // Fetch upcomingEvents Data
+          const response_upcomingEvents = await fetch(`${SERVER_URL}/api/stores/upcoming-events`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ store: profile?._id }),
+          });
+          if (response_upcomingEvents.ok) {
+            const result_upcomingEvents = await response_upcomingEvents.json();
+            setUpcomingEvents(result_upcomingEvents.data);
+          } else {
+            // Error handler
+            console.error('Failed to fetch upcoming events data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

@@ -24,6 +24,7 @@ const StoreProfileSetting = () => {
   const { profile } = useSelector((state: RootState) => state.auth);
   const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [access, setAccess] = useState<string[]>(['']);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const handleAddImage = (newImage: string) => {
     setStoreImages((prevImages) => [...prevImages, newImage]);
@@ -64,39 +65,46 @@ const StoreProfileSetting = () => {
   };
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add StoreProfileSettings logic here
-    const formData = new FormData(e.currentTarget);
-    const storeName = formData.get('storeName');
-    const storeGenre = formData.get('storeGenre');
-    const foodGenre = formData.get('foodGenre');
-    const cookingGenre = formData.get('cookingGenre');
-    const description = formData.get('description');
-
-    const response = await fetch(`${SERVER_URL}/api/stores/${storeID}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        storeName,
-        storeGenre,
-        foodGenre,
-        cookingGenre,
-        address,
-        access,
-        storeImages,
-        description,
-        storeLat: storeLocation?.lat,
-        storeLng: storeLocation?.lng,
-      }),
-    });
-
-    if (response.status === 200) {
-      setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
-      setTimeout(() => {
-        router.push('/settings');
-      }, 1500);
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+      e.preventDefault();
+      // Add StoreProfileSettings logic here
+      const formData = new FormData(e.currentTarget);
+      const storeName = formData.get('storeName');
+      const storeGenre = formData.get('storeGenre');
+      const foodGenre = formData.get('foodGenre');
+      const cookingGenre = formData.get('cookingGenre');
+      const description = formData.get('description');
+
+      const response = await fetch(`${SERVER_URL}/api/stores/${storeID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          storeName,
+          storeGenre,
+          foodGenre,
+          cookingGenre,
+          address,
+          access,
+          storeImages,
+          description,
+          storeLat: storeLocation?.lat,
+          storeLng: storeLocation?.lng,
+        }),
+      });
+
+      if (response.status === 200) {
+        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+        setTimeout(() => {
+          router.push('/settings');
+        }, 1500);
+      } else {
+        setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+      }
     }
   })
   

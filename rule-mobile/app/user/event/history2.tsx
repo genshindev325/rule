@@ -108,7 +108,6 @@ const EventHistory2: React.FC = () => {
             },
             body: JSON.stringify({ past: true, user: userId })
           });
-          console.log(userId)
           if (response_pastEvents.status === 200) {
             const result = await response_pastEvents.json();
             const result_events: PastEventProps[] = result.data;

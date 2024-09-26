@@ -8,40 +8,50 @@ import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { SERVER_URL } from '@/app/config';
 import Notification from '@/app/utils/notification';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store';
 
 const TransferAccountSetting = () => {
   const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useIonRouter();
+  const token = useSelector((state: RootState) => state.auth.token);
   
   const handleCloseNotification = () => {
     setNotification(null);
   };
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add transfer account setting logic here
-    const formData = new FormData(e.currentTarget);
-    const bankName = formData.get('bankName');
-    const branchName = formData.get('branchName');
-    const accountNumber = formData.get('accountNumber');
-    const accountHolder = formData.get('accountHolder');
-
-    const response = await fetch(`${SERVER_URL}/api/stores/transfer-account`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
-    });
-
-    if (response.status === 200) {
-      setNotification({message: '振込口座の設定が完了しました。', type: 'success'});
-      setTimeout(() => {
-        router.push('/settings');
-      }, 1000);
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      console.log(response.status);
-      console.log("Failed.");
+      e.preventDefault();
+      // Add transfer account setting logic here
+      const formData = new FormData(e.currentTarget);
+      const bankName = formData.get('bankName');
+      const branchName = formData.get('branchName');
+      const accountNumber = formData.get('accountNumber');
+      const accountHolder = formData.get('accountHolder');
+
+      const response = await fetch(`${SERVER_URL}/api/stores/transfer-account`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
+      });
+
+      if (response.status === 200) {
+        setNotification({message: '振込口座の設定が完了しました。', type: 'success'});
+        setTimeout(() => {
+          router.push('/settings');
+        }, 1000);
+      } else {
+        console.log(response.status);
+        console.log("Failed.");
+      }
     }
   })
 

@@ -3,8 +3,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import { useIonRouter } from '@ionic/react';
 import RemoveImageModal from './removeImageModal';
 import { SERVER_URL } from '../config';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface ImageCarouselProps {
   onAddImage: (newImage: string) => void;
@@ -15,6 +18,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
   const [isVisibleRemoveImageModal, setIsVisibleRemoveImageModal] = useState(false);
   const [selectedImageId, setSelectedImageIndex] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useIonRouter();
 
   // Update slider when images change
   useEffect(() => {
@@ -60,16 +65,24 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
       formData.append('file', file);
 
       try {
-        const response = await fetch(`${SERVER_URL}/api/upload`, {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          handleAddImage(data.url); // Add to internal state
+        if (!token) {
+          router.push('/auth/login');
         } else {
-          console.log(`Failed to upload image. Status: ${response.status}`);
+          const response = await fetch(`${SERVER_URL}/api/upload`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+          });
+
+          if (response.status === 200) {
+            const data = await response.json();
+            handleAddImage(data.url); // Add to internal state
+          } else {
+            console.log(`Failed to upload image. Status: ${response.status}`);
+          }
         }
       } catch (error) {
         console.error('Error uploading image:', error);

@@ -3,12 +3,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, IonRouterLink, useIonRouter } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import EventCard from '@/app/components/event/eventCard';
 import EventReviewCard from '@/app/components/event/eventReviewCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface UpcomingEventProps {
   eventName: string;
@@ -53,6 +55,8 @@ const EventList: React.FC = () => {
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useIonRouter();
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -63,43 +67,53 @@ const EventList: React.FC = () => {
   }
 
   useEffect(() => {
-    const fetchEventData = async () => {
-      try {
-        // get upcoming events
-        const response_upcomingEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ upcoming: true }),
-        });
-        if (response_upcomingEvents.status === 200) {
-          const result = await response_upcomingEvents.json();
-          setUpcomingEvents(result.data);
-        } else {
-          console.log(response_upcomingEvents.status);
-          console.log("Getting upcoming events failed.");
-        }
+    if (!token) {
+      router.push('/auth/login');
+    } else {
+      const fetchEventData = async () => {
+        try {
+          // get upcoming events
+          const response_upcomingEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ upcoming: true }),
+          });
+          if (response_upcomingEvents.status === 200) {
+            const result = await response_upcomingEvents.json();
+            setUpcomingEvents(result.data);
+          } else {
+            console.log(response_upcomingEvents.status);
+            console.log("Getting upcoming events failed.");
+          }
 
-        // get past events
-        const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ past: true })
-        });
-        if (response_pastEvents.status === 200) {
-          const result = await response_pastEvents.json();
-          const result_events: PastEventProps[] = result.data;
-          const filterEvents = result_events.filter(event => event && event.store !== null);
-          setPastEvents(filterEvents);
-        } else {
-          console.log(response_pastEvents.status);
-          console.log("Getting past events failed.")
+          // get past events
+          const response_pastEvents = await fetch(`${SERVER_URL}/api/events/filter`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ past: true })
+          });
+          if (response_pastEvents.status === 200) {
+            const result = await response_pastEvents.json();
+            const result_events: PastEventProps[] = result.data;
+            const filterEvents = result_events.filter(event => event && event.store !== null);
+            setPastEvents(filterEvents);
+          } else {
+            console.log(response_pastEvents.status);
+            console.log("Getting past events failed.")
+          }
+        } catch(error) {
+          console.error("An error occurred during get events:", error);
         }
-      } catch(error) {
-        console.error("An error occurred during get events:", error);
       }
-    }
 
-    fetchEventData();
+      fetchEventData();
+    }
   }, [])
 
   return (

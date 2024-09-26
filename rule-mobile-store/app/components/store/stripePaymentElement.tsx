@@ -45,6 +45,7 @@ const FormInput = () => {
   const router = useIonRouter();
   const [cardholderName, setCardholderName] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
+  const token = useSelector((state: RootState) => state.auth.token);
   const [storeID, setStoreID] = useState('');
   const [last4, setLast4] = useState('');
   const [exDate, setExDate] = useState('');
@@ -62,45 +63,50 @@ const FormInput = () => {
   // Fetch registered card details
   const fetchRegisteredCard = async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          holderRole: "store",
-          holderId: storeID
-        }),
-      });
-      
-      if (response.status === 200) {
-        const result = await response.json();
-        setRegisteredCard(result.data);
-        const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
-        const last4 = paymentMethod.card?.last4;
-        const brand = paymentMethod.card?.brand;
-        const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
-        last4 && setLast4(last4); 
-        switch (brand) {
-          case "visa":
-              setCardSVG(visaSVG);
-            break;
-          case "mastercard":
-              setCardSVG(masterCardSVG);
-            break;
-          case "amex":
-              setCardSVG(americanExpressSVG);
-            break;
-          case "jcb":
-              setCardSVG(jcbSVG);
-            break;        
-          default:
-              setCardSVG('');
-            break;
-        }
-        setExDate(exDate);
+      if (!token) {
+        router.push('/auth/login');
       } else {
-        console.error(`Error fetching card details: ${response.status}`);
+        const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            holderRole: "store",
+            holderId: storeID
+          }),
+        });
+        
+        if (response.status === 200) {
+          const result = await response.json();
+          setRegisteredCard(result.data);
+          const paymentMethod = await stripeGet.paymentMethods.retrieve(result.data.creditCard as string);
+          const last4 = paymentMethod.card?.last4;
+          const brand = paymentMethod.card?.brand;
+          const exDate = `${paymentMethod.card?.exp_month}/${paymentMethod.card?.exp_year}`;
+          last4 && setLast4(last4); 
+          switch (brand) {
+            case "visa":
+                setCardSVG(visaSVG);
+              break;
+            case "mastercard":
+                setCardSVG(masterCardSVG);
+              break;
+            case "amex":
+                setCardSVG(americanExpressSVG);
+              break;
+            case "jcb":
+                setCardSVG(jcbSVG);
+              break;        
+            default:
+                setCardSVG('');
+              break;
+          }
+          setExDate(exDate);
+        } else {
+          console.error(`Error fetching card details: ${response.status}`);
+        }
       }
     } catch (error) {
       console.error('Error fetching card details:', error);
@@ -124,22 +130,29 @@ const FormInput = () => {
   const handleDeleteCard = async () => {
     setDeleteConfirmModalVisible(false);
     try {
-      const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          holderRole: "store",
-          holderId: storeID
-        }),
-      });
-
-      if (response.status === 200) {
-        setRegisteredCard(null);
-        setTimeout(() => {
-          setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
-        }, 2000);
+      if (!token) {
+        router.push('/auth/login');
       } else {
-        console.error(`Error deleting card: ${response.status}`);
+        const response = await fetch(`${SERVER_URL}/api/payments/credit-cards`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            holderRole: "store",
+            holderId: storeID
+          }),
+        });
+
+        if (response.status === 200) {
+          setRegisteredCard(null);
+          setTimeout(() => {
+            setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
+          }, 2000);
+        } else {
+          console.error(`Error deleting card: ${response.status}`);
+        }
       }
     } catch (error) {
       console.error('Error deleting card:', error);
@@ -167,28 +180,33 @@ const FormInput = () => {
       return;
     }
 
-    const response = await fetch(`${SERVER_URL}/api/payments/register-credit-card`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        creditCard: paymentMethod.id,
-        holderRole: "store",
-        holderId: storeID
-      }),
-    });
-
-    const result = await response.json();
-    if (result.success) {
-      setRegisteredCard(result.data);
-      fetchRegisteredCard();
-      setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
-      setTimeout(() => {
-        router.push('/settings');
-      }, 2000);
+    if (!token) {
+      router.push('/auth/login');
     } else {
-      console.error('Error saving payment method:', result.error);
+      const response = await fetch(`${SERVER_URL}/api/payments/register-credit-card`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          creditCard: paymentMethod.id,
+          holderRole: "store",
+          holderId: storeID
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setRegisteredCard(result.data);
+        fetchRegisteredCard();
+        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
+        setTimeout(() => {
+          router.push('/settings');
+        }, 2000);
+      } else {
+        console.error('Error saving payment method:', result.error);
+      }
     }
   };
 

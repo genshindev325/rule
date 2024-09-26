@@ -3,12 +3,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import TotalSales from '@/app/components/store/salesManagement/totalSales';
 import EventHistory from '@/app/components/store/salesManagement/eventHistory';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface EventProps {
   name: string;
@@ -23,27 +25,39 @@ const SalesManagement = () => {
   const [loading, setLoading] = useState(true); 
   const [events, setEvents] = useState<EventProps[]>([]);
   const [totalSales, setTotalSales] = useState(0);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useIonRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch salesManagement Data
-        const response_salesManagement = await fetch(`${SERVER_URL}/api/stores/sales-management`);
-        if (response_salesManagement.ok) {
-          const result_salesManagement = await response_salesManagement.json();
-          setEvents(result_salesManagement.events);
-          setTotalSales(result_salesManagement.totalSales)
-        } else {
-          console.error('Failed to fetch salesManagement data');
+    if (!token) {
+      router.push('/auth/login');
+    } else {
+      const fetchData = async () => {
+        try {
+          // Fetch salesManagement Data
+          const response_salesManagement = await fetch(`${SERVER_URL}/api/stores/sales-management`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          if (response_salesManagement.ok) {
+            const result_salesManagement = await response_salesManagement.json();
+            setEvents(result_salesManagement.events);
+            setTotalSales(result_salesManagement.totalSales)
+          } else {
+            console.error('Failed to fetch salesManagement data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
