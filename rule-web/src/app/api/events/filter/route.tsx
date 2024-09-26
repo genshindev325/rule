@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (body.upcoming) {
       query.where("eventDate").gte(new Date().getTime());
       query = Event.find({
-        eventDate: { $gte: new Date() }
+        eventDate: { $gt: new Date() },
       }).populate({
         path: 'store',
         select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'

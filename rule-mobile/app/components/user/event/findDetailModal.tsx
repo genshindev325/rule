@@ -33,11 +33,17 @@ interface EventProps {
   femaleTotal: number,
   females: number,
   store: {
+    storeName: string;
+    storeImages: string[];
     address: string;
+    access: string[];
     storeGenre: string;
     foodGenre: string;
     cookingGenre: string;
-    storeName: string;
+    description: string;
+    status: string;
+    storeLat: number;
+    storeLng: number;
   };
   status: string;
   createdAt: string;
@@ -80,7 +86,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ location, date, gender, age, category, storeGenre, foodGenre, cookingGenre, upcoming: true }),
+          body: JSON.stringify({ upcoming: true }),
         });
         if (response.status === 200) {
           const result = await response.json();
