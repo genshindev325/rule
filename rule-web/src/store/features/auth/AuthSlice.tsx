@@ -11,6 +11,8 @@ interface AuthState {
   role: string | null;
   profile: ProfileProps | null;
   token: string | null;
+  selectedMenu: string;
+  previewMenu: string;
 }
 
 const initialState: AuthState = {
@@ -19,6 +21,8 @@ const initialState: AuthState = {
   role: typeof window !== "undefined" ? sessionStorage.getItem('role') : null,
   profile: typeof window !== "undefined" ? sessionStorage.getItem('profile') && JSON.parse(sessionStorage.getItem('profile') || '') : null,
   token: typeof window !== "undefined" ? sessionStorage.getItem('token') : null,
+  selectedMenu: '',
+  previewMenu: '',
 };
 
 const authSlice = createSlice({
@@ -37,7 +41,8 @@ const authSlice = createSlice({
       sessionStorage.setItem('role', action.payload.user.role);
       sessionStorage.setItem('profile', JSON.stringify(action.payload.user.profile));
       sessionStorage.setItem('token', action.payload.token);
-      
+      sessionStorage.setItem('selectedMenu', '');
+      sessionStorage.setItem('previewMenu', '');
     },
     signOut: (state) => {
       state.isAuthenticated = false;
@@ -46,11 +51,13 @@ const authSlice = createSlice({
       state.profile = null;
       state.token = null;
 
-      sessionStorage.setItem('isAuthenticated', JSON.stringify(true));
+      sessionStorage.setItem('isAuthenticated', JSON.stringify(false));
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('role');
       sessionStorage.removeItem('profile');
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('selectedMenu');
+      sessionStorage.removeItem('previewMenu');
     },
   },
 });

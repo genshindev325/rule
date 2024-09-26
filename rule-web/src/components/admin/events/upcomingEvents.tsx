@@ -7,6 +7,9 @@ import React, { useState } from 'react';
 import DropdownMenu from '@/components/utils/dropdownMenu';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 import { formatDateTime } from '@/utils/datetime';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
   _id: number,
@@ -29,6 +32,8 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
+  const token = useSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   // Delete event logic
   const handleDelete = (rowId: number) => {
@@ -37,27 +42,34 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
   };
 
   const handleConfirmDelete = async () => {
-    if (selectedRowId !== null) {
-      const response = await fetch(`/api/events/${selectedRowId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-      });
-  
-      if (response.status === 200) {
-        const result = await response.json();
-        console.log(result.message);
-        // Filter out the deleted event from the state
-        setUpcomingEvents(prevEvents => prevEvents.filter(event => event._id !== selectedRowId));
-
-        // Optionally, reset to the first page if the last item on the current page is deleted
-        if ((currentPage - 1) * itemsPerPage >= upcomingEvents.length - 1) {
-          setCurrentPage(prev => Math.max(prev - 1, 1));
-        }
+    if (!token) {
+      router.push('/auth/login');
       } else {
-        console.log(response.status);
-        console.log("Delete event failed.");
+      if (selectedRowId !== null) {
+        const response = await fetch(`/api/events/${selectedRowId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+        });
+    
+        if (response.status === 200) {
+          const result = await response.json();
+          console.log(result.message);
+          // Filter out the deleted event from the state
+          setUpcomingEvents(prevEvents => prevEvents.filter(event => event._id !== selectedRowId));
+
+          // Optionally, reset to the first page if the last item on the current page is deleted
+          if ((currentPage - 1) * itemsPerPage >= upcomingEvents.length - 1) {
+            setCurrentPage(prev => Math.max(prev - 1, 1));
+          }
+        } else {
+          console.log(response.status);
+          console.log("Delete event failed.");
+        }
+        setSelectedRowId(null);
       }
-      setSelectedRowId(null);
     }
     setDeleteConfirmModalVisible(false);
   };
@@ -109,9 +121,6 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="border border-width-0 py-2 px-6 rounded-lg text-white text-lg bg-green-700 hover:bg-green-800 focus:outline-none duration-300">
-          検索
-        </button>
         <div className="flex ml-auto items-center space-x-2">
           <span>1ページあたりの項目数:</span>
           <input type="number" value={itemsPerPage} onChange={handleItemsPerPageChange}

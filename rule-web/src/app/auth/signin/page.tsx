@@ -36,8 +36,10 @@ const SignIn = () => {
       
       if (role === 'admin') {
         router.push('/admin/dashboard');
+        sessionStorage.setItem('selectedMenu', 'dashboard');
       } else if (role === 'store') {
         router.push('/store/dashboard');
+        sessionStorage.setItem('selectedMenu', 'dashboard');
       } else {
         setNotification({ message: 'エラー', type: 'error' });
       }

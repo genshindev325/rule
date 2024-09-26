@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
     } else if (body.openAt) {
       query.where("eventDate").equals(body.openAt);
     } else if (body.past) {
-      console.log("pastpast: " + body.user);
       // find past events user participated
       if (body.user) {
         // Find all event participations by the user
@@ -33,7 +32,6 @@ export async function POST(req: NextRequest) {
         }).select('eventId');
         // Extract event IDs
         const eventIds = participatedEvents.map((participation) => participation.eventId);
-        console.log("eventIds: " + eventIds);
         // Query Event model to find events in the past
         query = Event.find({
           _id: { $in: eventIds },
@@ -92,7 +90,6 @@ export async function POST(req: NextRequest) {
     }
 
     const events = await query.exec();
-    console.log("events: " + JSON.stringify(events));
     return NextResponse.json({ success: true, data: events }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ success: false, error }, { status: 500 });
