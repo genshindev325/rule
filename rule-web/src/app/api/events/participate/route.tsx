@@ -60,14 +60,14 @@ export async function POST(req: NextRequest) {
     const storeId = event?.store;
     const storePayment = await StorePayment.findOne({store: storeId, paymentDate: paymentDate});
     if(storePayment){
-
+      console.log("storePayment: " + storePayment);
     }else{
       const newStorePayment = await StorePayment.create({
         store: storeId,
         paymentDate: paymentDate,
         paymentAmount: storeIncome,
       });
-
+      console.log("result: " + newStorePayment);
     }
 
     return NextResponse.json({ success: true }, { status: 201 });
