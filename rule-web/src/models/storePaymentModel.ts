@@ -4,7 +4,7 @@ const timeNow = new Date();
 interface IStorePayment extends Document {
     store: mongoose.ObjectId;
     storeName: string;
-    paymentDate: Date;
+    paymentDate: string;
     paymentAmount: number;
     status: string;
     createdAt: Date;
@@ -12,7 +12,7 @@ interface IStorePayment extends Document {
 
 const storePaymentSchema = new Schema<IStorePayment>({
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
-    paymentDate: { type: Date, default: () => new Date() },
+    paymentDate: { type: String, default: '2024年 10月 05日' },
     storeName: { type: String, required: true, default: '未知' },
     paymentAmount: { type: Number, default: 0 },
     status: {
