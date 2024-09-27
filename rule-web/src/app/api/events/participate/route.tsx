@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     const store = event?.store;
     console.log("store: " + store)
-    const storePayment = await StorePayment.findOne({store, paymentDate});
+    const storePayment = await StorePayment.findOne({ store });
     console.log("storePayment: " + storePayment);
     if(storePayment){
       console.log("storePayment: " + storePayment);
