@@ -8,7 +8,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   const storeName = body.storeName;
 
   try {
-    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { storeName }, { new: true, runValidators: true });
+    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { storeName });
     if (!storePayment) {
       return NextResponse.json({ success: false, message: 'Store payment not found' }, { status: 404 });
     }
