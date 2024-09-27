@@ -74,11 +74,13 @@ export async function POST(req: NextRequest) {
       );
       console.log("result: " + updateStorePayment);
     } else {
+      console.log("test")
       const newStorePayment = await StorePayment.create({
         store: storeId,
         storeName: storeName,
         paymentDate: paymentDate,
         paymentAmount: storeIncome,
+        status: 'unpaid'
       });
       console.log("result: " + newStorePayment);
     }
