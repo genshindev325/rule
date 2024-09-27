@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     fee,
     paymentDate,
     // storeId,
-    // storeName,
+    storeName,
   } = body;
   const storeIncome = totalPrice - fee * 2;
 
@@ -57,15 +57,26 @@ export async function POST(req: NextRequest) {
     if (!eventParticipate)
       return NextResponse.json({ success: false, message: "Failed to participate" }, { status: 400 });
 
-    const store = event?.store;
-    console.log("store: " + store)
-    const storePayment = await StorePayment.findOne({ store });
-    console.log("storePayment: " + storePayment);
+    const storeId = event?.store;
+    const storePayment = await StorePayment.findOne({ store: storeId, paymentDate: paymentDate });
     if(storePayment){
-      console.log("storePayment: " + storePayment);
-    }else{
+      const updateStorePayment = await StorePayment.findOneAndUpdate(
+        {
+          store: storeId,
+          paymentDate: paymentDate
+        },
+        {
+          $inc: {
+            paymentAmount: storeIncome
+          }
+        },
+        { new: true }
+      );
+      console.log("result: " + updateStorePayment);
+    } else {
       const newStorePayment = await StorePayment.create({
-        store: store,
+        store: storeId,
+        storeName: storeName,
         paymentDate: paymentDate,
         paymentAmount: storeIncome,
       });
