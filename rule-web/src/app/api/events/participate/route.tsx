@@ -58,7 +58,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Failed to participate" }, { status: 400 });
 
     const storeId = event?.store;
+    console.log("storeId: " + storeId)
     const storePayment = await StorePayment.findOne({ store: storeId, paymentDate: paymentDate });
+    console.log("storePayment: " + JSON.stringify(storePayment))
     if(storePayment){
       const updateStorePayment = await StorePayment.findOneAndUpdate(
         {
