@@ -65,24 +65,19 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
       formData.append('file', file);
 
       try {
-        if (!token) {
-          router.push('/auth/login');
-        } else {
-          const response = await fetch(`${SERVER_URL}/api/upload`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json', 
-              'Authorization': `Bearer ${token}`
-            },
-            body: formData,
-          });
+        const response = await fetch(`${SERVER_URL}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: formData,
+        });
 
-          if (response.status === 200) {
-            const data = await response.json();
-            handleAddImage(data.url); // Add to internal state
-          } else {
-            console.log(`Failed to upload image. Status: ${response.status}`);
-          }
+        if (response.status === 200) {
+          const data = await response.json();
+          handleAddImage(data.url); // Add to internal state
+        } else {
+          console.log(`Failed to upload image. Status: ${response.status}`);
         }
       } catch (error) {
         console.error('Error uploading image:', error);

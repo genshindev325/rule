@@ -35,26 +35,21 @@ const EventSetting = () => {
       formData.append('file', event.target.files[0]);
 
       try {
-        if (!token) {
-          router.push('/auth/login');
-        } else {
-          setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
-          const response = await fetch(`${SERVER_URL}/api/upload`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json', 
-              'Authorization': `Bearer ${token}`
-            },
-            body: formData,
-          });
+        setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
+        const response = await fetch(`${SERVER_URL}/api/upload`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: formData,
+        });
 
-          if (response.status === 200) {
-            const data = await response.json();
-            console.log("storeIamge-url: " + data.url);
-            setPhotoImageUrl(data.url);
-          } else {
-            console.log(response.status);
-          }
+        if (response.status === 200) {
+          const data = await response.json();
+          console.log("storeIamge-url: " + data.url);
+          setPhotoImageUrl(data.url);
+        } else {
+          console.log(response.status);
         }
       } catch (error) {
         console.error('Error uploading image:', error);

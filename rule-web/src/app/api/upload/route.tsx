@@ -9,12 +9,6 @@ cloudinary.v2.config({
 });
 
 export async function POST(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
-  }
-
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;

@@ -35,32 +35,27 @@ const EventSettings = () => {
 
   // Handle file selection  
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!token) {
-      router.push('/auth/login');
-      } else {
-      if (event.target.files && event.target.files[0]) {
-        const formData = new FormData();
-        formData.append('file', event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      const formData = new FormData();
+      formData.append('file', event.target.files[0]);
 
-        try {
-          const response = await fetch('/api/upload', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json', 
-              'Authorization': `Bearer ${token}`
-            },
-            body: formData,
-          });
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: formData,
+        });
 
-          if (response.status === 200) {
-            const data = await response.json();
-            setPhotoImageUrl(data.url);
-          } else {
-            console.log(response.status);
-          }
-        } catch (error) {
-          console.error('Error uploading image:', error);
+        if (response.status === 200) {
+          const data = await response.json();
+          setPhotoImageUrl(data.url);
+        } else {
+          console.log(response.status);
         }
+      } catch (error) {
+        console.error('Error uploading image:', error);
       }
     }
   };
