@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { GoogleMap, OverlayView } from '@react-google-maps/api';
+import { useIonRouter } from '@ionic/react';
 import { formatDateTime } from './datetime';
 import EventCarousel from '@/app/components/user/event/eventCarousel';
 import FindDetailModal from '../user/event/findDetailModal';
@@ -25,10 +26,12 @@ interface EventProps {
     storeName: string;
     storeImages: string[];
     cookingGenre: string;
-    address: string,
-    access: string[],
-    description: string,
-    status: string,
+    foodGenre: string;
+    storeGenre: string;
+    address: string;
+    access: string[];
+    description: string;
+    status: string;
   };
   status: string;
   createdAt: string;
@@ -49,6 +52,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
   const mapRef = useRef<google.maps.Map | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const searchSVG = '/svg/search.svg';
   const detailSVG = '/svg/detail.svg';
@@ -81,7 +85,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
   );
 
   const panToCurrentLocation = useCallback(() => {
-    console.log("sdfsdf")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -155,6 +158,25 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
     </OverlayView>
   );
 
+  const handleSearchWithConditions = (searchConditions: {
+    category?: string;
+    storeGenre?: string;
+    foodGenre?: string;
+    cookingGenre?: string;
+  }) => {
+    const { category, storeGenre, foodGenre, cookingGenre } = searchConditions;
+
+    const newFilteredEvents = events.filter(event => {
+      return (
+        (!category || event.category === category) &&
+        (!storeGenre || event.store.storeGenre === storeGenre) &&
+        (!foodGenre || event.store.foodGenre === foodGenre) &&
+        (!cookingGenre || event.store.cookingGenre === cookingGenre)
+      );
+    });
+    router.push(`/event/eventResult4?events=${JSON.stringify(newFilteredEvents)}`);
+  };
+
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
@@ -192,7 +214,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
         </div>
       </div>
       {/* Find event with more detail conditions */}
-      <FindDetailModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <FindDetailModal isOpen={isModalOpen} onClose={handleCloseModal} onSearch={handleSearchWithConditions} />
     </GoogleMap>
   );
 };

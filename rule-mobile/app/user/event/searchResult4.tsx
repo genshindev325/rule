@@ -32,21 +32,15 @@ const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'absolute top-48 rounded-xl bg-white px-1 sm:px-2 md:px-4 py-6 sm:py-12 md:py-20 mx-2 sm:m-4 md:m-6 flex flex-col shadow-md space-y-4';
+  const container = 'absolute top-20 rounded-xl bg-white px-3 sm:px-4 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4';
   const searchSVG = '/svg/search.svg';
   const settingSVG = '/svg/settings.svg';
   const textMd = 'text-md sm:text-lg';
   const fromTop = 'pt-[900px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
-  
-  const handle20Over = () => {};
-  const handleStudent = () => {};
-  const handleSocial = () => {};
-  const handleAnime = () => {};
 
   // get events from findDetailModal params
   const searchParams = useSearchParams ();
   const resultEvents = searchParams.get('events');
-  const router = useIonRouter();
 
   useEffect(() => {
     if (resultEvents) {
@@ -60,25 +54,18 @@ const SearchResult4: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
             {/* header */}
-            <div className={`h-80 md:h-88 w-full ${maleGradient}`}>
+            <div className={`h-56 md:h-60 w-full ${maleGradient}`}>
               <div className='flex flex-row text-xl text-center text-white font-bold pt-6 px-4'>                
-                <IonRouterLink routerLink={'/event/findOnMap'}>
+                <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
                 <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
+              {/* <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
                 <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6"/>
                 <h2 className="text-md font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
                 <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
-              </div>
-              {/* buttons */}
-              <div className='flex flex-row justify-center space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
-                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handle20Over}>20代以上</button>
-                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleStudent}>大学生Only</button>
-                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleSocial}>社会人Only</button>
-                <button className='rounded-full bg-white shadow-lg px-2 md:px-4 py-1' onClick={handleAnime}>アニメ好き</button>
-              </div>
+              </div> */}
             </div>
             {/* container */}
             <div className={`${container}`}>

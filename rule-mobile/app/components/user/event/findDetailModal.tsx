@@ -1,62 +1,52 @@
-// components/user/event/findDetailModal.tsx
-
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useIonRouter } from '@ionic/react';
-import { SERVER_URL } from '@/app/config';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store/store';
-
-// Get today's date in the YYYY-MM-DD format
-const today = new Date();
-const getTodayDate = (): string => {
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 interface EventProps {
-  _id: string,
-  eventName: string,
-  category: string,
-  coverImage: string,
-  description: string,
-  eventDate: string,
-  eventStartTime: string,
-  eventEndTime: string,
-  maleFee: number,
-  maleTotal: number,
-  males: number,
-  femaleFee: number,
-  femaleTotal: number,
-  females: number,
+  _id: string;
+  eventName: string;
+  category: string;
+  coverImage: string;
+  description: string;
+  eventDate: string;
+  eventStartTime: string;
+  eventEndTime: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
   store: {
-    storeName: string;
-    storeImages: string[];
-    address: string;
-    access: string[];
-    storeGenre: string;
-    foodGenre: string;
-    cookingGenre: string;
-    description: string;
-    status: string;
     storeLat: number;
     storeLng: number;
+    storeName: string;
+    storeImages: string[];
+    cookingGenre: string;
+    foodGenre: string;
+    storeGenre: string;
+    address: string;
+    access: string[];
+    description: string;
+    status: string;
   };
   status: string;
   createdAt: string;
-  rating: number;
-  ratingCount: number;
 }
 
 interface ReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSearch: (searchConditions: {
+    category?: string;
+    storeGenre?: string;
+    foodGenre?: string;
+    cookingGenre?: string;
+  }) => void;
 }
 
-const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
+const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const textSm = 'text-center text-sm sm:text-md md:text-lg';
@@ -64,43 +54,25 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
 
   const modalRef = useRef<HTMLDivElement>(null);
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState(getTodayDate());
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [age, setAge] = useState('');
   const [category, setCategory] = useState('');
   const [storeGenre, setStoreGenre] = useState('');
   const [foodGenre, setFoodGenre] = useState('');
   const [cookingGenre, setCookingGenre] = useState('');
-  const token = useSelector((state: RootState) => state.auth.token);
- 
-  const router = useIonRouter();
 
-  const handleSubmit = async () => {
-    try {
-      if (!token) {
-        router.push('/auth/login');
-      } else {
-        const response = await fetch(`${SERVER_URL}/api/events/filter`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ upcoming: true }),
-        });
-        if (response.status === 200) {
-          const result = await response.json();
-          const result_events: EventProps[] = result.data;
-          const filterEvents = result_events.filter(event => event && event.store !== null);
-          router.push(`/event/eventResult4?events=${JSON.stringify(filterEvents)}`);
-        } else {
-          console.log(response.status);
-        }
-        onClose();
-      }
-    } catch (error) {
-      console.log(error);
+  const handleWithConditions = () => {
+    console.log("onSearch called with:", { category, storeGenre, foodGenre, cookingGenre });
+    if (onSearch) {  // Ensure onSearch exists before calling it
+      onSearch({
+        category,
+        storeGenre,
+        foodGenre,
+        cookingGenre,
+      });
     }
+    onClose(); // Close the modal after search
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -125,9 +97,12 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
       <div ref={modalRef} className="bg-white px-4 py-6 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
-        {/*location and date*/}
         <div className="flex mb-3 space-x-2">
-          <select id="location" name="location" value={location} onChange={(e) => setLocation(e.target.value)}
+          <select
+            id="location"
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             className={`block w-40 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">場所を選択</option>
@@ -136,20 +111,37 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
           </select>
           <input
             type="date"
-            name='date'
+            name="date"
             onChange={(e) => setDate(e.target.value)}
             className={`w-40 p-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
             value={date}
             min={new Date().toISOString().split('T')[0]}
           />
         </div>
-        {/*gender and age*/}
         <div className="flex space-x-2">
-          <div className=''>
-            <button className={`rounded-l-md px-5 py-2 border border-r-0 ${textXs} text-center ${gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('male')}>男性</button>
-            <button className={`rounded-r-md px-5 py-2 border border-l-0 ${textXs} text-center ${gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
+          <div>
+            <button
+              className={`rounded-l-md px-5 py-2 border border-r-0 ${textXs} text-center ${
+                gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              }`}
+              onClick={() => setGender('male')}
+            >
+              男性
+            </button>
+            <button
+              className={`rounded-r-md px-5 py-2 border border-l-0 ${textXs} text-center ${
+                gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              }`}
+              onClick={() => setGender('female')}
+            >
+              女性
+            </button>
           </div>
-          <select id="age" name="age" value={age} onChange={(e) => setAge(e.target.value)}
+          <select
+            id="age"
+            name="age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
             className={`block w-28 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">年齢</option>
@@ -161,9 +153,12 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
           </select>
           <h2 className={`${textXs} my-auto`}>歳</h2>
         </div>
-        {/* category, store, food, genre */}
-        <div className='flex flex-col space-y-3 py-3'>
-          <select id="category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}
+        <div className="flex flex-col space-y-3 py-3">
+          <select
+            id="category"
+            name="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className={`block w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">カテゴリーを選択</option>
@@ -174,7 +169,11 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="趣味交流会">趣味交流会</option>
             <option value="その他">その他 ...</option>
           </select>
-          <select id="store" name="store" value={storeGenre} onChange={(e) => setStoreGenre(e.target.value)}
+          <select
+            id="store"
+            name="store"
+            value={storeGenre}
+            onChange={(e) => setStoreGenre(e.target.value)}
             className={`block w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">店舗ジャンルを選択</option>
@@ -188,7 +187,11 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="専門料理店">専門料理店</option>
             <option value="その他">その他 ...</option>
           </select>
-          <select id="food" name="food" value={foodGenre} onChange={(e) => setFoodGenre(e.target.value)}
+          <select
+            id="food"
+            name="food"
+            value={foodGenre}
+            onChange={(e) => setFoodGenre(e.target.value)}
             className={`relative w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">食材ジャンルを選択</option>
@@ -197,7 +200,11 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="野菜系">野菜系</option>
             <option value="その他">その他 ...</option>
           </select>
-          <select id="cooking" name="cooking" value={cookingGenre} onChange={(e) => setCookingGenre(e.target.value)}
+          <select
+            id="cooking"
+            name="cooking"
+            value={cookingGenre}
+            onChange={(e) => setCookingGenre(e.target.value)}
             className={`block w-full p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">料理ジャンルを選択</option>
@@ -219,7 +226,14 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose }) => {
             <option value="その他">その他 ...</option>
           </select>
         </div>
-        <button type='submit' id='searchWith' className={`rounded-full w-full py-2 mt-6 ${maleGradient} ${textSm} font-semibold text-white`} onClick={handleSubmit}>この条件で検索</button>
+        <button
+          type="button"
+          id="searchWith"
+          className={`rounded-full w-full py-2 mt-6 ${maleGradient} ${textSm} font-semibold text-white`}
+          onClick={handleWithConditions}
+        >
+          この条件で検索
+        </button>
       </div>
     </div>
   );
