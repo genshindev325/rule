@@ -13,7 +13,7 @@ interface IStorePayment extends Document {
 const storePaymentSchema = new Schema<IStorePayment>({
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
     paymentDate: { type: Date, default: () => new Date() },
-    storeName: { type: String, required: true },
+    storeName: { type: String, required: true, default: '未知' },
     paymentAmount: { type: Number, default: 0 },
     status: {
         type: String,

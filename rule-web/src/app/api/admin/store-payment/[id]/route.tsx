@@ -4,12 +4,11 @@ import StorePayment from '@/models/storePaymentModel';
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
-  const { title, content } = await req.json();
-  console.log('title: ' + title);
-  console.log('content: ' + content);
+  const body = await req.json();
+  const storeName = body.storeName;
 
   try {
-    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { title, content }, { new: true, runValidators: true });
+    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { storeName }, { new: true, runValidators: true });
     if (!storePayment) {
       return NextResponse.json({ success: false, message: 'Store payment not found' }, { status: 404 });
     }

@@ -89,7 +89,17 @@ const StoreProfileSettings = () => {
         }),
       });
 
-      if (response.status === 200) {
+      const responsePayment = await fetch(`/api/admin/store-payment/${storeID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          storeName,
+        })
+      })
+
+      if (response.status === 200 && responsePayment.status === 200) {
         setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
         setTimeout(() => {
           router.push('/store/setting');
