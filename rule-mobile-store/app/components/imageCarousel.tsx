@@ -67,9 +67,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
       try {
         const response = await fetch(`${SERVER_URL}/api/upload`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: formData,
         });
 

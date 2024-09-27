@@ -42,9 +42,6 @@ const EventSettings = () => {
       try {
         const response = await fetch('/api/upload', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: formData,
         });
 

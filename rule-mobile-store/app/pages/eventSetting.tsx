@@ -38,9 +38,6 @@ const EventSetting = () => {
         setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
         const response = await fetch(`${SERVER_URL}/api/upload`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: formData,
         });
 
