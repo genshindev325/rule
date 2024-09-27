@@ -27,11 +27,11 @@ export async function POST(req: NextRequest) {
     } else {
       console.log("AAAA")
       if (gender === 'male') {
-        const males = await Event.find(eventId).select('males');
-        const maleTotal = await Event.find(eventId).select('maleTotal');
+        const males = await Event.findById(eventId).select('males');
+        const maleTotal = await Event.findById(eventId).select('maleTotal');
         console.log("males: " + males)
         console.log("maleTotal: " + maleTotal)
-        if (males < maleTotal) {
+        if (males && maleTotal && males < maleTotal) {
           console.log("mmmOK")
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
