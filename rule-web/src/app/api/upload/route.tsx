@@ -14,9 +14,11 @@ export async function POST(request: NextRequest) {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
   }
+
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
+    console.log(JSON.stringify("file: " + file));
 
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });

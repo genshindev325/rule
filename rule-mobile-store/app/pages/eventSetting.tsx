@@ -165,10 +165,13 @@ const EventSetting = () => {
                   onChange={handleCategoryChange}
                   required
                 >
-                  <option value="">選んでください</option>
-                  <option value="category1">カテゴリー 1</option>
-                  <option value="category2">カテゴリー 2</option>
-                  <option value="category3">カテゴリー 3</option>
+                  <option value="">選択してください</option>
+                  <option value="ランチ">ランチ</option>
+                  <option value="ディナー">ディナー</option>
+                  <option value="合コン">合コン</option>
+                  <option value="婚活">婚活</option>
+                  <option value="趣味交流会">趣味交流会</option>
+                  <option value="その他">その他 ...</option>
                 </select>
               </div>
               <h3 className='text-gray-600 py-2'>カパー画像</h3>
