@@ -16,40 +16,33 @@ export async function POST(req: NextRequest) {
   const userId = body.userId;
   const eventId = body.eventId;
   const gender = body.gender;
-  console.log("userId: " + userId);
-  console.log("eventId: " + eventId);
-  console.log("gender: " + gender);
   try {
     const alreadyParticipate = await EventParticipate.findOne({userId, eventId});
-    console.log("alreadyParticipate: " + JSON.stringify(alreadyParticipate));
     if (alreadyParticipate) {
       return NextResponse.json({ success: false, message: 'このイベントにはすでに参加しています' }, { status: 404 });
     } else {
-      console.log("AAAA")
       if (gender === 'male') {
         const event = await Event.findById(eventId);
-        const males = event?.males;
-        const maleTotal = event?.maleTotal;
-        // const males = await Event.findById(eventId).select('males');
-        // const maleTotal = await Event.findById(eventId).select('maleTotal');
-        console.log("males: " + males)
-        console.log("maleTotal: " + maleTotal)
-        if (males && maleTotal && males < maleTotal) {
-          console.log("mmmOK")
+        if (event === null) {
+          return NextResponse.json({ success: false, message: 'イベントが存在しません' }, { status: 404 });
+        }
+        const males = event.males;
+        const maleTotal = event.maleTotal;
+        if (males < maleTotal) {
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
-          console.log("mmmbad")
           return NextResponse.json({ success: false, message: '男性人数超過' }, { status: 404 });
         }
       } else if (gender === 'female') {
-        console.log("CCC");
-        const females = await Event.findById(eventId).select('females');
-        const femaleTotal = await Event.findById(eventId).select('femaleTotal');
-        if (females && femaleTotal && females < femaleTotal) {
-          console.log("fffOK")
+        const event = await Event.findById(eventId);
+        if (event === null) {
+          return NextResponse.json({ success: false, message: 'イベントが存在しません' }, { status: 404 });
+        }
+        const females = event.females;
+        const femaleTotal = event.femaleTotal;
+        if (females < femaleTotal) {
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
-          console.log("fffbad")
           return NextResponse.json({ success: false, message: '女性人数超過' }, { status: 404 });
         }
       } else {
