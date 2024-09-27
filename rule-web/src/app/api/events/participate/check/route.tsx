@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
         }
       } else if (gender === 'female') {
         console.log("CCC");
-        const females = await Event.find(eventId).select('females');
-        const femaleTotal = await Event.find(eventId).select('femaleTotal');
-        if (females < femaleTotal) {
+        const females = await Event.findById(eventId).select('females');
+        const femaleTotal = await Event.findById(eventId).select('femaleTotal');
+        if (females && femaleTotal && females < femaleTotal) {
           console.log("fffOK")
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
