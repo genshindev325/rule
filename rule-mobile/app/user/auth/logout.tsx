@@ -3,7 +3,7 @@
 'use client';
 
 import React from 'react';
-import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useAuth } from '@/app/components/auth/authContext';
 
 const LogOut: React.FC = () => {
@@ -16,7 +16,6 @@ const LogOut: React.FC = () => {
 
   const handleSignOut = () => {
     router.push('/auth/login');
-    signout();
   };
 
   const handleCancel = () => {

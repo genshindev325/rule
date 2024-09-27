@@ -4,11 +4,6 @@ import { NextRequest, NextResponse } from 'next/server'
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 export async function POST(req: NextRequest) {
-  const authHeader = req.headers.get('authorization');
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
-  }
   const body = await req.json();
   const amount = body.amount;
 

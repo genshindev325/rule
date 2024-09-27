@@ -320,7 +320,6 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
 
 const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fee, eventId, eventDate, storeId, storeName }) => {
   const [clientSecret, setClientSecret] = useState<string>('');
-  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     const getClientSecret = async () => {
@@ -328,8 +327,7 @@ const StripePaymentElement: React.FC<StripePaymentInterface> = ({ totalPrice, fe
         const response = await fetch(`${SERVER_URL}/api/payments/create-payment-intent`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             amount: totalPrice
