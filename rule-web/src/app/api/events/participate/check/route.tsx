@@ -16,8 +16,12 @@ export async function POST(req: NextRequest) {
   const userId = body.userId;
   const eventId = body.eventId;
   const gender = body.gender;
+  console.log("userId: " + userId);
+  console.log("eventId: " + eventId);
+  console.log("gender: " + gender);
   try {
     const alreadyParticipate = await EventParticipate.findOne({userId, eventId});
+    console.log("alreadyParticipate: " + JSON.stringify(alreadyParticipate));
     if (alreadyParticipate) {
       return NextResponse.json({ success: false, message: 'このイベントにはすでに参加しています' }, { status: 404 });
     } else {
