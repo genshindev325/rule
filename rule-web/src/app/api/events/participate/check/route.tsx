@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
     if (alreadyParticipate) {
       return NextResponse.json({ success: false, message: 'このイベントにはすでに参加しています' }, { status: 404 });
     } else {
+      console.log("AAAA")
       if (gender === 'male') {
         const males = await Event.find(eventId).select('males');
         const maleTotal = await Event.find(eventId).select('maleTotal');
@@ -34,14 +35,17 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ success: false, message: '男性人数超過' }, { status: 404 });
         }
       } else if (gender === 'female') {
+        console.log("CCC");
         const females = await Event.find(eventId).select('females');
         const femaleTotal = await Event.find(eventId).select('femaleTotal');
         if (females < femaleTotal) {
+          console.log("OK")
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
+          console.log("bad")
           return NextResponse.json({ success: false, message: '女性人数超過' }, { status: 404 });
         }
-      } else {        
+      } else {
         return NextResponse.json({ success: false, message: 'リクエストには性別情報が含まれていません。' }, { status: 404 });
       }
     }

@@ -15,8 +15,8 @@ const LogOut: React.FC = () => {
   const { signout } = useAuth();
 
   const handleSignOut = () => {
-    signout();
     router.push('/auth/login');
+    signout();
   };
 
   const handleCancel = () => {
