@@ -29,9 +29,13 @@ export async function POST(req: NextRequest) {
       if (gender === 'male') {
         const males = await Event.find(eventId).select('males');
         const maleTotal = await Event.find(eventId).select('maleTotal');
+        console.log("males: " + males)
+        console.log("maleTotal: " + maleTotal)
         if (males < maleTotal) {
+          console.log("mmmOK")
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
+          console.log("mmmbad")
           return NextResponse.json({ success: false, message: '男性人数超過' }, { status: 404 });
         }
       } else if (gender === 'female') {
@@ -39,10 +43,10 @@ export async function POST(req: NextRequest) {
         const females = await Event.find(eventId).select('females');
         const femaleTotal = await Event.find(eventId).select('femaleTotal');
         if (females < femaleTotal) {
-          console.log("OK")
+          console.log("fffOK")
           return NextResponse.json({ success: true, }, { status: 200 });
         } else {
-          console.log("bad")
+          console.log("fffbad")
           return NextResponse.json({ success: false, message: '女性人数超過' }, { status: 404 });
         }
       } else {
