@@ -36,8 +36,8 @@ const EventPayment: React.FC = () => {
     eventDate: eventDate
   } = selectedEvent;
   const eventPrice = gender === 'male' ? maleFee : femaleFee;
-  const totalPrice = eventPrice * 1.05;
-  const fee = eventPrice * 0.05;
+  const totalPrice = Math.ceil(eventPrice * 1.05);
+  const fee = totalPrice - eventPrice;
   const storeId = selectedEvent.store._id;
   const storeName = selectedEvent.store.storeName;
   const storeStatus = selectedEvent.store.status;
