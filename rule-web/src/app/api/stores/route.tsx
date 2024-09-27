@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import dbConnect from '@/lib/mongoose';
 import Store from '@/models/storeModel';
+import StorePayment from '@/models/storePaymentModel';
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
@@ -32,6 +33,9 @@ export async function POST(req: NextRequest) {
     }
 
     const store = await Store.create(body);
+    const createStorePayment = await StorePayment.create({
+      store: store._id,
+    });
     return NextResponse.json({
       success: true,
       data: {
