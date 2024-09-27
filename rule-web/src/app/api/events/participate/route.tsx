@@ -59,6 +59,7 @@ export async function POST(req: NextRequest) {
 
     const storeId = event?.store;
     console.log("storeId: " + storeId)
+    console.log("paymentDate: " + paymentDate);
     const storePayment = await StorePayment.findOne({ store: storeId, paymentDate: paymentDate });
     console.log("storePayment: " + JSON.stringify(storePayment))
     if(storePayment){
