@@ -86,14 +86,22 @@ const StorePaymentsPage: React.FC = () => {
   };
 
   const handleConfirmPay = async () => {
+    console.log("selectedRowId: " + selectedRowId)
     if (selectedRowId !== null) {
       const response = await fetch(`/api/admin/store-payment/${selectedRowId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ selectedRowId }),
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
       });
       if (response.status === 200) {
-        const result = await response.json();
+        // If payment is successful, update the status to "支払った"
+        setStorePayments((prevPayments) =>
+          prevPayments.map((payment) =>
+            payment._id === selectedRowId ? { ...payment, status: '支払った' } : payment
+          )
+        );
         setCurrentPage(1);
       } else {
         console.log('Payment failed.');
@@ -195,7 +203,7 @@ const StorePaymentsPage: React.FC = () => {
                     <td className={`py-2 px-4 text-left ${storePayment.status === '未払い' ? 'text-red-500' : ''}`}>
                       {storePayment.status}
                     </td>
-                    <td className='py-2 px-4 text-left'>{formatDate(storePayment.paymentDate)}</td>
+                    <td className='py-2 px-4 text-left'>{storePayment.paymentDate}</td>
                     <td className='py-2 px-4 text-left'>{formatNumber(storePayment.paymentAmount)}</td>
                     <td className='py-2 px-4 text-left'>
                       {storePayment.status === '未払い' &&

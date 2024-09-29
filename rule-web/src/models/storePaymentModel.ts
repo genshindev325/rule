@@ -12,13 +12,13 @@ interface IStorePayment extends Document {
 
 const storePaymentSchema = new Schema<IStorePayment>({
     store: { type: Schema.Types.ObjectId, required: true, ref: 'Store' },
-    paymentDate: { type: String, default: '2024年 10月 05日' },
+    paymentDate: { type: String, default: '2024年 10月 25日' },
     storeName: { type: String, required: true, default: '未知' },
     paymentAmount: { type: Number, default: 0 },
     status: {
         type: String,
-        enum: ["paid", "unpaid"],
-        default: "unpaid"
+        enum: ["支払った", "未払い"],
+        default: "未払い"
     },
     createdAt: { type: Date, default: () => timeNow },
 });

@@ -3,19 +3,15 @@ import dbConnect from '@/lib/mongoose';
 import StorePayment from '@/models/storePaymentModel';
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
-  const body = await req.json();
-  const storeName = body.storeName;
+  const authHeader = req.headers.get('authorization');
 
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
+  }
+
+  await dbConnect();
   try {
-    console.log(params.id)
-    console.log(storeName)
-    const storePayment = await StorePayment.findOneAndUpdate(
-      { store: params.id },
-      { storeName: storeName },
-      { new: true }
-    );
-    console.log(JSON.stringify(storePayment))
+    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { status: '支払った' });
     if (!storePayment) {
       return NextResponse.json({ success: false, message: 'Store payment not found' }, { status: 404 });
     }

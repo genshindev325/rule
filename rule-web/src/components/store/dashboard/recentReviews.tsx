@@ -36,7 +36,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
                   <img src={review.createdBy.avatar} className='rounded-full w-10 h-10' />
                 </div>
               <div className="ml-2">
-                <div className="font-semibold">{review.createdBy.nickname}</div>
+                <div className="font-semibold text-sm sm:text-md">{review.createdBy.nickname}</div>
               </div>
             </div>
             <div className="flex items-center mb-2">
@@ -47,7 +47,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
               </div>
               <div className="text-sm text-gray-950 ml-4">{formatDateTime(review.createdAt)}</div>
             </div>
-            <p className='font-semibold'>{review.storeReviewText}</p>
+            <p className='font-semibold text-sm sm:text-md'>{review.storeReviewText}</p>
             <div className='text-sm mt-4'>{review.conclusion}</div>
             <div className="text-md text-gray-800 mt-4 mb-10">
               <span onClick={() => onSelectReview(review)} className='underline underline-offset-2 cursor-pointer font-semibold p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300'>

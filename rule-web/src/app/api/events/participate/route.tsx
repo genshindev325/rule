@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
         storeName: storeName,
         paymentDate: paymentDate,
         paymentAmount: storeIncome,
-        status: 'unpaid'
+        status: '未払い'
       });
       console.log("result: " + newStorePayment);
     }
