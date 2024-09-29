@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 
-const ChatInput: React.FC<{ sendMessage: (message: string) => void }> = ({
-  sendMessage,
-}) => {
+const ChatInput: React.FC<{ sendMessage: (message: string) => void }> = ({ sendMessage }) => {
   const [input, setInput] = useState('');
 
   const handleSend = () => {

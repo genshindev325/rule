@@ -1,35 +1,20 @@
 // components/store/chat/chatList.tsx
 
-import React, { useState } from 'react';
+import React from 'react';
 
 interface Chat {
   name: string;
   date: string;
   lastMessage: string;
   avatar: string;
+  messages: { text: string; timestamp: string; sender: 'user' | 'store' }[]; // Include messages in the chat
 }
 
-const chats: Chat[] = [
-  {
-    name: '仕事',
-    date: '2023/09/16',
-    lastMessage: 'ありがとうございました！',
-    avatar: '/image/minion.png'
-  },
-  {
-    name: '仕事',
-    date: '2023/09/15',
-    lastMessage: 'お時間をいただきありがとうございました！',
-    avatar: '/image/minion.png'
-  },
-]
-
-const ChatList: React.FC = () => {
-  const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
-
-  const handleChatClick = (chat: Chat) => {
-    setSelectedChat(chat);
-  };
+const ChatList: React.FC<{
+  chats: Chat[];
+  selectedChat: Chat | null;
+  setSelectedChat: (chat: Chat) => void;
+}> = ({ chats, selectedChat, setSelectedChat }) => {
 
   return (
     <div className="w-1/4 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
@@ -39,19 +24,24 @@ const ChatList: React.FC = () => {
         className="w-auto p-2 m-2 rounded bg-gray-200 focus:outline-none"
         placeholder="検索"
       />
-      {/* chat list */}
+      {/* Chat List */}
       <ul>
         {chats.map((chat, index) => (
           <li
             key={index}
-            onClick={() => handleChatClick(chat)}
+            onClick={() => setSelectedChat(chat)}
             className={`p-3 flex items-center cursor-pointer hover:bg-gray-400 ${
-              selectedChat === chat ? 'bg-gray-300' : 'bg-gray-100'
+              selectedChat?.name === chat.name ? 'bg-gray-300' : 'bg-gray-100'
             }`}
           >
             <div className='flex flex-row gap-2'>
-              <img src={chat.avatar} className={`rounded-full border-blue-500 mt-2 ${
-                selectedChat === chat ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'}`} />
+              <img
+                src={chat.avatar}
+                alt={chat.name}
+                className={`rounded-full border-blue-500 mt-2 ${
+                  selectedChat?.name === chat.name ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
+                }`}
+              />
               <div className='flex flex-col gap-2'>
                 <div className='flex flex-row gap-4'>
                   <div className='font-semibold'>{chat.name}</div>
@@ -63,7 +53,6 @@ const ChatList: React.FC = () => {
           </li>
         ))}
       </ul>
-      {/* chat messages */}
     </div>
   );
 };
