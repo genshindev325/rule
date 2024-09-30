@@ -23,10 +23,8 @@ import Unauthorized from "./user/auth/unauthorized";
 import SignUp from "./user/auth/signup";
 
 // Event
-// import EventReview1 from "./user/event/eventReview1";
 import EventReview2 from "./user/event/eventReview2";
 import FindOnMap from "./user/event/findOnMap";
-// import EventHistory1 from "./user/event/history1";
 import EventHistory2 from "./user/event/history2";
 import EventPayment from "./user/event/payment";
 import RegistSuccess from "./user/event/registSuccess";
@@ -34,6 +32,10 @@ import SearchResult1 from "./user/event/searchResult1";
 import SearchResult2 from "./user/event/searchResult2";
 import EventDetail from "./user/event/eventDetail";
 import SearchResult4 from "./user/event/searchResult4";
+
+// Chat
+import ChatList from "./user/chat/chatList";
+import ChatMessages from "./user/chat/chatMessages";
 
 setupIonicReact({});
 
@@ -69,15 +71,16 @@ const AppShell = () => {
               {/* user/event */}
               <Route path="/participate" render={() => <RegistSuccess />} exact={true} />
               <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
-              {/* <Route path="/event/eventReview1" render={() => <EventReview1 />} exact={true} /> */}
               <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
-              {/* <Route path="/event/eventHistory1" render={() => <EventHistory1 />} exact={true} /> */}
               <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
               <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
               <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
               <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
               <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
               <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
+              {/* chat */}
+              <Route path="/chatList" render={() => <ChatList />} exact={true} />
+              <Route path="/chatMessages" render={() => <ChatMessages />} exact={true} />
               <Route
                 path="/"
                 render={() => <Redirect to="/auth/login" />}

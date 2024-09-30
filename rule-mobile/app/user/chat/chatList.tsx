@@ -3,18 +3,18 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/store/store';
 import { SERVER_URL } from '@/app/config';
-import { formatDateTime } from '@/app/utils/datetime';
-import SideMenu from '@/app/components/store/IonMenu';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 import { setChat } from '@/app/store/features/chat/ChatSlice';
+import { formatDateTime } from '@/app/components/utils/datetime';
 
 interface Message {
   message: string;
   createdAt: string;
-  relationship: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
+  relationship: 'a-u-r' | 'a-u-s' | 's-u-r' | 's-u-s';
 }
 
 interface ChatList {
@@ -27,11 +27,12 @@ interface ChatList {
 }
 
 const ChatList: React.FC = () => {
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const [searchTerm, setSearchTerm] = useState('');
-  const storeProfile = useSelector((state: RootState) => state.auth.profile);
+  const userProfile = useSelector((state: RootState) => state.auth.profile);
   const [chats, setChats] = useState<ChatList[]>([]);
   const [selectedChat, setSelectedChat] = useState<ChatList | null>(null);
-  const [storeId, setStoreId] = useState('');
+  const [userId, setUserId] = useState('');
   const router = useIonRouter();
   const dispatch = useDispatch();
 
@@ -46,20 +47,20 @@ const ChatList: React.FC = () => {
   );
 
   useEffect(() => {
-    if (storeProfile) {
-      setStoreId(storeProfile._id);
+    if (userProfile) {
+      setUserId(userProfile._id);
     } else {
       console.log('No use profile available.');
     }
 
     const fetchChats = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/api/chats/store`, {
+        const response = await fetch(`${SERVER_URL}/api/chats/user`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({storeId: storeProfile?._id}),
+          body: JSON.stringify({userId: userProfile?._id}),
         });
         if (!response.ok) {
           throw new Error('Failed to fetch chats');
@@ -85,7 +86,7 @@ const ChatList: React.FC = () => {
     };
 
     fetchChats();
-  }, [storeProfile]);
+  }, [userProfile]);
 
   const handleChatSelected = (chat: ChatList) => {
     setSelectedChat(chat);
@@ -94,24 +95,28 @@ const ChatList: React.FC = () => {
   }
 
   return (
-    <>
-      <SideMenu />
-      <IonPage id='main-content'>
-        <IonHeader>
-            <IonToolbar>
-              <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-bold text-2xl mr-12'>お問い合わせ</IonTitle> {/* Default title */}
-            </IonToolbar>
-          </IonHeader>
-        <IonContent>
-          <div className='min-h-screen min-w-full flex flex-col bg-white py-4 sm:py-6'>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleSearch}
-              className="w-auto p-2 m-2 rounded bg-gray-200 focus:outline-none"
-              placeholder="検索"
-            />
+    <IonPage>
+      <IonContent>
+        <AuthWrapper allowedRoles={['user']}>
+          <div className='min-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6'>
+            {/* Header */}
+            <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+                <IonRouterLink routerLink={'/home'}>
+                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
+                </IonRouterLink>
+                <h2 className='grow pr-4'>お問い合わせ</h2>
+              </div>
+              <div className='py-2 px-4 mt-2'>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearch}
+                  className="w-full py-2 px-4 rounded bg-white focus:outline-none text-sm"
+                  placeholder="検索"
+                />
+              </div>
+            </div>
             {/* Chat List */}
             <ul>
               {filteredChats.map((chat) => (
@@ -122,29 +127,29 @@ const ChatList: React.FC = () => {
                     selectedChat?.id === chat.id ? 'bg-gray-200' : 'bg-white'
                   }`}
                 >
-                  <div className='flex flex-row gap-2'>
+                  <div className='flex flex-row w-full gap-2'>
                     <img
-                      src={chat.avatar || '/image/minion.png'} // Default avatar path
+                      src={chat.avatar || '/image/minion.png'}
                       alt={chat.name}
                       className={`rounded-full border-blue-500 mt-2 ${
                         selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
                       }`}
                     />
-                    <div className='flex flex-col gap-1'>
+                    <div className='flex flex-col w-full gap-1'>
                       <div className='flex flex-row justify-between w-full'>
-                        <div className='font-semibold'>{chat.name}</div>
-                        <div className="text-sm text-gray-600">{chat.date}</div>
+                        <div className='text-sm font-semibold'>{chat.name}</div>
+                        <div className="text-xs sm:text-sm text-right mr-6 text-gray-600">{formatDateTime(chat.date)}</div>
                       </div>
-                      <div className="text-sm text-gray-800">{chat.lastMessage.length > 50 ? `${chat.lastMessage.slice(0, 50)}...` : chat.lastMessage}</div>
+                      <div className="text-sm text-gray-800">{chat.lastMessage.length > 20 ? `${chat.lastMessage.slice(0, 20)}...` : chat.lastMessage}</div>
                     </div>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-        </IonContent>
-      </IonPage>
-    </>
+        </AuthWrapper>
+      </IonContent>
+    </IonPage>
   );
 }
 

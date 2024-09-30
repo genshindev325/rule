@@ -102,7 +102,7 @@ const ChatPage: React.FC = () => {
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: formatDateTime(new Date().toISOString()),
+              createdAt: new Date().toISOString(),
               relationship: 'a-s-r',
             },
           ];
@@ -111,7 +111,7 @@ const ChatPage: React.FC = () => {
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: formatDateTime(new Date().toISOString()),
+              createdAt: new Date().toISOString(),
               relationship: 's-u-s',
             },
           ];

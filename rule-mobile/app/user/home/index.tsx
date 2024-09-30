@@ -26,6 +26,9 @@ const Home: React.FC = () => {
               <IonRouterLink routerLink='/event/eventHistory2' className='font-semibold text-white'>イベント予約履歴</IonRouterLink>
             </button>
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
+              <IonRouterLink routerLink='/chatList' className='font-semibold text-white'>お問い合わせ</IonRouterLink>
+            </button>
+            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/profile/myPage' className='font-semibold text-white'>マイページ</IonRouterLink>
             </button>
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>

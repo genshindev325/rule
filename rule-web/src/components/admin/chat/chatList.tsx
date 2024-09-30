@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { formatDateTime } from '@/utils/datetime';
 
 interface Message {
   message: string;
@@ -55,7 +56,7 @@ const ChatList: React.FC<{
               selectedChat?.id === chat.id ? 'bg-gray-300' : 'bg-gray-100'
             }`}
           >
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-row w-full gap-2'>
               <img
                 src={chat.avatar || '/path/to/default/avatar.png'} // Default avatar path
                 alt={chat.name}
@@ -63,12 +64,12 @@ const ChatList: React.FC<{
                   selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
                 }`}
               />
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col w-full gap-1'>
                 <div className='flex flex-row justify-between w-full'>
-                  <div className='font-semibold'>{chat.name}</div>
-                  <div className="text-sm text-gray-600">{chat.date}</div>
+                  <div className='text-sm font-semibold'>{chat.name}</div>
+                  <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(chat.date)}</div>
                 </div>
-                <div className="text-sm text-gray-800">{chat.lastMessage.length > 50 ? `${chat.lastMessage.slice(0, 50)}...` : chat.lastMessage}</div>
+                <div className="text-sm text-gray-800">{chat.lastMessage.length > 20 ? `${chat.lastMessage.slice(0, 20)}...` : chat.lastMessage}</div>
               </div>
             </div>
           </li>

@@ -81,12 +81,12 @@ const ChatPage: React.FC = () => {
         }
 
         let updatedMessages: Message[] = [];
-        if (selectedChat.relationship === '123456789012345678901234') {
+        if (selectedChat.relationship === 'a-s') {
           updatedMessages = [
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: formatDateTime(new Date().toISOString()),
+              createdAt: new Date().toISOString(),
               relationship: 'a-s-s',
             },
           ];
@@ -95,7 +95,7 @@ const ChatPage: React.FC = () => {
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: formatDateTime(new Date().toISOString()),
+              createdAt: new Date().toISOString(),
               relationship: 'a-u-s',
             },
           ];
@@ -104,6 +104,7 @@ const ChatPage: React.FC = () => {
         const updatedChat: Chat = {
           ...selectedChat,
           lastMessage: newMessage,
+          messages: updatedMessages,
           date: new Date().toISOString(),
         };
 
