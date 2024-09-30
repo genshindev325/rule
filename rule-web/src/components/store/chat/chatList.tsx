@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 interface Message {
   message: string;
   createdAt: string;
-  sender: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
+  relationship: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
 }
 
 interface Chat {
@@ -33,7 +33,7 @@ const ChatList: React.FC<{
   );
 
   return (
-    <div className="w-1/4 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
+    <div className="w-1/3 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>
       <input
         type="text"

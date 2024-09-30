@@ -47,7 +47,7 @@ const ChatInput: React.FC<{ sendMessage: (message: string) => void }> = ({ sendM
         placeholder="メッセージ"
         rows={1} // Set initial rows to 1 for a single line
         style={{ 
-          height: `${Math.max(2.5, Math.min(5, textareaRef.current?.scrollHeight || 1))}em`,
+          height: `2.5em`,
           minHeight: '2.5em', // Set minimum height
           maxHeight: '5em' // Set maximum height to limit expansion
         }}

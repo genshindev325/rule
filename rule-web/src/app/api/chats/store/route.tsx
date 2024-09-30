@@ -3,7 +3,6 @@ import dbConnect from '@/lib/mongoose';
 import ChatMessage from '@/models/chatMessageModel';
 import ChatContact from '@/models/chatContactModel';
 import User from '@/models/userModel';
-import { store } from '@/store/store';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -58,7 +57,7 @@ export async function POST(req: NextRequest) {
           requester: contact.requester,
           responsor: contact.responsor,
         })
-          .sort({ createdAt: -1 })
+          .sort({ createdAt: 1 })
           .exec();
 
         const contactId = contact.responsor === storeId ? contact.requester : contact.responsor;        
@@ -67,9 +66,10 @@ export async function POST(req: NextRequest) {
           id: contactId,
           name: contactName,
           date: messages.length > 0 ? new Date(messages[messages.length - 1].createdAt).toISOString().split('T')[0] : '',
-          lastMessage: messages.length ? messages[0].message : '',
+          lastMessage: messages.length ? messages[messages.length - 1].message : '',
           avatar,
           messages,
+          relationship: contact.relationship
         }
       })
     );
@@ -128,7 +128,7 @@ export async function PUT(req: NextRequest) {
       requester,
       relationship,
       message,
-      createdAt: new Date(), // Ensure you have a createdAt field in your message model
+      createdAt: new Date().toISOString(), // Ensure you have a createdAt field in your message model
     });
 
     return NextResponse.json(

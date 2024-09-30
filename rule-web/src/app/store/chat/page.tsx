@@ -8,11 +8,12 @@ import ChatList from '@/components/store/chat/chatList';
 import ChatMessages from '@/components/store/chat/chatMessages';
 import ChatInput from '@/components/store/chat/chatInput';
 import { RootState } from '@/store/store';
+import { formatDateTime } from '@/utils/datetime';
 
 interface Message {
   message: string;
   createdAt: string;
-  sender: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
+  relationship: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
 }
 
 interface Chat {
@@ -57,8 +58,7 @@ const ChatPage: React.FC = () => {
         }));
 
         const allChats = [
-          ...chatsWithMessages,
-          // ...initialChats,
+          ...chatsWithMessages
         ].filter(
           (chat, index, self) =>
             index === self.findIndex(c => c.id === chat.id) // Avoid duplicates
@@ -102,8 +102,8 @@ const ChatPage: React.FC = () => {
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: new Date().toLocaleString(),
-              sender: 'a-s-r',
+              createdAt: formatDateTime(new Date().toISOString()),
+              relationship: 'a-s-r',
             },
           ];
         } else {
@@ -111,8 +111,8 @@ const ChatPage: React.FC = () => {
             ...selectedChat.messages,
             {
               message: newMessage,
-              createdAt: new Date().toLocaleString(),
-              sender: 's-u-s',
+              createdAt: formatDateTime(new Date().toISOString()),
+              relationship: 's-u-s',
             },
           ];
         }
@@ -121,7 +121,7 @@ const ChatPage: React.FC = () => {
           ...selectedChat,
           lastMessage: newMessage,
           messages: updatedMessages,
-          date: new Date().toLocaleDateString('ja-JP'),
+          date: new Date().toISOString(),
         };
 
         setChats((prevChats) =>
@@ -146,7 +146,7 @@ const ChatPage: React.FC = () => {
         <ChatList chats={chats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
         <div className="flex flex-col w-full h-full">
           {selectedChat && ( // Make sure selectedChat exists before rendering its details
-            <>
+            <div className='max-h-screen'>
               <div className="flex flex-row items-center p-4 border-gray-300 border-b-2 border-solid">
                 <img
                   src={selectedChat.avatar || '/image/minion.png'}
@@ -157,14 +157,13 @@ const ChatPage: React.FC = () => {
                   <div className="text-lg font-bold">{selectedChat.name}</div>
                 </div>
               </div>
-              <div className="flex flex-row h-full">
-                <div className="flex flex-col w-2/3">
+              <div className="flex flex-row h-[calc(100vh-5rem)]">
+                <div className="flex flex-col w-full">
                   <ChatMessages messages={selectedChat.messages} />
                   <ChatInput sendMessage={sendMessage} />
                 </div>
-                <div className="flex flex-col w-1/3 border-gray-300 border-l-2 border-solid"></div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

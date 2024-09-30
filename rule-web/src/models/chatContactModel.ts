@@ -3,7 +3,7 @@ import mongoose, { Document, Schema, Model, ObjectId } from 'mongoose';
 interface IChatContact extends Document {
   responsor: ObjectId;
   requester: ObjectId;
-  relationship: { type: String, enum: ["a-s", "a-u", "s-u"] },
+  relationship: string,
   lastMessage: string;
   lastMessageDate: Date;
   waitingForReply: boolean;
