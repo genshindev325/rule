@@ -37,9 +37,8 @@ export async function POST(req: NextRequest) {
         let contactName = '';
         let avatar = '';
 
-        if (contact.responsor === storeId) {
+        if (contact.responsor.toString() === storeId) {
           const user = await User.findById(contact.requester).exec();
-
           if (user) {
             contactName = user.nickname || 'unknown user';
             avatar = user.avatar || '/image/minion.png';
@@ -60,7 +59,7 @@ export async function POST(req: NextRequest) {
           .sort({ createdAt: 1 })
           .exec();
 
-        const contactId = contact.responsor === storeId ? contact.requester : contact.responsor;        
+        const contactId = contact.responsor.toString() === storeId ? contact.requester : contact.responsor;        
         
         return {
           id: contactId,

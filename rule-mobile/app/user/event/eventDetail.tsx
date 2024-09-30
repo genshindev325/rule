@@ -4,6 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+import { FaPaperPlane } from 'react-icons/fa';
 import FullCarousel from '@/app/components/user/search/fullCarousel';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { useSearchParams } from 'next/navigation';
@@ -24,7 +25,7 @@ const EventDetail: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'rounded-xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-lg space-y-1';
-  const locationSVG = '/svg/location.svg';
+  const locationSVG = '/svg/location-black.svg';
 
   const textMd = 'text-md sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-md md:text-lg';
@@ -156,9 +157,17 @@ const EventDetail: React.FC = () => {
               </div>
               {/* Access */}
               <div className='flex flex-col space-y-1 w-full'>
-                <div className='flex flex-row'>
-                  <img src={locationSVG} className='w-6 h-6 mr-4'/>
+                <div className='flex flex-row items-center'>
+                  <img src={locationSVG} className='w-4 h-4 mx-2'/>
                   <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold my-auto`}>アクセス</h2>
+                  <div className='flex flex-row ml-auto text-blue-500 items-center pr-2'>
+                    <h2 className={`${textXs} font-semibold pr-2`}>
+                      <IonRouterLink routerLink={`/chatMessages?storeId=${selectedEvent.store._id}&storeName=${selectedEvent.store.storeName}`}>
+                        店舗へのお問い合わせ
+                      </IonRouterLink>
+                    </h2>
+                    <FaPaperPlane className='w-4 h-4' />
+                  </div>
                 </div>
                 <h2 className={`${textXs} border-b-2 border-solid border-gray-300`}>{selectedEvent.store.address}</h2>
                 {selectedEvent.store.access && selectedEvent.store.access.map((acc, index) => (

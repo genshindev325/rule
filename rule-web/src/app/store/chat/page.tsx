@@ -75,10 +75,21 @@ const ChatPage: React.FC = () => {
 
   const sendMessage = async (newMessage: string) => {
     if (selectedChat && newMessage.trim()) {
-      let relationship = selectedChat.id === '123456789012345678901234' ? 'a-s-r' : 's-u-s';
+      let relationship = '';
+      let requester = '';
+      let responsor = '';
+      if (selectedChat.id === '123456789012345678901234') {
+        relationship = 'a-s-r';
+        requester = storeId;
+        responsor = selectedChat.id;
+      } else {
+        relationship = 's-u-s';
+        requester = selectedChat.id;
+        responsor = storeId;
+      }
       const messageData = {
-        requester: storeId,
-        responsor: selectedChat.id,
+        requester: requester,
+        responsor: responsor,
         message: newMessage,
         relationship: relationship,
       };

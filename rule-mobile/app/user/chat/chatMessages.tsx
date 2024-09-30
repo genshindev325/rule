@@ -2,7 +2,8 @@
 
 'use client';
 
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -35,17 +36,27 @@ const ChatMessages: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState('');
   const [userId, setUserId] = useState('');
-  const [chats, setChats] = useState<Chat[]>([]);
+  const [selectedChatId, setSelectedChatId] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (selectedChat) {
       setChatName(selectedChat.name);
-      setMessages(selectedChat.messages);      
+      setMessages(selectedChat.messages);
+      setSelectedChatId(selectedChat.id);
     } else {
-      console.log('there is no selected chat.')
-      router.push('/chatList');
+      const storeName = searchParams.get('storeName');
+      const storeId = searchParams.get('storeId');
+      if (storeId && storeName) {
+        setChatName(storeName);
+        setMessages([]);
+        setSelectedChatId(storeId);
+      } else {
+        console.log('there is no selected chat or store params.');
+        router.push('/chatList');
+      }
     }
     if (userProfile) {
       setUserId(userProfile._id);
@@ -53,20 +64,21 @@ const ChatMessages: React.FC = () => {
       console.log('there is no user profile.')
       router.push('/chatList');
     }
-  }, [])
+  }, [selectedChat])
 
   const sendMessage = async (newMessage: string) => {
-    if (selectedChat && newMessage.trim()) {
-      let relationship = selectedChat.id === '123456789012345678901234' ? 'a-u-r' : 's-u-r';
+    if (newMessage.trim()) {
+      let relationship = selectedChatId === '123456789012345678901234' ? 'a-u-r' : 's-u-r';
       const messageData = {
         requester: userId,
-        responsor: selectedChat.id,
+        responsor: selectedChatId,
         message: newMessage,
         relationship: relationship,
       };
+      console.log("sdsdf: " + JSON.stringify(messageData))
 
       let updatedMessages: Message[] = [];
-      if (selectedChat.id === '123456789012345678901234') {
+      if (selectedChatId === '123456789012345678901234') {
         updatedMessages = [
           ...messages,
           {
@@ -89,7 +101,7 @@ const ChatMessages: React.FC = () => {
       setMessages(updatedMessages);
 
       try {
-        const response = await fetch(`${SERVER_URL}/api/chats/store`, {
+        const response = await fetch(`${SERVER_URL}/api/chats/user`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -142,7 +154,7 @@ const ChatMessages: React.FC = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [selectedChat?.messages]);
+  }, [messages]);
 
   return (
     <IonPage>

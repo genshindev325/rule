@@ -100,7 +100,7 @@ export async function PUT(req: NextRequest) {
       await ChatContact.create({
         responsor,
         requester,
-        relationship,
+        relationship: 's-u',
         lastMessage: message,
         lastMessageDate: new Date(),
         waitingForReply: true,
