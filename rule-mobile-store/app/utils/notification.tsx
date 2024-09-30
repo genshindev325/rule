@@ -21,7 +21,7 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) =
 
   return (
     <div
-      className={`absolute top-4 right-4 p-2 rounded-lg shadow-lg text-white text-sm z-50 flex items-center justify-between transition-transform duration-300 ease-in-out transform ${
+      className={`absolute top-4 right-4 p-3 rounded-lg shadow-lg text-white text-sm z-50 flex items-center justify-between transition-transform duration-300 ease-in-out transform ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       } ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} 
       w-5/9 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl`}

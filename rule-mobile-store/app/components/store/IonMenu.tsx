@@ -30,9 +30,9 @@ const SideMenu: React.FC = () => {
             <IonItem button onClick={() => navigateTo('/salesManagement')}>
               売り上げ管理
             </IonItem>
-            {/* <IonItem button onClick={() => navigateTo('/chat')}>
+            <IonItem button onClick={() => navigateTo('/chatList')}>
               お問い合わせ
-            </IonItem> */}
+            </IonItem>
             <IonItem button onClick={() => navigateTo('/settings')}>
               設定
             </IonItem>

@@ -20,7 +20,7 @@ const Settings = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle>設定</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-bold text-2xl mr-12'>設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>

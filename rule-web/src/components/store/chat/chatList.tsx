@@ -35,13 +35,15 @@ const ChatList: React.FC<{
   return (
     <div className="w-1/3 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-        className="w-auto p-2 m-2 rounded bg-gray-200 focus:outline-none"
-        placeholder="検索"
-      />
+      <div className='p-2'>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="w-full p-2 rounded bg-gray-200 focus:outline-none"
+          placeholder="検索"
+        />
+      </div>
       {/* Chat List */}
       <ul>
         {filteredChats.map((chat) => (

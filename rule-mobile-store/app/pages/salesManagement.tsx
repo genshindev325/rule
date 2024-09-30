@@ -69,7 +69,7 @@ const SalesManagement = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle>売り上げ管理</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-bold text-2xl mr-12'>売り上げ管理</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>

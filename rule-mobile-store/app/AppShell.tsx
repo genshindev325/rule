@@ -13,7 +13,8 @@ import Dashboard from '@/app/pages/dashboard';
 import EventSetting from "@/app/pages/eventSetting";
 import EventList from "./pages/eventList";
 import SalesManagement from "@/app/pages/salesManagement";
-import Chat from "@/app/pages/chat";
+import ChatList from "@/app/pages/chat/chatList";
+import ChatMessages from "@/app/pages/chat/chatMessages";
 import Settings from "@/app/pages/settings";
 import StoreProfileSetting from "./pages/settings/storeProfileSetting";
 import PasswordSetting from "./pages/settings/passwordSetting";
@@ -41,7 +42,8 @@ const AppShell = () => {
               <Route path="/eventSetting" render={() => <EventSetting />} exact={true} />
               <Route path="/eventList" render={() => <EventList />} exact={true} />
               <Route path="/salesManagement" render={() => <SalesManagement />} exact={true} />
-              <Route path="/chat" render={() => <Chat />} exact={true} />
+              <Route path="/chatList" render={() => <ChatList />} exact={true} />
+              <Route path="/chatMessages" render={() => <ChatMessages />} exact={true} />
               <Route path="/settings" render={() => <Settings />} exact={true} />
               <Route path="/settings/storeProfileSetting" render={() => <StoreProfileSetting />} exact={true} />
               <Route path="/settings/passwordSetting" render={() => <PasswordSetting />} exact={true} />

@@ -167,7 +167,7 @@ const Dashboard = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle>ダッシュボード</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-bold text-2xl mr-12'>ダッシュボード</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>

@@ -130,7 +130,7 @@ const EventSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle>イベント設定</IonTitle>
+              <IonTitle className='text-center font-bold text-2xl mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
         <IonContent>
