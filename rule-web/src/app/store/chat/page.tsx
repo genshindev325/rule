@@ -1,22 +1,22 @@
-// app/store/chat/page.tsx
-
 'use client';
 
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import ChatList from '@/components/store/chat/chatList';
 import ChatMessages from '@/components/store/chat/chatMessages';
 import ChatInput from '@/components/store/chat/chatInput';
+import { RootState } from '@/store/store';
 
 interface Message {
-  text: string;
-  timestamp: string;
-  sender: 'user' | 'store'; // Store or User will be the message sender
+  message: string;
+  createdAt: string;
+  sender: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
 }
 
 interface Chat {
+  id: string;
   name: string;
   date: string;
   lastMessage: string;
@@ -24,62 +24,116 @@ interface Chat {
   messages: Message[]; // Include messages in the chat
 }
 
-const initialChats: Chat[] = [
-  {
-    name: '仕事',
-    date: '2023/09/16',
-    lastMessage: 'ありがとうございました！',
-    avatar: '/image/minion.png',
-    messages: [
-      { text: 'この度はありがとうございました!', timestamp: '2023/9/16 14:32', sender: 'user' },
-      { text: 'ご来場ありがとうございました!', timestamp: '2023/9/16 14:52', sender: 'store' },
-      { text: '改めて感謝申し上げます!', timestamp: '2023/9/16 14:53', sender: 'store' },
-    ]
-  },
-  {
-    name: '会議',
-    date: '2023/09/15',
-    lastMessage: 'お時間をいただきありがとうございました！',
-    avatar: '/image/minion.png',
-    messages: [
-      { text: 'お時間をいただきありがとうございました!', timestamp: '2023/9/15 14:32', sender: 'user' }
-    ]
-  }
-];
-
 const ChatPage: React.FC = () => {
-  const [chats, setChats] = useState<Chat[]>(initialChats);
+  const storeProfile = useSelector((state: RootState) => state.auth.profile);
+  const [chats, setChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
+  const [storeId, setStoreId] = useState('');
 
-  const sendMessage = (newMessage: string) => {
+  useEffect(() => {
+    if (storeProfile) {
+      setStoreId(storeProfile._id);
+    } else {
+      console.log('No user profile available.');
+    }
+
+    const fetchChats = async () => {
+      try {
+        const response = await fetch('/api/chats/store', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({storeId: storeProfile?._id}),
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch chats');
+        }
+        const data = await response.json();
+
+        const chatsWithMessages = data.chats.map((chat: any) => ({
+          ...chat,
+          messages: chat.messages || [],
+        }));
+
+        const allChats = [
+          ...chatsWithMessages,
+          // ...initialChats,
+        ].filter(
+          (chat, index, self) =>
+            index === self.findIndex(c => c.id === chat.id) // Avoid duplicates
+        );
+
+        setChats(allChats);
+      } catch (error) {
+        console.error('Error fetching chats:', error);
+      }
+    };
+
+    fetchChats();
+  }, [storeProfile]);
+
+  const sendMessage = async (newMessage: string) => {
     if (selectedChat && newMessage.trim()) {
-      // Update the messages for the selected chat
-      const updatedMessages: Message[] = [
-        ...selectedChat.messages,
-        {
-          text: newMessage,
-          timestamp: new Date().toLocaleString(),
-          sender: 'store',
-        },
-      ];
-
-      // Create the updated chat object with new message and last message
-      const updatedChat: Chat = {
-        ...selectedChat,
-        lastMessage: newMessage,
-        messages: updatedMessages,
-        date: new Date().toLocaleDateString('ja-JP'),
+      let relationship = selectedChat.id === '123456789012345678901234' ? 'a-s-r' : 's-u-s';
+      const messageData = {
+        requester: storeId,
+        responsor: selectedChat.id,
+        message: newMessage,
+        relationship: relationship,
       };
 
-      // Update the chats state to reflect the new message
-      setChats((prevChats) =>
-        prevChats.map((chat) =>
-          chat.name === selectedChat.name ? updatedChat : chat
-        )
-      );
+      try {
+        const response = await fetch('/api/chats/store', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(messageData),
+        });
 
-      // Update the selected chat state
-      setSelectedChat(updatedChat);
+        if (!response.ok) {
+          throw new Error('Failed to send message');
+        }
+
+        let updatedMessages: Message[] = [];
+        if (selectedChat.id === '123456789012345678901234') {
+          updatedMessages = [
+            ...selectedChat.messages,
+            {
+              message: newMessage,
+              createdAt: new Date().toLocaleString(),
+              sender: 'a-s-r',
+            },
+          ];
+        } else {
+          updatedMessages = [
+            ...selectedChat.messages,
+            {
+              message: newMessage,
+              createdAt: new Date().toLocaleString(),
+              sender: 's-u-s',
+            },
+          ];
+        }
+
+        const updatedChat: Chat = {
+          ...selectedChat,
+          lastMessage: newMessage,
+          messages: updatedMessages,
+          date: new Date().toLocaleDateString('ja-JP'),
+        };
+
+        setChats((prevChats) =>
+          prevChats.map((chat) =>
+            chat.id === selectedChat.id ? updatedChat : chat
+          )
+        );
+
+        setSelectedChat(updatedChat);
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
     }
   };
 
@@ -91,23 +145,27 @@ const ChatPage: React.FC = () => {
         </div>
         <ChatList chats={chats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
         <div className="flex flex-col w-full h-full">
-          <div className="flex flex-row items-center p-4 border-gray-300 border-b-2 border-solid">
-            <img
-              src={selectedChat?.avatar || '/image/minion.png'}
-              alt={selectedChat?.name || 'Chat Avatar'}
-              className="w-10 h-10 rounded-full mr-4"
-            />
-            <div>
-              <div className="text-lg font-bold">{selectedChat?.name}</div>
-            </div>
-          </div>
-          <div className="flex flex-row h-full">
-            <div className="flex flex-col w-2/3">
-              <ChatMessages messages={selectedChat?.messages || []} />
-              <ChatInput sendMessage={sendMessage} />
-            </div>
-            <div className="flex flex-col w-1/3 border-gray-300 border-l-2 border-solid"></div>
-          </div>
+          {selectedChat && ( // Make sure selectedChat exists before rendering its details
+            <>
+              <div className="flex flex-row items-center p-4 border-gray-300 border-b-2 border-solid">
+                <img
+                  src={selectedChat.avatar || '/image/minion.png'}
+                  alt={selectedChat.name || 'Chat Avatar'}
+                  className="w-10 h-10 rounded-full mr-4"
+                />
+                <div>
+                  <div className="text-lg font-bold">{selectedChat.name}</div>
+                </div>
+              </div>
+              <div className="flex flex-row h-full">
+                <div className="flex flex-col w-2/3">
+                  <ChatMessages messages={selectedChat.messages} />
+                  <ChatInput sendMessage={sendMessage} />
+                </div>
+                <div className="flex flex-col w-1/3 border-gray-300 border-l-2 border-solid"></div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </AuthWrapper>
