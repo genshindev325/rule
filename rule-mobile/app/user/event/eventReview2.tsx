@@ -50,8 +50,10 @@ const EventReview2: React.FC = () => {
   const [map, setMap] = useState(''); // will be changed
   const [types, setTypes] = useState<string[]>([]); // will be changed
   const [userId ,setUserId] = useState('');
+  const [storeId, setStoreId] = useState('');
   const [reviewEvent, setReviewEvent] = useState('');
   const [reviewStore, setReviewStore] = useState('');
+  const [storeReplyText, setStoreReplyText] = useState('');
   const [ratingEvent, setRatingEvent] = useState(0);
   const [ratingStore, setRatingStore] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
@@ -65,8 +67,8 @@ const EventReview2: React.FC = () => {
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'w-full rounded-xl -mt-40 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
-  const textMd = 'text-md sm:text-lg md:text-xl font-bold';
-  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
+  const textMd = 'text-md sm:text-lg md:text-xl';
+  const textSm = 'text-sm sm:text-md md:text-lg';
   const textXs = 'text-xs sm:text-sm md:text-md';
 
   // get selected event data and current user information
@@ -77,6 +79,7 @@ const EventReview2: React.FC = () => {
         setSelectedEvent(parsedEvent);
         setRatingStore(parsedEvent.store.rating);
         setRatingEvent(parsedEvent.rating);
+        setStoreId(parsedEvent.store._id);
       } catch (error) {
         console.error('Failed to parse event data from URL:', error);
       } finally {
@@ -87,6 +90,29 @@ const EventReview2: React.FC = () => {
       setUserId(userProfile._id);
     }
   }, [eventString]);
+
+  useEffect(() => {
+    const fetchReply = async () => {
+      const response = await fetch(`${SERVER_URL}/api/reviews/reply`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ storeId }),
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log(result.storeReplyText);
+        setStoreReplyText(result.storeReplyText);
+      } else {
+        console.log(response.status);
+      }
+    }
+    if (storeId) {
+      fetchReply();
+    }
+  }, [storeId])
 
   // set event rate
   const handleRateEventChange = (newRate: number) => {
@@ -165,23 +191,7 @@ const EventReview2: React.FC = () => {
     } catch(error) {
       console.error("An error occurred sending store review:", error);
     }
-  }
-  
-  const items = [
-    {
-      imageUrl: '/image/img_1.png',
-    },
-    {
-      imageUrl: '/image/img_2.png',
-    },
-    {
-      imageUrl: '/image/img_3.png',
-    },
-    {
-      imageUrl: '/image/img_4.png',
-    },
-    // will be added or get from database
-  ];
+  };
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
@@ -192,7 +202,7 @@ const EventReview2: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white space-y-1">
             {/* header */}
             <div className={`h-56 sm:h-60 w-full ${maleGradient}`}>
-              <h2 className='text-md font-bold text-center text-white pt-6'>イベントレビュー</h2>
+              <h2 className='text-lg font-bold text-center text-white pt-6'>イベントレビュー</h2>
             </div>
             {/* container */}
             <div className='px-4'>
@@ -311,7 +321,17 @@ const EventReview2: React.FC = () => {
                 placeholder="お店のレビューを書く"
                 rows={6}
               />
-              <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>送信する</button>
+              {storeReplyText &&
+                <>
+                  <h2 className={`${textSm} text-blue-600`}>店舗の対応</h2>
+                  <h2 className={`${textXs} font-semibold`}>{storeReplyText}</h2>
+                </>
+              }
+              {!storeReplyText && 
+                <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>
+                  送信する
+                </button>
+              }
               <div className={`pb-6 pt-2 flex w-full`}>
                 <button onClick={() => router.back()} className={`grow bg-gray-300 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
               </div>

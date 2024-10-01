@@ -120,11 +120,11 @@ const Dashboard = () => {
           <div className="mt-8">
             <div className='flex flex-row gap-8 pb-4 items-center'>
               <h3 className="text-lg font-semibold mb-4">加盟店一覧</h3>
-              <a href='/admin/dashboard/memberStoreAddition'>
+              {/* <a href='/admin/dashboard/memberStoreAddition'>
                 <button type='button' className='rounded-lg bg-blue-500 text-white text-md p-2 w-36 hover:bg-blue-600 duration-300'>
                   追加
                 </button>
-              </a>
+              </a> */}
             </div>
             <MemberStoreList stores={memberStores} />
           </div>

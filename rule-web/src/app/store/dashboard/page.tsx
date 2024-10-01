@@ -12,6 +12,7 @@ import ReviewModal from '@/components/store/dashboard/reviewModal';
 import ReplyModal from '@/components/store/dashboard/replyModal';
 import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';
 import MainPanel from '@/components/store/dashboard/mainPanel';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
@@ -26,6 +27,7 @@ interface UpcomingEvent {
 };
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;
@@ -58,12 +60,17 @@ const Dashboard = () => {
   const [recentReviews, setRecentReviews] = useState<RecentReview[]>([]);
   const [replyReview, setReplyReview] = useState<RecentReview>();
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("notificaiton: " + JSON.stringify(notification));
+  }, [notification])
 
   useEffect(() => {
     if (!token) {
@@ -150,9 +157,21 @@ const Dashboard = () => {
     setIsReplyModalOpen(false);
   };
 
+  const noticeReplySuccess = () => {
+    toast.success('返信は成功しました。', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    });
+  }
+
   return (
     <AuthWrapper allowedRoles={['store']}>
-      <div className="min-h-screen min-w-full flex bg-gray-100 text-gray-800">
+      <div className="relative min-h-screen min-w-full flex bg-gray-100 text-gray-800">
         <div className="w-20">
           <Navbar />
         </div>
@@ -168,7 +187,7 @@ const Dashboard = () => {
           <RecentReviews onSeeMore={handleOpenReviewModal} reviews={recentReviews} onSelectReview={handleOpenReplyModal} />        
         </div>
         <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
-        {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
+        {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} noticeReplySuccess={noticeReplySuccess} />}
       </div>
     </AuthWrapper>
   );

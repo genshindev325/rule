@@ -14,6 +14,7 @@ interface ReviewModalProps {
 }
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;

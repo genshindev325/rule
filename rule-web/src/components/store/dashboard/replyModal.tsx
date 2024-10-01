@@ -4,15 +4,20 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { formatDateTime } from '@/utils/datetime';
+import { RootState } from '@/store/store';
 
 interface ReviewModalProps {
   isOpen: boolean;
   review: RecentReview;
   onClose: () => void;
+  noticeReplySuccess: () => void;
 }
 
 interface RecentReview {
+  _id: string;
   createdAt: string,
   createdBy: {
     email: string;
@@ -24,9 +29,11 @@ interface RecentReview {
   storeRating: number,
 }
 
-const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose }) => {
+const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose, noticeReplySuccess }) => {
+  const token = useSelector((state: RootState) => state.auth.token);
   const modalRef = useRef<HTMLDivElement>(null);
   const [replyText, setReplyText] = useState('');
+  const router = useRouter();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -46,7 +53,35 @@ const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose }) => 
   }, [isOpen]);
 
   const onSendReply = () => {
-    onClose();
+    try {
+      if (!token) {
+        router.push('/auth/login');
+      } else {
+        const sendReply = async () => {
+          const response = await fetch('/api/reviews/reply', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ reviewId: review._id, replyText: replyText })
+          });
+
+          if (response.status === 200) {
+            noticeReplySuccess();
+            setReplyText('')
+            onClose();
+          } else {
+            console.log(response.status);
+          }
+        }
+        sendReply();
+      }
+    } catch (error) {
+      console.log(error);
+      setReplyText('');
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
@@ -75,7 +110,7 @@ const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose }) => 
         <div className='text-sm text-gray-500 my-4'>{review.conclusion}</div>
         <div className='py-4 flex flex-col space-y-2'>
           <div className='text-sm text-left font-bold'>本文</div>
-          <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none"
+          <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} className="w-full p-3 mt-3 bg-gray-100 rounded-md focus:outline-none"
             placeholder="本文" rows={12} />
         </div>
         <div className='flex flex-row justify-end space-x-4 mt-4 text-md font-semibold'>
