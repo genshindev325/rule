@@ -61,16 +61,11 @@ const Dashboard = () => {
   const [replyReview, setReplyReview] = useState<RecentReview>();
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [loading, setLoading] = useState(true);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const { profile } = useAuth();
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
-
-  useEffect(() => {
-    console.log("notificaiton: " + JSON.stringify(notification));
-  }, [notification])
 
   useEffect(() => {
     if (!token) {
