@@ -219,9 +219,9 @@ const EventReview2: React.FC = () => {
                 <img src={`${selectedEvent?.coverImage}`} />
                 {/* male */}
                 <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
-                  <div className='flex flex-row'>
+                  <div className='flex flex-row items-center'>
                     <div className={`${maleGradient} px-2 py-1 rounded-full w-10 sm:w-12 text-center ${textXs} text-white my-auto`}>男性</div>
-                    <h2 className={`${textSm} pl-2`}>募集人数</h2>
+                    <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.males}/{selectedEvent?.maleTotal}</h2>
                     <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
@@ -237,9 +237,9 @@ const EventReview2: React.FC = () => {
                 </div>
                 {/* female */}
                 <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
-                  <div className='flex flex-row'>
+                  <div className='flex flex-row items-center'>
                     <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
-                    <h2 className={`${textSm} pl-2`}>募集人数</h2>
+                    <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>
                     <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
@@ -255,15 +255,15 @@ const EventReview2: React.FC = () => {
                 </div>
                 {/* button */}
                 <div className='py-2 flex'>
-                  <button type='submit' className={`grow rounded-lg border-solid border-2 py-1 sm:py-2 md:py-3 border-gray-500 ${textMd}`}>イベント概要</button>
+                  <button type='submit' className={`grow rounded-lg border-solid border py-1 sm:py-2 md:py-3 border-gray-500 ${textXs}`}>イベント概要</button>
                 </div>
-                <h2 className={`${textSm}`}>{selectedEvent?.description}</h2>
+                <h2 className={`${textXs}`}>{selectedEvent?.description}</h2>
               </div>
             </div>
             {/* send review about event */}
             <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
               <div className='flex flex-row'>
-                <h2 className={`${textMd}`}>イベントを評価:</h2>
+                <h2 className={`${textSm} font-semibold`}>イベントを評価:</h2>
                 {/* event star rating */}
                 <div className='space-x-1 flex ml-auto'>
                   <StarRating rate={ratingEvent} onRateChange={handleRateEventChange} />
@@ -272,20 +272,20 @@ const EventReview2: React.FC = () => {
               <textarea
                 value={reviewEvent}
                 onChange={(e) => setReviewEvent(e.target.value)}
-                className="w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none"
+                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none ${textSm}`}
                 placeholder="イベントのレビューを書く"
                 rows={6}          
               />
-              <button id="btn_event" onClick={handleSubmitEventReview} className={`grow bg-gray-800 rounded-full text-white py-1 ${textMd}`}>送信する</button>
+              <button id="btn_event" onClick={handleSubmitEventReview} className={`grow bg-gray-800 rounded-full text-white font-semibold py-1 ${textSm}`}>送信する</button>
             </div>
             {/* location button with gradient */}
             <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
-              <button className={`grow ${maleGradient} rounded-xl py-1 text-white ${textMd}`}>開催場所</button>
+              <button className={`grow ${maleGradient} rounded-xl py-1 text-white font-semibold ${textSm}`}>開催場所</button>
             </div>
             {/* store info */}
             <div className='px-4 sm:px-6 md:px-8'>
               <h2 className={`${textMd}`}>{selectedEvent?.store.storeName}</h2>
-              <h2 className={`${textSm}`}>料理ジャンル: 居酒屋、海鮮、日本酒バー</h2>
+              <h2 className={`${textSm} font-semibold`}>料理ジャンル: 居酒屋、海鮮、日本酒バー</h2>
               <div className='pt-3'>
                 {selectedEvent?.store.storeImages && 
                 <FullCarousel items={selectedEvent?.store.storeImages} />}
@@ -294,7 +294,7 @@ const EventReview2: React.FC = () => {
             </div>
             {/* Access */}
             <div className='px-4 sm:px-6 md:px-8 flex flex-col space-y-1'>
-              <h2 className={`${textMd} flex`}><img src={`${locationSVG}`} className='w-6 h-6 mr-4'/>アクセス</h2>
+              <h2 className={`${textMd} font-semibold flex`}><img src={`${locationSVG}`} className='w-6 h-6 mr-4'/>アクセス</h2>
               <h2 className={`${textSm} border-b-2 border-solid border-gray-300`}>{selectedEvent?.store.address}</h2>
               {selectedEvent?.store.access.map((access, index) => (
                 <h2 key={index} className={`${textSm}`}>{access}</h2>
@@ -308,7 +308,7 @@ const EventReview2: React.FC = () => {
             {/* send review about store */}
             <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 py-8'>
               <div className='flex flex-row'>
-                <h2 className={`${textMd}`}>お店を評価:</h2>
+                <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
                 {/* event star rating */}
                 <div className='space-x-1 flex ml-auto'>
                   <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
@@ -323,8 +323,8 @@ const EventReview2: React.FC = () => {
               />
               {storeReplyText &&
                 <>
-                  <h2 className={`${textSm} text-blue-600`}>店舗の対応</h2>
-                  <h2 className={`${textXs} font-semibold`}>{storeReplyText}</h2>
+                  <h2 className={`${textSm} font-semibold text-blue-600`}>店舗の対応</h2>
+                  <h2 className={`${textXs} font-semibold p-2 rounded-lg border shadow-lg`}>{storeReplyText}</h2>
                 </>
               }
               {!storeReplyText && 
@@ -333,7 +333,7 @@ const EventReview2: React.FC = () => {
                 </button>
               }
               <div className={`pb-6 pt-2 flex w-full`}>
-                <button onClick={() => router.back()} className={`grow bg-gray-300 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
+                <button onClick={() => router.back()} className={`grow bg-gray-400 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
               </div>
             </div>
           </div>
