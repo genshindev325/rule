@@ -7,31 +7,27 @@ import React, { useState, useEffect } from 'react';
 import AuthWrapper from '@/components/auth/authWrapper';
 import EarningsManagement from '@/components/admin/salesManagement/earningsManagement';
 import Navbar from '@/components/admin/navbar';
-import Notification from '@/utils/notification';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 
 interface EarningsProps {
-  sales: number,
   salesTotal: number,
+  salesExp: number,
   salesData: number[],
+  eventsData: number[]
 }
 
 const SalesManagement: React.FC = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [loading, setLoading] = useState(true);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
   const [earnings, setEarnings] = useState<EarningsProps>({
-    sales: 1,
-    salesTotal: 0,
-    salesData: [0, 0, 0, 0, 0, 0, 0]
+    salesTotal: 1,
+    salesExp: 1,
+    salesData: [10000, 20000, 23000, 67000, 78000, 43000, 45000, 23000, 67000, 78000, 43000, 45000],
+    eventsData: [10, 20, 23, 67, 78, 43, 45, 23, 67, 78, 43, 45]
   });
-  
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
 
   useEffect(() => {
     if (!token) {
@@ -51,11 +47,10 @@ const SalesManagement: React.FC = () => {
             const result_earning = await response_earningData.json();
             setEarnings(result_earning);
           } else {
-            setNotification({ message: 'データの取得に失敗しました。', type: 'error' });
+            console.log(response_earningData.status)
           }
         } catch (error) {
           console.error('Error:', error);
-          setNotification({ message: `エラー: ${error}`, type: 'error' });
         } finally {
           setLoading(false);
         }
@@ -77,7 +72,6 @@ const SalesManagement: React.FC = () => {
           <EarningsManagement {...earnings} />
         </div>
       </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
     </AuthWrapper>
   );
 };
