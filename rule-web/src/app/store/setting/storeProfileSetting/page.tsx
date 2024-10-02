@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import Notification from '@/utils/notification';
+import { toast } from 'react-toastify';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import GoogleMapComponent from '@/utils/googleMap';
@@ -26,7 +26,6 @@ const StoreProfileSettings = () => {
   const [description, setDescription] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
   const token = useSelector((state: RootState) => state.auth.token);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleAddImage = (newImage: string) => {
     setStoreImages((prevImages) => [...prevImages, newImage]);
@@ -72,7 +71,7 @@ const StoreProfileSettings = () => {
       const response = await fetch(`/api/stores/${storeID}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
@@ -89,23 +88,40 @@ const StoreProfileSettings = () => {
         }),
       });
 
-      const responsePayment = await fetch(`/api/admin/store-payment/${storeID}`, {
+      const responsePayment = await fetch(`/api/admin/store-payment/initiate/${storeID}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           storeName,
         })
       })
 
-      if (response.status === 200 && responsePayment.status === 200) {
-        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+      if (response.status === 200) {
+        toast.success('プロファイルの設定に成功しました。', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
         setTimeout(() => {
           router.push('/store/setting');
         }, 1500);
       } else {
-        setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+        toast.error(`プロファイルの設定に失敗しました。エラー:${response.status}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
       }
     }
   })
@@ -277,7 +293,6 @@ const StoreProfileSettings = () => {
           </div>
         </div>
       </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
     </AuthWrapper>
   );
 };

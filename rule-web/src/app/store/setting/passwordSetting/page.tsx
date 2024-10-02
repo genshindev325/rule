@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
 import { useAuth } from '@/components/auth/authContext';
-import Notification from '@/utils/notification';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
@@ -18,7 +18,6 @@ const PasswordSetting = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const minLength = 6;
   const maxLength = 20;
   const token = useSelector((state: RootState) => state.auth.token);
@@ -44,10 +43,18 @@ const PasswordSetting = () => {
           body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
         });
         if (response.status === 200) {
-          setNotification({message: 'パスワード設定に成功しました。', type: 'success'});
+          toast.success('パスワード設定に成功しました。', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
           setTimeout(() => {
             router.push('/store/setting');
-          }, 1500);
+          }, 1000);
         } else {
           console.log(response.status);
           console.log("Password setting failed.");
@@ -157,7 +164,6 @@ const PasswordSetting = () => {
             </div>
           </div>
         </div>
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       </div>
     </AuthWrapper>
   );

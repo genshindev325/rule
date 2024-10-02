@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import AuthWrapper from '@/components/auth/authWrapper';
 import { useAuth } from '@/components/auth/authContext';
 import Navbar from '@/components/store/navbar';
-import Notification from '@/utils/notification';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
@@ -25,7 +25,6 @@ const EventSettings = () => {
   const { profile } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [eventDate, setEventDate] = useState(getTodayDate());
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -109,11 +108,19 @@ const EventSettings = () => {
       });
 
       if (response.status === 201) {
-        setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
+        toast.success('イベントを成功させましょう。', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
         setTimeout(() => {
           router.push('/store/dashboard');
           sessionStorage.setItem('selectedMenu', 'dashboard');
-        }, 1500);
+        }, 1000);
       } else {
         console.log(response.status);
         console.log("Create event failed.");
@@ -297,7 +304,6 @@ const EventSettings = () => {
             </form>
           </div>
         </div>
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       </div>
     </AuthWrapper>
   );

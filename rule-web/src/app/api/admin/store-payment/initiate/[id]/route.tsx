@@ -11,12 +11,25 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
   await dbConnect();
   try {
-    const storePayment = await StorePayment.findByIdAndUpdate(params.id, { status: '支払った' }); // 未払い: unpaid, 支払った: paid
+    // Find the store payment by ID
+    const storePayment = await StorePayment.findById(params.id);
+    console.log(params.id)
+
+    // If storePayment not found, return 404
     if (!storePayment) {
+      console.log("AAA")
       return NextResponse.json({ success: false, message: 'Store payment not found' }, { status: 404 });
     }
+
+    // Check if the 'status' field exists and is either 'paid' or 'unpaid'
+    if (!storePayment.status) {
+      // If 'status' does not exist, initialize it as '未払い' (unpaid)
+      storePayment.status = '未払い';
+      await storePayment.save();
+    }
+
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ success: true, error }, { status: 500 })
+    return NextResponse.json({ success: false, error }, { status: 500 });
   }
 }
