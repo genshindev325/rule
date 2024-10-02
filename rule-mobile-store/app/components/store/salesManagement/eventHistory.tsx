@@ -7,9 +7,9 @@ import { formatDateTime } from '@/app/utils/datetime';
 import { formatNumber } from '@/app/utils/formatNumber';
 
 interface EventProps {
-  name: string;
-  date: string;
-  earnings: number;
+  eventName: string;
+  eventDate: string;
+  totalEarnings: number;
   coverImage: string;
 }
 
@@ -19,7 +19,6 @@ interface EventHistoryProps {
 
 const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
   const textMd = 'text-md sm:text-lg font-bold';
-  const textSm = 'text-sm sm:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm';
 
   return (
@@ -28,9 +27,9 @@ const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
         <div key={index} className="flex flex-row space-x-2 bg-white rounded-lg p-2 sm:p-4">
           <img src={event.coverImage} alt={`event-profile`} className="w-24 sm:w-28" />
           <div className='flex flex-col'>
-            <h2 className={`${textSm} mb-1`}>{event.name}</h2>
-            <h2 className={`${textXs} mb-1`}>{formatDateTime(event.date)}</h2>
-            <div className={`${textMd} mt-auto`}>{formatNumber(event.earnings)} 円</div>
+            <h2 className={`${textXs} font-semibold mb-1`}>{event.eventName}</h2>
+            <h2 className={`${textXs} mb-1`}>{formatDateTime(event.eventDate)}</h2>
+            <div className={`${textMd} mt-auto`}>{formatNumber(event.totalEarnings)} 円</div>
           </div>
         </div>
       ))}

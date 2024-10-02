@@ -58,7 +58,6 @@ const SalesManagement = () => {
             const result_salesManagement = await response_salesManagement.json();
             setEvents(result_salesManagement.events);
             setTotalSales(result_salesManagement.totalSales)
-            console.log("totalSales: " + totalSales);
           } else {
             console.error('Failed to fetch salesManagement data');
           }

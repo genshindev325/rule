@@ -52,7 +52,7 @@ const ChatMessages: React.FC = () => {
       console.log('there is no store profile.')
       router.push('/chatList');
     }
-  }, [])
+  }, [selectedChat])
 
   const sendMessage = async (newMessage: string) => {
     if (selectedChat && newMessage.trim()) {

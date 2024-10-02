@@ -11,13 +11,22 @@ import TotalSales from '@/app/components/store/salesManagement/totalSales';
 import EventHistory from '@/app/components/store/salesManagement/eventHistory';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import { useAuth } from '../components/auth/authContext';
 
 interface EventProps {
-  name: string;
-  date: string;
-  earnings: number;
+  eventName: string;
+  eventDate: string;
+  totalEarnings: number;
   coverImage: string;
 }
+// Get today's date in the YYYY-MM-DD format
+const today = new Date();
+const getTodayDate = (): string => {
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const SalesManagement = () => {
   const textSm = 'text-sm sm:text-md font-semibold';
@@ -25,8 +34,12 @@ const SalesManagement = () => {
   const [loading, setLoading] = useState(true); 
   const [events, setEvents] = useState<EventProps[]>([]);
   const [totalSales, setTotalSales] = useState(0);
+  const [startDate, setStartDate] = useState(getTodayDate());
+  const [endDate, setEndDate] = useState(getTodayDate());
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
+  const { profile } = useAuth();
+  const store = profile?._id;
 
   useEffect(() => {
     if (!token) {
@@ -36,11 +49,14 @@ const SalesManagement = () => {
         try {
           // Fetch salesManagement Data
           const response_salesManagement = await fetch(`${SERVER_URL}/api/stores/sales-management`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json', 
               'Authorization': `Bearer ${token}`
             },
+            body: JSON.stringify({
+              startDate, endDate, store
+            })
           });
           if (response_salesManagement.ok) {
             const result_salesManagement = await response_salesManagement.json();
@@ -58,7 +74,7 @@ const SalesManagement = () => {
 
       fetchData();
     }
-  }, []);
+  }, [startDate, endDate, totalSales]);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
 
@@ -78,12 +94,21 @@ const SalesManagement = () => {
             <div className="mt-4">
               <h3 className={`${textSm}`}>期間指定</h3>
               <div className='flex flex-row py-2 gap-4'>
-                <span className='p-2 border-none rounded-lg bg-gray-200 flex-1'>
-                  2022年 11月 14日
-                </span>
-                <span className='p-2 border-none rounded-lg bg-gray-200 flex-1'>
-                  2023年 11月 14日
-                </span>
+                <input
+                  type="date"
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="flex-1 text-sm p-2 bg-gray-200 rounded-lg focus:outline-none border-none"
+                  value={startDate}
+                  required
+                />
+                <input
+                  type="date"
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="flex-1 text-sm p-2 bg-gray-200 rounded-lg focus:outline-none border-none"
+                  value={endDate}
+                  max={new Date().toISOString().split('T')[0]}
+                  required
+                />
               </div>
               <EventHistory events={events} />
             </div>
