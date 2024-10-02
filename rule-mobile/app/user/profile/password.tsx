@@ -117,7 +117,7 @@ const ProfilePassword: React.FC = () => {
               <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
-            <form onSubmit={handleSubmit} className='w-11/12 flex flex-col items-center px-2'>
+            <form onSubmit={handleSubmit} className='w-5/6 flex flex-col items-center'>
               <div className={`${container}`}>
                 <div className='flex flex-col items-center'>
                   <h2 className={`${textSm} pt-6`}>パスワード変更</h2>

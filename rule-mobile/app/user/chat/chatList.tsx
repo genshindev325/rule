@@ -107,7 +107,7 @@ const ChatList: React.FC = () => {
                 </IonRouterLink>
                 <h2 className='grow pr-4'>お問い合わせ</h2>
               </div>
-              <div className='py-2 px-4 mt-2'>
+              <div className='py-2 px-6 sm:px-7 md:px-8 mt-2'>
                 <input
                   type="text"
                   value={searchTerm}
@@ -138,7 +138,7 @@ const ChatList: React.FC = () => {
                     <div className='flex flex-col w-full gap-1'>
                       <div className='flex flex-row justify-between w-full'>
                         <div className='text-sm font-semibold'>{chat.name}</div>
-                        <div className="text-xs sm:text-sm text-right mr-6 text-gray-600">{formatDateTime(chat.date)}</div>
+                        {chat.date && <div className="text-xs sm:text-sm text-right mr-6 text-gray-600">{formatDateTime(chat.date)}</div>}
                       </div>
                       <div className="text-sm text-gray-800">{chat.lastMessage.length > 20 ? `${chat.lastMessage.slice(0, 20)}...` : chat.lastMessage}</div>
                     </div>

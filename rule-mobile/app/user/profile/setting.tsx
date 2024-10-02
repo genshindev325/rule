@@ -9,7 +9,7 @@ import AuthWrapper from '@/app/components/auth/authWrapper';
 const ProfileSetting: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'w-11/12 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
+  const container = 'w-5/6 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
 
   const textLg = 'text-center text-lg sm:text-xl md:text-2xl font-bold';
   const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';

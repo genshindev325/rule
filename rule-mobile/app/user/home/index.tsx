@@ -14,11 +14,11 @@ const Home: React.FC = () => {
       <IonContent>
         <div className={`flex flex-col items-center min-h-screen w-screen`}>
           {/* header */}
-          <div className={`h-44 md:h-48 w-full ${maleGradient}`}>
+          <div className={`h-40 sm:h-40 md:h-48 w-full ${maleGradient}`}>
             <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
-          <div className='px-12 pt-20 w-full space-y-12'>
+          <div className='p-12 w-full space-y-8'>
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/event/findOnMap' className='font-semibold text-white'>イベントを探す</IonRouterLink>
             </button>
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/profile/myPage' className='font-semibold text-white'>マイページ</IonRouterLink>
             </button>
-            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
+            <button className={`rounded-full ${femaleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/auth/logout' className='font-semibold text-white'>ログイン</IonRouterLink>
             </button>
           </div>
