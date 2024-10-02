@@ -32,7 +32,7 @@ const SalesManagement: React.FC = () => {
   useEffect(() => {
     if (!token) {
       router.push('/auth/login');
-      } else {
+    } else {
       const fetchData = async () => {
         try {
           // Fetch earning Data

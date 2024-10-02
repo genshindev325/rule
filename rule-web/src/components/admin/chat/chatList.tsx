@@ -67,7 +67,7 @@ const ChatList: React.FC<{
               <div className='flex flex-col w-full gap-1'>
                 <div className='flex flex-row justify-between w-full'>
                   <div className='text-sm font-semibold'>{chat.name}</div>
-                  <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(chat.date)}</div>
+                  {chat.date && <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(chat.date)}</div>}
                 </div>
                 <div className="text-sm text-gray-800">{chat.lastMessage.length > 20 ? `${chat.lastMessage.slice(0, 20)}...` : chat.lastMessage}</div>
               </div>

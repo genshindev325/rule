@@ -33,6 +33,8 @@ const ChatList: React.FC<{
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  console.log(JSON.stringify(filteredChats))
+
   return (
     <div className="w-1/3 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>
@@ -66,7 +68,7 @@ const ChatList: React.FC<{
               <div className='flex flex-col w-full gap-1'>
                 <div className='flex flex-row justify-between w-full'>
                   <div className='text-sm font-semibold'>{chat.name}</div>
-                  <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(chat.date)}</div>
+                  {chat.date && <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(chat.date)}</div>}
                 </div>
                 <div className="text-sm text-gray-800">{chat.lastMessage.length > 20 ? `${chat.lastMessage.slice(0, 20)}...` : chat.lastMessage}</div>
               </div>

@@ -20,7 +20,11 @@ export interface IStore extends Document {
   storeLng: number;
   status: string;
   createdAt: Date;
-  creditCard: string;  
+  creditCard: string;
+  bankName: string;
+  branchName: string;
+  accountNumber: number;
+  accountHolder: string;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -41,6 +45,10 @@ const storeSchema = new Schema<IStore>({
   ratingCount: { type: Number, default: 0 },
   storeLat: { type: Number, default: 35 },
   storeLng: { type: Number, default: 140 },
+  bankName: { type: String, default: '' },
+  branchName: { type: String, default: '' },
+  accountNumber: { type: Number, default: 1234567 },
+  accountHolder: { type: String, default: ''},
   status: {
     type: String,
     enum: ['active', 'inactive', 'blocked'],

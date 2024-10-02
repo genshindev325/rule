@@ -135,9 +135,11 @@ const SignUp: React.FC = () => {
           router.push('/home');
         }, 1500);
       } else {
+        router.push('/auth/login');
         setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
       }
     } catch(error) {
+      router.push('/auth/login');
       setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
     }
   }

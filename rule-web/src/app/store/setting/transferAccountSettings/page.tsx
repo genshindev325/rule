@@ -7,13 +7,12 @@ import { useRouter } from 'next/navigation';
 
 import AuthWrapper from '@/components/auth/authWrapper';
 import Navbar from '@/components/store/navbar';
-import Notification from '@/utils/notification';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
 const TransferAccountSetting = () => {
   const router = useRouter();
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const token = useSelector((state: RootState) => state.auth.token);
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,20 +27,28 @@ const TransferAccountSetting = () => {
       const accountNumber = formData.get('accountNumber');
       const accountHolder = formData.get('accountHolder');
 
-      const response = await fetch('/api/store/setting/storeProfileSetting', {
+      const response = await fetch('/api/stores/transferAccount', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ bankName, branchName, accountNumber, accountHolder }),
       });
 
       if (response.status === 200) {
-        setNotification({message: '振込口座の設定に成功しました。', type: 'success'});
+        toast.success('振込口座の設定に成功しました。', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
         setTimeout(() => {
           router.push('/store/setting');
-        }, 1500);
+        }, 1000);
       } else {
         console.log(response.status);
         console.log("Failed.");
@@ -114,7 +121,6 @@ const TransferAccountSetting = () => {
             </div>
           </div>
         </div>
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       </div>
     </AuthWrapper>
   );
