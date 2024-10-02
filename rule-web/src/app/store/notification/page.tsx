@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/store/navbar';
 import AuthWrapper from '@/components/auth/authWrapper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,8 +16,16 @@ const POLLING_INTERVAL = 1000 * 60;
 const StoreNotification: React.FC = () => {
   const notifications = useSelector((state: RootState) => state.notification.notifications);
   const token = useSelector((state: RootState) => state.auth.token);
+  const { profile } = useSelector((state: RootState) => state.auth);
+  const [storeId, setStoreId] = useState('')
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (profile) {
+      setStoreId(profile._id)
+    }
+  }, [profile])
 
   const handleMarkAsRead = () => {
     const unreadNotificationIds = notifications
@@ -35,18 +43,17 @@ const StoreNotification: React.FC = () => {
       .map(notification => notification._id);
 
     if (unreadNotificationIds.length === 0) {
-      console.log('No unread notifications to mark as read.');
       return;
     }
 
     try {
-      const response_notifications = await fetch('/api/store/notifications', {
-        method: 'POST',
+      const response_notifications = await fetch('/api/stores/notifications', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },            
-        body: JSON.stringify({ notificationIds: unreadNotificationIds }),
+        body: JSON.stringify({ storeId: storeId, notificationIds: unreadNotificationIds }),
       });
       if (response_notifications.ok) {
         console.log("OK")
@@ -64,17 +71,17 @@ const StoreNotification: React.FC = () => {
     } else {
       const fetchData = async () => {
         try {
-          const response_notifications = await fetch('/api/store/notifications', {
-            method: 'GET',
+          const response_notifications = await fetch('/api/stores/notifications', {
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             },
+            body: JSON.stringify({ storeId: storeId })
           });
           if (response_notifications.ok) {
             const result = await response_notifications.json();
             dispatch(setNotifications(result.data));
-            console.log(JSON.stringify(result.data))
           } else {
             console.log(response_notifications.status);
           }

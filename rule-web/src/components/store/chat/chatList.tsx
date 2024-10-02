@@ -33,8 +33,6 @@ const ChatList: React.FC<{
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log(JSON.stringify(filteredChats))
-
   return (
     <div className="w-1/3 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>

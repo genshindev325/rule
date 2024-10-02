@@ -35,12 +35,13 @@ const Navbar = () => {
     } else {
       const fetchData = async () => {
         try {
-          const response_notifications = await fetch('/api/store/notifications/check', {
-            method: 'GET',
+          const response_notifications = await fetch('/api/stores/notifications/check', {
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             },
+            body: JSON.stringify({ storeId: profile?._id })
           });
           if (response_notifications.ok) {
             const result = await response_notifications.json();
