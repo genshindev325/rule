@@ -4,10 +4,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth/authContext';
-import Notification from '@/utils/notification';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useRouter();
   const { signin } = useAuth();
 
@@ -41,11 +40,23 @@ const SignIn = () => {
         router.push('/store/dashboard');
         sessionStorage.setItem('selectedMenu', 'dashboard');
       } else {
-        setNotification({ message: 'エラー', type: 'error' });
+        toast.error('エラー', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     } else {
       console.log(response.status);
-      setNotification({ message: 'ユーザー名とパスワードが一致しません。', type: 'error'});
+      toast.error('ユーザー名とパスワードが一致しません。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     }
   }
 
@@ -92,7 +103,6 @@ const SignIn = () => {
           </form>
         </div>
       </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
     </div>
   );
 };

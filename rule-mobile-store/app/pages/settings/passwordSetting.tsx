@@ -2,15 +2,15 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, IonRouterLink, useIonRouter } from '@ionic/react';
 import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/utils/notification';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
+import { toast } from 'react-toastify';
 
 const PasswordSetting = () => {
   const textSm = 'text-sm sm:text-md text-gray-800';
@@ -20,17 +20,12 @@ const PasswordSetting = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const token = useSelector((state: RootState) => state.auth.token);
   const minLength = 6;
   const maxLength = 20;
 
   const router = useIonRouter();
   const { profile } = useAuth();
-  
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,7 +46,13 @@ const PasswordSetting = () => {
           body: JSON.stringify({ email: profile?.email, password: currentPassword, newPassword: password }),
         });
         if (response.status === 200) {
-          setNotification({message: 'パスワード設定に成功しました。', type: 'success'});
+          toast.success('パスワード設定に成功しました。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
           setTimeout(() => {
             router.push('/settings');
           }, 1000);
@@ -165,7 +166,6 @@ const PasswordSetting = () => {
               </div>
             </form>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </IonContent>
       </IonPage>
     </AuthWrapper>

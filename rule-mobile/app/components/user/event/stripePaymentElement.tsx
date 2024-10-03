@@ -14,7 +14,7 @@ import { useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 import Stripe from 'stripe';
 import DeleteConfirmationModal from '@/app/components/utils/deleteConfirmModal';
 import { STRIPE_SECRET_KEY } from '@/app/config';
@@ -67,7 +67,6 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState('');
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
   const paymentDate = getPaymentDate(eventDate);
   const token = useSelector((state: RootState) => state.auth.token);
@@ -156,7 +155,13 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
 
       if (response.status === 200) {
         setRegisteredCard('');
-        setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
+        toast.success('カードは正常に削除されました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       } else {
         console.error(`Error deleting card: ${response.status}`);
       }
@@ -178,7 +183,13 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
         });
 
         if (result.error) {
-          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
+          toast.info('カード番号に誤りがあります。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
           console.log(result.error.message);
         } else if (result.paymentIntent?.status === 'succeeded') {
           try {
@@ -192,13 +203,31 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
             });
       
             if (response.status === 201) {
-              setNotification({ message: '参加成功!', type: 'success' });
+              toast.success('参加成功!', {
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                bodyClassName: 'text-xs sm:text-sm',
+              });
               router.push('/participate');
             } else {
-              setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+              toast.info(`イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                bodyClassName: 'text-xs sm:text-sm',
+              });
             }
           } catch (error) {
-            setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+            toast.error(`イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, {
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              bodyClassName: 'text-xs sm:text-sm',
+            });
           }
         }
       } catch (error) {
@@ -220,7 +249,13 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
         });
   
         if (result.error) {
-          setNotification({message: 'カード番号に誤りがあります。', type: 'error'});
+          toast.error('カード番号に誤りがあります。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
           console.log("error related to participate and pay for event: " + result.error.message);
         } else if (result.paymentIntent?.status === 'succeeded') {
           try {
@@ -234,25 +269,55 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
             });
       
             if (response.status === 201) {
-              setNotification({ message: '参加成功!', type: 'success' });
+              toast.success('参加成功!', {
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                bodyClassName: 'text-xs sm:text-sm',
+              });
               router.push('/participate');
             } else {
               const result = await response.json();
               if (result.message === "Already participated") {
-                setNotification({ message: `このイベントはすでに予約済みです。`, type: 'success' });
+                toast.info('このイベントはすでに予約済みです。', {
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  bodyClassName: 'text-xs sm:text-sm',
+                });
               } else {
-                setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+                toast.error(`イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  bodyClassName: 'text-xs sm:text-sm',
+                });
               }
             }
           } catch (error) {
-            setNotification({ message: `イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+            toast.error(`イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, {
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              bodyClassName: 'text-xs sm:text-sm',
+            });
           }
         }
       } catch (error) {
         console.log(error);
       }
     } else {
-      setNotification({ message: 'カードを登録するか、以下のカード詳細を入力してください。', type: 'error' });      
+      toast.error('カードを登録するか、以下のカード詳細を入力してください。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });    
     }
     setPayConfirmModalVisible(false);
   }
@@ -298,7 +363,6 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
             </div>
           </>
         }
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
         <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
       </div>
       <h2 className={`${textXs} text-center pt-6 px-4`}>%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>

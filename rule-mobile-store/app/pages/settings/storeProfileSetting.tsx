@@ -8,17 +8,16 @@ import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
-import Notification from '@/app/utils/notification';
 import GoogleMapComponent from '@/app/utils/googleMap';
 import { SERVER_URL } from '@/app/config';
 import ImageCarousel from '@/app/components/imageCarousel';
+import { toast } from 'react-toastify';
 
 const StoreProfileSetting = () => {
   const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const router = useIonRouter();
   const [storeID, setStoreID] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [storeImages, setStoreImages] = useState<string[]>([]);
   const [address, setAddress] = useState('');
   const { profile } = useSelector((state: RootState) => state.auth);
@@ -98,19 +97,27 @@ const StoreProfileSetting = () => {
       });
 
       if (response.status === 200) {
-        setNotification({message: 'ストア プロファイルの設定に成功しました', type: 'success'});
+        toast.success('プロファイルの設定に成功しました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         setTimeout(() => {
           router.push('/settings');
         }, 1500);
       } else {
-        setNotification({message: `プロファイルの設定に失敗しました。エラー:${response.status}`, type: 'error'});
+        toast.error(`プロファイルの設定に失敗しました。エラー:${response.status}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     }
-  })
-  
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
+  });
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -234,7 +241,6 @@ const StoreProfileSetting = () => {
               </div>
             </form>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </IonContent>
       </IonPage>
     </AuthWrapper>

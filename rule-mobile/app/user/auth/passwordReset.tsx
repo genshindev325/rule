@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 
 const PasswordReset: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -14,7 +14,6 @@ const PasswordReset: React.FC = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
   const [email, setEmail] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textSm = 'text-sm md:text-md';
   const textXs = 'text-xs sm:text-sm md:text-md';
@@ -51,10 +50,14 @@ const PasswordReset: React.FC = () => {
         body: JSON.stringify({ email: email, newPassword: password }),
       });
       if (response.status === 200) {
-        setNotification({message: 'パスワードのリセットに成功しました。', type: 'success'});
-        setTimeout(() => {
-          router.push('/auth/login');
-        }, 1500);
+        toast.success('パスワードのリセットに成功しました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+        router.push('/auth/login');
       } else {
         console.log(response.status);
         console.log("Password setting failed.");
@@ -142,7 +145,6 @@ const PasswordReset: React.FC = () => {
               </form>
             </div>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
         </div>
       </IonContent>
     </IonPage>

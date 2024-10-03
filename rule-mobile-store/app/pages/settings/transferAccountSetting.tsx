@@ -7,20 +7,15 @@ import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, Io
 import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/utils/notification';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
 
 const TransferAccountSetting = () => {
   const textSm = 'text-sm sm:text-md text-gray-800';
   const textXs = 'text-xs sm:text-sm';
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
-  
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     if (!token) {
@@ -44,7 +39,13 @@ const TransferAccountSetting = () => {
       });
 
       if (response.status === 200) {
-        setNotification({message: '振込口座の設定が完了しました。', type: 'success'});
+        toast.success('振込口座の設定が完了しました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         setTimeout(() => {
           router.push('/settings');
         }, 1000);
@@ -119,7 +120,6 @@ const TransferAccountSetting = () => {
               </div>
             </form>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </IonContent>
       </IonPage>
     </AuthWrapper>

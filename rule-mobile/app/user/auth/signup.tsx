@@ -14,10 +14,9 @@ import RegisterBirthday from '@/app/components/auth/registerBirthday';
 import SetProfile from '@/app/components/auth/setProfile';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 
 const SignUp: React.FC = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -102,18 +101,20 @@ const SignUp: React.FC = () => {
     setIsBirthdayOpen(true);
   }
 
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
-
   useEffect(() => {
-  }, [email, password, gender, userID, nickname, birthday, notification]);
+  }, [email, password, gender, userID, nickname, birthday]);
 
   const handleAvatarChange = async (avatar: string) => {
     setIsProfileOpen(false);
 
     try {
-      setNotification({ message: 'しばらくお待ちください。', type: 'success' });
+      toast.info('しばらくお待ちください!', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       const response = await fetch(`${SERVER_URL}/api/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -130,17 +131,33 @@ const SignUp: React.FC = () => {
         } = result.data;
   
         signin(email, role, profile, token);
-        setNotification({ message: '登録が完了しました!', type: 'success' });
-        setTimeout(() => {
-          router.push('/home');
-        }, 1500);
+        toast.success('登録が完了しました!', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+        router.push('/home');
       } else {
         router.push('/auth/login');
-        setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+        toast.error(`サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     } catch(error) {
       router.push('/auth/login');
-      setNotification({ message: `サインアップ中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+      toast.error(`サインアップ中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     }
   }
 
@@ -154,7 +171,6 @@ const SignUp: React.FC = () => {
         <RegisterName isOpen={isNicknameOpen} userName={nickname} onUserNameChange={handleUserNameChange} onCancel={handleUserNameCancel} />
         <RegisterBirthday isOpen={isBirthdayOpen} onUserBirthdayChange={handleBirthdayChange} onCancel={handleBirthdayCancel} />
         <SetProfile isOpen={isProfileOpen} onUserAvatarChange={handleAvatarChange} onCancel={handleAvatarCancel} />
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
       </IonContent>
     </IonPage>
   )

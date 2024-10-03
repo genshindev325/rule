@@ -1,6 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React, { useRef, useCallback, useEffect, useState } from "react";
-import Notification from "./notification";
+import { toast } from "react-toastify";
 
 interface MapProps {
   onLocationSelect: (position: { lat: number; lng: number }, mainAddress: string | null) => void;
@@ -38,7 +38,6 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
   const apiKey = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
   const mapRef = useRef<google.maps.Map | null>(null);
   const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleMapLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
@@ -55,11 +54,23 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
           onLocationSelect(userPosition, null); // Notify parent of initial location
         },
         (error) => {
-          setNotification({message: `現在位置を取得する際にエラーが発生しました: ${error}`, type: 'error'});
+          toast.error(`現在位置を取得する際にエラーが発生しました: ${error}`, {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         }
       );
     } else {
-      setNotification({message: 'このブラウザはジオロケーションに対応していません。', type: 'error'});
+      toast.error('このブラウザはジオロケーションに対応していません。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     }
   }, []);
 
@@ -118,7 +129,6 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
           <Marker position={currentPosition} draggable={true} onDragEnd={handleMarkerDragEnd} />
         </GoogleMap>
       </LoadScript>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
     </div>
   );
 };

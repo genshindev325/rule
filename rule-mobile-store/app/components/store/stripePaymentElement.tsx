@@ -18,9 +18,9 @@ import { RootState } from '@/app/store/store';
 import Stripe from 'stripe';
 import DeleteConfirmationModal from '@/app/utils/deleteConfirmModal';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/utils/notification';
 import { STRIPE_SECRET_KEY } from '@/app/config';
 import { STRIPE_PUBLISHABLE_KEY } from '@/app/config';
+import { toast } from 'react-toastify';
 
 interface RegisterCardInterface {
   _id: string;
@@ -52,7 +52,6 @@ const FormInput = () => {
   const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   
   useEffect(() => {
     if (profile) {
@@ -119,10 +118,6 @@ const FormInput = () => {
 
   if (!stripe || !elements) return;
 
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
-
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
   };
@@ -147,9 +142,13 @@ const FormInput = () => {
 
         if (response.status === 200) {
           setRegisteredCard(null);
-          setTimeout(() => {
-            setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
-          }, 2000);
+          toast.success('カードは正常に削除されました。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         } else {
           console.error(`Error deleting card: ${response.status}`);
         }
@@ -200,7 +199,13 @@ const FormInput = () => {
       if (result.success) {
         setRegisteredCard(result.data);
         fetchRegisteredCard();
-        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
+        toast.success('支払い方法が正常に登録されました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         setTimeout(() => {
           router.push('/settings');
         }, 2000);
@@ -268,7 +273,6 @@ const FormInput = () => {
           </button>
         </div>
       </form>
-    {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
     <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
     </div>
   );

@@ -11,7 +11,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import Notification from '@/utils/notification';
+import { toast } from "react-toastify";
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
 import Stripe from "stripe";
 import { useRouter } from "next/navigation";
@@ -43,7 +43,6 @@ const FormInput: React.FC = () => {
   const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
 
@@ -136,9 +135,13 @@ const FormInput: React.FC = () => {
 
         if (response.status === 200) {
           setRegisteredCard(null);
-          setTimeout(() => {
-            setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
-          }, 2000);
+          toast.success('カードは正常に削除されました。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         } else {
           console.error(`Error deleting card: ${response.status}`);
         }
@@ -189,10 +192,14 @@ const FormInput: React.FC = () => {
         setIsProcessing(false);
         setRegisteredCard(result.data);
         fetchRegisteredCard();
-        setNotification({ message: '支払い方法が正常に登録されました', type: 'success' });
-        setTimeout(() => {
-          // router.push('/store/setting');
-        }, 2000);
+        toast.success('支払い方法が正常に登録されました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+        router.push('/store/setting');
       } else {
         console.error('Error saving payment method:', result.error);
       }
@@ -267,7 +274,6 @@ const FormInput: React.FC = () => {
           <a href='/store/setting'>キャンセル</a>
         </button>
       </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
       <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
     </form>
   );

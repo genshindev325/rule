@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
+import { toast, ToastContainer } from 'react-toastify'; 
 import Notification from '@/app/utils/notification';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
@@ -27,7 +28,14 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      setNotification({ message: 'しばらくお待ちください。', type: 'success' });
+      toast.info('しばらくお待ちください。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
+      // setNotification({ message: 'しばらくお待ちください。', type: 'success' });
       const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,7 +52,14 @@ const SignIn: React.FC = () => {
         } = result.data;
         if (role === 'store') {
           signin(email, role, profile, token);
-          setNotification({ message: 'サインインに成功しました!', type: 'success' });
+          toast.success('サインインに成功しました!', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
+          // setNotification({ message: 'サインインに成功しました!', type: 'success' });
           setTimeout(() => {
             router.push('/dashboard');
           }, 1500);
@@ -97,7 +112,6 @@ const SignIn: React.FC = () => {
               </IonRouterLink>
             </div>
         </div>
-        {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
       </IonContent>
     </IonPage>
   );

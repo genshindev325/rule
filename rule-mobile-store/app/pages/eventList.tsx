@@ -49,7 +49,7 @@ interface PastEventProps {
 
 const EventList: React.FC = () => {
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-bold';
+  const textMd = 'text-md sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm';
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
@@ -129,21 +129,25 @@ const EventList: React.FC = () => {
         <IonContent>
           <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
             {/* tab */}
-            <div className='flex flex-row border-b-2 border-gray-300 my-4'>
-              <button
-                type='button'
-                className={`${tab === 'upcoming' ? 'text-blue-500 underline underline-offset-4' : 'bg-transparent'} ${textMd} flex-1`}
-                onClick={showUpcomingEvents}
-              >
-                今後のイベント
-              </button>
-              <button
-                type='button'
-                className={`${tab === 'past' ? 'text-blue-500 underline underline-offset-4' : 'bg-transparent'} ${textMd} flex-1`}
-                onClick={showPastEvents}
-              >
-                過去のイベント
-              </button>
+            <div className='flex flex-row mt-6 mb-2'>
+              <div className='flex flex-1 justify-center items-center'>
+                <button
+                  type='button'
+                  className={`${tab === 'upcoming' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
+                  onClick={showUpcomingEvents}
+                >
+                  今後のイベント
+                </button>
+              </div>
+              <div className='flex flex-1 justify-center items-center'>
+                <button
+                  type='button'
+                  className={`${tab === 'past' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
+                  onClick={showPastEvents}
+                >
+                  過去のイベント
+                </button>
+              </div>
             </div>
             {/* upcoming events */}
             <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-2`}>

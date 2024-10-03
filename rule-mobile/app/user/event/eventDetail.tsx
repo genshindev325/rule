@@ -14,10 +14,9 @@ import { RootState } from '@/app/store/store';
 import { formatDateTime } from '@/app/components/utils/datetime';
 import GoogleMapLocation from '@/app/components/utils/googleMapLocate';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 
 const EventDetail: React.FC = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const eventString = searchParams.get('event');
@@ -74,7 +73,14 @@ const EventDetail: React.FC = () => {
         router.push('/event/payment');
       } else {
         const result = await response.json();
-        setNotification({ message: result.message, type: 'error' });
+        console.log(JSON.stringify(result));
+        toast.success('このイベントにはすでに参加しています。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     }
   }
@@ -194,7 +200,6 @@ const EventDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-            {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
           </div>
         </AuthWrapper>
       </IonContent>

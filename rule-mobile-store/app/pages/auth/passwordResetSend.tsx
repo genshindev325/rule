@@ -44,7 +44,7 @@ const PasswordResetSend: React.FC = () => {
     console.log("email: " + email);
     console.log("code: " + verificationCode);
 
-    const res = await fetch(`${SERVER_URL}/api/users/verify-code`, {
+    const res = await fetch(`${SERVER_URL}/api/stores/verify-code`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, code: verificationCode }),
@@ -64,7 +64,7 @@ const PasswordResetSend: React.FC = () => {
     e.preventDefault();
     // Handle the form submission
     try {
-      const res = await fetch(`${SERVER_URL}/api/users/send-verification-email`, {
+      const res = await fetch(`${SERVER_URL}/api/stores/send-verification-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

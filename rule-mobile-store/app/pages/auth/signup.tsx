@@ -5,11 +5,10 @@
 import React, { useState } from 'react';
 import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { useAuth } from '@/app/components/auth/authContext';
-import Notification from '@/app/utils/notification';
 import { SERVER_URL } from '@/app/config';
+import { toast } from 'react-toastify';
 
 const SignUp: React.FC = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const router = useIonRouter();
   const { signin } = useAuth();
 
@@ -102,12 +101,24 @@ const SignUp: React.FC = () => {
         token
       } = result.data;
       signin(email, role, profile, token);
-      setNotification({ message: `ユーザーのサインアップに成功しました。`, type: 'success'});
+      toast.success('ユーザーのサインアップに成功しました。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       setTimeout(() => {
         router.push('/store/dashboard');
       }, 1500);
     } else {
-      setNotification({ message: `ユーザー名とパスワードが一致しません。${response.status} エラー`, type: 'error'});
+      toast.error(`ユーザー名とパスワードが一致しません。${response.status} エラー`, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     }
   });
 
@@ -161,7 +172,6 @@ const SignUp: React.FC = () => {
               </IonRouterLink>
             </div>
           </form>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
         </div>
       </IonContent>
     </IonPage>

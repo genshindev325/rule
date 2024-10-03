@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { SERVER_URL } from '@/app/config';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 
 interface SetProfileInterface {
   isOpen: boolean;
@@ -18,7 +18,6 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
   const textSm = 'text-sm md:text-md font-semibold';
   const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
   const [localAvatar, setAvatar] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -26,7 +25,13 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
       formData.append('file', event.target.files[0]);
 
       try {
-        setNotification({ message: 'アップロード中です。お待​​ちください。', type: 'success' });
+        toast.info('アップロード中です。お待​​ちください。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         const response = await fetch(`${SERVER_URL}/api/upload`, {
           method: 'POST',
           body: formData,
@@ -35,20 +40,34 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
         if (response.status === 200) {
           const data = await response.json();
           setAvatar(data.url);
-          setNotification({ message: '画像のアップロードに成功しました!', type: 'success' });
+          toast.success('画像のアップロードに成功しました!', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         } else {
           console.log(response.status);
-          setNotification({ message: `アップロード中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, type: 'error' });
+          toast.error(`アップロード中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         }
       } catch (error) {
         console.error('Error uploading image:', error);
-        setNotification({ message: `アップロード中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+        toast.error(`アップロード中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     }
-  };
-
-  const handleCloseNotification = () => {
-    setNotification(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -96,7 +115,6 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
         </form>
       </div>
       </div>
-      {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
     </div>
   );
 };

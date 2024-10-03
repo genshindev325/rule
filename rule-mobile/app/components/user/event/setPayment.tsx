@@ -13,7 +13,7 @@ import { useIonRouter } from '@ionic/react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 import Stripe from 'stripe';
 import DeleteConfirmationModal from '@/app/components/utils/deleteConfirmModal';
 import { STRIPE_SECRET_KEY } from '@/app/config';
@@ -53,7 +53,6 @@ const FormInput: React.FC = () => {
   const [cardSVG, setCardSVG] = useState('');
   const [registeredCard, setRegisteredCard] = useState<RegisterCardInterface | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
@@ -141,7 +140,13 @@ const FormInput: React.FC = () => {
 
       if (response.status === 200) {
         setRegisteredCard(null);
-        setNotification({ message: 'カードは正常に削除されました。', type: 'success' });
+        toast.success('カードは正常に削除されました。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       } else {
         console.error(`Error deleting card: ${response.status}`);
       }
@@ -183,7 +188,13 @@ const FormInput: React.FC = () => {
     if (result.success) {
       setRegisteredCard(result.data);
       fetchRegisteredCard();
-      setNotification({ message: '支払い方法が正常に登録されました。', type: 'success' });
+      toast.success('支払い方法が正常に登録されました。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     } else {
       console.error('Error saving payment method:', result.error);
     }
@@ -247,7 +258,6 @@ const FormInput: React.FC = () => {
             <label className={`${textSm} block font-bold text-gray-600`}>セキュリティコード</label>
             <CardCvcElement id="card-cvc" className={`${textXs} w-full p-3 border bg-white rounded-md`} />
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
           <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleDeleteCard} onCancel={handleCancel} />
         </div>
       </div>

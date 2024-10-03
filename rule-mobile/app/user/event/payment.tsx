@@ -6,11 +6,10 @@ import StripePaymentElement from '@/app/components/user/event/stripePaymentEleme
 import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { RootState } from '@/app/store/store';
-import Notification from '@/app/components/utils/notification';
+import { toast } from 'react-toastify';
 import { formatNumber } from '@/app/components/utils/formatNumber';
 
 const EventPayment: React.FC = () => {
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textMd = 'text-md sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-md md:text-lg';
@@ -43,16 +42,24 @@ const EventPayment: React.FC = () => {
   const storeStatus = selectedEvent.store.status;
   const eventStatus = selectedEvent.status;
 
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
-
   if (eventStatus !== 'active' || storeStatus !== 'active') {
-    setNotification({ message: 'このイベントの予約は終了しました。', type: 'error' });
+    toast.error('このイベントの予約は終了しました。', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      bodyClassName: 'text-xs sm:text-sm',
+    });
   }
 
   if (!selectedEvent) {
-    setNotification({ message: '無効なイベントデータ。', type: 'error' });
+    toast.error('無効なイベントデータ。', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      bodyClassName: 'text-xs sm:text-sm',
+    });
   }
 
   return (
@@ -102,7 +109,6 @@ const EventPayment: React.FC = () => {
               </div>
             </div>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </AuthWrapper>
       </IonContent>
     </IonPage>

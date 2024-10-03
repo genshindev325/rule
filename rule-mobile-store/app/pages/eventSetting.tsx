@@ -8,7 +8,7 @@ import { SERVER_URL } from '@/app/config';
 import SideMenu from '@/app/components/store/IonMenu';
 import { useAuth } from '@/app/components/auth/authContext';
 import AuthWrapper from '@/app/components/auth/authWrapper';
-import Notification from '@/app/utils/notification';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
@@ -22,7 +22,6 @@ const EventSetting = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [photoImageUrl, setPhotoImageUrl] = useState<string | null>(null);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
@@ -35,7 +34,13 @@ const EventSetting = () => {
       formData.append('file', event.target.files[0]);
 
       try {
-        setNotification({ message: '画像がクラウドにアップロードされるまでしばらくお待ちください。', type: 'success' });
+        toast.info('画像がクラウドにアップロードされるまでしばらくお待ちください。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         const response = await fetch(`${SERVER_URL}/api/upload`, {
           method: 'POST',
           body: formData,
@@ -107,7 +112,13 @@ const EventSetting = () => {
       });
 
       if (response.status === 201) {
-        setNotification({ message: 'イベントを成功させましょう。', type: 'success' });
+        toast.success('イベントを成功させましょう。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         setTimeout(() => {
           sessionStorage.setItem('selectedMenu', 'dashboard');
           router.push('/dashboard');
@@ -118,10 +129,6 @@ const EventSetting = () => {
       }
     }
   });
-  
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -284,7 +291,6 @@ const EventSetting = () => {
               </div>
             </form>
           </div>
-          {notification && (<Notification message={notification.message} type={notification.type} onClose={handleCloseNotification} />)}
         </IonContent>
       </IonPage>
     </AuthWrapper>
