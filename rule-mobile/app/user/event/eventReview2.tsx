@@ -103,7 +103,6 @@ const EventReview2: React.FC = () => {
       });
       if (response.status === 200) {
         const result = await response.json();
-        console.log(result.storeReplyText);
         setStoreReplyText(result.storeReplyText);
       } else {
         console.log(response.status);

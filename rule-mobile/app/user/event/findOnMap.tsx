@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 
-import FindDetailModal from '@/app/components/user/event/findDetailModal';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
 import { SERVER_URL } from '@/app/config';

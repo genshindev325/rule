@@ -12,7 +12,7 @@ import ReviewModal from '@/components/store/dashboard/reviewModal';
 import ReplyModal from '@/components/store/dashboard/replyModal';
 import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';
 import MainPanel from '@/components/store/dashboard/mainPanel';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
@@ -155,13 +155,13 @@ const Dashboard = () => {
   const noticeReplySuccess = () => {
     toast.success('返信は成功しました。', {
       position: "top-right",
-      autoClose: 3000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined
     });
+    console.log("reply successful")
   }
 
   return (

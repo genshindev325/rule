@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
+import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
 import StripePaymentElement from '@/app/components/user/event/stripePaymentElement';
 import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
@@ -18,11 +19,25 @@ const EventPayment: React.FC = () => {
   // Redux state selectors
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
   const userInfo = useSelector((state: RootState) => state.auth.profile);
+  const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const eventString = searchParams.get('event');
+
+  useEffect(() => {
+    if (eventString) {
+      try {
+        const parsedEvent = JSON.parse(decodeURIComponent(eventString));
+        dispatch(setSelectedEvent(parsedEvent));
+      } catch (error) {
+        console.error('Failed to parse event data from URL:', error);
+      }
+    }
+  }, [eventString, dispatch]);
 
   if (!userInfo || !selectedEvent) {
     console.log("Missing user information or event data.");
     return;
-  }
+  };
 
   const { 
     _id: userId,

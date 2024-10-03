@@ -73,8 +73,7 @@ const EventDetail: React.FC = () => {
         router.push('/event/payment');
       } else {
         const result = await response.json();
-        console.log(JSON.stringify(result));
-        toast.success('このイベントにはすでに参加しています。', {
+        toast.info('このイベントにはすでに参加しています。', {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,

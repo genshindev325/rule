@@ -48,6 +48,10 @@ const SearchResult4: React.FC = () => {
     }
   }, [resultEvents]);
 
+  const handleSelecteEvent = () => {
+
+  }
+
   return (
     <IonPage>
       <IonContent>

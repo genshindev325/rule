@@ -74,7 +74,6 @@ const StoreNotification: React.FC = () => {
           if (response_notifications.ok) {
             const result = await response_notifications.json();
             dispatch(setNotifications(result.data));
-            console.log(JSON.stringify(result.data))
           } else {
             console.log(response_notifications.status);
           }
