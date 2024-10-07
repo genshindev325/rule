@@ -12,6 +12,10 @@ import MyPage from './user/profile/myPage';
 import Password from './user/profile/password';
 import Payment from './user/profile/payment';
 import Setting from './user/profile/setting';
+import ChangeAvatar from "./components/user/setting/changeAvatar";
+import ChangeName from "./components/user/setting/changeName";
+import ChangeID from './components/user/setting/changeID';
+import ChangeBirthday from "./components/user/setting/changeBirthday";
 
 // Auth
 import Login from "./user/auth/login";
@@ -60,6 +64,10 @@ const AppShell = () => {
               <Route path="/profile/password" component={Password} />
               <Route path="/profile/payment" component={Payment} />
               <Route path="/profile/setting" component={Setting} />
+              <Route path="/setting/changeAvatar" component={ChangeAvatar} />
+              <Route path="/setting/changeName" component={ChangeName} />
+              <Route path="/setting/changeID" component={ChangeID} />
+              <Route path="/setting/changeBirthday" component={ChangeBirthday} />
               {/* user/auth */}
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/login" component={Login} />

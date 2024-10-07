@@ -2,17 +2,29 @@
 
 'use client';
 
-import React from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import AuthWrapper from '@/app/components/auth/authWrapper';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store';
 
 const Profile: React.FC = () => {
-
+  const [avatar, setAvatar] = useState('');
+  const [userID, setUserID] = useState('XXXXXXXXXX');
+  const router = useIonRouter();
+  const userInfo = useSelector((state: RootState) => state.auth.profile);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'w-5/6 rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
-
   const textMd = 'text-sm sm:text-md md:text-lg py-1 sm:py-2 md:py-4 font-semibold text-zinc-800';
-  const userID = 'XXXXXXXXXX';
+
+  useEffect(() => {
+    if (userInfo) {
+      setAvatar(userInfo.avatar);
+      setUserID(userInfo.userID);
+    } else {
+      router.push('/auth/login');
+    }
+  }, [userInfo, router]);
 
   return (
     <IonPage>
@@ -29,8 +41,12 @@ const Profile: React.FC = () => {
             {/* container */}
             <div className={`${container}`}>
               <div className='flex flex-col items-center'>
-                <img src='/svg/profile-circle-gradient.svg' className='w-28 h-28' />
-                <h2 className={`${textMd}`}>ID:{userID}</h2>
+                {avatar ?
+                  <img src={`${avatar}`} className='w-28 h-28 rounded-full mt-4' />
+                  :
+                  <img src='/svg/profile-circle-gradient.svg' className='w-28 h-28' />
+                }
+                <h2 className={`${textMd}`}>ID:{userID ? userID : userID}</h2>
               </div>
               {/* profile setting */}
               <IonRouterLink routerLink={'/profile/setting'}>
