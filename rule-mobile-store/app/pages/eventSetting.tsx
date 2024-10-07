@@ -137,43 +137,43 @@ const EventSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-bold text-2xl mr-12'>イベント設定</IonTitle>
+              <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
         <IonContent>
           <div className="bg-white p-4 min-h-screen w-full">
             <form onSubmit={handleSubmit}>
               {/* Event settings */}
-              <h3 className='text-gray-600 py-2'>イベント名</h3>
+              <h3 className='text-gray-600 text-xs sm:text-sm py-2'>イベント名</h3>
               <div className="mb-4">
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full text-xs sm:text-sm p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="イベント名"
                   required
                 />
               </div>
-              <h3 className='text-gray-600 py-2'>カテゴリ</h3>
+              <h3 className='text-gray-600 text-xs sm:text-sm py-2'>カテゴリ</h3>
               <div className="mb-4"> {/*will be modified*/}
                 <select
                   id="category"
                   name="category"
-                  className="block w-full p-2 text-base bg-gray-100 rounded-md focus:outline-none sm:text-sm"
+                  className="block w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                   required
                 >
-                  <option value="">選択してください</option>
-                  <option value="ランチ">ランチ</option>
-                  <option value="ディナー">ディナー</option>
-                  <option value="合コン">合コン</option>
-                  <option value="婚活">婚活</option>
-                  <option value="趣味交流会">趣味交流会</option>
-                  <option value="その他">その他 ...</option>
+                  <option value="" className='text-xs sm:text-sm'>選択してください</option>
+                  <option value="ランチ" className='text-xs sm:text-sm'>ランチ</option>
+                  <option value="ディナー" className='text-xs sm:text-sm'>ディナー</option>
+                  <option value="合コン" className='text-xs sm:text-sm'>合コン</option>
+                  <option value="婚活" className='text-xs sm:text-sm'>婚活</option>
+                  <option value="趣味交流会" className='text-xs sm:text-sm'>趣味交流会</option>
+                  <option value="その他" className='text-xs sm:text-sm'>その他 ...</option>
                 </select>
               </div>
-              <h3 className='text-gray-600 py-2'>カパー画像</h3>
+              <h3 className='text-gray-600 text-xs sm:text-sm py-2'>カパー画像</h3>
               <div className='mb-4'>
                 <input
                   type="file"
@@ -182,18 +182,18 @@ const EventSetting = () => {
                   className="hidden"
                   id="file-input"
                 />
-                <label htmlFor="file-input" className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-4xl flex flex-col justify-center items-center'>+</label>
+                <label htmlFor="file-input" className='w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 font-light text-xl flex flex-col justify-center items-center'>+</label>
                 {photoImageUrl && (
                   <div className='flex-1 justify-center items-center w-40 h-40 pt-6'>
                     <img src={`${photoImageUrl}`} onClick={handleDeleteImage} />
                   </div>
                 )}
               </div>
-              <h3 className='text-gray-600 py-2'>説明文</h3>
+              <h3 className='text-gray-600 py-2 text-xs sm:text-sm'>説明文</h3>
               <div className="mb-4">
                 <textarea
                   name='description'
-                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full mt-3 text-xs sm:text-sm p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="説明文"
                   rows={3}
                   required
@@ -201,31 +201,31 @@ const EventSetting = () => {
               </div>
               {/* schedule */}
               <div className='mb-4'>
-                <h3 className='text-gray-600 py-2'>日程</h3>
+                <h3 className='text-gray-600 text-xs sm:text-sm py-2'>日程</h3>
                 <input
                   type="date"
                   name='schedule'
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full p-2 text-xs bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="2023年 11月 14日"
                   required
                 />
               </div>
               <div className='mb-4'>
-                <h3 className='text-gray-600 py-2'>開始時間</h3>
+                <h3 className='text-gray-600 text-xs sm:text-sm py-2'>開始時間</h3>
                 <input
                   type="time"
                   name='startTime'
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full p-2 text-xs bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   placeholder="17:00"
                   required
                 />
               </div>
               <div className='mb-4'>
-                <h3 className='text-gray-600 py-2'>終了時間</h3>
+                <h3 className='text-gray-600 py-2 text-xs sm:text-sm'>終了時間</h3>
                 <input
                   type="time"
                   name='endTime'
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full p-2 bg-gray-100 rounded-md text-xs sm:text-sm focus:outline-none focus:border-blue-100"
                   placeholder="21:00"
                   required
                 />
@@ -234,21 +234,21 @@ const EventSetting = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>男性の募集人数</h3>
+                    <h3 className='text-gray-600 text-xs sm:text-sm py-2'>男性の募集人数</h3>
                     <input
                       type="number"
                       name='maleTotal'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="男性の募集人数"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>女性の募集人数</h3>
+                    <h3 className='text-gray-600 text-xs sm:text-sm py-2'>女性の募集人数</h3>
                     <input
                       type="number"
                       name='femaleTotal'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="女性の募集人数"
                       required
                     />
@@ -259,21 +259,21 @@ const EventSetting = () => {
               <div className='mb-4'>
                 <div className='flex gap-4'>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>男性の料金</h3>
+                    <h3 className='text-gray-600 text-xs sm:text-sm py-2'>男性の料金</h3>
                     <input
                       type="number"
                       name='maleFee'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="男性料金"
                       required
                     />
                   </div>
                   <div className='flex-1'>
-                    <h3 className='text-gray-600 py-2'>女性の料金</h3>
+                    <h3 className='text-gray-600 text-xs sm:text-sm py-2'>女性の料金</h3>
                     <input
                       type="number"
                       name='femaleFee'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       placeholder="女性料金"
                       required
                     />
@@ -282,10 +282,10 @@ const EventSetting = () => {
               </div>
               {/* buttons */}
               <div className='flex flex-col pt-2 space-y-4'>
-                <button type="submit" className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300">
+                <button type="submit" className="w-full py-2 bg-blue-500 text-sm text-white rounded-md hover:bg-blue-600 duration-300">
                   保存
                 </button>
-                <button type="button" className="w-full py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
+                <button type="button" className="w-full py-2 bg-gray-300 text-sm text-black rounded-md hover:bg-gray-400 duration-300">
                   <IonRouterLink routerLink='/dashboard' className='text-gray-800'>下書き</IonRouterLink>
                 </button>
               </div>

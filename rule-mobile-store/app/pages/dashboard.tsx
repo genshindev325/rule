@@ -49,8 +49,8 @@ interface MainPanelProps {
 };
 
 const Dashboard = () => {
-  const textXl = 'text-xl sm:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-bold';
+  const textXl = 'text-xl sm:text-2xl font-semibold';
+  const textMd = 'text-md sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm';
   const [mainPanelData, setMainPanelData] = useState<MainPanelProps>({
@@ -167,20 +167,20 @@ const Dashboard = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-bold text-2xl mr-12'>ダッシュボード</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold text-xl mr-12'>ダッシュボード</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>
           <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
             <MainPanel {...mainPanelData} />
             {/* upcoming events */}
-            <div className={`${textMd}`}>今後のイベント</div>
+            <div className={`${textSm}`}>今後のイベント</div>
             {upcomingEvents.map((event, index) => (          
               <div key={index}>
                 <EventCard { ...event } />
               </div>
             ))}
-            <span className='underline underline-offset-2 mx-auto text-gray-800' onClick={onSeeMoreEvent}>
+            <span className='underline underline-offset-2 text-sm mx-auto text-gray-800' onClick={onSeeMoreEvent}>
               もっと見る
             </span>
             {/* recent reviews */}

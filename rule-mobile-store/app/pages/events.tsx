@@ -121,7 +121,7 @@ const Events = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-bold text-2xl mr-12'>イベント設定</IonTitle>
+              <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
         <IonContent>

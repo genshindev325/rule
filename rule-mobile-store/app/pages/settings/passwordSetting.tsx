@@ -113,7 +113,7 @@ const PasswordSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-bold text-xl mr-12'>パスワード設定</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold text-xl mr-12'>パスワード設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent>
