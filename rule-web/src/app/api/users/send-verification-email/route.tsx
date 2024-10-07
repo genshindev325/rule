@@ -26,15 +26,15 @@ export async function POST(req: NextRequest) {
     verificationCodes[email] = { code, expiresAt };
     // Send email (this is a simplified example)
     const transporter = nodemailer.createTransport({
-      service: 'smartdev.dentel.1025@outlook.com',
+      service: 'lucaswang971025@gmail.com',
       auth: {
-        user: 'smartdev.dentel.1025@outlook.com',
+        user: 'lucaswang971025@gmail.com',
         pass: 'Hpccloud21',
       },
     });
 
     const mailOptions = {
-      from: 'smartdev.dentel.1025@outlook.com',
+      from: 'lucaswang971025@gmail.com',
       to: email,
       subject: 'パスワードリセットの確認',
       text: `確認コードは次のとおりです: ${code}`,

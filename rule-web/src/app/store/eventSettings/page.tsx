@@ -118,7 +118,7 @@ const EventSettings = () => {
           progress: undefined
         });
         setTimeout(() => {
-          router.push('/store/dashboard');
+          router.push('/store/events');
           sessionStorage.setItem('selectedMenu', 'dashboard');
         }, 1000);
       } else {
@@ -144,7 +144,7 @@ const EventSettings = () => {
                   保存
                 </button>
                 <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
-                  <a href='/store/dashboard'>下書き</a>
+                  <a href='/store/events'>キャンセル</a>
                 </button>
               </div>
               {/* Event settings */}
@@ -298,7 +298,7 @@ const EventSettings = () => {
                   保存
                 </button>
                 <button type="button" className="w-48 py-2 px-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 duration-300">
-                  <a href='/store/dashboard'>下書き</a>
+                  <a href='/store/events'>キャンセル</a>
                 </button>
               </div>
             </form>

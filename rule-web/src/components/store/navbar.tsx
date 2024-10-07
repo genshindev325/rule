@@ -87,7 +87,7 @@ const Navbar = () => {
             <FaHome className="w-8 h-8" />
           </button>
         </Link>
-        <Link href="/store/eventSettings">
+        <Link href="/store/events">
           <button
             className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'eventSettings' ? 'text-blue-400' : ''} duration-500`}
             onClick={() => handleMenuClick('eventSettings')}
