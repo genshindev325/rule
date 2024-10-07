@@ -209,7 +209,7 @@ const FormInput: React.FC = () => {
         <div className='bg-gray-100 pb-12 px-4 sm:px-5 md:px-6'>
           {registeredCard &&
             <div className='bg-gray-100 pb-4'>
-              <label className="block font-bold text-gray-800 pt-2">登録済みカード</label>
+              <label className={`${textSm} block font-semibold text-gray-800 pt-2`}>登録済みカード</label>
               <div className="mt-4 bg-white rounded-md">
                 <div className="flex flex-col p-2">
                   <h4 className={`${textSm} text-left font-semibold`}>{`****_****_****_${last4}`}</h4>
@@ -227,7 +227,7 @@ const FormInput: React.FC = () => {
             </div>
           }
           <label className={`${textSm} block font-bold text-gray-800 pt-2`}>カード登録</label>
-          <div className="mt-4 bg-white rounded-md">
+          <div className="mt-1 bg-white rounded-md">
             <h4 className={`${textSm} text-center font-semibold py-2`}>対応ブランド</h4>
             <div className="flex justify-around pb-4">
               <img src={`${visaSVG}`} alt="Visa" className="h-12" />

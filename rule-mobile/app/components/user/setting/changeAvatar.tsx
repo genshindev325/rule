@@ -10,7 +10,7 @@ import AuthWrapper from '@/app/components/auth/authWrapper';
 import { SERVER_URL } from '@/app/config';
 import { RootState } from '@/app/store/store';
 
-const changeAvatar: React.FC = () => {
+const ChangeAvatar: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
   const textSm = 'text-sm md:text-md font-semibold';
@@ -180,4 +180,4 @@ const changeAvatar: React.FC = () => {
   );
 };
 
-export default changeAvatar;
+export default ChangeAvatar;

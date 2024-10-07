@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import nodemailer from 'nodemailer';
-import { google } from 'googleapis'
 import crypto from 'crypto';
 import dbConnect from '@/lib/mongoose';
 import User from '@/models/userModel';
 import { verificationCodes } from '../verificationCodes';
 
 export async function POST(req: NextRequest) {
-  const OAuth2 = google.auth.OAuth2;
-
   await dbConnect();
   
   const body = await req.json();
@@ -24,26 +21,37 @@ export async function POST(req: NextRequest) {
     const code = crypto.randomBytes(2).toString('hex');
     const expiresAt = Date.now() + 120000; // 2 minute
     verificationCodes[email] = { code, expiresAt };
+
     // Send email (this is a simplified example)
     const transporter = nodemailer.createTransport({
-      service: 'lucaswang971025@gmail.com',
+      host: 'smtp.office365.com', // Outlook SMTP server
+      port: 587,                  // Port for STARTTLS
+      secure: false,               // Use false for STARTTLS
       auth: {
-        user: 'lucaswang971025@gmail.com',
-        pass: 'Hpccloud21',
+        user: 'smartdev1007@outlook.com',
+        pass: 'Hpccloud21',        // Your Outlook password
+      },
+      tls: {
+        rejectUnauthorized: false, // Allows self-signed certificates if necessary
       },
     });
 
     const mailOptions = {
-      from: 'lucaswang971025@gmail.com',
+      from: 'smartdev1007@outlook.com',
       to: email,
       subject: 'パスワードリセットの確認',
       text: `確認コードは次のとおりです: ${code}`,
     };
 
     try {
-      console.log("AASD")
-      await transporter.sendMail(mailOptions);
-      console.log("result");
+      await transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          console.log("err: " + err);
+        } else {
+          console.log("info: " + info);
+        }
+      });
+      console.log("code: " + code);
       return NextResponse.json({ success: true, message: '確認メールが送信されました。' }, { status: 200 });
     } catch (error) {
       console.log(error)
