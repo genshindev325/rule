@@ -47,7 +47,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         if (!token) {
-          router.push('/auth/login');
+          router.push('/auth/signin');
         } else {
           // Fetch mainPanel Data
           const response_mainPanel = await fetch('/api/admin/main-panel', {

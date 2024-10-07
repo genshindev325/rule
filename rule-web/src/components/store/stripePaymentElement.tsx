@@ -60,7 +60,7 @@ const FormInput: React.FC = () => {
   const fetchRegisteredCard = async () => {
     try {
       if (!token) {
-        router.push('/auth/login');
+        router.push('/auth/signin');
         } else {
         const response = await fetch('/api/payments/credit-cards', {
           method: 'POST',
@@ -119,7 +119,7 @@ const FormInput: React.FC = () => {
     setDeleteConfirmModalVisible(false);
     try {
       if (!token) {
-        router.push('/auth/login');
+        router.push('/auth/signin');
         } else {
         const response = await fetch('/api/payments/credit-cards', {
           method: 'DELETE',
@@ -153,7 +153,7 @@ const FormInput: React.FC = () => {
   
   const handleSubmit = async (event: React.FormEvent) => {
     if (!token) {
-      router.push('/auth/login');
+      router.push('/auth/signin');
       } else {
       event.preventDefault();
       setIsProcessing(true);

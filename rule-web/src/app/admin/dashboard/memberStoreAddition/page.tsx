@@ -19,7 +19,7 @@ const MemberStoreAddition = () => {
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
     if (!token) {
-      router.push('/auth/login');
+      router.push('/auth/signin');
     } else {
       e.preventDefault();
       // Add memberStoreAddition logic here

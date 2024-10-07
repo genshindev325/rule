@@ -43,7 +43,7 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
 
   const handleConfirmDelete = async () => {
     if (!token) {
-      router.push('/auth/login');
+      router.push('/auth/signin');
       } else {
       if (selectedRowId !== null) {
         const response = await fetch(`/api/events/${selectedRowId}`, {

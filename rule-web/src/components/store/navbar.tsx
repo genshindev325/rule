@@ -31,7 +31,7 @@ const Navbar = () => {
     }
     // fetch notificaitons every 1 minute
     if (!token) {
-      router.push('/auth/login');
+      router.push('/auth/signin');
     } else {
       const fetchData = async () => {
         try {

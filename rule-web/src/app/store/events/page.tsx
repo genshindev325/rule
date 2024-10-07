@@ -50,7 +50,7 @@ const Events = () => {
 
   useEffect(() => {
     if (!token) {
-      router.push('/auth/login');
+      router.push('/auth/signin');
     } else {
       const fetchData = async () => {
         try {

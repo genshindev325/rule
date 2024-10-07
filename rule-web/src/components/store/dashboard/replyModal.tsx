@@ -55,7 +55,7 @@ const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose, notic
   const onSendReply = () => {
     try {
       if (!token) {
-        router.push('/auth/login');
+        router.push('/auth/signin');
       } else {
         const sendReply = async () => {
           const response = await fetch('/api/reviews/reply', {
