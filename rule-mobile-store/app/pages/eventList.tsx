@@ -123,11 +123,11 @@ const EventList: React.FC = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold text-xl mr-12'>イベント一覧</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12'>イベント一覧</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
+          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 ion-padding'>
             {/* tab */}
             <div className='flex flex-row mt-6 mb-2'>
               <div className='flex flex-1 justify-center items-center'>

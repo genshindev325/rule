@@ -101,11 +101,11 @@ const ChatList: React.FC = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold text-xl mr-12'>お問い合わせ</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12'>お問い合わせ</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='min-h-screen min-w-full flex flex-col bg-white py-4 sm:py-6'>
+          <div className='min-h-screen min-w-full flex flex-col bg-white ion-padding'>
             <input
               type="text"
               value={searchTerm}
@@ -127,8 +127,8 @@ const ChatList: React.FC = () => {
                     <img
                       src={chat.avatar || '/image/minion.png'} // Default avatar path
                       alt={chat.name}
-                      className={`rounded-full border-blue-500 mt-2 ${
-                        selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
+                      className={`rounded-full border-blue-500 ${
+                        selectedChat?.id === chat.id ? 'w-11 object-contain border-2' : 'w-10 object-contain border-0'
                       }`}
                     />
                     <div className='flex flex-col w-full gap-1'>

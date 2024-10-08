@@ -137,11 +137,11 @@ const EventSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
+              <IonTitle className='text-center font-semibold mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className="bg-white p-4 min-h-screen w-full">
+          <div className="bg-white ion-padding min-h-screen w-full">
             <form onSubmit={handleSubmit}>
               {/* Event settings */}
               <h3 className='text-gray-600 text-xs sm:text-sm py-2'>イベント名</h3>

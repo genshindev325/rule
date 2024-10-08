@@ -20,11 +20,11 @@ const Settings = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold text-xl mr-12'>設定</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12'>設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 p-3 sm:p-6'>
+          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 ion-padding'>
             <div className="w-full flex flex-row space-x-4">
               <IonRouterLink routerLink="/settings/storeProfileSetting" className='flex-1'>
                 <div className={`rounded-lg underline underline-offset-2 border-gray-200 border-solid border-2 bg-white hover:bg-gray-200 text-center px-1 py-16 ${textSm}`}>
