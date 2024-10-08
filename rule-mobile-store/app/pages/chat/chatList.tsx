@@ -10,6 +10,7 @@ import { SERVER_URL } from '@/app/config';
 import { formatDateTime } from '@/app/utils/datetime';
 import SideMenu from '@/app/components/store/IonMenu';
 import { setChat } from '@/app/store/features/chat/ChatSlice';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface Message {
   message: string;
@@ -94,7 +95,7 @@ const ChatList: React.FC = () => {
   }
 
   return (
-    <>
+    <AuthWrapper allowedRoles={['store']}>
       <SideMenu />
       <IonPage id='main-content'>
         <IonHeader>
@@ -103,7 +104,7 @@ const ChatList: React.FC = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>お問い合わせ</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className='min-h-screen min-w-full flex flex-col bg-white py-4 sm:py-6'>
             <input
               type="text"
@@ -144,7 +145,7 @@ const ChatList: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
-    </>
+    </AuthWrapper>
   );
 }
 

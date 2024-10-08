@@ -19,7 +19,7 @@ const CreditCardSetting = () => {
             <IonTitle className='text-center font-semibold text-xl mr-12'>クレジットカード設定</IonTitle> {/* Default title */}
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <StripePaymentElement />
         </IonContent>
       </IonPage>

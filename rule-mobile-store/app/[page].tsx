@@ -14,8 +14,6 @@ import { IonReactRouter } from "@ionic/react-router";
 import dynamic from "next/dynamic";
 import { Redirect,Route, BrowserRouter as Router } from "react-router-dom";
 
-
-
 const App = dynamic(() => import('@/app/AppShell'), {
   ssr: false,
 });

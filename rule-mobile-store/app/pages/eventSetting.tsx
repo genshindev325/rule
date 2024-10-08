@@ -140,7 +140,7 @@ const EventSetting = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className="bg-white p-4 min-h-screen w-full">
             <form onSubmit={handleSubmit}>
               {/* Event settings */}

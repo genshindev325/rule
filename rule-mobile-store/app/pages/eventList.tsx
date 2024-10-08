@@ -126,7 +126,7 @@ const EventList: React.FC = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>イベント一覧</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 px-4 sm:px-6'>
             {/* tab */}
             <div className='flex flex-row mt-6 mb-2'>

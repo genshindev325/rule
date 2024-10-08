@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
 import { formatDateTime } from '@/app/utils/datetime';
 import { SERVER_URL } from '@/app/config';
+import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface Message {
   message: string;
@@ -144,7 +145,7 @@ const ChatMessages: React.FC = () => {
   }, [selectedChat?.messages]);
 
   return (
-    <>
+    <AuthWrapper allowedRoles={['store']}>
       <SideMenu />
       <IonPage id='main-content'>
         <IonHeader>
@@ -153,7 +154,7 @@ const ChatMessages: React.FC = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>{chatName}</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className='max-h-screen min-w-full flex flex-col bg-white py-4 sm:py-6'>
             <div className="flex flex-col space-y-2 p-4 h-[calc(100vh-8rem)] overflow-y-auto">
               {/* conversations */}
@@ -224,7 +225,7 @@ const ChatMessages: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
-    </>
+    </AuthWrapper>
   )
 }
 

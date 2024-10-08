@@ -88,7 +88,7 @@ const SalesManagement = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>売り上げ管理</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className="w-full p-4 bg-gray-100">
             <TotalSales totalSales={totalSales} />
             <div className="mt-4">

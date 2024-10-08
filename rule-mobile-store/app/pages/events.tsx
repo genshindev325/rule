@@ -124,7 +124,7 @@ const Events = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className="min-h-screen min-w-full flex bg-gray-100 text-gray-800">
             <div className="w-3/4 p-10">
               <div className="mt-8">

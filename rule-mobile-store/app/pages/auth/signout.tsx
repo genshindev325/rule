@@ -22,7 +22,7 @@ const SignOut: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent fullscreen>
         <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white p-6 space-y-4">
           <div className={`${textXl} pb-4`}>ログアウト</div>
           <h2 className="mb-8 text-center text-md text-gray-600">

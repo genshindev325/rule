@@ -76,7 +76,7 @@ const SignIn: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-white ion-padding space-y-4">
+        <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4">
           <div className={`${textXl} pb-4`}>サインイン</div>
             <input
               type="email"
@@ -95,7 +95,7 @@ const SignIn: React.FC = () => {
               required
             />
             <h2 className={`${textSm} font-semibold mr-auto pb-4`}>
-              <IonRouterLink routerLink='/auth/passwordResetSend'>
+              <IonRouterLink routerLink='/auth/passwordResetSend' className='text-gray-500'>
                 パスワードをお忘れですか？
               </IonRouterLink>
             </h2>
@@ -107,7 +107,7 @@ const SignIn: React.FC = () => {
               サインイン
             </button>
             <div className='my-6 text-center'>
-              <IonRouterLink routerLink='/auth/signup' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
+              <IonRouterLink routerLink='/auth/signup' className='text-sm text-gray-500 hover:cursor-pointer font-bold'>
                 アカウントを作成する
               </IonRouterLink>
             </div>

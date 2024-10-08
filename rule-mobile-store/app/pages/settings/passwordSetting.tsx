@@ -116,7 +116,7 @@ const PasswordSetting = () => {
               <IonTitle className='text-center font-semibold text-xl mr-12'>パスワード設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
-        <IonContent>
+        <IonContent fullscreen>
           <div className='bg-white w-full p-4'>
             <form onSubmit={handleSubmit}>
               {/* Password setting */}
