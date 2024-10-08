@@ -81,7 +81,7 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-      <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
+      <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
         <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">プロフィール画像を</h2>
         <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">設定してください</h2>
         <form onSubmit={handleSubmit}>
