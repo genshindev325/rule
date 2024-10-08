@@ -1,4 +1,4 @@
-import { IonApp, IonMenu, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonApp, IonRouterOutlet, IonTab, IonTabBar, IonTabs, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { LoadScriptNext } from "@react-google-maps/api";
 import { Redirect, Route } from "react-router-dom";
@@ -33,7 +33,7 @@ const AppShell = () => {
         <LoadScriptNext googleMapsApiKey={apiKey} loadingElement={<div className="w-screen h-screen flex flex-row items-center justify-center text-2xl font-bold">読み込み中...</div>} id="google-map-script">
           <IonReactRouter>
             <IonRouterOutlet id="main">
-              <Route path="/auth/signup" component={SignUp} />
+              <Route path="/auth/signup" render={() => <SignUp />} exact={true} />
               <Route path="/auth/signin" render={() => <SignIn />} exact={true} />
               <Route path="/auth/signout" render={() => <SignOut />} exact={true} />
               <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
@@ -51,7 +51,7 @@ const AppShell = () => {
               <Route path="/settings/transferAccountSetting" render={() => <TransferAccountSetting />} exact={true} />
               <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
               {/* redirect */}
-              <Route path="/" render={() => <Redirect to="/auth/signin" />} exact={true} />
+              <Route path="/" render={() => <SignIn />} exact={true} />
             </IonRouterOutlet>
           </IonReactRouter>
         </LoadScriptNext>
