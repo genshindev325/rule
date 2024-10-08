@@ -51,7 +51,7 @@ const AppShell = () => {
       <IonApp>
         <LoadScriptNext
           googleMapsApiKey={apiKey}
-          loadingElement={<div>読み込み中...</div>}
+          loadingElement={<div className="w-screen h-screen flex flex-row items-center justify-center text-2xl font-bold">読み込み中...</div>}
           id="google-map-script"
         >
           <IonReactRouter>

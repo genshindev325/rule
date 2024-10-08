@@ -30,7 +30,7 @@ const AppShell = () => {
   return (
     <Providers>
       <IonApp>
-        <LoadScriptNext googleMapsApiKey={apiKey} loadingElement={<div>読み込み中...</div>} id="google-map-script">
+        <LoadScriptNext googleMapsApiKey={apiKey} loadingElement={<div className="w-screen h-screen flex flex-row items-center justify-center text-2xl font-bold">読み込み中...</div>} id="google-map-script">
           <IonReactRouter>
             <IonRouterOutlet id="main">
               <Route path="/auth/signup" component={SignUp} />
