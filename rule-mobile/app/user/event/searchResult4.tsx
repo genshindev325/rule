@@ -31,7 +31,7 @@ interface EventProps {
 const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = ' -mt-36 rounded-2xl bg-white px-3 sm:px-6 md:px-8 ld:px-10 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4 w-[92vw]';
+  const container = ' -mt-36 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
   const textMd = 'text-md sm:text-lg';
 
   // get events from findDetailModal params
@@ -52,7 +52,7 @@ const SearchResult4: React.FC = () => {
             {/* header */}
             <div className={`h-56 md:h-60 w-full ${maleGradient}`}>
               <div className='flex flex-row text-xl text-center text-white font-bold pt-6 px-4'>                
-                <IonRouterLink routerLink={'/home'}>
+                <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
                 <h2 className='grow pr-6'>イベントを探す</h2>
@@ -74,7 +74,7 @@ const SearchResult4: React.FC = () => {
                 </div>
               ))}
               {/* see more button */}
-              {testEvents &&
+              {testEvents.length > 6 &&
                 <div className='py-4 sm:py-8 mx-auto'>
                   <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
                 </div>
