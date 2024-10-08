@@ -184,7 +184,7 @@ const Dashboard = () => {
               もっと見る
             </span>
             {/* recent reviews */}
-            <div className={`${textMd}`}>最近のレビュー</div>
+            <div className={`${textSm}`}>最近のレビュー</div>
             <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
             <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
             {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}

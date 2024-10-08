@@ -35,7 +35,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
                   <img src={review.createdBy.avatar} className='rounded-full w-10 h-10' />
                 </div>
               <div className="ml-2">
-                <div className="font-semibold">{review.createdBy.nickname}</div>
+                <div className="text-font-semibold">{review.createdBy.nickname}</div>
               </div>
             </div>
             <div className="flex items-center mb-2">
@@ -44,11 +44,11 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
               </div>
-              <div className="text-sm text-gray-500 ml-4">{formatDateTime(review.createdAt)}</div>
+              <div className="text-sm text-gray-800 ml-4">{formatDateTime(review.createdAt)}</div>
             </div>
-            <p>{review.storeReviewText}</p>
-            <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
-            <div className="text-md text-gray-500 mt-4 cursor-pointer">
+            <div className='text-sm text-gray-800 mt-4'>{review.storeReviewText}</div>
+            {review.conclusion && <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>}
+            <div className="text-sm text-gray-800 mt-4 cursor-pointer">
               <span onClick={() => onSelectReview(review)} className='underline underline-offset-2'>
                 返事する
               </span>
