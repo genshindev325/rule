@@ -167,8 +167,10 @@ const Dashboard = () => {
       <IonPage id='main-content'>
         <IonHeader>
           <IonToolbar>
-            <IonMenuButton slot="start" />
-            <IonTitle  className='text-center font-semibold mr-12'>ダッシュボード</IonTitle>
+            <IonTitle>ダッシュボード</IonTitle>
+            <IonButtons slot='start'>
+              <IonMenuButton />
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
