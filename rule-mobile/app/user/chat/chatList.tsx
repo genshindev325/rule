@@ -131,8 +131,8 @@ const ChatList: React.FC = () => {
                     <img
                       src={chat.avatar || '/image/minion.png'}
                       alt={chat.name}
-                      className={`rounded-full border-blue-500 mt-2 ${
-                        selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
+                      className={`rounded-full border-blue-500 ${
+                        selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 object-contain border-0'
                       }`}
                     />
                     <div className='flex flex-col w-full gap-1'>

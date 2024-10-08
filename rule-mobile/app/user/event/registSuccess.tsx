@@ -36,7 +36,7 @@ const RegistSuccess: React.FC = () => {
               <h2 className='grow'>完了します!</h2>
             </div>
             {/* content */}
-            <div className='rounded-lg bg-white p-4 px-6 sm:px-7 md:px-8 mb-4 flex flex-col items-start space-y-1'>
+            <div className='rounded-2xl bg-white p-4 px-6 sm:px-7 md:px-8 mb-4 flex flex-col items-start space-y-1'>
               <h2 className={`${textSm} font-semibold`}>{selectedEvent.eventName}</h2>
               <h2 className={textSm}>{formatDateTime(selectedEvent.eventStartTime)}~{formatReturnTime(selectedEvent.eventEndTime)}</h2>
               <div className={`${textSm} flex flex-row space-x-2`}>

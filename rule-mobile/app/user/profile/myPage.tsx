@@ -42,7 +42,7 @@ const Profile: React.FC = () => {
             <div className={`${container}`}>
               <div className='flex flex-col items-center'>
                 {avatar &&
-                  <img src={`${avatar}`} className='w-28 h-28 rounded-full mt-4' />
+                  <img src={`${avatar}`} className='w-28 h-28 object-contain rounded-full mt-4' />
                 }
                 <h2 className={`${textMd}`}>ID: {userID}</h2>
               </div>

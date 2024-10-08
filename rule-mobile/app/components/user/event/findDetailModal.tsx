@@ -63,7 +63,6 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
   const [cookingGenre, setCookingGenre] = useState('');
 
   const handleWithConditions = () => {
-    console.log("onSearch called with:", { category, storeGenre, foodGenre, cookingGenre });
     if (onSearch) {  // Ensure onSearch exists before calling it
       onSearch({
         category,
@@ -103,7 +102,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             name="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className={`block w-40 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
+            className={`block flex-1 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">場所を選択</option>
             <option value="Tokyo, Japan">東京、日本</option>
@@ -113,7 +112,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             type="date"
             name="date"
             onChange={(e) => setDate(e.target.value)}
-            className={`w-40 p-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
+            className={`flex-1 p-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
             value={date}
             min={new Date().toISOString().split('T')[0]}
           />
@@ -142,7 +141,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             name="age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
-            className={`block w-28 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
+            className={`block flex-1 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">年齢</option>
             <option value="20代">20代</option>

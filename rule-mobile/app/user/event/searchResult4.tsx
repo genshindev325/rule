@@ -30,13 +30,9 @@ interface EventProps {
 
 const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
-
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'absolute top-20 rounded-xl bg-white px-3 sm:px-4 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4';
-  const searchSVG = '/svg/search.svg';
-  const settingSVG = '/svg/settings.svg';
+  const container = ' -mt-36 rounded-2xl bg-white px-3 sm:px-6 md:px-8 ld:px-10 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4 w-[92vw]';
   const textMd = 'text-md sm:text-lg';
-  const fromTop = 'pt-[900px] md:pt-[1200px] lg:pt-[1250px] xl:pt-[1350px]';
 
   // get events from findDetailModal params
   const searchParams = useSearchParams ();
@@ -47,10 +43,6 @@ const SearchResult4: React.FC = () => {
       setTestEvents(JSON.parse(resultEvents));
     }
   }, [resultEvents]);
-
-  const handleSelecteEvent = () => {
-
-  }
 
   return (
     <IonPage>
@@ -82,11 +74,12 @@ const SearchResult4: React.FC = () => {
                 </div>
               ))}
               {/* see more button */}
-              <div className='py-4 sm:py-8 mx-auto'>
-                <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
-              </div>
+              {testEvents &&
+                <div className='py-4 sm:py-8 mx-auto'>
+                  <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
+                </div>
+              }
             </div>
-            <div className={`${fromTop}`}></div>
           </div>
         </AuthWrapper>
       </IonContent>
