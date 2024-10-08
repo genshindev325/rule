@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonInput, useIonRouter, IonRouterLink } from '@ionic/react';
 import { toast, ToastContainer } from 'react-toastify'; 
 import Notification from '@/app/utils/notification';
 import { useAuth } from '@/app/components/auth/authContext';
@@ -78,18 +78,18 @@ const SignIn: React.FC = () => {
       <IonContent fullscreen>
         <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4">
           <div className={`${textXl} pb-4`}>サインイン</div>
-            <input
+            <IonInput
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onIonChange={(e) => setEmail(e.target.value as string)}
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="メールアドレス"
               required
             />
-            <input
+            <IonInput
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onIonChange={(e) => setPassword(e.target.value as string)}
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="パスワード"
               required
