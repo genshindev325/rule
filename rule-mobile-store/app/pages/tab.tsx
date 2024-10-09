@@ -50,7 +50,7 @@ const Tabs = () => {
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/dashboard">
             <IonIcon icon={home} />
-            <IonLabel></IonLabel>
+            <IonLabel>ダッシュボード</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/eventSetting">
             <IonIcon icon={list} />
@@ -58,7 +58,7 @@ const Tabs = () => {
           </IonTabButton>
           <IonTabButton tab="tab3" href="/settings">
             <IonIcon icon={cog} />
-            <IonLabel>Settings設定</IonLabel>
+            <IonLabel>設定</IonLabel>
           </IonTabButton>
         </IonTabBar>
         :

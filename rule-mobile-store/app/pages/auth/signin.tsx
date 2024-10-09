@@ -82,6 +82,9 @@ const SignIn: React.FC = () => {
               type="email"
               value={email}
               onIonChange={(e) => setEmail(e.target.value as string)}
+              fill='outline'
+              labelPlacement='floating'
+              label='メールアドレス'
               placeholder="メールアドレス"
               required
             />
@@ -89,6 +92,9 @@ const SignIn: React.FC = () => {
               type="password"
               value={password}
               onIonChange={(e) => setPassword(e.target.value as string)}
+              fill='outline'
+              labelPlacement='floating'
+              label='パスワード'
               placeholder="パスワード"
               required
             />
