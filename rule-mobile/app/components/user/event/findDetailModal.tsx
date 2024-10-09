@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useIonRouter } from '@ionic/react';
+import locations from '@/app/constants/location.json' 
 
 interface EventProps {
   _id: string;
@@ -105,8 +105,11 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             className={`block flex-1 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">場所を選択</option>
-            <option value="Tokyo, Japan">東京、日本</option>
-            <option value="Osaka, Japan">大阪、日本</option>
+            {
+              locations && locations.map((location, index) => (                
+              <option key={index} value={location}>{location}</option>
+              ))
+            }
           </select>
           <input
             type="date"
