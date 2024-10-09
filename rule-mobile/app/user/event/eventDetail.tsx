@@ -90,8 +90,8 @@ const EventDetail: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white space-y-1">
             {/* header */}
-            <div className={`h-60 md:h-72 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+            <div className={`h-60 sm:h-64 md:h-72 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

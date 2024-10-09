@@ -82,9 +82,9 @@ const EventPayment: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex items-start justify-center min-h-screen w-screen bg-white">
-            <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
+            <div className={`h-44 sm:h-48 md:h-52 w-full ${maleGradient}`}>
               {/* Header Section */}
-              <div className="py-4 sm:py-5 md:py-6 px-4 md:px-8 flex flex-row text-white font-semibold text-lg text-center">
+              <div className="pb-4 sm:pb-5 md:pb-6 pt-16 sm:pt-20 md:pt-24 px-4 md:px-8 flex flex-row text-white font-semibold text-lg text-center">
                 <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

@@ -41,6 +41,7 @@ const SearchResult4: React.FC = () => {
   useEffect(() => {
     if (resultEvents) {
       setTestEvents(JSON.parse(resultEvents));
+      console.log("length: " + testEvents.length)
     }
   }, [resultEvents]);
 
@@ -74,8 +75,8 @@ const SearchResult4: React.FC = () => {
                   <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
                 </div>
               }
-              {!testEvents &&
-                <div className='flex flex-row items-center justify-center'>
+              {testEvents.length === 0 &&
+                <div className='flex flex-row h-full items-center justify-center'>
                   <h2 className='text-sm sm:text-md md:text-lg font-semibold text-gray-700'>
                     一致するイベントが見つかりません
                   </h2>

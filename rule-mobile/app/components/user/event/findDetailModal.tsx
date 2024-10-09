@@ -115,7 +115,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             type="date"
             name="date"
             onChange={(e) => setDate(e.target.value)}
-            className={`flex-1 px-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500`}
+            className={`flex-1 px-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
             value={date}
             min={new Date().toISOString().split('T')[0]}
           />

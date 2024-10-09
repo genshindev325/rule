@@ -3,12 +3,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink, IonTextarea, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import FullCarousel from '@/app/components/user/search/fullCarousel';
-import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import StarRating from '@/app/components/utils/starRating';
 import { RootState } from '@/app/store/store';
@@ -277,10 +276,10 @@ const EventReview2: React.FC = () => {
                   <StarRating rate={ratingEvent} onRateChange={handleRateEventChange} />
                 </div>
               </div>
-              <IonTextarea
+              <textarea
                 value={reviewEvent}
-                onIonChange={(e) => setReviewEvent(e.target.value as string)}
-                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none ${textSm}`}
+                onChange={(e) => setReviewEvent(e.target.value as string)}
+                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none text-lg`}
                 placeholder="イベントのレビューを書く"
                 rows={6}          
               />
@@ -325,7 +324,7 @@ const EventReview2: React.FC = () => {
               <textarea
                 value={reviewStore}
                 onChange={(e) => setReviewStore(e.target.value)}
-                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none"
+                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-lg"
                 placeholder="お店のレビューを書く"
                 rows={6}
               />

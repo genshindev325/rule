@@ -50,6 +50,10 @@ const Login: React.FC = () => {
             pauseOnHover: true,
             draggable: true,
             bodyClassName: 'text-xs sm:text-sm',
+            style: {
+              width: 'auto',
+              maxWidth: '400px',
+            }
           });
           router.push('/home');
         }
