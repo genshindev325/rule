@@ -10,7 +10,7 @@ import {
   CardCvcElement,
   Elements,
 } from "@stripe/react-stripe-js";
-import { useIonRouter } from '@ionic/react';
+import { IonCheckbox, useIonRouter } from '@ionic/react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
@@ -347,7 +347,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               <label className={`${textSm} block font-semibold text-gray-800`}>カード名義</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                className="w-full px-3 border rounded-md text-lg focus:outline-none"
                 placeholder="カード名義"
                 value={cardholderName}
                 onChange={(e) => setCardholderName(e.target.value)}
@@ -367,7 +367,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
       </div>
       <h2 className={`${textXs} text-center pt-6 px-4`}>%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項%お支払い前の注意事項</h2>
       <div className="mt-4 flex items-center justify-center">
-        <input type="checkbox" className="form-checkbox" />
+        <IonCheckbox />
         <span className={`${textSm} ml-2 text-gray-600`}>
           <a href="" className={`text-blue-400 font-semibold`}>利用規約</a>に同意する
         </span>

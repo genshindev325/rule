@@ -100,8 +100,8 @@ const ChatList: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className='min-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6'>
             {/* Header */}
-            <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+            <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -112,7 +112,7 @@ const ChatList: React.FC = () => {
                   type="text"
                   value={searchTerm}
                   onChange={handleSearch}
-                  className="w-full py-2 px-4 rounded bg-white focus:outline-none text-sm"
+                  className="w-full py-1 px-4 rounded bg-white focus:outline-none text-lg"
                   placeholder="検索"
                 />
               </div>

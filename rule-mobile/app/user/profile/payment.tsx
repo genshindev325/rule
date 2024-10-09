@@ -15,7 +15,7 @@ const ProfilePayment: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white">
-            <div className={`h-56 sm:h-60 md:h-72 w-full px-6 md:px-8 py-5 sm:py-6 md:py-8 flex flex-row ${maleGradient}`}>
+            <div className={`h-56 sm:h-60 md:h-64 w-full px-6 md:px-8 py-b sm:pb-6 md:pb-8 pt-16 sm:pt-20 md:pt-24 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/profile/myPage'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />

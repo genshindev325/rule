@@ -35,7 +35,7 @@ const jcbSVG = "/svg/jcb.svg";
 const masterCardSVG = "/svg/mastercard.svg";
 const visaSVG = "/svg/visa.svg";
 const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-const container = 'w-11/12 rounded-xl bg-white -mt-40 flex flex-col shadow-md';
+const container = 'w-11/12 rounded-xl bg-white -mt-28 flex flex-col shadow-md';
 const textMd = 'text-md sm:text-lg md:text-xl';
 const textXs = 'text-xs sm:text-sm md:text-md';
 const textSm = 'text-sm sm:text-md md:text-lg';
@@ -244,7 +244,7 @@ const FormInput: React.FC = () => {
             <label className={`${textSm} block font-bold text-gray-800`}>カード名義</label>
             <input
               type="text"
-              className={`${textSm} w-full px-3 py-2 border rounded-md focus:outline-none`}
+              className={`text-lg w-full px-3 border rounded-md focus:outline-none`}
               placeholder="カード名義"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}

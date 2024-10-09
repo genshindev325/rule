@@ -162,8 +162,8 @@ const ChatMessages: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className='max-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6'>
             {/* Header */}
-            <div className={`h-14 sm:h-16 md:h-20 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+            <div className={`h-36 sm:h-40 md:h-44 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <IonRouterLink routerLink={'/chatList'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -210,7 +210,7 @@ const ChatMessages: React.FC = () => {
             </div>
           </div>
           {/* input box */}
-          <div className="absolute bottom-0 w-full flex items-center p-4 border-gray-300 bg-white border-t-2 border-solid text-gray-800">
+          <div className="absolute bottom-6 w-full flex items-center p-4 border-gray-300 bg-white border-t-2 border-solid text-gray-800">
             <textarea
               ref={textareaRef} // Reference for the textarea
               value={input}
@@ -232,7 +232,7 @@ const ChatMessages: React.FC = () => {
             />
             <button
               onClick={handleSend}
-              className="ml-4 p-2 bg-blue-500 text-white rounded"
+              className="ml-4 p-2 bg-blue-500 text-white rounded text-lg"
             >
               <FaPaperPlane />
             </button>

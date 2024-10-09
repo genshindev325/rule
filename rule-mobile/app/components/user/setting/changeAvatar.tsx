@@ -14,7 +14,7 @@ const ChangeAvatar: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
   const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-lg w-full px-3 sm:px-4 md:px-6 border border-gray-700 rounded-md focus:outline-none';
   const [localAvatar, setAvatar] = useState('');
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
@@ -133,9 +133,9 @@ const ChangeAvatar: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex items-start justify-center min-h-screen w-screen bg-white">
-            <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+            <div className="h-44 sm:h-48 md:h-52 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
               {/* header */}
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-xl font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <IonRouterLink routerLink={'/profile/setting'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

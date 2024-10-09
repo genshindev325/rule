@@ -105,17 +105,14 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             className={`block flex-1 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">場所を選択</option>
-            {
-              locations && locations.map((location, index) => (                
-              <option key={index} value={location}>{location}</option>
-              ))
-            }
+            <option value="Tokyo, Japan">東京、日本</option>
+            <option value="Osaka, Japan">大阪、日本</option>
           </select>
           <input
             type="date"
             name="date"
             onChange={(e) => setDate(e.target.value)}
-            className={`flex-1 p-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
+            className={`flex-1 px-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500`}
             value={date}
             min={new Date().toISOString().split('T')[0]}
           />
