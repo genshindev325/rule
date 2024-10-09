@@ -2,10 +2,9 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonPage, IonContent, IonInput, useIonRouter, IonRouterLink } from '@ionic/react';
-import { toast, ToastContainer } from 'react-toastify'; 
-import Notification from '@/app/utils/notification';
+import { toast } from 'react-toastify'; 
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
 
@@ -18,13 +17,6 @@ const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
-
-  useEffect(() => {}, [notification]);
 
   const handleSubmit = async () => {
     try {
@@ -66,10 +58,9 @@ const SignIn: React.FC = () => {
         }
       } else {
         console.log(response.status);
-        setNotification({ message: 'ユーザー名とパスワードが一致しません。', type: 'error' });
       }
     } catch(error) {
-      setNotification({ message: `サインイン中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+      console.log(error);
     }
   };
 
@@ -78,18 +69,18 @@ const SignIn: React.FC = () => {
       <IonContent fullscreen>
         <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4">
           <div className={`${textXl} pb-4`}>サインイン</div>
-            <IonInput
+            <input
               type="email"
               value={email}
-              onIonChange={(e) => setEmail(e.target.value as string)}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="メールアドレス"
               required
             />
-            <IonInput
+            <input
               type="password"
               value={password}
-              onIonChange={(e) => setPassword(e.target.value as string)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="パスワード"
               required
