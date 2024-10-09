@@ -162,8 +162,8 @@ const Dashboard = () => {
   };
 
   return (
-    // <AuthWrapper allowedRoles={['store']}>
-      // {/* <SideMenu /> */}
+    <AuthWrapper allowedRoles={['store']}>
+      // <SideMenu />
       <IonPage id='main-content'>
         <IonHeader>
           <IonToolbar>
@@ -199,7 +199,7 @@ const Dashboard = () => {
           </div>
         </IonContent>
       </IonPage>
-    // </AuthWrapper>
+    </AuthWrapper>
   )
 }
 

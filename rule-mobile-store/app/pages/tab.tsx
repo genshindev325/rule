@@ -46,20 +46,24 @@ const Tabs = () => {
         <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
         <Route path="" render={() => <Redirect to={'/auth/signin'} />} exact={true} />
       </IonRouterOutlet>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="tab1" href="/dashboard">
-          <IonIcon icon={home} />
-          <IonLabel></IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="tab2" href="/eventSetting">
-          <IonIcon icon={list} />
-          <IonLabel>イベント</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="tab3" href="/settings">
-          <IonIcon icon={cog} />
-          <IonLabel>Settings設定</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
+      {isAuthenticated ?
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="tab1" href="/dashboard">
+            <IonIcon icon={home} />
+            <IonLabel></IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab2" href="/eventSetting">
+            <IonIcon icon={list} />
+            <IonLabel>イベント</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/settings">
+            <IonIcon icon={cog} />
+            <IonLabel>Settings設定</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+        :
+        <IonTabBar /> 
+      }
     </IonTabs>
   );
 };

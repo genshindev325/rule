@@ -82,7 +82,6 @@ const SignIn: React.FC = () => {
               type="email"
               value={email}
               onIonChange={(e) => setEmail(e.target.value as string)}
-              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="メールアドレス"
               required
             />
@@ -90,7 +89,6 @@ const SignIn: React.FC = () => {
               type="password"
               value={password}
               onIonChange={(e) => setPassword(e.target.value as string)}
-              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none"
               placeholder="パスワード"
               required
             />
