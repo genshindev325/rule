@@ -14,8 +14,8 @@ const Home: React.FC = () => {
       <IonContent>
         <div className={`flex flex-col items-center min-h-screen w-screen`}>
           {/* header */}
-          <div className={`h-40 sm:h-40 md:h-48 w-full ${maleGradient}`}>
-            <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>
+          <div className={`h-48 w-full ${maleGradient}`}>
+            <h2 className='text-xl text-center text-white font-bold pt-16'>居酒屋マッチングサービス</h2>
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
           <div className='p-12 w-full space-y-8'>
