@@ -79,6 +79,13 @@ const SearchResult4: React.FC = () => {
                   <button type='submit' className={`w-52 py-1 rounded-full bg-[#e5e5e5] font-bold ${textMd}`}>もっと見る</button>
                 </div>
               }
+              {testEvents.length === 0 &&
+                <div className='flex flex-row items-center justify-center w-full min-h-[80vh]'>
+                  <h2 className='text-sm font-semibold text-gray-700'>
+                    一致するイベントが見つかりません。
+                  </h2>
+                </div>
+              }
             </div>
           </div>
         </AuthWrapper>
