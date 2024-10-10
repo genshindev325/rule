@@ -159,15 +159,19 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
   );
 
   const handleSearchWithConditions = (searchConditions: {
+    location?: string;
+    date?: string;
     category?: string;
     storeGenre?: string;
     foodGenre?: string;
     cookingGenre?: string;
   }) => {
-    const { category, storeGenre, foodGenre, cookingGenre } = searchConditions;
+    const { location, date, category, storeGenre, foodGenre, cookingGenre } = searchConditions;
 
     const newFilteredEvents = events.filter(event => {
       return (
+        (!location || event.store.address.includes(location)) &&
+        (!date || event.eventDate.includes(date)) &&
         (!category || event.category === category) &&
         (!storeGenre || event.store.storeGenre === storeGenre) &&
         (!foodGenre || event.store.foodGenre === foodGenre) &&
