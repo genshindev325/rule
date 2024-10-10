@@ -8,6 +8,7 @@ interface ReviewModalProps {
   onClose: () => void;
   onSearch: (searchConditions: {
     location?: string;
+    date?: string;
     category?: string;
     storeGenre?: string;
     foodGenre?: string;
@@ -35,6 +36,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
     if (onSearch) {  // Ensure onSearch exists before calling it
       onSearch({
         location,
+        date,
         category,
         storeGenre,
         foodGenre,
