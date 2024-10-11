@@ -149,7 +149,7 @@ const EventSetting = () => {
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full text-lg px-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full text-xs text-sm px-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   required
                 />
               </div>
@@ -204,7 +204,7 @@ const EventSetting = () => {
                   <input
                     type="date"
                     name='schedule'
-                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full px-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     required
                   />
                 </div>
