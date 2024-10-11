@@ -279,7 +279,7 @@ const EventReview2: React.FC = () => {
               <textarea
                 value={reviewEvent}
                 onChange={(e) => setReviewEvent(e.target.value as string)}
-                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none text-lg`}
+                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm`}
                 placeholder="イベントのレビューを書く"
                 rows={6}          
               />
@@ -324,7 +324,7 @@ const EventReview2: React.FC = () => {
               <textarea
                 value={reviewStore}
                 onChange={(e) => setReviewStore(e.target.value)}
-                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-lg"
+                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm"
                 placeholder="お店のレビューを書く"
                 rows={6}
               />
