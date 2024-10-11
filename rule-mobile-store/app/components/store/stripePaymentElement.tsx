@@ -250,7 +250,7 @@ const FormInput = () => {
             id='cardholder-name'
             value={cardholderName}
             onChange={(e) => setCardholderName(e.target.value)}
-            className={`${textXs} w-full p-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+            className={`px-2 text-lg w-full bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
             placeholder="カード名義"
             required
           />

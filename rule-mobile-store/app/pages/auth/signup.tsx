@@ -125,22 +125,22 @@ const SignUp: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="min-h-screen w-screen flex flex-col items-center justify-start bg-white p-6 space-y-4">
+        <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-white p-6 space-y-4">
           <h2 className="text-2xl font-bold mb-4">サインアップ</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               value={email}
               onChange={handleEmailChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
               placeholder="メール"
               required
             />
             {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
             <input
-              type="text"
+              type="email"
               name='username'
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
               placeholder="ユーザー名"
               required
             />
@@ -148,7 +148,7 @@ const SignUp: React.FC = () => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
               placeholder="パスワード"
             />
             {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}

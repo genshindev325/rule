@@ -226,7 +226,7 @@ const StoreProfileSetting = () => {
                 <h3 className={`${textSm} font-semibold py-2`}>説明文</h3>
                 <textarea
                   name='description'
-                  className={`${textXs} w-full p-2 mt-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-lg w-full p-2 mt-3 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="説明文"
                   rows={3}
                 />

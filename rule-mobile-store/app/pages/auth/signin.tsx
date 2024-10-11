@@ -4,8 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonInput, useIonRouter, IonRouterLink } from '@ionic/react';
-import { toast, ToastContainer } from 'react-toastify'; 
-import Notification from '@/app/utils/notification';
+import { toast, ToastContainer } from 'react-toastify';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
 
@@ -18,13 +17,6 @@ const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-
-  const handleCloseNotification = () => {
-    setNotification(null);
-  };
-
-  useEffect(() => {}, [notification]);
 
   const handleSubmit = async () => {
     try {
@@ -59,17 +51,28 @@ const SignIn: React.FC = () => {
             draggable: true,
             bodyClassName: 'text-xs sm:text-sm',
           });
-          // setNotification({ message: 'サインインに成功しました!', type: 'success' });
           setTimeout(() => {
             router.push('/dashboard');
           }, 1500);
         }
       } else {
         console.log(response.status);
-        setNotification({ message: 'ユーザー名とパスワードが一致しません。', type: 'error' });
+        toast.error('ユーザー名とパスワードが一致しません。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     } catch(error) {
-      setNotification({ message: `サインイン中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, type: 'error' });
+      toast.error(`サインイン中にエラーが発生しました。もう一度お試しください。エラー: ${error}`, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
     }
   };
 
@@ -78,43 +81,45 @@ const SignIn: React.FC = () => {
       <IonContent fullscreen>
         <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4">
           <div className={`${textXl} pb-4`}>サインイン</div>
+          <div className="w-full px-3 border-b border-b-gray-700">
             <IonInput
               type="email"
+              name='email'
+              label='メールアドレス'
+              labelPlacement='floating'
               value={email}
               onIonChange={(e) => setEmail(e.target.value as string)}
-              fill='outline'
-              labelPlacement='floating'
-              label='メールアドレス'
-              placeholder="メールアドレス"
               required
             />
+          </div>
+          <div className="w-full px-3 border-b border-b-gray-700">
             <IonInput
               type="password"
+              name='password'
+              label='パスワード'
+              labelPlacement='floating'
               value={password}
               onIonChange={(e) => setPassword(e.target.value as string)}
-              fill='outline'
-              labelPlacement='floating'
-              label='パスワード'
-              placeholder="パスワード"
               required
             />
-            <h2 className={`${textSm} font-semibold mr-auto pb-4`}>
-              <IonRouterLink routerLink='/auth/passwordResetSend' className='text-gray-500'>
-                パスワードをお忘れですか？
-              </IonRouterLink>
-            </h2>
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className={`${textSm} w-full py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300`}
-            >
-              サインイン
-            </button>
-            <div className='my-6 text-center'>
-              <IonRouterLink routerLink='/auth/signup' className='text-sm text-gray-500 hover:cursor-pointer font-bold'>
-                アカウントを作成する
-              </IonRouterLink>
-            </div>
+          </div>
+          <h2 className={`${textSm} font-semibold mr-auto pb-4`}>
+            <IonRouterLink routerLink='/auth/passwordResetSend' className='text-gray-500'>
+              パスワードをお忘れですか？
+            </IonRouterLink>
+          </h2>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={`${textSm} w-full py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300`}
+          >
+            サインイン
+          </button>
+          <div className='my-6 text-center'>
+            <IonRouterLink routerLink='/auth/signup' className='text-sm text-gray-500 hover:cursor-pointer font-bold'>
+              アカウントを作成する
+            </IonRouterLink>
+          </div>
         </div>
       </IonContent>
     </IonPage>

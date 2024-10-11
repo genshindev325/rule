@@ -174,11 +174,6 @@ const Dashboard = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <IonHeader collapse="condense">
-            <IonToolbar>
-              <IonTitle size="large">ダッシュボード</IonTitle>
-            </IonToolbar>
-          </IonHeader>
           <div className='min-h-screen w-full flex flex-col space-y-4 ion-padding bg-gray-100'>
             <MainPanel {...mainPanelData} />
             {/* upcoming events */}

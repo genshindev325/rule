@@ -149,8 +149,7 @@ const EventSetting = () => {
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full text-xs sm:text-sm p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="イベント名"
+                  className="w-full text-lg px-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   required
                 />
               </div>
@@ -159,7 +158,7 @@ const EventSetting = () => {
                 <select
                   id="category"
                   name="category"
-                  className="block w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none"
+                  className="block w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                   required
@@ -193,8 +192,7 @@ const EventSetting = () => {
               <div className="mb-4">
                 <textarea
                   name='description'
-                  className="w-full mt-3 text-xs sm:text-sm p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="説明文"
+                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-lg"
                   rows={3}
                   required
                 />
@@ -202,33 +200,36 @@ const EventSetting = () => {
               {/* schedule */}
               <div className='mb-4'>
                 <h3 className='text-gray-600 text-xs sm:text-sm py-2'>日程</h3>
-                <input
-                  type="date"
-                  name='schedule'
-                  className="w-full p-2 text-xs bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="2023年 11月 14日"
-                  required
-                />
+                <div className='w-full'>
+                  <input
+                    type="date"
+                    name='schedule'
+                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    required
+                  />
+                </div>
               </div>
               <div className='mb-4'>
                 <h3 className='text-gray-600 text-xs sm:text-sm py-2'>開始時間</h3>
-                <input
-                  type="time"
-                  name='startTime'
-                  className="w-full p-2 text-xs bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                  placeholder="17:00"
-                  required
-                />
+                <div className='w-full'>
+                  <input
+                    type="time"
+                    name='startTime'
+                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    required
+                  />
+                </div>
               </div>
               <div className='mb-4'>
                 <h3 className='text-gray-600 py-2 text-xs sm:text-sm'>終了時間</h3>
-                <input
-                  type="time"
-                  name='endTime'
-                  className="w-full p-2 bg-gray-100 rounded-md text-xs sm:text-sm focus:outline-none focus:border-blue-100"
-                  placeholder="21:00"
-                  required
-                />
+                <div className='w-full'>
+                  <input
+                    type="time"
+                    name='endTime'
+                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    required
+                  />
+                </div>
               </div>
               {/* recurited number */}
               <div className='mb-4'>
@@ -238,8 +239,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='maleTotal'
-                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="男性の募集人数"
+                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -248,8 +248,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='femaleTotal'
-                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="女性の募集人数"
+                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -263,8 +262,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='maleFee'
-                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="男性料金"
+                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -273,8 +271,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='femaleFee'
-                      className="w-full text-xs p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
-                      placeholder="女性料金"
+                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>

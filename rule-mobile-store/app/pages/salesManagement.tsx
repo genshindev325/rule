@@ -97,14 +97,14 @@ const SalesManagement = () => {
                 <input
                   type="date"
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="flex-1 text-sm p-2 bg-gray-200 rounded-lg focus:outline-none border-none"
+                  className="flex-1 px-2 text-lg bg-gray-200 rounded-lg focus:outline-none border-none"
                   value={startDate}
                   required
                 />
                 <input
                   type="date"
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="flex-1 text-sm p-2 bg-gray-200 rounded-lg focus:outline-none border-none"
+                  className="flex-1 px-2 text-lg bg-gray-200 rounded-lg focus:outline-none border-none"
                   value={endDate}
                   max={new Date().toISOString().split('T')[0]}
                   required
