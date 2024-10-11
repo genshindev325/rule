@@ -92,7 +92,7 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white">
             {/* Header */}
-            <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
+            <div className={`h-28 sm:h-32 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />

@@ -3,7 +3,8 @@ import { GoogleMap, OverlayView } from '@react-google-maps/api';
 import { useIonRouter } from '@ionic/react';
 import { formatDateTime } from './datetime';
 import EventCarousel from '@/app/components/user/event/eventCarousel';
-import FindDetailModal from '../user/event/findDetailModal';
+import FindDetailModal from '@/app/components/user/event/findDetailModal';
+import RecentEventsModal from '@/app/components/user/event/recentEventsModal';
 
 interface EventProps {
   _id: string;
@@ -52,20 +53,28 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
   const mapRef = useRef<google.maps.Map | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRecentEventsOpen, setIsRecentEventsOpen] = useState(false);
   const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const searchSVG = '/svg/search.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
 
-  // handle find modal...
   const handleOpenModal = () => {
     setIsModalOpen(true);
-  };
+  }
   
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
+  }
+
+  const handleOpenRecentEventModal = () => {
+    setIsRecentEventsOpen(true);
+  }
+
+  const handleCloseRecentEventModal = () => {
+    setIsRecentEventsOpen(false);
+  }
 
   const handleMapLoad = useCallback(
     (map: google.maps.Map) => {
@@ -209,7 +218,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
           <button className={`rounded-md w-10 h-10 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-1000`} onClick={handleOpenModal}>
             <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
-          <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`}>
+          <button className={`rounded-md w-10 h-10 ${!isRecentEventsOpen ? maleGradient : 'bg-gray-800'} text-white duration-1000`} onClick={handleOpenRecentEventModal}>
             <img src={detailSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
           <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`} onClick={panToCurrentLocation}>
@@ -218,7 +227,17 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
         </div>
       </div>
       {/* Find event with more detail conditions */}
-      <FindDetailModal isOpen={isModalOpen} onClose={handleCloseModal} onSearch={handleSearchWithConditions} />
+      <FindDetailModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSearch={handleSearchWithConditions}
+      />
+      {/* Recent events modal */}
+      <RecentEventsModal
+        isOpen={isRecentEventsOpen}
+        onClose={handleCloseRecentEventModal}
+        recentEvents={events}
+      />
     </GoogleMap>
   );
 };
