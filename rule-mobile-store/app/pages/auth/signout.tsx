@@ -23,11 +23,7 @@ const SignOut: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-<<<<<<< HEAD
         <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-white p-6 space-y-4">
-=======
-        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white p-6 space-y-4 text-gray-800">
->>>>>>> 9463a8c8fd0d9328ef08f4a47695026a1b57bac9
           <div className={`${textXl} pb-4`}>ログアウト</div>
           <h2 className="mb-8 text-center text-md text-gray-600">
             本当にログアウトしますか?
