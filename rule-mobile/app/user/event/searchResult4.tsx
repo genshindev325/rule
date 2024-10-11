@@ -64,7 +64,7 @@ const SearchResult4: React.FC = () => {
               {/* search results */}
               {testEvents && testEvents.map((event, index) => (
                 <div key={index}>
-                  <IonRouterLink routerLink={`/event/payment?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
+                  <IonRouterLink routerLink={`/event/eventDetail?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
                     <EventCard {...event} />
                   </IonRouterLink>
                 </div>
