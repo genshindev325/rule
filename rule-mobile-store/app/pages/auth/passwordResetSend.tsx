@@ -102,7 +102,7 @@ const PasswordResetSend: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white p-6 space-y-4">
+        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white p-6 space-y-4 text-gray-800">
             <h2 className="text-xl font-bold pb-4">パスワード再設定</h2>
             {/* before verification email sent */}
             {!verificationSent && (

@@ -76,7 +76,7 @@ const SignIn: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4">
+        <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white ion-padding space-y-4 text-gray-800">
           <div className={`${textXl} pb-4`}>サインイン</div>
             <IonInput
               type="email"

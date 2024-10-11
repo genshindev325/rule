@@ -151,11 +151,11 @@ const ChatMessages: React.FC = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold mr-12'>{chatName}</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12 text-gray-800'>{chatName}</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='max-h-screen min-w-full flex flex-col bg-white ion-padding'>
+          <div className='max-h-screen min-w-full flex flex-col bg-white ion-padding text-gray-800'>
             <div className="flex flex-col space-y-2 p-4 h-[calc(100vh-8rem)] overflow-y-auto">
               {/* conversations */}
               {messages.map((message, index) => (

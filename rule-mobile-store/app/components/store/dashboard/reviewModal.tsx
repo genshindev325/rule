@@ -48,7 +48,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose, onS
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-gray-800">
       <div ref={modalRef} className="bg-white p-4 m-4 rounded shadow-md w-full max-w-lg">
       <h3 className="text-lg font-semibold mb-4">レビュー</h3>
         <ul>
