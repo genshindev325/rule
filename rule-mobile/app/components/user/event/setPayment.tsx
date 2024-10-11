@@ -244,7 +244,7 @@ const FormInput: React.FC = () => {
             <label className={`${textSm} block font-bold text-gray-800`}>カード名義</label>
             <input
               type="text"
-              className={`text-lg w-full px-3 border rounded-md focus:outline-none`}
+              className={`text-xs sm:text-sm py-2 w-full px-3 border rounded-md focus:outline-none`}
               placeholder="カード名義"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}

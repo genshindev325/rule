@@ -15,7 +15,7 @@ interface SetProfileInterface {
 const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange, onCancel }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = 'text-lg w-full px-3 sm:px-4 md:px-6 pborder border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm py-2 w-full px-3 sm:px-4 md:px-6 pborder border-gray-700 rounded-md focus:outline-none';
   const [localAvatar, setAvatar] = useState('');
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {

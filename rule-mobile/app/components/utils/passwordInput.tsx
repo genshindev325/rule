@@ -23,7 +23,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, value, onChange })
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={onChange}
-        className="w-full text-lg px-3 border-none focus:outline-none"
+        className="w-full text-xs sm:text-sm py-2 px-3 border-none focus:outline-none"
       />
       <div
         className="absolute inset-y-0 right-0 flex items-center px-2 cursor-pointer"

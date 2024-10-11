@@ -347,7 +347,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               <label className={`${textSm} block font-semibold text-gray-800`}>カード名義</label>
               <input
                 type="text"
-                className="w-full px-3 border rounded-md text-lg focus:outline-none"
+                className="w-full px-3 border rounded-md text-xs sm:text-sm py-2 focus:outline-none"
                 placeholder="カード名義"
                 value={cardholderName}
                 onChange={(e) => setCardholderName(e.target.value)}
