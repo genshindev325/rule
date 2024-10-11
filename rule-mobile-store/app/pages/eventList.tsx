@@ -127,28 +127,28 @@ const EventList: React.FC = () => {
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='min-h-screen min-w-full flex flex-col space-y-4 bg-gray-100 ion-padding text-gray-800'>
-            {/* tab */}
-            <div className='flex flex-row mt-6 mb-2'>
-              <div className='flex flex-1 justify-center items-center'>
-                <button
-                  type='button'
-                  className={`${tab === 'upcoming' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
-                  onClick={showUpcomingEvents}
-                >
-                  今後のイベント
-                </button>
-              </div>
-              <div className='flex flex-1 justify-center items-center'>
-                <button
-                  type='button'
-                  className={`${tab === 'past' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
-                  onClick={showPastEvents}
-                >
-                  過去のイベント
-                </button>
-              </div>
+        {/* tab */}
+          <div className='fixed top-14 flex flex-row w-full ion-padding bg-gray-100 pt-6 z-50'>
+            <div className='flex flex-1 justify-center items-center'>
+              <button
+                type='button'
+                className={`${tab === 'upcoming' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
+                onClick={showUpcomingEvents}
+              >
+                今後のイベント
+              </button>
             </div>
+            <div className='flex flex-1 justify-center items-center'>
+              <button
+                type='button'
+                className={`${tab === 'past' ? 'bg-blue-400 text-white rounded-lg' : 'bg-transparent text-gray-700'} ${textMd} duration-500 py-1 px-2`}
+                onClick={showPastEvents}
+              >
+                過去のイベント
+              </button>
+            </div>
+          </div>
+          <div className='min-w-full min-h-[82vh] flex flex-col bg-gray-100 ion-padding pt-20 text-gray-800'>
             {/* upcoming events */}
             <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-2`}>
               {upcomingEvents.map((event, index) => (          
