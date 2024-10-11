@@ -10,7 +10,7 @@ const Unauthorized = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className={`w-screen h-screen flex flex-col items-center justify-center ${maleGradient} text-white text-gray-800`}>
+        <div className={`w-screen h-screen flex flex-col items-center justify-center ${maleGradient} text-white`}>
           <h1 className="text-xl font-bold pb-10">不正アクセス</h1>
           <p className="text-xl font-semibold pb-10">このページを表示する権限がありません。</p>
         </div>
