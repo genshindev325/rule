@@ -86,7 +86,7 @@ const Login: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-20 sm:mt-24 md:mt-28">
             <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
             <form onSubmit={handleSubmit}>
-              <div className="mb-4 px-3 border-b border-b-gray-700">
+              <div className="mb-4 px-3 border-b border-b-blue-700">
                 <IonInput
                   type="email"
                   name='email'
@@ -97,7 +97,7 @@ const Login: React.FC = () => {
                   required
                 />
               </div>
-              <div className="mb-4 px-3 border-b border-b-gray-700">
+              <div className="mb-4 px-3 border-b border-b-blue-700">
                 <IonInput
                   type="password"
                   name='password'
