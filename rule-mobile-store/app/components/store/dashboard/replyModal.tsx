@@ -75,7 +75,7 @@ const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose }) => 
         <div className='text-sm text-gray-500 my-4'>{review.conclusion}</div>
         <div className='py-4 flex flex-col space-y-2'>
           <div className='text-sm text-left font-bold'>本文</div>
-          <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} className="w-full px-6 mt-3 py-3 bg-gray-100 rounded-md focus:outline-none text-lg"
+          <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} className="w-full mt-3 p-3 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm"
             placeholder="本文" rows={6} />
         </div>
         <div className='flex flex-row justify-end space-x-4 mt-4 text-md font-semibold'>

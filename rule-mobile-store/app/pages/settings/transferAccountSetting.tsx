@@ -75,7 +75,7 @@ const TransferAccountSetting = () => {
                 <input
                   type="name"
                   name='bankName'
-                  className={`text-lg w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="銀行名"
                   required
                 />
@@ -85,7 +85,7 @@ const TransferAccountSetting = () => {
                 <input
                   type="name"
                   name='branchName'
-                  className={`text-lg w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="支店名"
                   required
                 />
@@ -95,7 +95,7 @@ const TransferAccountSetting = () => {
                 <input
                   type="name"
                   name='accountNumber'
-                  className={`text-lg w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="口座番号"
                   required
                 />
@@ -105,7 +105,7 @@ const TransferAccountSetting = () => {
                 <input
                   type="name"
                   name='accountHolder'
-                  className={`text-lg w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="口座名義"
                   required
                 />

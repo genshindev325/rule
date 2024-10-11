@@ -202,7 +202,7 @@ const ChatMessages: React.FC = () => {
               value={input}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
-              className="flex-1 p-2 rounded bg-gray-200 focus:outline-none resize-none text-sm overflow-hidden text-lg"
+              className="flex-1 p-2 rounded bg-gray-200 focus:outline-none resize-none overflow-hidden text-xs sm:text-sm"
               placeholder="メッセージ"
               rows={1} // Set initial rows to 1 for a single line
               style={{ 

@@ -110,7 +110,7 @@ const ChatList: React.FC = () => {
               type="text"
               value={searchTerm}
               onChange={handleSearch}
-              className="w-auto px-2 py-1 m-2 rounded bg-gray-200 focus:outline-none text-lg"
+              className="w-auto p-2 m-2 rounded bg-gray-200 focus:outline-none text-xs sm:text-sm"
               placeholder="検索"
             />
             {/* Chat List */}

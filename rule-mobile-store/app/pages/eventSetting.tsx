@@ -149,7 +149,7 @@ const EventSetting = () => {
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full text-xs text-sm px-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                  className="w-full text-xs sm:text-sm px-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                   required
                 />
               </div>
@@ -192,7 +192,7 @@ const EventSetting = () => {
               <div className="mb-4">
                 <textarea
                   name='description'
-                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-lg"
+                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-xs sm:text-sm"
                   rows={3}
                   required
                 />
@@ -204,7 +204,7 @@ const EventSetting = () => {
                   <input
                     type="date"
                     name='schedule'
-                    className="w-full px-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     required
                   />
                 </div>
@@ -215,7 +215,7 @@ const EventSetting = () => {
                   <input
                     type="time"
                     name='startTime'
-                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     required
                   />
                 </div>
@@ -226,7 +226,7 @@ const EventSetting = () => {
                   <input
                     type="time"
                     name='endTime'
-                    className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                    className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     required
                   />
                 </div>
@@ -239,7 +239,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='maleTotal'
-                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -248,7 +248,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='femaleTotal'
-                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -262,7 +262,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='maleFee'
-                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>
@@ -271,7 +271,7 @@ const EventSetting = () => {
                     <input
                       type="number"
                       name='femaleFee'
-                      className="w-full px-2 text-lg bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
+                      className="w-full p-2 text-xs sm:text-sm bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                       required
                     />
                   </div>

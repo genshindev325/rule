@@ -36,7 +36,7 @@ const ChatList: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>
       <input
         type="text"
-        className="w-auto px-2 text-lg m-2 rounded bg-gray-200 focus:outline-none"
+        className="w-auto p-2 text-xs sm:text-sm m-2 rounded bg-gray-200 focus:outline-none"
         placeholder="検索"
       />
       {/* chat list */}

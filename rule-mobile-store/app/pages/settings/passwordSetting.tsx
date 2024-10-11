@@ -126,7 +126,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className={`text-lg w-full px-2 py-1 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="現在のパスワード"
                   required
                 />
@@ -137,7 +137,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className={`text-lg w-full px-2 py-1 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード"
                   required
                 />
@@ -149,7 +149,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  className={`text-lg w-full px-2 py-1 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード (再入力)"
                   required
                 />

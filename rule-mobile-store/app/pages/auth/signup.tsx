@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
               type="text"
               value={email}
               onChange={handleEmailChange}
-              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-xs sm:text-sm"
               placeholder="メール"
               required
             />
@@ -140,7 +140,7 @@ const SignUp: React.FC = () => {
             <input
               type="email"
               name='username'
-              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-xs sm:text-sm"
               placeholder="ユーザー名"
               required
             />
@@ -148,7 +148,7 @@ const SignUp: React.FC = () => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-lg"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4 text-xs sm:text-sm"
               placeholder="パスワード"
             />
             {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
@@ -156,7 +156,7 @@ const SignUp: React.FC = () => {
               type="password"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-xs sm:text-sm"
               placeholder="パスワードの確認"
             />
             {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}

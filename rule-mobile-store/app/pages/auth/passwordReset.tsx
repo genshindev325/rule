@@ -92,7 +92,7 @@ const PasswordReset: React.FC = () => {
               <div className="mb-4">
                 <input
                   type="password"
-                  className="w-full px-3 md:px-8 md:py-4 border border-gray-700 rounded-lg text-lg"
+                  className="w-full px-3 py-2 border border-gray-700 rounded-lg text-xs sm:text-sm"
                   placeholder="パスワード"
                   value={password}
                   onChange={handlePasswordChange}
@@ -102,7 +102,7 @@ const PasswordReset: React.FC = () => {
               <div className="mb-4">
                 <input
                   type="password"
-                  className="w-full px-3 md:px-8 md:py-4 border border-gray-700 rounded-lg text-lg"
+                  className="w-full px-3 py-2 border border-gray-700 rounded-lg text-xs sm:text-sm"
                   placeholder="パスワード(確認用)"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
