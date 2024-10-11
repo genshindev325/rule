@@ -28,7 +28,7 @@ const RegistSuccess: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className={`flex flex-col items-center min-h-screen w-screen ${maleGradient} px-4`}>
+          <div className={`flex flex-col items-center min-h-screen w-screen ${maleGradient} px-4 text-gray-800`}>
             {/* banner on the bg-gradient */}
             <div className="py-4 sm:p-5 md:py-6 lg:py-14 flex flex-col text-lg text-white font-bold text-center">
               <img src={completedImage} alt={`event-complete`} width={60} height={40} className="rounded-md rounded-br-none text-white mx-auto mb-4" />

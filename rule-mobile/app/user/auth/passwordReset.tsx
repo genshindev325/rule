@@ -110,7 +110,7 @@ const PasswordReset: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex items-start justify-center min-h-screen w-screen bg-white">
+        <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
           <div className="h-40 sm:h-44 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
             <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-20 sm:mt-24 md:mt-28 pb-6">
               <h2 className="text-md font-bold pt-12 md:pt-20 px-12 text-center">パスワードを</h2>

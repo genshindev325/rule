@@ -125,7 +125,11 @@ const SignUp: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
+<<<<<<< HEAD
         <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-white p-6 space-y-4">
+=======
+        <div className="min-h-screen w-screen flex flex-col items-center justify-start bg-white p-6 space-y-4 text-gray-800">
+>>>>>>> 9463a8c8fd0d9328ef08f4a47695026a1b57bac9
           <h2 className="text-2xl font-bold mb-4">サインアップ</h2>
           <form onSubmit={handleSubmit}>
             <input

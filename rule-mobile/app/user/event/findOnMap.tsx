@@ -83,14 +83,14 @@ const FindOnMap: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+    return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold text-gray-800'>読み込み中...</div>;
   }
 
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-screen w-screen bg-white">
+          <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800">
             {/* Header */}
             <div className={`h-36 sm:h-40 md:h-44 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>

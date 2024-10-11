@@ -14,7 +14,7 @@ const RegisteredCard: React.FC<RegisterCardInterface> = ({ last4, cardSVG, exDat
   const textSm = 'text-sm sm:text-md md:text-lg';
 
   return (
-    <div className='bg-gray-100 pb-4'>
+    <div className='bg-gray-100 pb-4 text-gray-800'>
       <label className={`${textSm} block font-bold text-gray-800 pt-2`}>登録済みカード</label>
       <div className="mt-4 bg-white rounded-md">
         <div className="flex flex-col p-2">

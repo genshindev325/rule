@@ -113,11 +113,11 @@ const PasswordSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold mr-12'>パスワード設定</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12 text-gray-800'>パスワード設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='bg-white w-full ion-padding'>
+          <div className='bg-white w-full ion-padding text-gray-800'>
             <form onSubmit={handleSubmit}>
               {/* Password setting */}
               <h3 className={`${textSm} font-semibold py-2`}>現在のパスワード</h3>

@@ -76,7 +76,7 @@ const SalesManagement = () => {
     }
   }, [startDate, endDate, totalSales]);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold text-gray-800'>読み込み中...</div>;
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -85,11 +85,11 @@ const SalesManagement = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold mr-12'>売り上げ管理</IonTitle> {/* Default title */}
+              <IonTitle className='text-center font-semibold mr-12 text-gray-800'>売り上げ管理</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className="w-full ion-padding bg-gray-100">
+          <div className="w-full ion-padding bg-gray-100 text-gray-800">
             <TotalSales totalSales={totalSales} />
             <div className="mt-4">
               <h3 className={`${textSm}`}>期間指定</h3>

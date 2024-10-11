@@ -100,7 +100,7 @@ const Events = () => {
     }
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold text-gray-800'>読み込み中...</div>;
 
   const filteredUpcomingEvents = upcomingEvents.filter(event =>
     event.store && event.store._id === storeProfile?._id
@@ -121,7 +121,7 @@ const Events = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold text-xl mr-12'>イベント設定</IonTitle>
+              <IonTitle className='text-center font-semibold text-xl mr-12 text-gray-800'>イベント設定</IonTitle>
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>

@@ -160,7 +160,7 @@ const ChatMessages: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className='max-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6'>
+          <div className='max-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6 text-gray-800'>
             {/* Header */}
             <div className={`h-36 sm:h-40 md:h-44 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>

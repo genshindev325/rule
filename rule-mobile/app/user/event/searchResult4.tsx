@@ -49,7 +49,7 @@ const SearchResult4: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+          <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
             {/* header */}
             <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
               <div className='flex flex-row text-xl text-center text-white font-bold pt-16 sm:pt-20 md:pt-24 px-4'>                
@@ -76,7 +76,7 @@ const SearchResult4: React.FC = () => {
                 </div>
               }
               {testEvents.length === 0 &&
-                <div className='flex flex-row h-full items-center justify-center'>
+                <div className='flex flex-row h-full items-center justify-center min-h-[80vh]'>
                   <h2 className='text-sm sm:text-md md:text-lg font-semibold text-gray-700'>
                     一致するイベントが見つかりません
                   </h2>
