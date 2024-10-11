@@ -206,7 +206,7 @@ const FormInput: React.FC = () => {
         <div className='flex flex-col items-center bg-white rounded-t-xl py-6'>
           <h2 className={`text-center text-neutral-800 font-bold ${textMd}`}>クレジット設定</h2>
         </div>
-        <div className='bg-gray-100 pb-12 px-4 sm:px-5 md:px-6'>
+        <div className='bg-gray-100 pb-12 px-4 sm:px-5 md:px-6 text-gray-800'>
           {registeredCard &&
             <div className='bg-gray-100 pb-4'>
               <label className={`${textSm} block font-semibold text-gray-800 pt-2`}>登録済みカード</label>
