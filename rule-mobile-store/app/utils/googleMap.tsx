@@ -101,7 +101,7 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
   };
 
   if (!currentPosition) {
-    return <div>マップを読み込んでいます...</div>;
+    return <div className=" text-gray-800">マップを読み込んでいます...</div>;
   }
 
   return (
