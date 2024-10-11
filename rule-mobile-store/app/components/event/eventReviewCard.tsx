@@ -37,7 +37,7 @@ const EventReviewCard: React.FC<CardProps> = ({
   const textSm = 'text-xs sm:text-sm md:text-md';
 
   return (
-    <div className='flex flex-col bg-white rounded-xl p-2 sm:p-4 text-gray-800'>
+    <div className='flex flex-col bg-white text-gray-800 rounded-xl p-2 sm:p-4 text-gray-800'>
       <div className="flex flex-row space-x-2">
         <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
         <div className='flex flex-col space-y-1'>

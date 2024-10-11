@@ -216,7 +216,7 @@ const FormInput = () => {
   };
 
   return (
-    <div className='bg-white w-full ion-padding'>
+    <div className='bg-white text-gray-800 w-full ion-padding'>
       <form onSubmit={handleSubmit}>
         <h3 className={`${textSm} font-semibold pb-2`}>登録済みカード</h3>
         { registeredCard &&

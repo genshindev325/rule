@@ -126,11 +126,11 @@ const StoreProfileSetting = () => {
         <IonHeader>
           <IonToolbar>
             <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-            <IonTitle className='text-center font-semibold mr-12'>店舗プロフィール設定</IonTitle> {/* Default title */}
+            <IonTitle className='text-center text-gray-800 font-semibold mr-12'>店舗プロフィール設定</IonTitle> {/* Default title */}
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <div className='bg-white w-full ion-padding'>
+          <div className='bg-white w-full ion-padding text-gray-800'>
             <form onSubmit={handleSubmit}>
               <h3 className={`${textSm} font-semibold py-1`}>店舗名</h3>
               <div className="mb-2">

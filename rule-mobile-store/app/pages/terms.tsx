@@ -18,7 +18,7 @@ const Terms: React.FC = () => {
   const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+    <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
       <div className={`h-40 md:h-48 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`} />
       {/* container */}
       <div className={`${container} w-5/6`}>

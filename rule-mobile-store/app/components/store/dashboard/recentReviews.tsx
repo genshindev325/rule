@@ -26,7 +26,7 @@ interface RecentReviewsProps {
 
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSelectReview }) => {
   return (
-    <div className="bg-transparent min-w-80">
+    <div className="bg-transparent min-w-80 text-gray-800">
       <ul>
         {reviews ? reviews.map((review, index) => (
           <li key={index} className="bg-white p-2 sm:p-4 rounded-md mb-4">

@@ -101,11 +101,11 @@ const ChatList: React.FC = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold mr-12'>お問い合わせ</IonTitle> {/* Default title */}
+              <IonTitle className='text-center text-gray-800 font-semibold mr-12'>お問い合わせ</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='min-h-screen min-w-full flex flex-col bg-white ion-padding'>
+          <div className='min-h-screen min-w-full flex flex-col bg-white ion-padding text-gray-800'>
             <input
               type="text"
               value={searchTerm}
