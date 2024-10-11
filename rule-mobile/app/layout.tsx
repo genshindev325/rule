@@ -20,7 +20,6 @@ import '@ionic/react/css/display.css';
 import "./globals.css";
 import "./variables.css";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,6 +29,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   initialScale: 1,
+  maximumScale: 1,
   width: 'device-width',
   viewportFit: 'cover',
 };
