@@ -192,13 +192,13 @@ const EventReview2: React.FC = () => {
     }
   };
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl text-gray-800 font-bold'>読み込み中...</div>;
 
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-screen w-screen bg-white space-y-1">
+          <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
             <div className={`h-56 sm:h-60 w-full ${maleGradient}`}>
               <h2 className='text-lg font-bold text-center text-white pt-6'>イベントレビュー</h2>

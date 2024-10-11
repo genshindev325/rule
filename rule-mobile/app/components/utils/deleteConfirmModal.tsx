@@ -34,7 +34,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isVis
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div ref={modalRef} className="bg-white p-4 rounded shadow-lg">
+      <div ref={modalRef} className="bg-white text-gray-800 p-4 rounded shadow-lg">
         <h3 className={`${textMd} font-bold mb-4`}>削除の確認</h3>
         <p className={`${textXs}`}>本当にこのアイテムを削除しますか？</p>
         <div className="mt-4 flex justify-end">

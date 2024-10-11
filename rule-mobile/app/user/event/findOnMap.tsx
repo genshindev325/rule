@@ -83,14 +83,14 @@ const FindOnMap: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+    return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
   }
 
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-screen w-screen bg-white">
+          <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800">
             {/* Header */}
             <div className={`h-28 sm:h-32 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
@@ -101,7 +101,7 @@ const FindOnMap: React.FC = () => {
               </div>
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 px-2 md:px-4 mx-8 sm:mx-9 mt-4">
                 <img src={settingSVG} alt="settings" className="w-4" />
-                <h2 className="text-xs py-1 sm:py-2 pl-2 text-left">イベントを検索する</h2>
+                <h2 className="text-xs py-1 sm:py-2 pl-2 text-left text-gray-800">イベントを検索する</h2>
                 <img src={searchBlackSVG} alt="search" className="ml-auto w-3" />
               </div>
             </div>

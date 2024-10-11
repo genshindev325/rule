@@ -48,7 +48,7 @@ const SearchResult4: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col items-center min-h-screen w-screen bg-white">
+          <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
             {/* header */}
             <div className={`h-56 md:h-60 w-full ${maleGradient}`}>
               <div className='flex flex-row text-xl text-center text-white font-bold pt-6 px-4'>                
