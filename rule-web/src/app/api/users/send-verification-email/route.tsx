@@ -24,20 +24,20 @@ export async function POST(req: NextRequest) {
 
     // Send email (this is a simplified example)
     const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com', // Outlook SMTP server
-      port: 587,                  // Port for STARTTLS
-      secure: false,               // Use false for STARTTLS
+      service: 'smartdev10151@outlook.com', // Outlook SMTP server
+      // port: 587,                  // Port for STARTTLS
+      // secure: false,               // Use false for STARTTLS
       auth: {
-        user: 'smartdev1007@outlook.com',
+        user: 'smartdev10151@outlook.com',
         pass: 'Hpccloud21',        // Your Outlook password
       },
-      tls: {
-        rejectUnauthorized: false, // Allows self-signed certificates if necessary
-      },
+      // tls: {
+      //   rejectUnauthorized: false, // Allows self-signed certificates if necessary
+      // },
     });
 
     const mailOptions = {
-      from: 'smartdev1007@outlook.com',
+      from: 'smartdev10151@outlook.com',
       to: email,
       subject: 'パスワードリセットの確認',
       text: `確認コードは次のとおりです: ${code}`,
