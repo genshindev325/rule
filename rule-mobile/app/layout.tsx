@@ -20,7 +20,6 @@ import '@ionic/react/css/display.css';
 import "./globals.css";
 import "./variables.css";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
