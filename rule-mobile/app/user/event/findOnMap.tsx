@@ -46,6 +46,7 @@ const FindOnMap: React.FC = () => {
   const router = useIonRouter();
   const [loading, setLoading] = useState(true); // Fixed
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const token = useSelector((state: RootState) => state.auth.token);
   const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
@@ -82,6 +83,10 @@ const FindOnMap: React.FC = () => {
     fetchData();
   }, []);
 
+  const handleSearchTerm = () => {
+    console.log("searchTerm: " + searchTerm);
+  };
+
   if (loading) {
     return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
   }
@@ -101,7 +106,13 @@ const FindOnMap: React.FC = () => {
               </div>
               <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 px-2 md:px-4 mx-8 sm:mx-9 mt-4">
                 <img src={settingSVG} alt="settings" className="w-4" />
-                <h2 className="text-xs py-1 sm:py-2 pl-2 text-left text-gray-800">イベントを検索する</h2>
+                <input
+                  type='text'
+                  value={searchTerm}
+                  onChange={handleSearchTerm}
+                  className="text-xs w-full mx-2 py-1 sm:py-2 pl-2 text-left text-gray-800 focus:outline-none"
+                  placeholder='イベントを検索する'
+                />
                 <img src={searchBlackSVG} alt="search" className="ml-auto w-3" />
               </div>
             </div>
