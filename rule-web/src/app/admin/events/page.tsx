@@ -99,7 +99,7 @@ const Events = () => {
         <div className="w-20">
           <Navbar />
         </div>
-        <div className="w-3/4 p-10">
+        <div className="w-full p-10">
           <div className="mt-8">
             <div className='flex flex-row gap-8 pb-4 items-center'>
               <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
