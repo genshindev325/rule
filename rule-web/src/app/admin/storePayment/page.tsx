@@ -150,6 +150,7 @@ const StorePaymentsPage: React.FC = () => {
           <Navbar />
         </div>
         <div className='w-full p-10 pb-16'>
+          <h1 className='text-3xl font-bold mb-6'>売り上げ管理</h1>
           <div className="w-full mb-4 flex justify-start bg-white shadow-md rounded-md p-4">
             {/* Store name search input */}
             <div className='flex flex-col space-y-2'>

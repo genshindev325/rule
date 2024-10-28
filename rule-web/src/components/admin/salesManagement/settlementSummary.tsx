@@ -83,9 +83,9 @@ const StoreList: React.FC<StoreSalesProps> = ({ stores }) => {
             {paginatedStores.map((store, index) => (
               <tr key={index}>
                 <td className="py-2 text-left">{store.storeName}</td>
-                <td className="py-2 px-4 text-left">{formatNumber(store.sales)}</td>
-                <td className="py-2 px-4 text-left">{formatNumber(store.salesForecast)}</td>
-                <td className="py-2 px-4 text-left">{formatNumber(store.totalDepositedAmount)}</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.sales)}円</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.salesForecast)}円</td>
+                <td className="py-2 px-4 text-left">{formatNumber(store.totalDepositedAmount)}円</td>
               </tr>
             ))}
           </tbody>
