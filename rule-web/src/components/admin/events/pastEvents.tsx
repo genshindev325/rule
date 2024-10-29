@@ -28,21 +28,21 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="text-left">イベント名</th>
-            <th className="text-left">開催日時</th>
-            <th className="text-left">男性</th>
-            <th className="text-left">女性</th>
+            <th className="text-left w-1/3">イベント名</th>
+            <th className="text-left w-1/4">開催日時</th>
+            <th className="text-left w-1/8">男性</th>
+            <th className="text-left w-1/8">女性</th>
             <th className="text-left">売上(円)</th>
           </tr>
         </thead>
         <tbody>
           {pastEvents.map((event, index) => (
             <tr key={index}>
-              <td>{event.eventName}</td>
-              <td>{formatDateTime(event.eventDate)}</td>
-              <td>{event.males}/{event.maleTotal}</td>
-              <td>{event.females}/{event.femaleTotal}</td>
-              <td className='text-center'>{(event.males * event.maleFee + event.females * event.femaleFee) * 0.05}</td>
+              <td className='w-1/3'>{event.eventName}</td>
+              <td className='w-1/4'>{formatDateTime(event.eventDate)}</td>
+              <td className='w-1/8'>{event.males}/{event.maleTotal}</td>
+              <td className='w-1/8'>{event.females}/{event.femaleTotal}</td>
+              <td className='text-left'>{(event.males * event.maleFee + event.females * event.femaleFee) * 0.05}</td>
             </tr>
           ))}
         </tbody>

@@ -60,9 +60,6 @@ const StoreList: React.FC<StoreSalesProps> = ({ stores }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="border border-width-0 py-2 px-6 rounded-lg text-white text-lg bg-green-700 hover:bg-green-800 focus:outline-none duration-300">
-          検索
-        </button>
         <div className="flex ml-auto items-center space-x-2">
           <span>1ページあたりの項目数:</span>
           <input type="number" value={itemsPerPage} onChange={handleItemsPerPageChange}

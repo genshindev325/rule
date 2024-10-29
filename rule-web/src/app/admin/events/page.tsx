@@ -100,17 +100,14 @@ const Events = () => {
           <Navbar />
         </div>
         <div className="w-full p-10">
-          <div className="mt-8">
+          <div className="mt-0">
             <div className='flex flex-row gap-8 pb-4 items-center'>
-              <h3 className="text-lg font-semibold mb-4">今後のイベント</h3>
-              {/* <button type='button' className='rounded-lg bg-blue-500 text-white text-md p-2 w-36 hover:bg-blue-600'>
-                イベント作成
-              </button> */}
+              <h3 className="text-2xl font-bold mb-4">今後のイベント</h3>
             </div>
             <UpcomingEvents upcomingEvents={upcomingEvents} />
           </div>
           <div className="mt-8">
-            <h3 className="text-lg font-semibold mb-4">過去のイベント</h3>
+            <h3 className="text-2xl font-bold mb-4">過去のイベント</h3>
             <PastEvents pastEvents={pastEvents} />
           </div>
         </div>

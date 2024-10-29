@@ -131,11 +131,11 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
         <table className="w-full">
           <thead>
             <tr>
-              <th className="text-left">イベント名</th>
-              <th className="text-left">開催日時</th>
-              <th className="text-left">男性</th>
-              <th className="text-left">女性</th>
-              <th className="text-center">アクション</th>
+              <th className="text-left w-1/3">イベント名</th>
+              <th className="text-left w-1/4">開催日時</th>
+              <th className="text-left w-1/8">男性</th>
+              <th className="text-left w-1/8">女性</th>
+              <th className="text-left">アクション</th>
             </tr>
           </thead>
           <tbody>
@@ -143,11 +143,11 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
               <tr key={index}>
                 {/* Hidden ID column */}
                 <td className="hidden">{event._id}</td>
-                <td>{event.eventName}</td>
-                <td>{formatDateTime(event.eventDate)}</td>
-                <td>{event.males}/{event.maleTotal}</td>
-                <td>{event.females}/{event.femaleTotal}</td>
-                <td className='text-center'>
+                <td className='w-1/3'>{event.eventName}</td>
+                <td className='w-1/4'>{formatDateTime(event.eventDate)}</td>
+                <td className='w-1/8'>{event.males}/{event.maleTotal}</td>
+                <td className='w-1/8'>{event.females}/{event.femaleTotal}</td>
+                <td className='text-left'>
                   <DropdownMenu onDelete={() => handleDelete(event._id)} onEdit={() => handleEdit(event._id)} />
                 </td>
               </tr>
