@@ -10,7 +10,7 @@ import Navbar from '@/components/store/navbar';
 import RecentReviews from '@/components/store/dashboard/recentReviews';
 import ReviewModal from '@/components/store/dashboard/reviewModal';
 import ReplyModal from '@/components/store/dashboard/replyModal';
-import UpcomingEvents from '@/components/store/dashboard/upcomingEvents';
+import UpcomingEvents from '@/components/store/events/upcomingEvents';
 import MainPanel from '@/components/store/dashboard/mainPanel';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
@@ -24,6 +24,10 @@ interface UpcomingEvent {
   males: number,
   femaleTotal: number,
   females: number,
+  store: {
+    _id: string,
+    storeName: string
+  },
 };
 
 interface RecentReview {

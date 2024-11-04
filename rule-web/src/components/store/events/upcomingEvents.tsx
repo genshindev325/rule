@@ -13,6 +13,10 @@ interface UpcomingEvent {
   males: number | 0,
   femaleTotal: number | 0,
   females: number | 0,
+  store: {
+    _id: string,
+    storeName: string
+  },
 }
 
 interface UpcomingEvents {
@@ -26,9 +30,9 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events }) => {
         <thead>
           <tr>
             <th className="text-left">イベント名</th>
-            <th className="text-left">日時</th>
-            <th className="text-left">男</th>
-            <th className="text-left">女</th>
+            <th className="text-left">開催日時</th>
+            <th className="text-left">男性</th>
+            <th className="text-left">女性</th>
           </tr>
         </thead>
         <tbody>

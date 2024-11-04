@@ -5,15 +5,14 @@
 import React, { useState, useEffect } from 'react';
 
 import AuthWrapper from '@/components/auth/authWrapper';
-import Navbar from '@/components/admin/navbar';
-import UpcomingEvents from '@/components/admin/events/upcomingEvents';
-import PastEvents from '@/components/admin/events/pastEvents';
+import Navbar from '@/components/store/navbar';
+import UpcomingEvents from '@/components/store/events/upcomingEvents';
+import PastEvents from '@/components/store/events/pastEvents';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
-  _id: number,
   eventName: string | "---",
   eventDate: string | "---",
   maleTotal: number,
@@ -22,6 +21,7 @@ interface UpcomingEvent {
   females: number,
   store: {
     _id: string,
+    storeName: string
   },
 }
 
@@ -37,6 +37,7 @@ interface PastEvent {
   earnings: number,
   store: {
     _id: string,
+    storeName: string
   },
 }
 

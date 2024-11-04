@@ -12,6 +12,7 @@ const SignUp = () => {
 
   // form validation
   const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -137,7 +138,8 @@ const SignUp = () => {
           <div className="mb-4">
             <input
               type="text"
-              name='username'
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="ユーザー名"
               required
