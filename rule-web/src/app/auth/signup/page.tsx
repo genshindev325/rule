@@ -26,15 +26,15 @@ const SignUp = () => {
   };
 
   const validatePassword = (newPassword: string) => {
-    if (newPassword.length < minLength) {
+    if (newPassword.length < minLength && newPassword.length > 0) {
       return `パスワードは${minLength}文字以上でなければなりません。`;
-    } else if (newPassword.length > maxLength) {
+    } else if (newPassword.length > maxLength && newPassword.length > 0) {
       return `パスワードは${maxLength}文字を超えることはできません。`;
-    } else if (!/[A-Z]/.test(newPassword)) {
+    } else if (!/[A-Z]/.test(newPassword) && newPassword.length > 0) {
       return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
-    } else if (!/[a-z]/.test(newPassword)) {
+    } else if (!/[a-z]/.test(newPassword) && newPassword.length > 0) {
       return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
-    } else if (!/[0-9]/.test(newPassword)) {
+    } else if (!/[0-9]/.test(newPassword) && newPassword.length > 0) {
       return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
     // } else if (!/[!@#$%^&*]/.test(newPassword)) {
     //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
