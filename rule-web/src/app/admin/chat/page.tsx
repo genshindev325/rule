@@ -36,7 +36,6 @@ const ChatPage: React.FC = () => {
           throw new Error('Failed to fetch chats');
         }
         const data = await response.json();
-        console.log(JSON.stringify(data))
 
         const chatsWithMessages = data.chats.map((chat: any) => ({
           ...chat,
