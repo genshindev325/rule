@@ -19,7 +19,10 @@ interface UpcomingEvent {
   maleTotal: number,
   males: number,
   femaleTotal: number,
-  females: number
+  females: number,
+  store: {
+    storeName: string
+  },
 }
 
 interface PastEvent {
@@ -31,7 +34,10 @@ interface PastEvent {
   femaleTotal: number,
   females: number,
   femaleFee: number,
-  earnings: number
+  earnings: number,
+  store: {
+    storeName: string
+  },
 }
 
 const Events = () => {
@@ -59,6 +65,7 @@ const Events = () => {
           if (response_upcomingEvents.status === 200) {
             const result = await response_upcomingEvents.json();
             setUpcomingEvents(result.data);
+            console.log(JSON.stringify(result.data));
           } else {
             console.log(response_upcomingEvents.status);
             console.log("Getting upcoming events failed.");

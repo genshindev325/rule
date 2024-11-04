@@ -18,7 +18,10 @@ interface UpcomingEvent {
   maleTotal: number,
   males: number,
   femaleTotal: number,
-  females: number
+  females: number,
+  store: {
+    storeName: string
+  },
 }
 
 interface UpcomingEvents {
@@ -131,7 +134,8 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
         <table className="w-full">
           <thead>
             <tr>
-              <th className="text-left w-1/3">イベント名</th>
+              <th className="text-left w-1/4">イベント名</th>
+              <th className="text-left w-1/4">店舗名</th>
               <th className="text-left w-1/4">開催日時</th>
               <th className="text-left w-1/8">男性</th>
               <th className="text-left w-1/8">女性</th>
@@ -143,7 +147,8 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
               <tr key={index}>
                 {/* Hidden ID column */}
                 <td className="hidden">{event._id}</td>
-                <td className='w-1/3'>{event.eventName}</td>
+                <td className='w-1/4'>{event.eventName}</td>
+                <td className='w-1/4'>{event.store.storeName}</td>
                 <td className='w-1/4'>{formatDateTime(event.eventDate)}</td>
                 <td className='w-1/8'>{event.males}/{event.maleTotal}</td>
                 <td className='w-1/8'>{event.females}/{event.femaleTotal}</td>

@@ -15,7 +15,10 @@ interface PastEvent {
   femaleTotal: number,
   females: number,
   femaleFee: number,
-  earnings: number
+  earnings: number,
+  store: {
+    storeName: string
+  },
 }
 
 interface PastEvents {
@@ -28,7 +31,8 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
       <table className="w-full">
         <thead>
           <tr>
-            <th className="text-left w-1/3">イベント名</th>
+            <th className="text-left w-1/4">イベント名</th>
+            <th className="text-left w-1/4">店舗名</th>
             <th className="text-left w-1/4">開催日時</th>
             <th className="text-left w-1/8">男性</th>
             <th className="text-left w-1/8">女性</th>
@@ -38,7 +42,8 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
         <tbody>
           {pastEvents.map((event, index) => (
             <tr key={index}>
-              <td className='w-1/3'>{event.eventName}</td>
+              <td className='w-1/4'>{event.eventName}</td>
+              <td className='w-1/4'>{event.store.storeName}</td>
               <td className='w-1/4'>{formatDateTime(event.eventDate)}</td>
               <td className='w-1/8'>{event.males}/{event.maleTotal}</td>
               <td className='w-1/8'>{event.females}/{event.femaleTotal}</td>
