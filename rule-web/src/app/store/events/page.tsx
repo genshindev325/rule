@@ -127,7 +127,7 @@ const Events = () => {
                 イベント作成
               </button>
             </div>
-            <UpcomingEvents upcomingEvents={filteredUpcomingEvents} />
+            <UpcomingEvents events={upcomingEvents} />
           </div>
           <div className="mt-8">
             <h3 className="text-lg font-semibold mb-4">過去のイベント</h3>

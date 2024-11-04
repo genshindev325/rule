@@ -9,10 +9,10 @@ import { formatDateTime } from '@/utils/datetime';
 interface UpcomingEvent {
   eventName: string | "---",
   eventDate: string | "---",
-  maleTotal: number | 0,
-  males: number | 0,
-  femaleTotal: number | 0,
-  females: number | 0,
+  maleTotal: number,
+  males: number,
+  femaleTotal: number,
+  females: number,
   store: {
     _id: string,
     storeName: string
