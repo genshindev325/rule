@@ -13,11 +13,12 @@ import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
-  eventName: string | "---",
-  eventDate: string | "---",
-  maleTotal: number,
+  _id: number,
+  eventName: string,
+  eventDate: string,
+  maleTotal: string | null,
   males: number,
-  femaleTotal: number,
+  femaleTotal: string | null,
   females: number,
   store: {
     _id: string,
@@ -26,12 +27,13 @@ interface UpcomingEvent {
 }
 
 interface PastEvent {
+  _id: number,
   eventName: string,
-  eventDate: string | "---",
-  maleTotal: number,
+  eventDate: string,
+  maleTotal: string | null,
   males: number,
   maleFee: number,
-  femaleTotal: number,
+  femaleTotal: string | null,
   females: number,
   femaleFee: number,
   earnings: number,
@@ -119,7 +121,7 @@ const Events = () => {
         <div className="w-20">
           <Navbar />
         </div>
-        <div className="w-3/4 p-10">
+        <div className="w-full p-10">
           <div className="mt-8">
             <div className='flex flex-row gap-8 pb-4 items-center'>
               <h3 className="text-lg font-semibold">今後のイベント</h3>
@@ -127,7 +129,7 @@ const Events = () => {
                 イベント作成
               </button>
             </div>
-            <UpcomingEvents events={upcomingEvents} />
+            <UpcomingEvents events={filteredUpcomingEvents} />
           </div>
           <div className="mt-8">
             <h3 className="text-lg font-semibold mb-4">過去のイベント</h3>

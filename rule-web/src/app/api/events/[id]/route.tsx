@@ -28,10 +28,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ success: false, message: 'No token provided' }, { status: 401 });
   }
   await dbConnect();
-  const { title, content } = await req.json();
-
+  const body = await req.json();
   try {
-    const event = await Event.findByIdAndUpdate(params.id, { title, content }, { new: true, runValidators: true });
+    const event = await Event.findByIdAndUpdate(params.id, body);
     if (!event) {
       return NextResponse.json({ success: false, message: 'Event not found' }, { status: 404 });
     }

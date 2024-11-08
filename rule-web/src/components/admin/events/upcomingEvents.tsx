@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 import DropdownMenu from '@/components/utils/dropdownMenu';
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
+import EventSettingModal from '@/components/admin/events/EventSettingModal';
 import { formatDateTime } from '@/utils/datetime';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
@@ -13,11 +14,11 @@ import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
   _id: number,
-  eventName: string | "---",
-  eventDate: string | "---",
-  maleTotal: number,
+  eventName: string,
+  eventDate: string,
+  maleTotal: string | null,
   males: number,
-  femaleTotal: number,
+  femaleTotal: string | null,
   females: number,
   store: {
     storeName: string
@@ -30,8 +31,9 @@ interface UpcomingEvents {
 
 const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcomingEvents }) => {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>(initialUpcomingEvents);
-  const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
+  const [selectedRowId, setSelectedRowId] = useState<number>(0);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
+  const [isEventSettingModal, setIsEventSettingModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
@@ -71,20 +73,34 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
           console.log(response.status);
           console.log("Delete event failed.");
         }
-        setSelectedRowId(null);
+        setSelectedRowId(0);
       }
     }
     setDeleteConfirmModalVisible(false);
   };
+
+  const handleEventChange = (eventID: number, newEventName: string, newEventDate: string, newMaleTotal: string | null, newFemaleTotal: string | null) => {
+    setUpcomingEvents(prevEvents => prevEvents.map(event =>
+      event._id === eventID ?
+        {
+          ...event,
+          eventName: newEventName,
+          eventDate: newEventDate,
+          maleTotal: newMaleTotal,
+          femaleTotal: newFemaleTotal
+        }
+      : event
+    ))
+  }
 
   const handleCancel = () => {
     setDeleteConfirmModalVisible(false);
   };
 
   // Edit event logic
-  const handleEdit = (id: number) => {
-    // Implement your edit logic here, such as opening a modal to edit the row
-    console.log(id);
+  const handleEdit = (rowId: number) => {
+    setSelectedRowId(rowId);
+    setIsEventSettingModal(true);
   };
 
   const filteredUpcomingEvents = upcomingEvents.filter(event =>
@@ -180,6 +196,7 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
         </button>
       </div>
       <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
+      <EventSettingModal isVisible={isEventSettingModal} eventID={selectedRowId} onCancel={() => setIsEventSettingModal(false)} onEventChange={handleEventChange} />
     </div>
   );
 };
