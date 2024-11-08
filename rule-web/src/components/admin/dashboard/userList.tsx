@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 
 import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
+import UserEditModal from '@/components/admin/dashboard/UserEditModal';
 import { formatDateTime } from '@/utils/datetime';
 
 interface User {
@@ -31,7 +32,9 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
+  const [isUserEditModal, setIsUserEditModal] = useState(false);
   const [userList, setUserList] = useState<User[]>(initialUsers);
 
   // Delete user logic
@@ -68,8 +71,8 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
 
   // Edit user logic
   const handleEdit = (user: User) => {
-    // Implement your edit logic here, such as opening a modal to edit the row
-    console.log(JSON.stringify(user));
+    setSelectedUser(user);
+    setIsUserEditModal(true);
   };
 
   const filteredUsers = userList.filter(user =>
@@ -162,6 +165,7 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
         </button>
       </div>
       <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
+      <UserEditModal isOpen={isUserEditModal} user={selectedUser} onClose={() => setIsUserEditModal(false)} />
     </div>
   );
 };
