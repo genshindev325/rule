@@ -18,11 +18,12 @@ import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 
 interface UpcomingEvent {
+  _id: number,
   eventName: string,
   eventDate: string,
-  maleTotal: number,
+  maleTotal: string | null,
   males: number,
-  femaleTotal: number,
+  femaleTotal: string | null,
   females: number,
   store: {
     _id: string,
