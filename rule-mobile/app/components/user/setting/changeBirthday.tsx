@@ -11,15 +11,28 @@ import { SERVER_URL } from '@/app/config';
 import { RootState } from '@/app/store/store';
 
 const ChangeBirthday: React.FC = () => {
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
+  const [day, setDay] = useState(1);
+  const [month, setMonth] = useState(1);
+  const [year, setYear] = useState(2000);
+  const [error, setError] = useState('');
   const bth = `${year}-${month}-${day}`;
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
   const email = useSelector((state: RootState) => state.auth.email);
+  const textXs = 'text-xs sm:text-sm md:text-md';
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+
+  const handleChangeYear = (year: number) => {
+    const curDateTime = new Date();
+    const y = curDateTime.getFullYear();
+    if ((y - year) < 20) {
+      setError('ユーザーは20歳以上である必要があります。')
+    } else {
+      setError('');
+      setYear(year);
+    }
+  }
 
   const handleChangeBirthday = async (bth: string) => {
     try {
@@ -74,7 +87,9 @@ const ChangeBirthday: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleChangeBirthday(bth);
+    if (error === '') {
+      handleChangeBirthday(bth);
+    }
   };
 
   return (
@@ -95,27 +110,35 @@ const ChangeBirthday: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
                     <input
-                      type="text"
+                      type="number"
                       className={`${input}`}
                       placeholder="日"
                       value={day}
-                      onChange={(e) => setDay(e.target.value)}
+                      min={1}
+                      max={31}
+                      onChange={(e) => setDay(parseInt(e.target.value))}
                     />
                     <input
-                      type="text"
+                      type="number"
                       className={`${input}`}
                       placeholder="月"
                       value={month}
-                      onChange={(e) => setMonth(e.target.value)}
+                      min={1}
+                      max={12}
+                      onChange={(e) => setMonth(parseInt(e.target.value))}
                     />
                     <input
-                      type="text"
+                      type="number"
                       className={`${input}`}
                       placeholder="年"
                       value={year}
-                      onChange={(e) => setYear(e.target.value)}
+                      min={1920}
+                      onChange={(e) => handleChangeYear(parseInt(e.target.value))}
                     />
                   </div>
+                  {error &&
+                    <p className={`${textXs} md:text-md text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
+                  }
                   <div className='flex justify-center space-x-4'>
                     <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>変更</button>
                   </div>
