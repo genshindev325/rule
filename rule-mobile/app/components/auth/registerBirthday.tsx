@@ -11,18 +11,32 @@ interface RegisterBirthdayInterface {
 }
 
 const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserBirthdayChange, onCancel }) => {
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
+  const [day, setDay] = useState(1);
+  const [month, setMonth] = useState(1);
+  const [year, setYear] = useState(2000);
+  const [error, setError] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
   const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
   const bth = `${year}-${month}-${day}`;
 
+  const handleChangeYear = (year: number) => {
+    const curDateTime = new Date();
+    const y = curDateTime.getFullYear();
+    if ((y - year) < 20) {
+      setError('ユーザーは20歳以上である必要があります。')
+    } else {
+      setError('');
+      setYear(year);
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle the form submission
-    onUserBirthdayChange(bth);
+    if (error === '') {
+      onUserBirthdayChange(bth);
+    }
   };
 
   if (!isOpen) return null;
@@ -30,41 +44,46 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
       <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-      <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
-        <h2 className="text-md sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">誕生日を登録してください</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
-            <input
-              type="text"
-              className={`${input}`}
-              placeholder="日"
-              value={day}
-              onChange={(e) => setDay(e.target.value)}
-            />
-            <input
-              type="text"
-              className={`${input}`}
-              placeholder="月"
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
-            />
-            <input
-              type="text"
-              className={`${input}`}
-              placeholder="年"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-            />
-          </div>              
-          <p className={`${textXs} md:text-md text-center text-gray-400`}>
-            スキップする
-          </p>
-          <div className='flex justify-center space-x-4'>
-            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
-          </div>
-        </form>
-      </div>
+        <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
+          <h2 className="text-md sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">誕生日を登録してください</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
+              <input
+                type="number"
+                className={`${input}`}
+                placeholder="日"
+                value={day}
+                min={1}
+                max={31}
+                onChange={(e) => setDay(parseInt(e.target.value))}
+              />
+              <input
+                type="number"
+                className={`${input}`}
+                placeholder="月"
+                value={month}
+                min={1}
+                max={12}
+                onChange={(e) => setMonth(parseInt(e.target.value))}
+              />
+              <input
+                type="number"
+                className={`${input}`}
+                placeholder="年"
+                value={year}
+                min={1920}
+                onChange={(e) => handleChangeYear(parseInt(e.target.value))}
+              />
+            </div>
+            {error &&
+              <p className={`${textXs} md:text-md text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
+            }
+            <div className='flex justify-center space-x-4'>
+              <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
+              <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
