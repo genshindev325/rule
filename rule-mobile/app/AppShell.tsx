@@ -16,6 +16,7 @@ import ChangeAvatar from "./components/user/setting/changeAvatar";
 import ChangeName from "./components/user/setting/changeName";
 import ChangeID from './components/user/setting/changeID';
 import ChangeBirthday from "./components/user/setting/changeBirthday";
+import UploadIdentityCard from "./components/user/setting/uploadIdentityCard";
 
 // Auth
 import Login from "./user/auth/login";
@@ -69,6 +70,7 @@ const AppShell = () => {
               <Route path="/setting/changeName" component={ChangeName} />
               <Route path="/setting/changeID" component={ChangeID} />
               <Route path="/setting/changeBirthday" component={ChangeBirthday} />
+              <Route path="/setting/uploadIdentityCard" component={UploadIdentityCard} />
               {/* user/auth */}
               <Route path="/auth/signup" component={SignUp} />
               <Route path="/auth/login" component={Login} />

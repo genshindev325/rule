@@ -9,7 +9,7 @@ export interface IUser extends Document {
   gender: string;
   birthday: Date;
   avatar: string;
-  verifys: string[];
+  verification: string;
   phoneNumber: string;
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
@@ -27,7 +27,7 @@ const userSchema = new Schema<IUser>({
   gender: { type: String, enum: ["male", "female"], },
   birthday: { type: Date },
   avatar: { type: String },
-  verifys: { type: [String], default: [] },
+  verification: { type: String, default: '' },
   phoneNumber: { type: String },  
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
