@@ -79,6 +79,16 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
     setDeleteConfirmModalVisible(false);
   };
 
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
+  };
+
+  // Edit event logic
+  const handleEdit = (rowId: number) => {
+    setSelectedRowId(rowId);
+    setIsEventSettingModal(true);
+  };
+
   const handleEventChange = (eventID: number, newEventName: string, newEventDate: string, newMaleTotal: string | null, newFemaleTotal: string | null) => {
     setUpcomingEvents(prevEvents => prevEvents.map(event =>
       event._id === eventID ?
@@ -91,16 +101,6 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ upcomingEvents: initialUpcom
         }
       : event
     ))
-  }
-
-  const handleCancel = () => {
-    setDeleteConfirmModalVisible(false);
-  };
-
-  // Edit event logic
-  const handleEdit = (rowId: number) => {
-    setSelectedRowId(rowId);
-    setIsEventSettingModal(true);
   };
 
   const filteredUpcomingEvents = upcomingEvents.filter(event =>

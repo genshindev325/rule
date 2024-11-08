@@ -3,11 +3,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-
-import { formatDateTime } from '@/utils/datetime';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { formatDateTime } from '@/utils/datetime';
+import { RootState } from '@/store/store';
+import DeleteConfirmationModal from '@/components/utils/deleteConfirmModal';
+import EventSettingModal from '@/components/store/events/EventSettingModal';
 
 interface UpcomingEvent {
   _id: number,
@@ -34,8 +35,72 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events: initialUpcomingEvent
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isDeleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+  
+  // Delete user logic
+  const handleDelete = (rowId: number) => {
+    setSelectedRowId(rowId);
+    setDeleteConfirmModalVisible(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!token) {
+      router.push('/auth/signin');
+      } else {
+      if (selectedRowId !== null) {
+        const response = await fetch(`/api/events/${selectedRowId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+        });
+    
+        if (response.status === 200) {
+          const result = await response.json();
+          console.log(result.message);
+          // Filter out the deleted event from the state
+          setUpcomingEvents(prevEvents => prevEvents.filter(event => event._id !== selectedRowId));
+
+          // Optionally, reset to the first page if the last item on the current page is deleted
+          if ((currentPage - 1) * itemsPerPage >= upcomingEvents.length - 1) {
+            setCurrentPage(prev => Math.max(prev - 1, 1));
+          }
+        } else {
+          console.log(response.status);
+          console.log("Delete event failed.");
+        }
+        setSelectedRowId(0);
+      }
+    }
+    setDeleteConfirmModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setDeleteConfirmModalVisible(false);
+  };
+
+  // Edit event logic
+  const handleEdit = (rowId: number) => {
+    setSelectedRowId(rowId);
+    setIsEventSettingModal(true);
+  };
+
+  const handleEventChange = (eventID: number, newEventName: string, newEventDate: string, newMaleTotal: string | null, newFemaleTotal: string | null) => {
+    setUpcomingEvents(prevEvents => prevEvents.map(event =>
+      event._id === eventID ?
+        {
+          ...event,
+          eventName: newEventName,
+          eventDate: newEventDate,
+          maleTotal: newMaleTotal,
+          femaleTotal: newFemaleTotal
+        }
+      : event
+    ))
+  };
 
   const filteredUpcomingEvents = upcomingEvents.filter(event =>
     event.eventName && event.eventName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -88,6 +153,7 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events: initialUpcomingEvent
               <th className="text-left">開催日時</th>
               <th className="text-left">男性</th>
               <th className="text-left">女性</th>
+              <th className='text-center px-4'>アクション</th>
             </tr>
           </thead>
           <tbody>
@@ -97,6 +163,12 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events: initialUpcomingEvent
                 <td>{formatDateTime(event.eventDate)}</td>
                 <td>{event.males}/{event.maleTotal}</td>
                 <td>{event.females}/{event.femaleTotal}</td>
+                <td className="py-2 px-4 text-center">
+                  <div className="flex space-x-2 justify-center">
+                    <button className="text-blue-600" onClick={() => handleEdit(event._id)}>設定</button>
+                    <button className="text-red-600" onClick={() => handleDelete(event._id)}>削除</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -121,6 +193,8 @@ const UpcomingEvents: React.FC<UpcomingEvents> = ({ events: initialUpcomingEvent
           &gt;&gt;
         </button>
       </div>
+      <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
+      <EventSettingModal isVisible={isEventSettingModal} eventID={selectedRowId} onCancel={() => setIsEventSettingModal(false)} onEventChange={handleEventChange} />
     </div>
   );
 };
