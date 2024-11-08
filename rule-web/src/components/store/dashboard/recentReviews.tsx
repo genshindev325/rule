@@ -26,11 +26,13 @@ interface RecentReviewsProps {
 }
 
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSelectReview }) => {
+  const displayedReviews = reviews.slice(0, 3);
+
   return (
     <div className="p-4 bg-white shadow-md rounded-md min-w-80 text-gray-800">
       <h3 className="text-lg font-semibold mb-4">最近のレビュー</h3>
       <ul>
-        {reviews ? reviews.map((review, index) => (
+        {displayedReviews.length > 0 ? displayedReviews.map((review, index) => (
           <li key={index} className="mb-4">
             <div className="flex items-center mb-2">
                 <div className="w-10 h-10 bg-gray-300 rounded-full">
@@ -58,7 +60,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
           </li>
         )) : <p className='text-center py-10'>まだレビューはありません。</p>}
         <div className='text-center mt-8 mb-2'>
-          {reviews &&
+          {reviews.length > 3 &&
           <button id="seeMore" className='underline underline-offset-2 font-semibold p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300' onClick={onSeeMore}>
             もっと見る
           </button>}
