@@ -9,9 +9,17 @@ import { formatDateTime } from '@/utils/datetime';
 
 interface User {
   _id: string,
-  userID: string,
-  nickname: string,
-  createdAt: string,
+  email: string;
+  userID: string;
+  nickname: string;
+  gender: string;
+  birthday: Date;
+  avatar: string;
+  verification: string;
+  phoneNumber: string;
+  status: string;
+  createdAt: string;
+  creditCard: string;
 }
 
 interface UserListProps {
@@ -59,9 +67,9 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
   };
 
   // Edit user logic
-  const handleEdit = (rowId: string) => {
+  const handleEdit = (user: User) => {
     // Implement your edit logic here, such as opening a modal to edit the row
-    console.log(rowId);
+    console.log(JSON.stringify(user));
   };
 
   const filteredUsers = userList.filter(user =>
@@ -125,7 +133,7 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
                 <td className="py-2 px-4 text-left">{formatDateTime(user.createdAt)}</td>
                 <td className="py-2 px-4 text-left">
                   <div className="flex space-x-2 justify-start">
-                    <button className="text-blue-600">設定</button>
+                    <button className="text-blue-600" onClick={() => handleEdit(user)}>設定</button>
                     <button className="text-red-600" onClick={() => handleDelete(user._id)}>削除</button>
                   </div>
                 </td>

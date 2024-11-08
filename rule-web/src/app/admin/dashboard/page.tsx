@@ -27,9 +27,17 @@ interface Store {
 
 interface User {
   _id: string,
-  userID: string,
-  nickname: string,
-  createdAt: string,
+  email: string;
+  userID: string;
+  nickname: string;
+  gender: string;
+  birthday: Date;
+  avatar: string;
+  verification: string;
+  phoneNumber: string;
+  status: string;
+  createdAt: string;
+  creditCard: string;
 }
 
 const Dashboard = () => {
