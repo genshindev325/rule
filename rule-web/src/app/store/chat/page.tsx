@@ -23,6 +23,7 @@ interface Chat {
   lastMessage: string;
   avatar: string;
   messages: Message[]; // Include messages in the chat
+  relationship: string;
 }
 
 const ChatPage: React.FC = () => {
