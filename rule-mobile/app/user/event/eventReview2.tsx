@@ -260,10 +260,9 @@ const EventReview2: React.FC = () => {
               </div>
             </div>
             {/* send review about event */}
-            <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
+            {/* <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
               <div className='flex flex-row'>
                 <h2 className={`${textSm} font-semibold`}>イベントを評価:</h2>
-                {/* event star rating */}
                 <div className='space-x-1 flex ml-auto'>
                   <StarRating rate={ratingEvent} onRateChange={handleRateEventChange} />
                 </div>
@@ -276,7 +275,7 @@ const EventReview2: React.FC = () => {
                 rows={6}          
               />
               <button id="btn_event" onClick={handleSubmitEventReview} className={`grow bg-gray-800 rounded-full text-white font-semibold py-1 ${textSm}`}>送信する</button>
-            </div>
+            </div> */}
             {/* location button with gradient */}
             <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
               <button className={`grow ${maleGradient} rounded-xl py-1 text-white font-semibold ${textSm}`}>開催場所</button>
@@ -306,27 +305,31 @@ const EventReview2: React.FC = () => {
             </div>
             {/* send review about store */}
             <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 py-8'>
-              <div className='flex flex-row'>
-                <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
-                {/* event star rating */}
-                <div className='space-x-1 flex ml-auto'>
-                  <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
-                </div>
-              </div>
-              <textarea
-                value={reviewStore}
-                onChange={(e) => setReviewStore(e.target.value)}
-                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none"
-                placeholder="お店のレビューを書く"
-                rows={6}
-              />
+              {!storeReplyText &&
+                <>
+                  <div className='flex flex-row'>
+                    <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
+                    {/* event star rating */}
+                    <div className='space-x-1 flex ml-auto'>
+                      <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
+                    </div>
+                  </div>
+                  <textarea
+                    value={reviewStore}
+                    onChange={(e) => setReviewStore(e.target.value)}
+                    className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none"
+                    placeholder="お店のレビューを書く"
+                    rows={6}
+                  />
+                </>
+              }
               {storeReplyText &&
                 <>
                   <h2 className={`${textSm} font-semibold text-blue-600`}>店舗の対応</h2>
                   <h2 className={`${textXs} font-semibold p-2 rounded-lg border shadow-lg`}>{storeReplyText}</h2>
                 </>
               }
-              {!storeReplyText && 
+              {!storeReplyText &&
                 <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>
                   送信する
                 </button>
