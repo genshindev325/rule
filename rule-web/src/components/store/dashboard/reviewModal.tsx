@@ -24,6 +24,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 }
 
 const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose, onSelectReview }) => {
@@ -71,6 +72,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, reviews, onClose, onS
                 </div>
                 <div className="text-sm text-gray-500 ml-4">{formatDateTime(review.createdAt)}</div>
               </div>
+              {review.eventName && <h2 className='text-sm text-gray-800 underline underline-offset-2'>イベント名: {review.eventName}</h2>}
               <p>{review.storeReviewText}</p>
               <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>
             <div className="text-md text-gray-400 mt-4 mb-10 cursor-pointer">

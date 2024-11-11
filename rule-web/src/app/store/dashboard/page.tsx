@@ -42,6 +42,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string
 };
 
 interface MainPanelProps {

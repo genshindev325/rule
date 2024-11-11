@@ -17,6 +17,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 }
 
 interface RecentReviewsProps {
@@ -50,10 +51,11 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
               </div>
               <div className="text-sm text-gray-950 ml-4">{formatDateTime(review.createdAt)}</div>
             </div>
+            {review.eventName && <h2 className='text-sm text-gray-800 underline underline-offset-2'>イベント名: {review.eventName}</h2>}
             <p className='font-semibold text-sm sm:text-md'>{review.storeReviewText}</p>
             <div className='text-sm mt-4'>{review.conclusion}</div>
             <div className="text-md text-gray-800 mt-4 mb-10">
-              <span onClick={() => onSelectReview(review)} className='underline underline-offset-2 cursor-pointer font-semibold p-2 border-none rounded-lg bg-white hover:bg-gray-300 duration-300'>
+              <span onClick={() => onSelectReview(review)} className='cursor-pointer p-2 border-none rounded-lg bg-gray-100 hover:bg-gray-300 duration-300'>
                 返事する
               </span>
             </div>
