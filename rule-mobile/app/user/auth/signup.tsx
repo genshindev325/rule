@@ -141,7 +141,8 @@ const SignUp: React.FC = () => {
         router.push('/home');
       } else {
         router.push('/auth/login');
-        toast.error(`サインアップ中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+        const result = await response.json();
+        toast.error(`${result.message}`, {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
