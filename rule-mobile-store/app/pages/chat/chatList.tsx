@@ -126,7 +126,7 @@ const ChatList: React.FC = () => {
             {adminContact.length > 0 &&
               <li
                 key={adminContact[0].id}
-                onClick={() => setSelectedChat(adminContact[0])}
+                onClick={() => handleChatSelected(adminContact[0])}
                 className={`p-3 duration-500 flex flex-col items-center cursor-pointer hover:bg-gray-400 ${
                   selectedChat?.id === adminContact[0].id ? 'bg-gray-200' : 'bg-white'
                 }`}
@@ -142,7 +142,7 @@ const ChatList: React.FC = () => {
                   <div className='flex flex-col w-full gap-1'>
                     <div className='flex flex-row justify-between w-full'>
                       <div className='text-sm font-semibold'>{adminContact[0].name}</div>
-                      {adminContact[0].date && <div className="text-xs sm:text-sm text-right text-gray-600">{formatDateTime(adminContact[0].date)}</div>}
+                      {adminContact[0].date && <div className="text-xs sm:text-sm text-right pr-4 text-gray-600">{formatDateTime(adminContact[0].date)}</div>}
                     </div>
                     <div className="text-sm text-gray-800">{adminContact[0].lastMessage.length > 20 ? `${adminContact[0].lastMessage.slice(0, 20)}...` : adminContact[0].lastMessage}</div>
                   </div>
@@ -169,13 +169,13 @@ const ChatList: React.FC = () => {
                       src={chat.avatar || '/image/minion.png'} // Default avatar path
                       alt={chat.name}
                       className={`rounded-full border-blue-500 ${
-                        selectedChat?.id === chat.id ? 'w-11 object-contain border-2' : 'w-10 object-contain border-0'
+                        selectedChat?.id === chat.id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
                       }`}
                     />
                     <div className='flex flex-col w-full gap-1'>
                       <div className='flex flex-row justify-between w-full'>
                         <div className='text-sm font-semibold'>{chat.name}</div>
-                        <div className="text-xs sm:text-sm pr-4 text-right text-gray-600">{chat.date}</div>
+                        <div className="text-xs sm:text-sm pr-4 text-right text-gray-600">{formatDateTime(chat.date)}</div>
                       </div>
                       <div className="text-sm text-gray-800">{chat.lastMessage.length > 30 ? `${chat.lastMessage.slice(0, 30)}...` : chat.lastMessage}</div>
                     </div>
