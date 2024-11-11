@@ -5,6 +5,7 @@ interface IReview extends Document {
   storeReviewText: string;
   storeRating: number;
   storeReplyText: string;
+  eventName: string;
   createdBy: ObjectId;
   createdAt: Date;
 }
@@ -13,9 +14,8 @@ const reviewStoreSchema = new Schema<IReview>({
   storeId: { type: mongoose.Types.ObjectId, required: true, ref: 'Store' },
   storeRating: { type: Number, required: true },
   storeReviewText: { type: String, required: true },
-
   storeReplyText: { type: String },
-
+  eventName: { type: String },
   createdBy: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
   createdAt: { type: Date, default: () => new Date() },
 });
