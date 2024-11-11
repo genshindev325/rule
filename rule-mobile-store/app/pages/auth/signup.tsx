@@ -112,7 +112,8 @@ const SignUp: React.FC = () => {
         router.push('/store/dashboard');
       }, 1500);
     } else {
-      toast.error(`ユーザー名とパスワードが一致しません。${response.status} エラー`, {
+      const result = await response.json();
+      toast.error(`${result.message}`, {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -125,14 +126,14 @@ const SignUp: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="min-h-screen w-screen flex flex-col items-center justify-start bg-white text-gray-800 p-6 space-y-4">
+        <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-white text-gray-800 p-6 space-y-4">
           <h2 className="text-2xl font-bold mb-4">サインアップ</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               value={email}
               onChange={handleEmailChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
               placeholder="メール"
               required
             />
@@ -140,7 +141,7 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               name='username'
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
               placeholder="ユーザー名"
               required
             />
@@ -148,7 +149,7 @@ const SignUp: React.FC = () => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
               placeholder="パスワード"
             />
             {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
@@ -156,7 +157,7 @@ const SignUp: React.FC = () => {
               type="password"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              className="w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="パスワードの確認"
             />
             {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
