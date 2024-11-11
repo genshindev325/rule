@@ -182,7 +182,7 @@ const ChatMessages: React.FC = () => {
                 >
                   {(message.eventName && message.eventName !== '' && message.relationship === 's-u-r') &&
                     <div className="text-xs text-gray-800 py-2 underline underline-offset-2 text-left">
-                      店舗名: {message.eventName}
+                      イベント名: {message.eventName}
                     </div>
                   }
                   <div
