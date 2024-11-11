@@ -56,6 +56,7 @@ const EventList: React.FC = () => {
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
   const token = useSelector((state: RootState) => state.auth.token);
+  const storeProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useIonRouter();
 
   const showUpcomingEvents = () => {
@@ -83,7 +84,9 @@ const EventList: React.FC = () => {
           });
           if (response_upcomingEvents.status === 200) {
             const result = await response_upcomingEvents.json();
-            setUpcomingEvents(result.data);
+            const result_events: PastEventProps[] = result.data;
+            const filterEvents = result_events.filter(event => event.store && event.store._id === storeProfile?._id);
+            setUpcomingEvents(filterEvents);
           } else {
             console.log(response_upcomingEvents.status);
             console.log("Getting upcoming events failed.");
@@ -101,7 +104,7 @@ const EventList: React.FC = () => {
           if (response_pastEvents.status === 200) {
             const result = await response_pastEvents.json();
             const result_events: PastEventProps[] = result.data;
-            const filterEvents = result_events.filter(event => event && event.store !== null);
+            const filterEvents = result_events.filter(event => event.store && event.store._id === storeProfile?._id);
             setPastEvents(filterEvents);
           } else {
             console.log(response_pastEvents.status);

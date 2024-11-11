@@ -140,7 +140,7 @@ const Dashboard = () => {
     }
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-xl font-bold'>読み込み中...</div>;
 
   const handleOpenReviewModal = () => {
     setIsReviewModalOpen(true);
