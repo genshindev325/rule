@@ -16,6 +16,7 @@ interface Message {
   message: string;
   createdAt: string;
   relationship: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
+  eventName: string;
 }
 
 interface Chat {
@@ -73,6 +74,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 'a-s-r',
+            eventName: ''
           },
         ];
       } else {
@@ -82,6 +84,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 's-u-s',
+            eventName: ''
           },
         ];
       }
@@ -167,6 +170,11 @@ const ChatMessages: React.FC = () => {
                       : 'items-start'
                   }`}
                 >
+                  {(message.eventName && message.eventName !== '' && message.relationship === 's-u-r') &&
+                    <div className="text-xs text-gray-800 py-2 underline underline-offset-2 text-left">
+                      イベント名: {message.eventName}
+                    </div>
+                  }
                   <div
                     className={`${
                       message.relationship === 'a-s-r' || message.relationship === 's-u-s'
