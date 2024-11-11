@@ -41,6 +41,7 @@ const ChatMessages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const searchParams = useSearchParams();
+  const eventName = searchParams.get('eventName') || '';
 
   useEffect(() => {
     if (selectedChat) {
@@ -86,7 +87,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 'a-u-r',
-            eventName: ''
+            eventName: eventName
           },
         ];
       } else {
@@ -96,7 +97,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 's-u-r',
-            eventName: ''
+            eventName: eventName
           },
         ];
       }
