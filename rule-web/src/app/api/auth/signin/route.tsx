@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      message: "Invalid credentials",
+      message: "無効な資格情報",
       success: false,
     }, { status: 401 });
   } catch (error) {
