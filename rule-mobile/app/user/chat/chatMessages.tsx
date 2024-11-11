@@ -16,6 +16,7 @@ interface Message {
   message: string;
   createdAt: string;
   relationship: 'a-u-r' | 'a-u-s' | 's-u-r' | 's-u-s';
+  eventName: string;
 }
 
 interface Chat {
@@ -85,6 +86,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 'a-u-r',
+            eventName: ''
           },
         ];
       } else {
@@ -94,6 +96,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 's-u-r',
+            eventName: ''
           },
         ];
       }
