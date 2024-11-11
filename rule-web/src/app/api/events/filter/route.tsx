@@ -16,13 +16,30 @@ export async function POST(req: NextRequest) {
   try {
     let query = Event.find();
     if (body.upcoming) {
-      query.where("eventDate").gte(new Date().getTime());
-      query = Event.find({
-        eventDate: { $gt: new Date() },
-      }).populate({
-        path: 'store',
-        select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
-      })
+      if (body.user) {
+        // Find all event participations by the user
+        const participatedEvents = await EventParticipate.find({
+          userId: body.user,
+        }).select('eventId');
+        // Extract event IDs
+        const eventIds = participatedEvents.map((participation) => participation.eventId);
+        // Query Event model to find events in the past
+        query = Event.find({
+          _id: { $in: eventIds },
+          eventDate: { $gt: new Date() },
+        }).populate({
+          path: 'store',
+          select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
+        })
+      } else {
+        query.where("eventDate").gte(new Date().getTime());
+        query = Event.find({
+          eventDate: { $gt: new Date() },
+        }).populate({
+          path: 'store',
+          select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
+        })
+      }
     } else if (body.past) {
       // find past events user participated
       if (body.user) {
