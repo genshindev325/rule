@@ -30,8 +30,6 @@ const ChatList: React.FC<{
     setSearchTerm(event.target.value);
   };
 
-  // console.log(JSON.stringify(chats));
-
   const adminContact = chats.filter(chat =>
     chat.id.includes('123456789012345678901234')
   );
