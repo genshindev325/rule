@@ -89,7 +89,7 @@ const EventHistory2: React.FC = () => {
               'Content-Type': 'application/json', 
               'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ upcoming: true }),
+            body: JSON.stringify({ upcoming: true, user: userId }),
           });
           if (response_upcomingEvents.status === 200) {
             const result = await response_upcomingEvents.json();
