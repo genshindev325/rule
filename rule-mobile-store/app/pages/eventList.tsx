@@ -22,6 +22,15 @@ interface UpcomingEventProps {
   femaleFee: number;
   femaleTotal: number;
   females: number;
+  store: {
+    _id: string;
+    rating: number;
+    address: string;
+    access: string[];
+    description: string;
+    storeImages: string;
+    storeName: string;
+  };
 }
 
 interface PastEventProps {
@@ -39,8 +48,7 @@ interface PastEventProps {
     _id: string;
     rating: number;
     address: string;
-    access1: string;
-    access2: string;
+    access: string[];
     description: string;
     storeImages: string;
     storeName: string;
@@ -54,6 +62,8 @@ const EventList: React.FC = () => {
   const textXs = 'text-xs sm:text-sm';
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
+  const [isShowAllUpcomingEvents, setIsShowAllUpcomingEvents] = useState(false);
+  const [isShowAllPastEvents, setIsShowAllPastEvents] = useState(false);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
   const token = useSelector((state: RootState) => state.auth.token);
   const storeProfile = useSelector((state: RootState) => state.auth.profile);
@@ -84,7 +94,7 @@ const EventList: React.FC = () => {
           });
           if (response_upcomingEvents.status === 200) {
             const result = await response_upcomingEvents.json();
-            const result_events: PastEventProps[] = result.data;
+            const result_events: UpcomingEventProps[] = result.data;
             const filterEvents = result_events.filter(event => event.store && event.store._id === storeProfile?._id);
             setUpcomingEvents(filterEvents);
           } else {
@@ -155,19 +165,65 @@ const EventList: React.FC = () => {
             <div className='w-full flex flex-col bg-gray-100 ion-padding pt-20 pb-4 text-gray-800'>
               {/* upcoming events */}
               <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-2`}>
-                {upcomingEvents.map((event, index) => (          
-                  <div key={index}>
-                    <EventCard { ...event } />
-                  </div>
-                ))}
+                {isShowAllUpcomingEvents ?
+                  upcomingEvents.map((event, index) => (
+                    <div key={index}>
+                      <EventCard { ...event } />
+                    </div>
+                  ))
+                :
+                  upcomingEvents.slice(0,3).map((event, index) => (
+                    <div key={index}>
+                      <EventCard { ...event } />
+                    </div>
+                  ))
+                }
+                {upcomingEvents.length === 0 &&
+                  <p className='text-center text-xs py-6'>今後のイベントはまだありません。</p>
+                }
+                {upcomingEvents.length > 3 && isShowAllUpcomingEvents === false &&
+                  <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(true)}>
+                    もっと見る
+                  </button>
+                }
+                {upcomingEvents.length > 3 && isShowAllUpcomingEvents === true &&
+                  <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(false)}>
+                    表示を減らす
+                  </button>
+                }
               </div>
               {/* past events */}
               <div className={`${tab === 'past' ? '' : 'hidden'} space-y-2`}>
-                {pastEvents.map((event, index) => (
-                  <div key={index}>
-                    <EventReviewCard { ...event } />
+                {isShowAllPastEvents ?
+                  pastEvents.map((event, index) => (
+                    <div key={index}>
+                      <EventReviewCard { ...event } />
+                    </div>
+                  ))
+                :
+                  pastEvents.slice(0,3).map((event, index) => (
+                    <div key={index}>
+                      <EventReviewCard { ...event } />
+                    </div>
+                  ))
+                }
+                {pastEvents.length === 0 &&
+                  <p className='text-center text-xs py-6'>過去のイベントはありません。</p>
+                }
+                {pastEvents.length > 3 && isShowAllPastEvents === false &&
+                  <div className='flex justify-center items-center'>
+                    <button type='button' className='text-center text-xs p-2 mx-auto rounded-md text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllPastEvents(true)}>
+                      もっと見る
+                    </button>
                   </div>
-                ))}
+                }
+                {pastEvents.length > 3 && isShowAllPastEvents === true &&
+                  <div className='flex justify-center items-center'>
+                    <button type='button' className='text-center text-xs p-2 mx-auto rounded-md text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllPastEvents(false)}>
+                      表示を減らす
+                    </button>
+                  </div>
+                }
               </div>
             </div>
           </div>
