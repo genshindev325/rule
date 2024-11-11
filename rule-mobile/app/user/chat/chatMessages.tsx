@@ -19,15 +19,6 @@ interface Message {
   eventName: string;
 }
 
-interface Chat {
-  id: string;
-  name: string;
-  date: string;
-  lastMessage: string;
-  avatar: string;
-  messages: Message[]; // Include messages in the chat
-}
-
 const ChatMessages: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const [chatName, setChatName] = useState('')
@@ -41,31 +32,34 @@ const ChatMessages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const searchParams = useSearchParams();
-  const eventName = searchParams.get('eventName') || '';
+  const [eventName, setEventName] = useState('')
 
   useEffect(() => {
-    if (selectedChat) {
+    const storeName = searchParams.get('storeName');
+    const storeId = searchParams.get('storeId');
+    if (storeId && storeName) {
+      setChatName(storeName);
+      setMessages([]);
+      setSelectedChatId(storeId);
+      setEventName(searchParams.get('eventName') || '');
+    } else if (selectedChat) {
       setChatName(selectedChat.name);
       setMessages(selectedChat.messages);
       setSelectedChatId(selectedChat.id);
+      setEventName('')
     } else {
-      const storeName = searchParams.get('storeName');
-      const storeId = searchParams.get('storeId');
-      if (storeId && storeName) {
-        setChatName(storeName);
-        setMessages([]);
-        setSelectedChatId(storeId);
-      } else {
-        console.log('there is no selected chat or store params.');
-        router.push('/chatList');
-      }
+      console.log('there is no selected chat or store params.');
+      router.push('/chatList');
+      setEventName('')
     }
+
     if (userProfile) {
       setUserId(userProfile._id);
     } else {
       console.log('there is no user profile.')
       router.push('/chatList');
     }
+    console.log("messsages: " + JSON.stringify(messages));
   }, [selectedChat])
 
   const sendMessage = async (newMessage: string) => {
@@ -76,6 +70,7 @@ const ChatMessages: React.FC = () => {
         responsor: selectedChatId,
         message: newMessage,
         relationship: relationship,
+        eventName: searchParams.get('eventName') || ''
       };
       console.log("sdsdf: " + JSON.stringify(messageData))
 
@@ -87,7 +82,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 'a-u-r',
-            eventName: eventName
+            eventName: searchParams.get('eventName') || ''
           },
         ];
       } else {
@@ -97,7 +92,7 @@ const ChatMessages: React.FC = () => {
             message: newMessage,
             createdAt: new Date().toISOString(),
             relationship: 's-u-r',
-            eventName: eventName
+            eventName: searchParams.get('eventName') || ''
           },
         ];
       }
@@ -185,6 +180,11 @@ const ChatMessages: React.FC = () => {
                       : 'items-start'
                   }`}
                 >
+                  {(message.eventName && message.eventName !== '' && message.relationship === 's-u-r') &&
+                    <div className="text-xs text-gray-800 py-2 underline underline-offset-2 text-left">
+                      店舗名: {message.eventName}
+                    </div>
+                  }
                   <div
                     className={`${
                       message.relationship === 'a-u-r' || message.relationship === 's-u-r'

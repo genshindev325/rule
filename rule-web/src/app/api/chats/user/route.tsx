@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   await dbConnect();
   const body = await req.json();
-  const { responsor, requester, message, relationship } = body;
+  const { responsor, requester, message, relationship, eventName } = body;
 
   // Validate incoming data
   if (!responsor || !requester || !message || !relationship) {
@@ -119,6 +119,7 @@ export async function PUT(req: NextRequest) {
       requester,
       relationship,
       message,
+      eventName,
       createdAt: new Date().toISOString(), // Ensure you have a createdAt field in your message model
     });
 
