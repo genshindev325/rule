@@ -5,6 +5,7 @@ import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
+import SearchResultModal from '@/app/components/user/event/SearchResultModal';
 import { SERVER_URL } from '@/app/config';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
@@ -47,6 +48,8 @@ const FindOnMap: React.FC = () => {
   const [loading, setLoading] = useState(true); // Fixed
   const [upcomingEvents, setUpcomingEvents] = useState<EventProps[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchedEvents, setSearchedEvents] = useState<EventProps[]>([]);
+  const [isOpenSearchResultModal, setIsOpenSearchResultModal] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
   const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
@@ -83,9 +86,29 @@ const FindOnMap: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleSearchTerm = () => {
-    console.log("searchTerm: " + searchTerm);
+  const handleSearch = () => {
+    if (searchTerm !== '') {
+      const searchResult = upcomingEvents.filter(event => {
+        return (
+          event.eventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.store.storeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.store.cookingGenre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.store.foodGenre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.store.storeGenre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.store.address.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      });
+      setSearchedEvents(searchResult);
+      setIsOpenSearchResultModal(true);
+    }
   };
+
+  const handleCloseSearchResultModal = () => {
+    setIsOpenSearchResultModal(false);
+    setSearchTerm('');
+    setSearchedEvents([]);
+  }
 
   if (loading) {
     return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
@@ -104,20 +127,23 @@ const FindOnMap: React.FC = () => {
                 </IonRouterLink>
                 <h2 className='grow pr-4'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 px-2 md:px-4 mx-8 sm:mx-9 mt-4">
-                <img src={settingSVG} alt="settings" className="w-4" />
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 px-2 md:px-4 mx-12 sm:mx-16 mt-4">
+                {/* <img src={settingSVG} alt="settings" className="w-4" /> */}
+                <button onClick={handleSearch}>
+                  <img src={searchBlackSVG} alt="search" className="w-3" />
+                </button>
                 <input
                   type='text'
                   value={searchTerm}
-                  onChange={handleSearchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="text-xs w-full mx-2 py-1 sm:py-2 pl-2 text-left text-gray-800 focus:outline-none"
                   placeholder='イベントを検索する'
                 />
-                <img src={searchBlackSVG} alt="search" className="ml-auto w-3" />
               </div>
             </div>
             {/* Google Map Background */}
             <GoogleMapBackground events={upcomingEvents} address="Osaka, Japan" className="w-full" />
+            <SearchResultModal isOpen={isOpenSearchResultModal} resultEvents={searchedEvents} onClose={handleCloseSearchResultModal} />
           </div>
         </AuthWrapper>
       </IonContent>
