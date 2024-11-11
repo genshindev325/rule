@@ -167,7 +167,7 @@ const EventDetail: React.FC = () => {
                   <h2 className={`${textSm} py-2 sm:py-4 md:py-6 font-bold my-auto`}>アクセス</h2>
                   <div className='flex flex-row ml-auto text-blue-500 items-center pr-2'>
                     <h2 className={`${textXs} font-semibold pr-2`}>
-                      <IonRouterLink routerLink={`/chatMessages?storeId=${selectedEvent.store._id}&storeName=${selectedEvent.store.storeName}`}>
+                      <IonRouterLink routerLink={`/chatMessages?storeId=${selectedEvent.store._id}&storeName=${selectedEvent.store.storeName}&eventId=${selectedEvent._id}&eventName=${selectedEvent.eventName}`}>
                         店舗へのお問い合わせ
                       </IonRouterLink>
                     </h2>
