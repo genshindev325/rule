@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { formatDate } from '@/utils/formatDate';
 import SaveConfirmModal from '@/components/utils/SaveConfirmModal';
 
@@ -25,16 +26,43 @@ interface IUserEdit {
   user: User | null;
   isOpen: boolean;
   onClose: () => void;
+  onUserStatusChanged: (userEmail: string | undefined, status: string) => void;
 }
 
-const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose }) => {
+const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatusChanged }) => {
   const [selectedStatus, setSelectedStatus] = useState<'active' | 'inactive'>('active');
   const [isSaveConfirmModal, setIsSaveConfirmModal] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleConfirmSave = () => {
-    console.log(user?.email);
-    console.log(selectedStatus);
+    const ChangeUserStatus = async () => {
+      const response = await fetch(`/api/users/changeStatus`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user?.email, status: selectedStatus }),
+      });
+  
+      if (response.status === 200) {
+        const result = await response.json();
+        setIsSaveConfirmModal(false);
+        onClose();
+        onUserStatusChanged(user?.email, selectedStatus);
+        toast.success('ユーザーステータスが正常に変更されました!', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+      } else {
+        console.log(response.status);
+        console.log("Change user status failed.");
+        setIsSaveConfirmModal(false); 
+        onClose();
+      }
+    };
+
+    ChangeUserStatus();
   };
 
   useEffect(() => {
@@ -43,7 +71,7 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose }) => {
     } else {
       setSelectedStatus('inactive');
     }
-  }, []);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

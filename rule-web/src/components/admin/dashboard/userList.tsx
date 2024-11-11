@@ -75,6 +75,17 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
     setIsUserEditModal(true);
   };
 
+  const handleChangeUserStatus = (userEmail: string | undefined, status: string) => {
+    if (!userEmail) return;
+
+    // Update the userList where the user's email matches userEmail
+    setUserList((prevUserList) =>
+      prevUserList.map((user) =>
+        user.email === userEmail ? { ...user, status: status } : user
+      )
+    );
+  };
+
   const filteredUsers = userList.filter(user =>
     user.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.userID.includes(searchTerm)
@@ -165,7 +176,7 @@ const UserList: React.FC<UserListProps> = ({ users: initialUsers }) => {
         </button>
       </div>
       <DeleteConfirmationModal isVisible={isDeleteConfirmModalVisible} onConfirm={handleConfirmDelete} onCancel={handleCancel} />
-      <UserEditModal isOpen={isUserEditModal} user={selectedUser} onClose={() => setIsUserEditModal(false)} />
+      <UserEditModal isOpen={isUserEditModal} user={selectedUser} onClose={() => setIsUserEditModal(false)} onUserStatusChanged={handleChangeUserStatus} />
     </div>
   );
 };
