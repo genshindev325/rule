@@ -51,13 +51,19 @@ const SignIn: React.FC = () => {
             draggable: true,
             bodyClassName: 'text-xs sm:text-sm',
           });
-          // setNotification({ message: 'サインインに成功しました!', type: 'success' });
           setTimeout(() => {
             router.push('/dashboard');
           }, 1500);
         }
       } else {
-        console.log(response.status);
+        const result = await response.json();
+        toast.error(`${result.message}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
       }
     } catch(error) {
       console.log(error);

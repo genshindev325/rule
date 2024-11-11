@@ -7,6 +7,7 @@ import { FaStar } from 'react-icons/fa';
 import { formatDateTime } from '@/app/utils/datetime';
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;
@@ -16,6 +17,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 }
 
 interface RecentReviewsProps {
@@ -47,6 +49,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
                 ))}
               </div>
               <div className="text-sm text-gray-800 ml-4">{formatDateTime(review.createdAt)}</div>
+              {review.eventName && <h2 className='text-sm text-gray-800 underline underline-offset-2'>イベント名: {review.eventName}</h2>}
             </div>
             <div className='text-sm text-gray-800 mt-4'>{review.storeReviewText}</div>
             {review.conclusion && <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>}
@@ -56,7 +59,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
               </span>
             </div>
           </li>
-        )) : <p className='text-center py-6'>まだレビューはありません。</p>}
+        )) : <p className='text-center text-xs py-6'>まだレビューはありません。</p>}
         <div className='text-center mb-2'>
           {reviews.length > 3 &&
           <span className='underline underline-offset-2 text-sm text-gray-800' onClick={onSeeMore}>

@@ -29,6 +29,7 @@ interface UpcomingEvent {
 };
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;
@@ -38,6 +39,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 };
 
 interface MainPanelProps {
@@ -65,6 +67,7 @@ const Dashboard = () => {
   const [recentReviews, setRecentReviews] = useState<RecentReview[]>([]);
   const [replyReview, setReplyReview] = useState<RecentReview>();
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
+  const [isShowAllUpcomingEvents, setIsShowAllUpcomingEvents] = useState(false);
   const [loading, setLoading] = useState(true); 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
@@ -183,14 +186,32 @@ const Dashboard = () => {
             <MainPanel {...mainPanelData} />
             {/* upcoming events */}
             <div className={`${textSm}`}>今後のイベント</div>
-            {upcomingEvents.map((event, index) => (          
-              <div key={index}>
-                <EventCard { ...event } />
-              </div>
-            ))}
-            <span className='underline underline-offset-2 text-sm mx-auto text-gray-800' onClick={onSeeMoreEvent}>
-              もっと見る
-            </span>
+            {isShowAllUpcomingEvents ?
+              upcomingEvents.map((event, index) => (          
+                <div key={index}>
+                  <EventCard { ...event } />
+                </div>
+              ))
+            :
+              upcomingEvents.slice(0,3).map((event, index) => (          
+                <div key={index}>
+                  <EventCard { ...event } />
+                </div>
+              ))
+            }
+            {upcomingEvents.length === 0 &&
+              <p className='text-center text-xs py-6'>今後のイベントはまだありません。</p>
+            }
+            {upcomingEvents.length > 3 && isShowAllUpcomingEvents === false &&
+              <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(true)}>
+                もっと見る
+              </button>
+            }
+            {upcomingEvents.length > 3 && isShowAllUpcomingEvents === true &&
+              <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(false)}>
+                表示を減らす
+              </button>
+            }
             {/* recent reviews */}
             <div className={`${textSm}`}>最近のレビュー</div>
             <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
