@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   try {
     const existingStore = await Store.findOne({ email });
     if (existingStore) {
-      return NextResponse.json({ success: false, message: 'Store already exists' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'ストアのメールは既に存在します。' }, { status: 400 });
     }
 
     const store = await Store.create(body);
