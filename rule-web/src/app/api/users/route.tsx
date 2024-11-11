@@ -17,12 +17,17 @@ export async function POST(req: NextRequest) {
   await dbConnect();
   
   const body = await req.json();
-  const { email } = body;
+  const { email, userID } = body;
 
   try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-          return NextResponse.json({ success: false, message: 'User already exists' }, { status: 400 });
+          return NextResponse.json({ success: false, message: 'ユーザーのメールアドレスは既に存在します。' }, { status: 400 });
+      }
+
+      const existingUserID = await User.findOne({ userID });
+      if (existingUserID) {
+          return NextResponse.json({ success: false, message: 'ユーザーIDはすでに存在します。' }, { status: 400 });
       }
       const user = await User.create(body);
 
