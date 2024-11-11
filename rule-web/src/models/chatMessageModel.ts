@@ -5,6 +5,7 @@ interface IChatMessage extends Document {
   requester: ObjectId;
   relationship: { type: String, enum: ["a-s-s", "a-s-r", "a-u-s", "a-u-r", "s-u-s", "s-u-r"] },
   message: string;
+  eventName: string;
   createdAt: Date;
 }
 
@@ -13,6 +14,7 @@ const chatMessageSchema = new Schema<IChatMessage>({
   requester: { type: Schema.Types.ObjectId, required: true },
   relationship: { type: String, required: true },
   message: { type: String },
+  eventName: { type: String },
   createdAt: { type: Date, default: () => new Date() },
 });
 
