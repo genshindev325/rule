@@ -87,7 +87,7 @@ const PastEvents: React.FC<PastEvents> = ({ pastEvents }) => {
             </tr>
           </thead>
           <tbody>
-            {pastEvents.map((event, index) => (
+            {paginatedEvents.map((event, index) => (
               <tr key={index}>
                 <td className='w-1/4'>{event.eventName}</td>
                 <td className='w-1/4'>{event.store.storeName}</td>
