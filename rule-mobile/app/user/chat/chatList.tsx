@@ -15,6 +15,7 @@ interface Message {
   message: string;
   createdAt: string;
   relationship: 'a-u-r' | 'a-u-s' | 's-u-r' | 's-u-s';
+  eventName: string;
 }
 
 interface ChatList {
@@ -86,7 +87,7 @@ const ChatList: React.FC = () => {
     };
 
     fetchChats();
-  }, [userProfile]);
+  }, [selectedChat]);
 
   const handleChatSelected = (chat: ChatList) => {
     setSelectedChat(chat);
