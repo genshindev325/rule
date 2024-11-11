@@ -25,10 +25,12 @@ interface RecentReviewsProps {
 }
 
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSelectReview }) => {
+  const displayedReviews = reviews.slice(0, 3);
+  
   return (
     <div className="bg-transparent min-w-80 text-gray-800">
       <ul>
-        {reviews ? reviews.map((review, index) => (
+        {displayedReviews.length > 0 ? displayedReviews.map((review, index) => (
           <li key={index} className="bg-white p-2 sm:p-4 rounded-md mb-4">
             <div className="flex items-center mb-2">
                 <div className="w-10 h-10 bg-gray-300 rounded-full">
@@ -54,10 +56,10 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
               </span>
             </div>
           </li>
-        )) : <p className='text-center py-10'>まだレビューはありません。</p>}
+        )) : <p className='text-center py-6'>まだレビューはありません。</p>}
         <div className='text-center mb-2'>
-          {reviews &&
-          <span className='underline underline-offset-2 text-gray-800' onClick={onSeeMore}>
+          {reviews.length > 3 &&
+          <span className='underline underline-offset-2 text-sm text-gray-800' onClick={onSeeMore}>
             もっと見る
           </span>}
         </div>
