@@ -158,7 +158,7 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
       });
 
       if (response.status === 200) {
-        toast.success('イベントを成功させましょう。', {
+        toast.success('イベント設定が正常に変更されました。', {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
