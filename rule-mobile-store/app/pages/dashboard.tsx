@@ -13,22 +13,29 @@ import EventCard from '@/app/components/event/eventCard';
 import RecentReviews from '@/app/components/store/dashboard/recentReviews';
 import ReviewModal from '@/app/components/store/dashboard/reviewModal';
 import ReplyModal from '@/app/components/store/dashboard/replyModal';
+import EventSettingModal from '@/app/components/event/EventSettingModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
 interface UpcomingEvent {
+  _id: string;
   eventName: string;
   eventDate: string;
   coverImage: string;
-  maleFee: number;
-  maleTotal: number;
+  maleFee: string;
+  maleTotal: string;
   males: number;
-  femaleFee: number;
-  femaleTotal: number;
+  femaleFee: string;
+  femaleTotal: string;
   females: number;
+  category: string;
+  description: string;
+  eventStartTime: Date;
+  eventEndTime: Date;
 };
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;
@@ -38,6 +45,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 };
 
 interface MainPanelProps {
@@ -50,10 +58,7 @@ interface MainPanelProps {
 };
 
 const Dashboard = () => {
-  const textXl = 'text-xl sm:text-2xl font-semibold';
-  const textMd = 'text-md sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-md font-semibold';
-  const textXs = 'text-xs sm:text-sm';
   const [mainPanelData, setMainPanelData] = useState<MainPanelProps>({
     lastMonthSales: 0,
     thisMonthSales: 0,
@@ -65,12 +70,31 @@ const Dashboard = () => {
   const [recentReviews, setRecentReviews] = useState<RecentReview[]>([]);
   const [replyReview, setReplyReview] = useState<RecentReview>();
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
+  const [isShowAllUpcomingEvents, setIsShowAllUpcomingEvents] = useState(false);
   const [loading, setLoading] = useState(true); 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
+  const [isEventSettingOpen, setIsEventSettingOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<UpcomingEvent>({
+    _id: '',
+    eventName: '',
+    eventDate: '',
+    coverImage: '',
+    maleFee: '',
+    maleTotal: '',
+    males: 0,
+    femaleFee: '',
+    femaleTotal: '',
+    females: 0,
+    category: '',
+    description: '',
+    eventStartTime: new Date(),
+    eventEndTime: new Date(),
+  });
   const { profile } = useAuth();
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     if (!token) {
@@ -134,18 +158,12 @@ const Dashboard = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, []);
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;
-
-  const handleOpenReviewModal = () => {
-    setIsReviewModalOpen(true);
-  };
-
-  const handleCloseReviewModal = () => {
-    setIsReviewModalOpen(false);
-  };
+  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-xl font-bold'>読み込み中...</div>;
 
   const handleOpenReplyModal = (review: RecentReview) => {
     setIsReplyModalOpen(true);
@@ -153,17 +171,31 @@ const Dashboard = () => {
     setReplyReview(review);
   };
 
-  const handleCloseReplyModal = () => {
-    setIsReplyModalOpen(false);
-  };
+  const handleOpenEvenDetailModal = (event: UpcomingEvent) => {
+    setSelectedEvent(event);
+    setIsEventSettingOpen(true);
+  }
 
-  const onSeeMoreEvent = () => {
-
+  const handleChangeEventDetail = (eventId: string, eventName: string, coverImage: string, eventDate: string, maleFee: string, maleTotal: string, femaleFee: string, femaleTotal: string) => {
+    setUpcomingEvents(prevEvents => prevEvents.map(event =>
+      event._id === eventId ?
+        {
+          ...event,
+          eventName: eventName,
+          coverImage: coverImage,
+          eventDate: eventDate,
+          maleFee: maleFee,
+          maleTotal: maleTotal,
+          femaleFee: femaleFee,
+          femaleTotal: femaleTotal,
+        }
+      : event
+    ))
   };
 
   return (
     <AuthWrapper allowedRoles={['store']}>
-      // <SideMenu />
+      <SideMenu />
       <IonPage id='main-content'>
         <IonHeader>
           <IonToolbar>
@@ -178,19 +210,38 @@ const Dashboard = () => {
             <MainPanel {...mainPanelData} />
             {/* upcoming events */}
             <div className={`${textSm}`}>今後のイベント</div>
-            {upcomingEvents.map((event, index) => (          
-              <div key={index}>
-                <EventCard { ...event } />
-              </div>
-            ))}
-            <span className='underline underline-offset-2 text-sm mx-auto text-gray-800' onClick={onSeeMoreEvent}>
-              もっと見る
-            </span>
+            {isShowAllUpcomingEvents ?
+              upcomingEvents.map((event, index) => (
+                <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)}>
+                  <EventCard { ...event } />
+                </button>
+              ))
+            :
+              upcomingEvents.slice(0,3).map((event, index) => (
+                <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)}>
+                  <EventCard { ...event } />
+                </button>
+              ))
+            }
+            {upcomingEvents.length === 0 &&
+              <p className='text-center text-xs py-6'>今後のイベントはまだありません。</p>
+            }
+            {upcomingEvents.length > 3 && isShowAllUpcomingEvents === false &&
+              <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(true)}>
+                もっと見る
+              </button>
+            }
+            {upcomingEvents.length > 3 && isShowAllUpcomingEvents === true &&
+              <button type='button' className='text-center text-xs p-2 text-gray-800 bg-gray-200 hover:bg-gray-300 duration-200' onClick={() => setIsShowAllUpcomingEvents(false)}>
+                表示を減らす
+              </button>
+            }
             {/* recent reviews */}
             <div className={`${textSm}`}>最近のレビュー</div>
-            <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
-            <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
-            {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
+            <RecentReviews reviews={recentReviews} onSeeMore={() => setIsReviewModalOpen(true)} onSelectReview={handleOpenReplyModal} />
+            <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={() => setIsReviewModalOpen(false)} onSelectReview={handleOpenReplyModal} />
+            {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={() => setIsReplyModalOpen(false)} />}
+            <EventSettingModal isOpen={isEventSettingOpen} onClose={() => setIsEventSettingOpen(false)} event={selectedEvent} onChangeEventDetail={handleChangeEventDetail}/>
           </div>
         </IonContent>
       </IonPage>

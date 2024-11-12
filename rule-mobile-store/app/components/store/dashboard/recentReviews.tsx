@@ -7,6 +7,7 @@ import { FaStar } from 'react-icons/fa';
 import { formatDateTime } from '@/app/utils/datetime';
 
 interface RecentReview {
+  _id: string,
   createdAt: string,
   createdBy: {
     email: string;
@@ -16,6 +17,7 @@ interface RecentReview {
   storeReviewText: string,
   conclusion: string,
   storeRating: number,
+  eventName: string,
 }
 
 interface RecentReviewsProps {
@@ -25,10 +27,12 @@ interface RecentReviewsProps {
 }
 
 const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSelectReview }) => {
+  const displayedReviews = reviews.slice(0, 3);
+  
   return (
     <div className="bg-transparent min-w-80 text-gray-800">
       <ul>
-        {reviews ? reviews.map((review, index) => (
+        {displayedReviews.length > 0 ? displayedReviews.map((review, index) => (
           <li key={index} className="bg-white p-2 sm:p-4 rounded-md mb-4">
             <div className="flex items-center mb-2">
                 <div className="w-10 h-10 bg-gray-300 rounded-full">
@@ -45,6 +49,7 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
                 ))}
               </div>
               <div className="text-sm text-gray-800 ml-4">{formatDateTime(review.createdAt)}</div>
+              {review.eventName && <h2 className='text-sm text-gray-800 underline underline-offset-2'>イベント名: {review.eventName}</h2>}
             </div>
             <div className='text-sm text-gray-800 mt-4'>{review.storeReviewText}</div>
             {review.conclusion && <div className='text-sm text-gray-500 mt-4'>{review.conclusion}</div>}
@@ -54,10 +59,10 @@ const RecentReviews: React.FC<RecentReviewsProps> = ({ onSeeMore, reviews, onSel
               </span>
             </div>
           </li>
-        )) : <p className='text-center py-10'>まだレビューはありません。</p>}
+        )) : <p className='text-center text-xs py-10'>まだレビューはありません。</p>}
         <div className='text-center mb-2'>
-          {reviews &&
-          <span className='underline underline-offset-2 text-gray-800' onClick={onSeeMore}>
+          {reviews.length > 3 &&
+          <span className='underline underline-offset-2 text-sm text-gray-800' onClick={onSeeMore}>
             もっと見る
           </span>}
         </div>

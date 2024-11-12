@@ -7,19 +7,19 @@ interface CardProps {
   eventName: string;
   eventDate: string;
   coverImage: string;
-  maleFee: number;
-  maleTotal: number;
+  maleFee: string;
+  maleTotal: string;
   males: number;
-  femaleFee: number;
-  femaleTotal: number;
+  femaleFee: string;
+  femaleTotal: string;
   females: number;
 }
 
 const EventCard: React.FC<CardProps> = ({
   eventName, eventDate, coverImage, maleFee, femaleFee, maleTotal, femaleTotal, males, females,
 }) => {
-  const maleRate = males/maleTotal;
-  const femaleRate = females/femaleTotal;
+  const maleRate = males/parseInt(maleTotal);
+  const femaleRate = females/parseInt(femaleTotal);
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';

@@ -40,6 +40,7 @@ const SalesManagement = () => {
   const router = useIonRouter();
   const { profile } = useAuth();
   const store = profile?._id;
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     if (!token) {
@@ -73,6 +74,8 @@ const SalesManagement = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, [startDate, endDate, totalSales]);
 
