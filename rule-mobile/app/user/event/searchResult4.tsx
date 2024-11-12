@@ -57,11 +57,6 @@ const SearchResult4: React.FC = () => {
                 </IonRouterLink>
                 <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
-              {/* <div className="flex flex-row items-center bg-white rounded-lg shadow-xl px-2 md:px-4 mx-8 sm:mx-12 md:mx-20 mt-6 md:mt-8">
-                <img src={settingSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white w-6"/>
-                <h2 className="text-md font-semibold py-2 md:py-4 pl-2 text-left">イベントを検索する</h2>
-                <img src={searchSVG} alt={`event-profile`} className="rounded-md rounded-br-none text-white ml-auto w-4" />
-              </div> */}
             </div>
             {/* container */}
             <div className={`${container}`}>
