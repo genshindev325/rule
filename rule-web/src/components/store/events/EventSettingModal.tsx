@@ -125,10 +125,27 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
       const _eventStartTime = formData.get('startTime');
       const _eventEndTime = formData.get('endTime');
       let eventStartTime, eventEndTime;
-      if(eventDate && _eventStartTime)
-        eventStartTime = new Date(eventDate?.toString() + ' ' + _eventStartTime?.toString());
-      if(eventDate && _eventEndTime)
-        eventEndTime = new Date(eventDate?.toString() + ' ' + _eventEndTime?.toString());
+      if (eventDate && _eventStartTime) {
+        const [startHours, startMinutes] = _eventStartTime.toString().split(':').map(Number);
+        eventStartTime = new Date(Date.UTC(
+          new Date(eventDate).getFullYear(),
+          new Date(eventDate).getMonth(),
+          new Date(eventDate).getDate(),
+          startHours,
+          startMinutes
+        ));
+      }
+      
+      if (eventDate && _eventEndTime) {
+        const [endHours, endMinutes] = _eventEndTime.toString().split(':').map(Number);
+        eventEndTime = new Date(Date.UTC(
+          new Date(eventDate).getFullYear(),
+          new Date(eventDate).getMonth(),
+          new Date(eventDate).getDate(),
+          endHours,
+          endMinutes
+        ));
+      }
       const maleTotal = formData.get('maleTotal')?.toString() || '';
       const femaleTotal = formData.get('femaleTotal')?.toString() || '';
       const maleFee = formData.get('maleFee')?.toString() || '';
