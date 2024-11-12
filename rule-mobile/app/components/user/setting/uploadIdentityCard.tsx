@@ -21,7 +21,6 @@ const UploadIdentityCard: React.FC = () => {
   const status = profile?.status;
   const IdentityCard = profile?.verification;
   const [IDphoto, setIDphoto] = useState(IdentityCard);
-  console.log("IdentityCard: " + IdentityCard);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {

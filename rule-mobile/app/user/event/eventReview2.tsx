@@ -314,20 +314,24 @@ const EventReview2: React.FC = () => {
             </div>
             {/* send review about store */}
             <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 py-8'>
-              <div className='flex flex-row'>
-                <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
-                {/* event star rating */}
-                <div className='space-x-1 flex ml-auto'>
-                  <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
-                </div>
-              </div>
-              <textarea
-                value={reviewStore}
-                onChange={(e) => setReviewStore(e.target.value)}
-                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm"
-                placeholder="お店のレビューを書く"
-                rows={6}
-              />
+              {!storeReplyText &&
+                <>
+                  <div className='flex flex-row'>
+                    <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
+                    {/* event star rating */}
+                    <div className='space-x-1 flex ml-auto'>
+                      <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
+                    </div>
+                  </div>
+                  <textarea
+                    value={reviewStore}
+                    onChange={(e) => setReviewStore(e.target.value)}
+                    className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm"
+                    placeholder="お店のレビューを書く"
+                    rows={6}
+                  />
+                </>
+              }
               {storeReplyText &&
                 <>
                   <h2 className={`${textSm} font-semibold text-blue-600`}>店舗の対応</h2>

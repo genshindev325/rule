@@ -109,11 +109,9 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             className={`block flex-1 p-2 bg-transparent border-solid border border-gray-500 rounded-md focus:outline-none ${textXs}`}
           >
             <option value="">場所を選択</option>
-            {locations &&
-              locations.map((location, index) => (
-                <option key={index} value={location}>{location}</option>
-              ))
-            }
+            {locations.map((location, index) => (
+              <option key={index} value={location}>{location}</option>
+            ))}
           </select>
           <input
             type="date"

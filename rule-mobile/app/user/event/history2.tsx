@@ -54,6 +54,9 @@ const EventHistory2: React.FC = () => {
   const userProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
+  
+  // Polling interval in milliseconds (e.g., 1000ms * 60 = 1 minute)
+  const POLLING_INTERVAL = 1000 * 60;
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -125,6 +128,12 @@ const EventHistory2: React.FC = () => {
 
     if (userId) {
       fetchEventData();
+
+      // Set up polling to fetch data periodically
+      const intervalId = setInterval(fetchEventData, POLLING_INTERVAL);
+  
+      // Cleanup interval on component unmount
+      return () => clearInterval(intervalId);
     }
   }, [userId])
 
