@@ -53,6 +53,7 @@ const FindOnMap: React.FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const searchBlackSVG = '/svg/search-black.svg';
   const settingSVG = '/svg/settings.svg';
+  const POLLING_INTERVAL = 1000 * 60;
   
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +85,12 @@ const FindOnMap: React.FC = () => {
     };
 
     fetchData();
+
+    // Set up polling to fetch data periodically
+    const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleSearch = () => {

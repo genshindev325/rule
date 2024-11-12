@@ -33,8 +33,6 @@ import FindOnMap from "./user/event/findOnMap";
 import EventHistory2 from "./user/event/history2";
 import EventPayment from "./user/event/payment";
 import RegistSuccess from "./user/event/registSuccess";
-import SearchResult1 from "./user/event/searchResult1";
-import SearchResult2 from "./user/event/searchResult2";
 import EventDetail from "./user/event/eventDetail";
 import SearchResult4 from "./user/event/searchResult4";
 
@@ -85,8 +83,6 @@ const AppShell = () => {
               <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
               <Route path="/event/eventHistory2" render={() => <EventHistory2 />} exact={true} />
               <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
-              <Route path="/event/eventResult1" render={() => <SearchResult1 />} exact={true} />
-              <Route path="/event/eventResult2" render={() => <SearchResult2 />} exact={true} />
               <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
               <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
               {/* chat */}
