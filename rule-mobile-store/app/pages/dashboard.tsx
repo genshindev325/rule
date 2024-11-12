@@ -13,19 +13,25 @@ import EventCard from '@/app/components/event/eventCard';
 import RecentReviews from '@/app/components/store/dashboard/recentReviews';
 import ReviewModal from '@/app/components/store/dashboard/reviewModal';
 import ReplyModal from '@/app/components/store/dashboard/replyModal';
+import EventSettingModal from '@/app/components/event/EventSettingModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
 interface UpcomingEvent {
+  _id: string;
   eventName: string;
   eventDate: string;
   coverImage: string;
-  maleFee: number;
-  maleTotal: number;
+  maleFee: string;
+  maleTotal: string;
   males: number;
-  femaleFee: number;
-  femaleTotal: number;
+  femaleFee: string;
+  femaleTotal: string;
   females: number;
+  category: string;
+  description: string;
+  eventStartTime: Date;
+  eventEndTime: Date;
 };
 
 interface RecentReview {
@@ -52,10 +58,7 @@ interface MainPanelProps {
 };
 
 const Dashboard = () => {
-  const textXl = 'text-xl sm:text-2xl font-semibold';
-  const textMd = 'text-md sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-md font-semibold';
-  const textXs = 'text-xs sm:text-sm';
   const [mainPanelData, setMainPanelData] = useState<MainPanelProps>({
     lastMonthSales: 0,
     thisMonthSales: 0,
@@ -71,6 +74,23 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true); 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
+  const [isEventSettingOpen, setIsEventSettingOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<UpcomingEvent>({
+    _id: '',
+    eventName: '',
+    eventDate: '',
+    coverImage: '',
+    maleFee: '',
+    maleTotal: '',
+    males: 0,
+    femaleFee: '',
+    femaleTotal: '',
+    females: 0,
+    category: '',
+    description: '',
+    eventStartTime: new Date(),
+    eventEndTime: new Date(),
+  });
   const { profile } = useAuth();
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
@@ -142,26 +162,32 @@ const Dashboard = () => {
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-xl font-bold'>読み込み中...</div>;
 
-  const handleOpenReviewModal = () => {
-    setIsReviewModalOpen(true);
-  };
-
-  const handleCloseReviewModal = () => {
-    setIsReviewModalOpen(false);
-  };
-
   const handleOpenReplyModal = (review: RecentReview) => {
     setIsReplyModalOpen(true);
     setIsReviewModalOpen(false);
     setReplyReview(review);
   };
 
-  const handleCloseReplyModal = () => {
-    setIsReplyModalOpen(false);
-  };
+  const handleOpenEvenDetailModal = (event: UpcomingEvent) => {
+    setSelectedEvent(event);
+    setIsEventSettingOpen(true);
+  }
 
-  const onSeeMoreEvent = () => {
-
+  const handleChangeEventDetail = (eventId: string, eventName: string, coverImage: string, eventDate: string, maleFee: string, maleTotal: string, femaleFee: string, femaleTotal: string) => {
+    setUpcomingEvents(prevEvents => prevEvents.map(event =>
+      event._id === eventId ?
+        {
+          ...event,
+          eventName: eventName,
+          coverImage: coverImage,
+          eventDate: eventDate,
+          maleFee: maleFee,
+          maleTotal: maleTotal,
+          femaleFee: femaleFee,
+          femaleTotal: femaleTotal,
+        }
+      : event
+    ))
   };
 
   return (
@@ -177,26 +203,21 @@ const Dashboard = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <IonHeader collapse="condense">
-            <IonToolbar>
-              <IonTitle size="large">ダッシュボード</IonTitle>
-            </IonToolbar>
-          </IonHeader>
           <div className='min-h-screen w-full flex flex-col space-y-4 ion-padding bg-gray-100 text-gray-800'>
             <MainPanel {...mainPanelData} />
             {/* upcoming events */}
             <div className={`${textSm}`}>今後のイベント</div>
             {isShowAllUpcomingEvents ?
-              upcomingEvents.map((event, index) => (          
-                <div key={index}>
+              upcomingEvents.map((event, index) => (
+                <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)}>
                   <EventCard { ...event } />
-                </div>
+                </button>
               ))
             :
-              upcomingEvents.slice(0,3).map((event, index) => (          
-                <div key={index}>
+              upcomingEvents.slice(0,3).map((event, index) => (
+                <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)}>
                   <EventCard { ...event } />
-                </div>
+                </button>
               ))
             }
             {upcomingEvents.length === 0 &&
@@ -214,9 +235,10 @@ const Dashboard = () => {
             }
             {/* recent reviews */}
             <div className={`${textSm}`}>最近のレビュー</div>
-            <RecentReviews reviews={recentReviews} onSeeMore={handleOpenReviewModal} onSelectReview={handleOpenReplyModal} />
-            <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={handleCloseReviewModal} onSelectReview={handleOpenReplyModal} />
-            {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={handleCloseReplyModal} />}
+            <RecentReviews reviews={recentReviews} onSeeMore={() => setIsReviewModalOpen(true)} onSelectReview={handleOpenReplyModal} />
+            <ReviewModal isOpen={isReviewModalOpen} reviews={recentReviews} onClose={() => setIsReviewModalOpen(false)} onSelectReview={handleOpenReplyModal} />
+            {replyReview && <ReplyModal isOpen={isReplyModalOpen} review={replyReview} onClose={() => setIsReplyModalOpen(false)} />}
+            <EventSettingModal isOpen={isEventSettingOpen} onClose={() => setIsEventSettingOpen(false)} event={selectedEvent} onChangeEventDetail={handleChangeEventDetail}/>
           </div>
         </IonContent>
       </IonPage>

@@ -3,33 +3,33 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, IonRouterLink, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonMenuButton, IonTitle, useIonRouter } from '@ionic/react';
 import { SERVER_URL } from '@/app/config';
 import SideMenu from '@/app/components/store/IonMenu';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import EventCard from '@/app/components/event/eventCard';
 import EventReviewCard from '@/app/components/event/eventReviewCard';
+import EventSettingModal from '@/app/components/event/EventSettingModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
-interface UpcomingEventProps {
+interface UpcomingEvent {
+  _id: string;
   eventName: string;
   eventDate: string;
   coverImage: string;
-  maleFee: number;
-  maleTotal: number;
+  maleFee: string;
+  maleTotal: string;
   males: number;
-  femaleFee: number;
-  femaleTotal: number;
+  femaleFee: string;
+  femaleTotal: string;
   females: number;
+  category: string;
+  description: string;
+  eventStartTime: Date;
+  eventEndTime: Date;
   store: {
     _id: string;
-    rating: number;
-    address: string;
-    access: string[];
-    description: string;
-    storeImages: string;
-    storeName: string;
   };
 }
 
@@ -56,18 +56,35 @@ interface PastEventProps {
 }
 
 const EventList: React.FC = () => {
-  const textXl = 'text-xl sm:text-2xl font-bold';
   const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-md font-semibold';
-  const textXs = 'text-xs sm:text-sm';
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
-  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEventProps[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [isShowAllUpcomingEvents, setIsShowAllUpcomingEvents] = useState(false);
   const [isShowAllPastEvents, setIsShowAllPastEvents] = useState(false);
   const [pastEvents, setPastEvents] = useState<PastEventProps[]>([]);
   const token = useSelector((state: RootState) => state.auth.token);
   const storeProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useIonRouter();
+  const [isEventSettingOpen, setIsEventSettingOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<UpcomingEvent>({
+    _id: '',
+    eventName: '',
+    eventDate: '',
+    coverImage: '',
+    maleFee: '',
+    maleTotal: '',
+    males: 0,
+    femaleFee: '',
+    femaleTotal: '',
+    females: 0,
+    category: '',
+    description: '',
+    eventStartTime: new Date(),
+    eventEndTime: new Date(),
+    store: {
+      _id: ''
+    }
+  });
 
   const showUpcomingEvents = () => {
     setTab('upcoming');
@@ -94,7 +111,7 @@ const EventList: React.FC = () => {
           });
           if (response_upcomingEvents.status === 200) {
             const result = await response_upcomingEvents.json();
-            const result_events: UpcomingEventProps[] = result.data;
+            const result_events: UpcomingEvent[] = result.data;
             const filterEvents = result_events.filter(event => event.store && event.store._id === storeProfile?._id);
             setUpcomingEvents(filterEvents);
           } else {
@@ -128,6 +145,28 @@ const EventList: React.FC = () => {
       fetchEventData();
     }
   }, [])
+
+  const handleOpenEvenDetailModal = (event: UpcomingEvent) => {
+    setSelectedEvent(event);
+    setIsEventSettingOpen(true);
+  }
+
+  const handleChangeEventDetail = (eventId: string, eventName: string, coverImage: string, eventDate: string, maleFee: string, maleTotal: string, femaleFee: string, femaleTotal: string) => {
+    setUpcomingEvents(prevEvents => prevEvents.map(event =>
+      event._id === eventId ?
+        {
+          ...event,
+          eventName: eventName,
+          coverImage: coverImage,
+          eventDate: eventDate,
+          maleFee: maleFee,
+          maleTotal: maleTotal,
+          femaleFee: femaleFee,
+          femaleTotal: femaleTotal,
+        }
+      : event
+    ))
+  };
 
   return (
     <AuthWrapper allowedRoles={['store']}>
@@ -167,15 +206,15 @@ const EventList: React.FC = () => {
               <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-2`}>
                 {isShowAllUpcomingEvents ?
                   upcomingEvents.map((event, index) => (
-                    <div key={index}>
+                    <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)} className='w-full'>
                       <EventCard { ...event } />
-                    </div>
+                    </button>
                   ))
                 :
                   upcomingEvents.slice(0,3).map((event, index) => (
-                    <div key={index}>
+                    <button type='button' key={index} onClick={() => handleOpenEvenDetailModal(event)} className='w-full'>
                       <EventCard { ...event } />
-                    </div>
+                    </button>
                   ))
                 }
                 {upcomingEvents.length === 0 &&
@@ -226,6 +265,7 @@ const EventList: React.FC = () => {
                 }
               </div>
             </div>
+            <EventSettingModal isOpen={isEventSettingOpen} onClose={() => setIsEventSettingOpen(false)} event={selectedEvent} onChangeEventDetail={handleChangeEventDetail}/>
           </div>
         </IonContent>
       </IonPage>
