@@ -16,6 +16,7 @@ interface Message {
   message: string;
   createdAt: string;
   relationship: 'a-s-r' | 'a-s-s' | 's-u-r' | 's-u-s';
+  eventName: string;
 }
 
 interface ChatList {
