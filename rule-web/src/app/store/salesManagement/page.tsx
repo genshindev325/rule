@@ -36,6 +36,7 @@ const SalesManagement = () => {
   const store = profile?._id;
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     if (!token) {
@@ -69,6 +70,8 @@ const SalesManagement = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, [startDate, endDate, totalSales]);
 

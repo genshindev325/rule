@@ -61,7 +61,6 @@ const FindOnMap: React.FC = () => {
         router.push('/auth/login');
       } else {
         try {
-          setLoading(true);
           const response = await fetch(`${SERVER_URL}/api/events/filter`, {
             method: 'POST',
             headers: {
@@ -85,11 +84,7 @@ const FindOnMap: React.FC = () => {
     };
 
     fetchData();
-
-    // Set up polling to fetch data periodically
     const intervalId = setInterval(fetchData, POLLING_INTERVAL);
-
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 

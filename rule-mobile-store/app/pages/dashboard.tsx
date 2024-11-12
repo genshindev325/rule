@@ -94,6 +94,7 @@ const Dashboard = () => {
   const { profile } = useAuth();
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     if (!token) {
@@ -157,6 +158,8 @@ const Dashboard = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, []);
 

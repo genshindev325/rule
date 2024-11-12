@@ -36,6 +36,7 @@ const ChatList: React.FC = () => {
   const [storeId, setStoreId] = useState('');
   const router = useIonRouter();
   const dispatch = useDispatch();
+  const POLLING_INTERVAL = 1000 * 60;
 
   // Function to handle search input
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +92,8 @@ const ChatList: React.FC = () => {
     };
 
     fetchChats();
+    const intervalId = setInterval(fetchChats, POLLING_INTERVAL);
+    return () => clearInterval(intervalId);
   }, [storeProfile]);
 
   const handleChatSelected = (chat: ChatList) => {

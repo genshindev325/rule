@@ -27,6 +27,7 @@ interface Chat {
 const ChatPage: React.FC = () => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -57,6 +58,8 @@ const ChatPage: React.FC = () => {
     };
 
     fetchChats();
+    const intervalId = setInterval(fetchChats, POLLING_INTERVAL);
+    return () => clearInterval(intervalId);
   }, []);
 
   const sendMessage = async (newMessage: string) => {

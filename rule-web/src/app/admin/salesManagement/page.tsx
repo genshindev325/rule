@@ -22,6 +22,7 @@ const SalesManagement: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+  const POLLING_INTERVAL = 1000 * 60;
   const [earnings, setEarnings] = useState<EarningsProps>({
     salesTotal: 1,
     salesExp: 1,
@@ -57,6 +58,8 @@ const SalesManagement: React.FC = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, []);
 

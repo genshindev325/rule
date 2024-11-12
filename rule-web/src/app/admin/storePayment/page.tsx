@@ -43,6 +43,7 @@ const StorePaymentsPage: React.FC = () => {
   const [isPayConfirmModalVisible, setPayConfirmModalVisible] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   // Fetch storePayments data on mount (if not passed from server-side)
   useEffect(() => {
@@ -72,6 +73,8 @@ const StorePaymentsPage: React.FC = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, []);
 

@@ -50,6 +50,7 @@ const Dashboard = () => {
   const [userList, setUserList] = useState<User[]>([]);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,6 +109,8 @@ const Dashboard = () => {
     };
 
     fetchData();
+    const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold'>読み込み中...</div>;

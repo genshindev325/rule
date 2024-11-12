@@ -50,6 +50,7 @@ const Events = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const storeProfile = useSelector((state: RootState) => state.auth.profile);
   const router = useRouter();
+  const POLLING_INTERVAL = 1000 * 60;
 
   useEffect(() => {
     if (!token) {
@@ -98,6 +99,8 @@ const Events = () => {
       };
 
       fetchData();
+      const intervalId = setInterval(fetchData, POLLING_INTERVAL);
+      return () => clearInterval(intervalId);
     }
   }, []);
 
