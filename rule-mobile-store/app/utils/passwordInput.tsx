@@ -17,7 +17,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, value, onChange })
   };
 
   return (
-    <div className="relative">
+    <div className="relative text-gray-800">
       {label && <label className="block text-gray-700">{label}</label>}
       <input
         type={showPassword ? 'text' : 'password'}
