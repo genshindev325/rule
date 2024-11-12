@@ -189,9 +189,6 @@ const EventHistory2: React.FC = () => {
                 ))}
               </div>
             </div>
-            {/* <div className='py-6'>
-              <button type="button" className={`rounded-full bg-gray-200 px-12 py-1 ${textSm}`}>もっと見る</button>
-            </div> */}
           </div>
         </AuthWrapper>
       </IonContent>
