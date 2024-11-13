@@ -108,9 +108,7 @@ const SignUp: React.FC = () => {
         draggable: true,
         bodyClassName: 'text-xs sm:text-sm',
       });
-      setTimeout(() => {
-        router.push('/store/dashboard');
-      }, 1500);
+      router.push('/dashboard');
     } else {
       toast.error(`ユーザー名とパスワードが一致しません。${response.status} エラー`, {
         hideProgressBar: true,
