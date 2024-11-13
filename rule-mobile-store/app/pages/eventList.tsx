@@ -184,7 +184,7 @@ const EventList: React.FC = () => {
         <IonContent fullscreen>
           <div className='w-full h-full bg-gray-100'>
             {/* tab */}
-            <div className='fixed top-11 flex flex-row w-full ion-padding bg-gray-100 pt-8 z-50'>
+            <div className='fixed top-11 flex flex-row w-full ion-padding bg-gray-100 pt-8 z-30'>
               <div className='flex flex-1 justify-center items-center'>
                 <button
                   type='button'

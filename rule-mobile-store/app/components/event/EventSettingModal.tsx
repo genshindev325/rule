@@ -190,8 +190,8 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isOpen, onClose, onChangeE
   if(!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div ref={modalRef} className="bg-white text-gray-800 p-4 rounded shadow-md w-full mx-6 sm:w-4/5 max-w-[500px] z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto">
+      <div ref={modalRef} className="bg-white text-gray-800 p-4 rounded shadow-md w-full mx-6 sm:w-4/5 max-w-[500px]">
         <form onSubmit={handleSubmit}>
           {/* Event settings */}
           <h3 className='text-gray-600 text-xs sm:text-sm py-1 sm:py-2'>イベント名</h3>
