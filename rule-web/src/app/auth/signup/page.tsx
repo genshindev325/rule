@@ -107,7 +107,13 @@ const SignUp = () => {
         draggable: true,
         bodyClassName: 'text-xs sm:text-sm',
       });
-      router.push('/store/dashboard');
+      if (role === 'admin') {
+        router.push('/admin/dashboard');
+        sessionStorage.setItem('selectedMenu', 'dashboard');
+      } else if (role === 'store') {
+        router.push('/store/dashboard');
+        sessionStorage.setItem('selectedMenu', 'dashboard');
+      }
     } else {
       toast.error(`ユーザー名とパスワードが一致しません。${response.status} エラー`, {
         hideProgressBar: true,

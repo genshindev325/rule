@@ -108,9 +108,7 @@ const SignUp: React.FC = () => {
         draggable: true,
         bodyClassName: 'text-xs sm:text-sm',
       });
-      setTimeout(() => {
-        router.push('/store/dashboard');
-      }, 1500);
+      router.push('/dashboard');
     } else {
       const result = await response.json();
       toast.error(`${result.message}`, {
