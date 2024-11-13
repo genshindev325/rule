@@ -122,7 +122,8 @@ const SignUp = () => {
         sessionStorage.setItem('selectedMenu', 'dashboard');
       }
     } else {
-      toast.error(`ユーザー名とパスワードが一致しません。${response.status} エラー`, {
+      const result = await response.json();
+      toast.error(`${result.message}`, {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,

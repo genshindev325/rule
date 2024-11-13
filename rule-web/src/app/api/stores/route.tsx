@@ -33,6 +33,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'ストアのメールは既に存在します。' }, { status: 400 });
     }
 
+    if(email === 'admin@cloud.com') {
+      return NextResponse.json({ success: false, message: '管理者アカウントを作成できません。別のユーザーのメール アドレスを使用してください。' }, { status: 400 });
+    }
+
     const store = await Store.create(body);
     const createStorePayment = await StorePayment.create({
       store: store._id,
