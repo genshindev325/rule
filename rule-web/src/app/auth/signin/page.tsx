@@ -16,6 +16,13 @@ const SignIn = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
+    toast.info('しばらくお待ちください。', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      bodyClassName: 'text-xs sm:text-sm',
+    });
 
     const response = await fetch('/api/auth/signin', {
       method: 'POST',
@@ -32,6 +39,13 @@ const SignIn = () => {
         token
       } = result.data;
       signin(email, role, profile, token);
+      toast.success('ユーザーは正常にサインインしました。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       
       if (role === 'admin') {
         router.push('/admin/dashboard');
@@ -40,7 +54,7 @@ const SignIn = () => {
         router.push('/store/dashboard');
         sessionStorage.setItem('selectedMenu', 'dashboard');
       } else {
-        toast.error('エラー', {
+        toast.error('ユーザー名とパスワードが一致しません', {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
