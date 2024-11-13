@@ -7,10 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/store';
 import { formatDateTime } from '@/utils/datetime';
-import { markAsRead } from '@/store/features/notification/NotificationSlice';
-import { setNotifications } from '@/store/features/notification/NotificationSlice';
+import { markAsRead, setNotifications } from '@/store/features/notification/NotificationSlice';
   
-// Polling interval in milliseconds (e.g., 1000ms * 60 = 1 minute)
 const POLLING_INTERVAL = 1000 * 60;
 
 const StoreNotification: React.FC = () => {
@@ -82,14 +80,10 @@ const StoreNotification: React.FC = () => {
         }
       };
 
-      // Fetch data on component mount
       fetchData();
       handleMarkAsRead();
       handleMarkAsReadServer();
-      // Set up polling to fetch data periodically
       const intervalId = setInterval(fetchData, POLLING_INTERVAL);
-
-      // Cleanup interval on component unmount
       return () => clearInterval(intervalId);
     }
   }, [token]);

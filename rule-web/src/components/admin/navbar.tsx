@@ -48,13 +48,8 @@ const Navbar = () => {
         }
       };
 
-      // Fetch data on component mount
       fetchData();
-
-      // Set up polling to fetch data periodically
       const intervalId = setInterval(fetchData, POLLING_INTERVAL);
-
-      // Cleanup interval on component unmount
       return () => clearInterval(intervalId);
     }
   }, []);
@@ -63,6 +58,7 @@ const Navbar = () => {
     sessionStorage.setItem('previewMenu', selectedMenu);
     setSelectedMenu(menu);
     sessionStorage.setItem('selectedMenu', menu);
+    menu === 'notifications' && setNotificationCounts(0);
   };
 
   return (
