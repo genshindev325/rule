@@ -19,10 +19,28 @@ interface MainPanelProps {
 
 interface Store {
   _id: string,
-  storeID: string,
-  monthlyRate: number,
-  storeName: string,
-  createdAt: string,
+  email: string;
+  storeID: string;
+  storeName: string;
+  storeGenre: string;
+  foodGenre: string;
+  cookingGenre: string;
+  address: string;
+  access: [string];
+  storeImages: [string];
+  description: string;
+  monthlyRate: number;
+  rating: number;
+  ratingCount: number;
+  storeLat: number;
+  storeLng: number;
+  status: string;
+  createdAt: Date;
+  creditCard: string;
+  bankName: string;
+  branchName: string;
+  accountNumber: number;
+  accountHolder: string;
 }
 
 interface User {

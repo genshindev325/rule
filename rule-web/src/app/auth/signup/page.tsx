@@ -84,6 +84,13 @@ const SignUp = () => {
     // Add sign-up logic here
     const formData = new FormData(e.currentTarget);
     const username = formData.get('username');
+    toast.info('しばらくお待ちください。', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      bodyClassName: 'text-xs sm:text-sm',
+    });
 
     const response = await fetch('/api/stores', {
       method: 'POST',
