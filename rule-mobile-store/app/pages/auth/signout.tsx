@@ -13,6 +13,7 @@ const SignOut: React.FC = () => {
   const textSm = 'text-sm md:text-md';
 
   const handleSignOut = () => {
+    signout();
     router.push('/auth/signin');
   };
 
