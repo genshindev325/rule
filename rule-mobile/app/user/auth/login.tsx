@@ -28,6 +28,13 @@ const Login: React.FC = () => {
     const password = formData.get('password');
 
     try {
+      toast.info('しばらくお待ちください。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
