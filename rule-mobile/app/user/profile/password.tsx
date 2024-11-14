@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { useSelector } from 'react-redux';
-
+import { toast } from 'react-toastify';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import PasswordInput from '@/app/components/utils/passwordInput';
 import { RootState } from '@/app/store/store';
@@ -80,6 +80,13 @@ const ProfilePassword: React.FC = () => {
       if (!token) {
         router.push('/auth/login');
       } else {
+        toast.info('しばらくお待ちください。', {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
         const response = await fetch(`${SERVER_URL}/api/users/change-pwd`, {
           method: 'POST',
           headers: {
@@ -90,10 +97,22 @@ const ProfilePassword: React.FC = () => {
         });
         if (response.status === 200) {
           router.push('/profile/myPage');
-          console.log("Password setting success.")
+          toast.success('パスワードの変更に成功しました。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         } else {
           console.log(response.status);
-          console.log("Password setting failed.");
+          toast.error('サーバーが応答しません。', {
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            bodyClassName: 'text-xs sm:text-sm',
+          });
         }
       }
     }
