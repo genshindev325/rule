@@ -183,7 +183,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
         });
 
         if (result.error) {
-          toast.info('カード番号に誤りがあります。', {
+          toast.error('カード番号に誤りがあります。', {
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
@@ -212,7 +212,8 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               });
               router.push('/participate');
             } else {
-              toast.info(`イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+              const result = await response.json();
+              toast.info(`イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${response.status}`, {
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
