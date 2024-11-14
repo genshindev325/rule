@@ -193,6 +193,13 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
           console.log(result.error.message);
         } else if (result.paymentIntent?.status === 'succeeded') {
           try {
+            toast.info('少々お待ちください。', {
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              bodyClassName: 'text-xs sm:text-sm',
+            });
             const response = await fetch(`${SERVER_URL}/api/events/participate`, {
               method: 'POST',
               headers: {
@@ -212,7 +219,8 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               });
               router.push('/participate');
             } else {
-              toast.info(`イベントへの参加中にエラーが発生しました。もう一度お試しください。ステータス: ${response.status}`, {
+              const result = await response.json();
+              toast.info(`イベントへの参加中にエラーが発生しました。もう一度お試しください。エラー: ${result.message}`, {
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
