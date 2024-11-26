@@ -113,11 +113,11 @@ const PasswordSetting = () => {
         <IonHeader>
             <IonToolbar>
               <IonMenuButton slot="start" /> {/* This button opens the SideMenu */}
-              <IonTitle className='text-center font-semibold mr-12 text-gray-800'>パスワード設定</IonTitle> {/* Default title */}
+              <IonTitle className='text-center text-gray-800 font-semibold mr-12'>パスワード設定</IonTitle> {/* Default title */}
             </IonToolbar>
           </IonHeader>
         <IonContent fullscreen>
-          <div className='bg-white w-full ion-padding text-gray-800'>
+          <div className='bg-white text-gray-800 w-full ion-padding'>
             <form onSubmit={handleSubmit}>
               {/* Password setting */}
               <h3 className={`${textSm} font-semibold py-2`}>現在のパスワード</h3>
@@ -126,7 +126,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="現在のパスワード"
                   required
                 />
@@ -137,7 +137,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード"
                   required
                 />
@@ -149,7 +149,7 @@ const PasswordSetting = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  className={`text-xs sm:text-sm w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
+                  className={`${textXs} w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100`}
                   placeholder="新しいパスワード (再入力)"
                   required
                 />

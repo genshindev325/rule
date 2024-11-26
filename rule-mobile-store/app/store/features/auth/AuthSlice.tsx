@@ -2,15 +2,38 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setItem, getItem, removeItem } from '@/app/utils/storage';
 
-interface ProfileProps {
-  [key: string] : any
+interface IProfile {
+  _id: string;
+  email: string;
+  password: string;
+  storeID: string;
+  storeName: string;
+  storeGenre: string;
+  foodGenre: string;
+  cookingGenre: string;
+  address: string;
+  access: string[];
+  storeImages: string[];
+  description: string;
+  monthlyRate: number;
+  rating: number;
+  ratingCount: number;
+  storeLat: number;
+  storeLng: number;
+  status: string;
+  createdAt: Date;
+  creditCard: string;
+  bankName: string;
+  branchName: string;
+  accountNumber: number;
+  accountHolder: string;
 }
 
 interface AuthState {
   isAuthenticated: boolean;
   role: string | null;
   email: string | null;
-  profile: ProfileProps | null;
+  profile: IProfile | null;
   token: string | null;
 }
 
