@@ -1,15 +1,28 @@
 // AuthSlice.ts file
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ProfileProps {
-  [key: string] : any
+interface IProfile {
+  _id: string;
+  email: string;
+  storeID: string;
+  storeName: string;
+  storeGenre: string;
+  foodGenre: string;
+  cookingGenre: string;
+  address: string;
+  access: string[];
+  storeImages: string[];
+  description: string;
+  storeLat: number;
+  storeLng: number;
+  status: string;
 }
 
 interface AuthState {
   isAuthenticated: boolean;
   email: string | null;
   role: string | null;
-  profile: ProfileProps | null;
+  profile: IProfile | null;
   token: string | null;
   selectedMenu: string;
   previewMenu: string;

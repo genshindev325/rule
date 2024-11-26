@@ -12,55 +12,94 @@ import Navbar from '@/components/store/navbar';
 import GoogleMapComponent from '@/utils/googleMap';
 import ImageCarousel from '@/components/utils/imageCarousel';
 
+interface IProfile {
+  _id: string;
+  email: string;
+  storeID: string;
+  storeName: string;
+  storeGenre: string;
+  foodGenre: string;
+  cookingGenre: string;
+  address: string;
+  access: string[];
+  storeImages: string[];
+  description: string;
+  storeLat: number;
+  storeLng: number;
+  status: string;
+}
+
 const StoreProfileSettings = () => {
   const router = useRouter();
-  const [storeID, setStoreID] = useState('');
-  const [storeName, setStoreName] = useState('');
-  const [storeImages, setStoreImages] = useState<string[]>([]);
-  const [storeGenre, setStoreGenre] = useState('');
-  const [foodGenre, setFoodGenre] = useState('');
-  const [cookingGenre, setCookingGenre] = useState('');
-  const [address, setAddress] = useState('');
-  const [access, setAccess] = useState<string[]>(['']);
-  const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const [description, setDescription] = useState('');
-  const { profile } = useSelector((state: RootState) => state.auth);
+  const [profile, setProfile] = useState<IProfile | null>(useSelector((state: RootState) => state.auth.profile));
+  if (profile === null) {
+    return;
+  }
+  const storeID = profile?._id || '';
   const token = useSelector((state: RootState) => state.auth.token);
 
+  useEffect(() => {
+    const fetchStoreProfile = async () => {
+      const response = await fetch(`/api/stores/${storeID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`
+        },
+      });
+      const result = await response.json();
+      if (response.status === 200) {
+        setProfile(result.data);
+      } else {
+        toast.error(`データの取得に失敗しました。エラー:${response.status}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+      }
+    };
+    if (storeID && token) {
+      fetchStoreProfile();
+    }
+  }, [storeID, token]);
+
   const handleAddImage = (newImage: string) => {
-    setStoreImages((prevImages) => [...prevImages, newImage]);
+    setProfile({...profile, storeImages: [...profile.storeImages, newImage]});
+  };
+
+  const handleDeleteImage = (image: string) => {
+    setProfile({
+      ...profile,
+      storeImages: profile.storeImages.filter(src => src !== image)
+    });
   };
 
   // Callback to receive the new marker location
   const handleLocationSelect = (position: { lat: number; lng: number }, mainAddress: string | null) => {
-    setStoreLocation(position); // Update the location in the state
+    setProfile({...profile, storeLat: position.lat, storeLng: position.lng});
     if (mainAddress) {
-      setAddress(mainAddress);
+      setProfile({...profile, address: mainAddress});
     }
   };
 
-  useEffect(() => {
-    if (profile) {
-      setStoreID(profile._id);
-    }
-  }, [profile])
-
   // Handle dynamically adding new access input fields
   const handleAddAccess = () => {
-    setAccess([...access, '']); // Add an empty string for a new input field
+    setProfile({...profile, access: [...profile.access, '']});
   };
 
   // Handle updating the value of each access field
   const handleAccessChange = (index: number, value: string) => {
-    const updatedAccess = [...access];
+    const updatedAccess = [...profile.access];
     updatedAccess[index] = value; // Update the specific access input at index
-    setAccess(updatedAccess);
+    setProfile({...profile, access: updatedAccess});
   };
 
   // Handle removing an access input field
   const handleRemoveAccess = (index: number) => {
-    const updatedAccess = access.filter((_, i) => i !== index); // Remove the specific input at index
-    setAccess(updatedAccess);
+    const updatedAccess = profile.access.filter((_, i) => i !== index);
+    setProfile({...profile, access: updatedAccess});
   };
 
   const handleSubmit = (async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,6 +107,13 @@ const StoreProfileSettings = () => {
       router.push('/auth/signin');
       } else {
       e.preventDefault();
+      toast.info('少々お待ちください。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       const response = await fetch(`/api/stores/${storeID}`, {
         method: 'PUT',
         headers: {
@@ -75,27 +121,27 @@ const StoreProfileSettings = () => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          storeName,
-          storeImages,
-          storeGenre,
-          foodGenre,
-          cookingGenre,
-          address,
-          access,
-          description,
-          storeLat: storeLocation?.lat,
-          storeLng: storeLocation?.lng,
+          storeName: profile.storeName,
+          storeGenre: profile.storeGenre,
+          foodGenre: profile.foodGenre,
+          cookingGenre: profile.cookingGenre,
+          address: profile.address,
+          access: profile.access,
+          storeImages: profile.storeImages,
+          description: profile.description,
+          storeLat: profile.storeLat,
+          storeLng: profile.storeLng,
         }),
       });
 
-      const responsePayment = await fetch(`/api/admin/store-payment/initiate/${storeID}`, {
+      await fetch(`/api/admin/store-payment/initiate/${storeID}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          storeName,
+          storeName: profile.storeName,
         })
       })
 
@@ -144,19 +190,19 @@ const StoreProfileSettings = () => {
                     name='storeName'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="店舗名"
-                    value={storeName}
-                    onChange={(e) => setStoreName(e.target.value)}
+                    value={profile.storeName}
+                    onChange={e => setProfile({...profile, storeName: e.target.value})}
                     required
                   />
                 </div>
                 <h3 className='py-2 text-md'>店舗ジャンル</h3>
                 <div className="mb-4">
                   <select
-                    id="name"
+                    id="storeGenre"
                     name='storeGenre'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
-                    value={storeGenre}
-                    onChange={(e) => setStoreGenre(e.target.value)}
+                    value={profile.storeGenre}
+                    onChange={(e) => setProfile({...profile, storeGenre: e.target.value})}
                     required
                   >
                     <option value="">選択してください</option>
@@ -174,11 +220,11 @@ const StoreProfileSettings = () => {
                 <h3 className='py-2 text-md'>食材ジャンル</h3>
                 <div className="mb-4">
                   <select
-                    id="name"
+                    id="foodGenre"
                     name='foodGenre'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
-                    value={foodGenre}
-                    onChange={(e) => setFoodGenre(e.target.value)}
+                    value={profile.foodGenre}
+                    onChange={(e) => setProfile({...profile, foodGenre: e.target.value})}
                     required
                   >
                     <option value="">選択してください</option>
@@ -191,11 +237,11 @@ const StoreProfileSettings = () => {
                 <h3 className='py-2 text-md'>料理ジャンル</h3>
                 <div className="mb-4">
                   <select
-                    id="name"
+                    id="cookingGenre"
                     name='cookingGenre'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none duration-1000"
-                    value={cookingGenre}
-                    onChange={(e) => setCookingGenre(e.target.value)}
+                    value={profile.cookingGenre}
+                    onChange={e => setProfile({...profile, cookingGenre: e.target.value})}
                     required
                   >
                     <option value="">選択してください</option>
@@ -222,15 +268,15 @@ const StoreProfileSettings = () => {
                   <input
                     type="address"
                     name='address'
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    value={profile.address}
+                    onChange={(e) => setProfile({...profile, address: e.target.value})}
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="大阪府大阪市中央区東心斎橋1-17-2 アニーズビル 1F"
                     required
                   />
                 </div>
                 <h3 className='py-2 text-md'>アクセス</h3>
-                {access.map((value, index) => (
+                {profile.access.map((value, index) => (
                   <div className="relative mb-1" key={index}>
                     <input
                       type="text"
@@ -262,11 +308,11 @@ const StoreProfileSettings = () => {
                   {/* google map */}
                   <div className="my-4">
                     {/* {loading ? <p>Googleマップを読み込んでいます...</p> : <GoogleMapComponent onLocationSelect={handleLocationSelect} />} */}
-                    <GoogleMapComponent onLocationSelect={handleLocationSelect} />
+                    <GoogleMapComponent initLat={profile.storeLat} initLng={profile.storeLng} onLocationSelect={handleLocationSelect} />
                   </div>
                 </div>
                 <div className='mb-4'>
-                  <ImageCarousel onAddImage={handleAddImage} />
+                  <ImageCarousel initImages={profile.storeImages} onAddImage={handleAddImage} onDeleteImage={handleDeleteImage} />
                 </div>
                 <div className="mb-4">
                   <h3 className='py-2 text-md'>説明文</h3>
@@ -274,8 +320,8 @@ const StoreProfileSettings = () => {
                     name='description'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"
                     placeholder="説明文"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={profile.description}
+                    onChange={e => setProfile({...profile, description: e.target.value})}
                     rows={5}
                   />
                 </div>

@@ -4,21 +4,18 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import RemoveImageModal from './removeImageModal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useRouter } from 'next/navigation';
 
 interface ImageCarouselProps {
+  initImages: string[];
   onAddImage: (newImage: string) => void;
+  onDeleteImage: (image: string) => void;
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
-  const [images, setImages] = useState<string[]>([]);
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ initImages, onAddImage, onDeleteImage }) => {
+  const [images, setImages] = useState<string[]>(initImages);
   const [isVisibleRemoveImageModal, setIsVisibleRemoveImageModal] = useState(false);
-  const [selectedImageId, setSelectedImageIndex] = useState<number>(0);
+  const [selectedImageId, setSelectedImageIndex] = useState<string>('');
   const sliderRef = useRef<Slider>(null);
-  const token = useSelector((state: RootState) => state.auth.token);
-  const router = useRouter();
 
   // Update slider when images change
   useEffect(() => {
@@ -43,18 +40,19 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
     onAddImage(newImage);
   };
 
-  const handleRemoveImage = (index: number) => {
+  const handleRemoveImage = (image: string) => {
     setIsVisibleRemoveImageModal(true);
-    setSelectedImageIndex(index);
+    setSelectedImageIndex(image);
   };
 
   const handleCancelRemoveImageModal = () => {
     setIsVisibleRemoveImageModal(false);
   };
 
-  const handleConfirmRemoveImageModal = (index: number) => {
+  const handleConfirmRemoveImageModal = (image: string) => {
     setIsVisibleRemoveImageModal(false);
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setImages((prevImages) => prevImages.filter((src, i) => src !== image));
+    onDeleteImage(image);
   };
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +87,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ onAddImage }) => {
             <div
               key={index}
               className="relative w-28 h-28 border-r-8 border-r-transparent -mb-2" // Use padding to create space
-              onDoubleClick={() => handleRemoveImage(index)}
+              onDoubleClick={() => handleRemoveImage(src)}
             >
               <Image
                 src={src}

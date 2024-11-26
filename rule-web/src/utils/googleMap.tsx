@@ -1,8 +1,11 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { current } from "@reduxjs/toolkit";
 import React, { useRef, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface MapProps {
+  initLat: number;
+  initLng: number;
   onLocationSelect: (position: { lat: number; lng: number }, mainAddress: string | null) => void;
 }
 
@@ -27,31 +30,31 @@ const getMainAddress = (data: GeocodeResponse) => {
       result.types.includes('route')
   );
 
-  if (detailedResult) {
-    return detailedResult.formatted_address;
-  } else {
-    return null;
-  }
+  return detailedResult ? detailedResult.formatted_address : null;
 }
 
-const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
+const GoogleMapComponent: React.FC<MapProps> = ({ initLat, initLng, onLocationSelect }) => {
   const apiKey = 'AIzaSyD9CmNeN59mj51D4CTLrXFRU2QZUKwg_xc';
   const mapRef = useRef<google.maps.Map | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>({lat: initLat, lng: initLng});
+  const [loading, setLoading] = useState(true);
 
   const handleMapLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
+    setLoading(false);
   }, []);
 
   // Get user's current location
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (navigator.geolocation && currentPosition === null) {
+      setLoading(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           const userPosition = { lat: latitude, lng: longitude };
           setCurrentPosition(userPosition);
-          onLocationSelect(userPosition, null); // Notify parent of initial location
+          onLocationSelect(userPosition, null);
+          setLoading(false);
         },
         (error) => {
           toast.error(`現在位置を取得する際にエラーが発生しました: ${error}`, {
@@ -61,18 +64,13 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
             draggable: true,
             bodyClassName: 'text-xs sm:text-sm',
           });
+          setLoading(false);
         }
       );
     } else {
-      toast.error('このブラウザはジオロケーションに対応していません。', {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        bodyClassName: 'text-xs sm:text-sm',
-      });
+      setLoading(false);
     }
-  }, []);
+  }, [currentPosition, onLocationSelect]);
 
   // Handle marker drag event to update position
   const handleMarkerDragEnd = async (event: google.maps.MapMouseEvent) => {
@@ -112,7 +110,7 @@ const GoogleMapComponent: React.FC<MapProps> = ({ onLocationSelect }) => {
       <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={currentPosition}
+          center={currentPosition || {lat: initLat, lng: initLng}}
           zoom={12}
           onLoad={handleMapLoad}
           options={{
