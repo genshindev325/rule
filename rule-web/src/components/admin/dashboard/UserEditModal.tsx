@@ -80,43 +80,43 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatu
       <div ref={modalRef} className="bg-white p-6 rounded shadow-md w-full max-w-xl">
         <h3 className="text-2xl font-bold mb-4">ユーザー認証</h3>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>ユーザーID</div>
-          <div className='w-3/4 text-lg'>{user?.userID}</div>
+          <div className='w-1/4 text-md font-semibold'>ユーザーID</div>
+          <div className='w-3/4 text-md'>{user?.userID}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>メール</div>
-          <div className='w-3/4 text-lg'>{user?.email}</div>
+          <div className='w-1/4 text-md font-semibold'>メール</div>
+          <div className='w-3/4 text-md'>{user?.email}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>ニックネーム</div>
-          <div className='w-3/4 text-lg'>{user?.nickname}</div>
+          <div className='w-1/4 text-md font-semibold'>ニックネーム</div>
+          <div className='w-3/4 text-md'>{user?.nickname}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>セックス</div>
-          <div className='w-3/4 text-lg'>{user?.gender}</div>
+          <div className='w-1/4 text-md font-semibold'>セックス</div>
+          <div className='w-3/4 text-md'>{user?.gender}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>誕生日</div>
-          <div className='w-3/4 text-lg'>{user?.birthday && formatDate(user.birthday.toString())}</div>
+          <div className='w-1/4 text-md font-semibold'>誕生日</div>
+          <div className='w-3/4 text-md'>{user?.birthday && formatDate(user.birthday.toString())}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>作成日</div>
-          <div className='w-3/4 text-lg'>{user?.createdAt && formatDate(user.createdAt.toString())}</div>
+          <div className='w-1/4 text-md font-semibold'>作成日</div>
+          <div className='w-3/4 text-md'>{user?.createdAt && formatDate(user.createdAt.toString())}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>アバター</div>
-          <div className='w-3/4 text-lg'>
+          <div className='w-1/4 text-md font-semibold'>アバター</div>
+          <div className='w-3/4 text-md'>
             <img src={`${user?.avatar}`} alt='アバター' width={60} height={60} />
           </div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-lg'>身分証明書</div>
-          <div className='w-3/4 text-lg'>
+          <div className='w-1/4 text-md font-semibold'>身分証明書</div>
+          <div className='w-3/4 text-md'>
             <img src={`${user?.verification}`} alt='アバター' width={200} height={200} />
           </div>
         </div>
         <div className='flex flex-row py-8'>
-          <div className='w-1/4 text-lg'>状態</div>
+          <div className='w-1/4 text-md font-semibold'>状態</div>
           <div className='flex space-x-4'>
             <button
               onClick={() => setSelectedStatus('active')}

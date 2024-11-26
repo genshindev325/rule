@@ -82,41 +82,41 @@ const StoreEditModal: React.FC<IStoreEdit> = ({ store, isOpen, onClose, onStoreS
       <div ref={modalRef} className="bg-white p-6 rounded shadow-md w-full max-w-xl">
         <h3 className="text-2xl font-bold mb-4">ユーザー認証</h3>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>店舗ID</div>
-          <div className='w-3/5 text-lg'>{store?.storeID}</div>
+          <div className='w-2/5 text-md font-semibold'>店舗ID</div>
+          <div className='w-3/5 text-md'>{store?.storeID}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>メール</div>
-          <div className='w-3/5 text-lg'>{store?.email}</div>
+          <div className='w-2/5 text-md font-semibold'>メール</div>
+          <div className='w-3/5 text-md'>{store?.email}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>店名</div>
-          <div className='w-3/5 text-lg'>{store?.storeName}</div>
+          <div className='w-2/5 text-md font-semibold'>店名</div>
+          <div className='w-3/5 text-md'>{store?.storeName}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>店舗住所</div>
-          <div className='w-3/5 text-lg'>{store?.address}</div>
+          <div className='w-2/5 text-md font-semibold'>店舗住所</div>
+          <div className='w-3/5 text-md'>{store?.address}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>店舗ジャンル</div>
-          <div className='w-3/5 text-lg'>{store?.storeGenre}</div>
+          <div className='w-2/5 text-md font-semibold'>店舗ジャンル</div>
+          <div className='w-3/5 text-md'>{store?.storeGenre}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>食べ物のジャンル</div>
-          <div className='w-3/5 text-lg'>{store?.foodGenre}</div>
+          <div className='w-2/5 text-md font-semibold'>食べ物のジャンル</div>
+          <div className='w-3/5 text-md'>{store?.foodGenre}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>料理ジャンル</div>
-          <div className='w-3/5 text-lg'>{store?.cookingGenre}</div>
+          <div className='w-2/5 text-md font-semibold'>料理ジャンル</div>
+          <div className='w-3/5 text-md'>{store?.cookingGenre}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-lg'>店舗イメージ</div>
-          <div className='w-3/5 text-lg'>
+          <div className='w-2/5 text-md font-semibold'>店舗イメージ</div>
+          <div className='w-3/5 text-md'>
             <img src={`${store?.storeImages[0]}`} alt='アバター' width={60} height={60} />
           </div>
         </div>
         <div className='flex flex-row py-8'>
-          <div className='w-2/5 text-lg'>状態</div>
+          <div className='w-2/5 text-md font-semibold'>状態</div>
           <div className='flex space-x-4'>
             <button
               onClick={() => setSelectedStatus('active')}
