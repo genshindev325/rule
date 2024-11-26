@@ -46,10 +46,7 @@ const StoreProfileSetting = () => {
   const router = useIonRouter();
   const [profile, setProfile] = useState<IProfile | null>(useSelector((state: RootState) => state.auth.profile));
   const token = useSelector((state: RootState) => state.auth.token);
-  if (profile === null) {
-    return;
-  }
-  const storeID = profile._id || '';
+  const storeID = profile?._id || '';
 
   useEffect(() => {
     const fetchStoreProfile = async () => {
@@ -77,6 +74,10 @@ const StoreProfileSetting = () => {
       fetchStoreProfile();
     }
   }, [storeID, token]);
+
+  if (profile === null) {
+    return;
+  }
   
   const handleAddImage = (newImage: string) => {
     // setStoreImages((prevImages) => [...prevImages, newImage]);
