@@ -33,9 +33,6 @@ const StoreProfileSettings = () => {
   const router = useRouter();
   const [profile, setProfile] = useState<IProfile | null>(useSelector((state: RootState) => state.auth.profile));
   const token = useSelector((state: RootState) => state.auth.token);
-  if (profile === null) {
-    return;
-  }
   const storeID = profile?._id || '';
 
   useEffect(() => {
@@ -64,6 +61,10 @@ const StoreProfileSettings = () => {
       fetchStoreProfile();
     }
   }, [storeID, token]);
+  
+  if (profile === null) {
+    return;
+  }
 
   const handleAddImage = (newImage: string) => {
     setProfile({...profile, storeImages: [...profile.storeImages, newImage]});
