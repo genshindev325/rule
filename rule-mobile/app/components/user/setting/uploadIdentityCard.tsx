@@ -146,7 +146,7 @@ const UploadIdentityCard: React.FC = () => {
               </div>
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
                 {status === 'active' ?
-                  <h2 className="text-xs sm:text-sm font-semibold pt-8 sm:pt-10 px-4 sm:px-6 text-center">あなたの身元が確認されました。</h2>
+                  <h2 className="text-xs sm:text-sm text-green-600 font-semibold pt-8 sm:pt-10 px-4 sm:px-6 text-center">あなたの身元が確認されました。</h2>
                   :
                   (
                     IdentityCard === '' || IdentityCard === null || IdentityCard === undefined ?

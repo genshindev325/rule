@@ -143,7 +143,7 @@ const ChatList: React.FC = () => {
                   <img
                     src={adminContact[0].avatar || '/path/to/default/avatar.png'} // Default avatar path
                     alt={adminContact[0].name}
-                    className={`rounded-full border-blue-500 mt-2 ${
+                    className={`rounded-full border-blue-500 ${
                       selectedChat?.id === adminContact[0].id ? 'w-11 h-11 border-2' : 'w-10 h-10 border-0'
                     }`}
                   />
