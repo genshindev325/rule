@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { formatDate } from '@/utils/formatDate';
+import { calculateAge } from '@/utils/calculateAge';
 import SaveConfirmModal from '@/components/utils/SaveConfirmModal';
 
 interface User {
@@ -33,6 +34,7 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatu
   const [selectedStatus, setSelectedStatus] = useState<'active' | 'inactive'>('active');
   const [isSaveConfirmModal, setIsSaveConfirmModal] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const age = user?.birthday ? calculateAge(user.birthday.toString()) : null;
 
   const handleConfirmSave = () => {
     const ChangeUserStatus = async () => {
@@ -96,8 +98,8 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatu
           <div className='w-3/4 text-md'>{user?.gender === 'male' ? '男' : '女'}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-md font-semibold'>誕生日</div>
-          <div className='w-3/4 text-md'>{user?.birthday && formatDate(user.birthday.toString())}</div>
+          <div className='w-1/4 text-md font-semibold'>年齢</div>
+          <div className='w-3/4 text-md'>{age}</div>
         </div>
         <div className='flex flex-row'>
           <div className='w-1/4 text-md font-semibold'>作成日</div>
