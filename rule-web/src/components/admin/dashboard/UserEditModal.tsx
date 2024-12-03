@@ -92,8 +92,8 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatu
           <div className='w-3/4 text-md'>{user?.nickname}</div>
         </div>
         <div className='flex flex-row'>
-          <div className='w-1/4 text-md font-semibold'>セックス</div>
-          <div className='w-3/4 text-md'>{user?.gender}</div>
+          <div className='w-1/4 text-md font-semibold'>性別</div>
+          <div className='w-3/4 text-md'>{user?.gender === 'male' ? '男' : '女'}</div>
         </div>
         <div className='flex flex-row'>
           <div className='w-1/4 text-md font-semibold'>誕生日</div>
