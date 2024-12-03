@@ -168,6 +168,7 @@ const EventReview2: React.FC = () => {
         const storeReviewText = reviewStore;
         const storeRating = ratingStore;
         const createdBy = userId;
+        const eventName = selectedEvent?.eventName;
         // send store review
         const response = await fetch(`${SERVER_URL}/api/reviews/store`, {
           method: 'POST',
@@ -175,7 +176,7 @@ const EventReview2: React.FC = () => {
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy }),
+          body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy, eventName }),
         });
         if (response.status === 201) {
           console.log("Sending store review success.");
