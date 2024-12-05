@@ -129,7 +129,7 @@ const FindOnMap: React.FC = () => {
                 </IonRouterLink>
                 <h2 className='grow pr-4'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 px-2 md:px-4 mx-12 sm:mx-16 mt-4">
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 pl-2 pr-7 md:pl-4 md:pr-9 mx-12 sm:mx-16 mt-4">
                 {/* <img src={settingSVG} alt="settings" className="w-4" /> */}
                 <button onClick={handleSearch}>
                   <img src={searchBlackSVG} alt="search" className="w-3" />
@@ -138,7 +138,7 @@ const FindOnMap: React.FC = () => {
                   type='text'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="text-xs w-full mx-2 py-1 sm:py-2 pl-2 text-left text-gray-800 focus:outline-none"
+                  className="text-xs w-full mx-2 py-1 sm:py-2 pl-2 text-left placeholder:text-center text-gray-800 focus:outline-none"
                   placeholder='イベントを検索する'
                 />
               </div>

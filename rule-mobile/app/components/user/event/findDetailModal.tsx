@@ -93,16 +93,16 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
         <div className="flex space-x-2">
           <div>
             <button
-              className={`rounded-l-md px-5 py-2 border border-r-0 ${textXs} text-center ${
-                gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              className={`rounded-l-md px-5 border border-r-0 ${textXs} text-center ${
+                gender === 'male' ? maleGradient + ' text-white border-none py-2' : 'bg-transparent py-[7px] text-black border-solid border-gray-500'
               }`}
               onClick={() => setGender('male')}
             >
               男性
             </button>
             <button
-              className={`rounded-r-md px-5 py-2 border border-l-0 ${textXs} text-center ${
-                gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              className={`rounded-r-md px-5 border border-l-0 ${textXs} text-center ${
+                gender === 'female' ? femaleGradient + ' text-white border-none py-2' : 'bg-transparent py-[7px] text-black border-solid border-gray-500'
               }`}
               onClick={() => setGender('female')}
             >

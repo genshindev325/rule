@@ -31,7 +31,7 @@ interface EventProps {
 const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = ' -mt-36 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
+  const container = ' -mt-24 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
   const textMd = 'text-md sm:text-lg';
 
   // get events from findDetailModal params
@@ -50,8 +50,8 @@ const SearchResult4: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
             {/* header */}
-            <div className={`h-56 md:h-60 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-xl text-center text-white font-bold pt-6 px-4'>                
+            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg text-center text-white font-semibold pt-6 px-4'>                
                 <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

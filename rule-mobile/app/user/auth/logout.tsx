@@ -27,10 +27,10 @@ const LogOut: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
-          <div className={`h-32 md:h-48 w-full ${maleGradient}`}>
+          <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
             <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
-              <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
-              <h2 className="mb-8 text-center text-md text-gray-600">
+              <h2 className="text-lg font-semibold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
+              <h2 className="mb-8 text-center text-sm text-gray-600">
                 本当にログアウトしますか?
               </h2>
               <div className={`${textXs} text-right text-gray-400`}>
@@ -40,14 +40,14 @@ const LogOut: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="w-full text-sm sm: text-md py-2 px-4 bg-red-400 text-white rounded-md hover:bg-red-500 focus:outline-none duration-500"
+                  className={`w-full ${textSm} py-2 px-4 bg-red-400 text-white rounded-md hover:bg-red-500 focus:outline-none duration-500`}
                 >
                   ログアウト
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="w-full text-sm sm: text-md py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none duration-500"
+                  className={`w-full ${textSm} py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none duration-500`}
                 >
                   キャンセル
                 </button>

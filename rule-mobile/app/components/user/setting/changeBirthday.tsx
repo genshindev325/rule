@@ -11,17 +11,19 @@ import { SERVER_URL } from '@/app/config';
 import { RootState } from '@/app/store/store';
 
 const ChangeBirthday: React.FC = () => {
-  const [day, setDay] = useState(1);
-  const [month, setMonth] = useState(1);
-  const [year, setYear] = useState(2000);
+  const [day, setDay] = useState<number>();
+  const [month, setMonth] = useState<number>();
+  const [year, setYear] = useState<number>();
   const [error, setError] = useState('');
   const bth = `${year}-${month}-${day}`;
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
   const email = useSelector((state: RootState) => state.auth.email);
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textXs = 'text-xs sm:text-sm';
+  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-md sm:text-lg font-semibold';
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleChangeYear = (year: number) => {
     const curDateTime = new Date();
@@ -97,16 +99,16 @@ const ChangeBirthday: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
-            <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+            <div className="h-40 sm:h-44 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
               {/* header */}
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 px-4'>
                 <IonRouterLink routerLink={'/profile/setting'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
                 <h2 className='grow pr-4'>誕生日を変更する</h2>
               </div>
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
-                <h2 className="text-md sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">生年月日を入力してください</h2>
+                <h2 className={`${textMd} py-8 sm:py-10 text-center`}>生年月日を入力してください</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
                     <input
@@ -137,10 +139,10 @@ const ChangeBirthday: React.FC = () => {
                     />
                   </div>
                   {error &&
-                    <p className={`${textXs} md:text-md text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
+                    <p className={`${textXs} text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
                   }
                   <div className='flex justify-center space-x-4'>
-                    <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>変更</button>
+                    <button type="submit" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`}>変更</button>
                   </div>
                 </form>
               </div>

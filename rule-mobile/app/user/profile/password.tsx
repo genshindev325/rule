@@ -19,6 +19,11 @@ const ProfilePassword: React.FC = () => {
   const [confirmError, setConfirmError] = useState('');
   const minLength = 6;
   const maxLength = 20;
+  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const container = 'w-full rounded-xl bg-white -mt-24 px-3 sm:px-4 md:px-6 pb-10 sm:pb-8 md:py-10 flex flex-col shadow-md';
+  const textMd = 'text-md sm:text-lg md:text-xl font-semibold';
+  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
+  const textXs = "text-xs sm:text-sm"
   const userInfo = useSelector((state: RootState) => state.auth.profile);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useIonRouter();
@@ -118,28 +123,23 @@ const ProfilePassword: React.FC = () => {
     }
   };
 
-  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'w-full rounded-xl bg-white -mt-40 px-3 sm:px-4 md:px-6 pb-10 sm:pb-8 md:py-10 flex flex-col shadow-md';
-  const textMd = 'text-md sm:text-lg md:text-xl font-semibold';
-  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
-
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
-            <div className={`h-56 sm:h-60 md:h-72 w-full px-6 md:px-8 py-4 sm:py-6 md:py-8 flex flex-row ${maleGradient}`}>
+            <div className={`h-40 sm:h-44 w-full px-6 md:px-8 py-4 sm:py-6 md:py-8 flex flex-row ${maleGradient}`}>
               {/* header */}
               <IonRouterLink routerLink={'/profile/myPage'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
+              <h2 className='grow text-lg font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
             <form onSubmit={handleSubmit} className='w-5/6 flex flex-col items-center'>
               <div className={`${container}`}>
                 <div className='flex flex-col items-center'>
-                  <h2 className={`${textSm} pt-6`}>パスワード変更</h2>
+                  <h2 className={`${textMd} pt-6`}>パスワード変更</h2>
                 </div>
                 {/* current password */}
                 <div className='flex flex-col pt-8 border-b-2 border-solid border-gray-300'>
@@ -151,13 +151,13 @@ const ProfilePassword: React.FC = () => {
                   <h2 className={`${textSm}`}>新規パスワード</h2>
                   <PasswordInput value={newPassword} onChange={handlePasswordChange} />
                 </div>
-                {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+                {passwordError && <p className={`text-red-500 ${textXs} mt-2`}>{passwordError}</p>}
                 {/* confirm new password */}
                 <div className='flex flex-col pt-6 border-b-2 border-solid border-gray-300'>
                   <h2 className={`${textSm}`}>新規パスワード確認</h2>
                   <PasswordInput value={confirmPassword} onChange={handleConfirmPasswordChange} />
                 </div>
-                {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
+                {confirmError && <p className={`text-red-500 ${textXs} mt-2`}>{confirmError}</p>}
               </div>
               {/* buttons */}
               <div className='flex flex-col space-y-4 py-10 w-full'>

@@ -65,7 +65,7 @@ const EventReview2: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'w-full rounded-2xl -mt-40 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
+  const container = 'w-full rounded-2xl -mt-24 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
   const textMd = 'text-md sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-md md:text-lg';
@@ -201,8 +201,8 @@ const EventReview2: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
-            <div className={`h-56 sm:h-60 w-full ${maleGradient}`}>
-              <h2 className='text-lg font-bold text-center text-white pt-6'>イベントレビュー</h2>
+            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
+              <h2 className='text-lg font-semibold text-center text-white pt-6'>イベントレビュー</h2>
             </div>
             {/* container */}
             <div className='px-4'>

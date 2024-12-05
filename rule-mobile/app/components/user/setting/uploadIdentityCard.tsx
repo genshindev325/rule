@@ -136,9 +136,9 @@ const UploadIdentityCard: React.FC = () => {
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
-            <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+            <div className="h-40 sm:h-44 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
               {/* header */}
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 px-4'>
                 <IonRouterLink routerLink={'/profile/setting'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

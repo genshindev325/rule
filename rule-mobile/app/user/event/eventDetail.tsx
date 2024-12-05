@@ -23,12 +23,12 @@ const EventDetail: React.FC = () => {
   const router = useIonRouter();
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'rounded-2xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-lg space-y-1';
+  const container = 'rounded-2xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-10 md:py-16 flex flex-col shadow-lg space-y-1';
   const locationSVG = '/svg/location-black.svg';
 
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const textSm = 'text-sm sm:text-md md:text-lg';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textMd = 'text-md sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-md font-semibold';
+  const textXs = 'text-xs sm:text-sm';
 
   const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';
   
@@ -90,7 +90,7 @@ const EventDetail: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
-            <div className={`h-60 md:h-72 w-full ${maleGradient}`}>
+            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
                 <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />

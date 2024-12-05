@@ -75,9 +75,9 @@ const EventHistory2: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'rounded-2xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4 w-[92vw]';
 
-  const textLg = 'text-lg sm:text-xl md:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg md:text-xl py-1 sm:py-2 md:py-3';
-  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
+  const textLg = 'text-lg sm:text-xl font-bold';
+  const textMd = 'text-md sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-md font-semibold';
 
   useEffect(() => {
     const fetchEventData = async () => {
@@ -142,9 +142,9 @@ const EventHistory2: React.FC = () => {
       <IonContent>      
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
-            <div className={`h-40 md:h-88 w-full ${maleGradient}`}>
+            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               {/* header */}
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 px-4'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -157,14 +157,14 @@ const EventHistory2: React.FC = () => {
               <div className='flex flex-row px-2 sm:px-4 md:px-6 lg:px-10 justify-evenly'>
                 <button
                   type='button'
-                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textMd} px-3 duration-300`}
+                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
                   onClick={showUpcomingEvents}
                 >
                   今後のイベント
                 </button>
                 <button
                   type='button'
-                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textMd} px-3 duration-300`}
+                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
                   onClick={showPastEvents}
                 >
                   過去のイベント
