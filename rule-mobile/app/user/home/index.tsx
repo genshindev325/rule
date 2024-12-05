@@ -18,7 +18,7 @@ const Home: React.FC = () => {
             <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
-          <div className='p-12 w-full space-y-8'>
+          <div className="p-12 w-full space-y-8">
             <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
               <IonRouterLink routerLink='/event/findOnMap' className='font-semibold text-white'>イベントを探す</IonRouterLink>
             </button>

@@ -21,7 +21,8 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = 'text-xs sm:text-sm md:text-md w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const textSm = 'text-sm md:text-md font-semibold';
+  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,15 +36,15 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
   };
 
   const validatePassword = (newPassword: string) => {
-    if (newPassword.length < minLength) {
+    if (newPassword && newPassword.length < minLength) {
       return `パスワードは${minLength}文字以上でなければなりません。`;
-    } else if (newPassword.length > maxLength) {
+    } else if (newPassword && newPassword.length > maxLength) {
       return `パスワードは${maxLength}文字を超えることはできません。`;
-    } else if (!/[A-Z]/.test(newPassword)) {
+    } else if (newPassword && !/[A-Z]/.test(newPassword)) {
       return 'パスワードには少なくとも 1 つの大文字が含まれている必要があります。';
-    } else if (!/[a-z]/.test(newPassword)) {
+    } else if (newPassword && !/[a-z]/.test(newPassword)) {
       return 'パスワードには少なくとも 1 つの小文字が含まれている必要があります。';
-    } else if (!/[0-9]/.test(newPassword)) {
+    } else if (newPassword && !/[0-9]/.test(newPassword)) {
       return 'パスワードには少なくとも 1 つの数字を含める必要があります。';
     // } else if (!/[!@#$%^&*]/.test(newPassword)) {
     //   return 'パスワードには少なくとも1つの特殊文字を含める必要があります (!@#$%^&*).';
@@ -93,7 +94,7 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
               placeholder="パスワード"
               required
             />
-            {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+            {passwordError && <p className={`text-red-500 ${textXs} mt-2`}>{passwordError}</p>}
           </div>
           <div className="mb-4">
             <input
@@ -104,11 +105,11 @@ const RegisterPassword: React.FC<RegisterPasswordInterface> = ({ userPassword, i
               onChange={handleConfirmPasswordChange}
               required
             />
-            {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
+            {confirmError && <p className={`text-red-500 ${textXs} mt-2`}>{confirmError}</p>}
           </div>
           <div className='flex justify-center space-x-4'>
-            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>⬅</button>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>➔</button>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>前の</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`}>次に</button>
           </div>
         </form>
       </div>

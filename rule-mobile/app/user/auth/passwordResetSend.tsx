@@ -107,65 +107,65 @@ const PasswordResetSend: React.FC = () => {
       <IonContent>
         <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
           <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-          <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
-            <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">パスワード再設定</h2>
-            {/* before verification email sent */}
-            {!verificationSent && (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <input
-                    type="text"
-                    className={`${input}`}
-                    placeholder="メールアドレスを入力してください"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                {message ? <p className={textXs}>{message}</p> :
-                <p className={`${textXs} text-gray-400`}>
-                  登録したメールアドレスに確認コードが送信されます。
-                </p>}
-                <button
-                  type="submit"
-                  className={`w-full py-2 sm:py-3 md:py-4 px-4 mt-16 sm:mt-20 md:mt-24 ${textSm} ${maleGradient} text-white rounded-full`}
-                >
-                  送信する
-                </button>
-                <div className={`text-right text-sm ${textXs} py-8 font-bold`}>
-                  <IonRouterLink routerLink='/auth/login'>
-                    キャンセル
-                  </IonRouterLink>
-                </div>
-              </form>
-            )}
-            {/* verification code sent */}
-            {verificationSent && (
-              <div className="pb-12 flex flex-col items-center">
-                <h3 className={`${textXs} text-gray-400 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
-                <div className="flex justify-center items-center space-x-4 my-4">
-                  {Array.from({ length: 4 }, (_, index) => (
+            <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
+              <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">パスワード再設定</h2>
+              {/* before verification email sent */}
+              {!verificationSent && (
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-4">
                     <input
-                      key={index}
                       type="text"
-                      maxLength={1}
-                      className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-md"
-                      value={code[index]}
-                      onChange={(e) => handleCodeChange(e.target.value, index)}
-                      ref={(el) => (inputRefs.current[index] = el)}
+                      className={`${input}`}
+                      placeholder="メールアドレスを入力してください"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
-                  ))}
+                  </div>
+                  {message ? <p className={textXs}>{message}</p> :
+                  <p className={`${textXs} text-gray-500 font-semibold`}>
+                    登録したメールアドレスに確認コードが送信されます。
+                  </p>}
+                  <button
+                    type="submit"
+                    className={`w-full py-2 sm:py-3 md:py-4 px-4 mt-16 sm:mt-20 md:mt-24 ${textSm} ${maleGradient} text-white rounded-full`}
+                  >
+                    送信する
+                  </button>
+                  <div className="text-right py-8">
+                    <IonRouterLink routerLink='/auth/login' className={`${textXs} text-gray-500 font-semibold`}>
+                      キャンセル
+                    </IonRouterLink>
+                  </div>
+                </form>
+              )}
+              {/* verification code sent */}
+              {verificationSent && (
+                <div className="pb-12 flex flex-col items-center">
+                  <h3 className={`${textXs} text-gray-400 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
+                  <div className="flex justify-center items-center space-x-4 my-4">
+                    {Array.from({ length: 4 }, (_, index) => (
+                      <input
+                        key={index}
+                        type="text"
+                        maxLength={1}
+                        className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-md"
+                        value={code[index]}
+                        onChange={(e) => handleCodeChange(e.target.value, index)}
+                        ref={(el) => (inputRefs.current[index] = el)}
+                      />
+                    ))}
+                  </div>
+                  <p className={`${textSm} text-gray-600`}>残り時間: {timer}s</p>
+                  {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+                  <button
+                    onClick={verifyCode}
+                    className={`${textSm} ${maleGradient} text-white mt-6 px-8 py-2 rounded-full focus:outline-none`}
+                  >
+                    コードを確認する
+                  </button>
                 </div>
-                <p className={`${textSm} text-gray-600`}>残り時間: {timer}s</p>
-                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-                <button
-                  onClick={verifyCode}
-                  className={`${textSm} ${maleGradient} text-white mt-6 px-8 py-2 rounded-full focus:outline-none`}
-                >
-                  コードを確認する
-                </button>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
           </div>
         </div>
       </IonContent>
