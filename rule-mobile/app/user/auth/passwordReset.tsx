@@ -17,7 +17,7 @@ const PasswordReset: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textSm = 'text-sm md:text-md';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = `${textXs} w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none`;
+  const input = `${textXs} w-full text-left placeholder:text-center px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none`;
   const minLength = 6;
   const maxLength = 20;
   const searchParams = useSearchParams();
@@ -42,6 +42,13 @@ const PasswordReset: React.FC = () => {
       setConfirmError('新しいパスワードを入力してください。');
     } else {
       setConfirmError('');
+      toast.info('少々お待ちください。', {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
       const response = await fetch(`${SERVER_URL}/api/users/forgot-pwd`, {
         method: 'POST',
         headers: {
@@ -124,7 +131,7 @@ const PasswordReset: React.FC = () => {
                     value={password}
                     onChange={handlePasswordChange}
                   />
-                  {passwordError && <p className={`text-red-500 mt-1 ${textSm}`}>{passwordError}</p>}
+                  {passwordError && <p className={`text-red-500 mt-1 ${textXs}`}>{passwordError}</p>}
                 </div>
                 <div className="mb-2">
                   <input
@@ -134,7 +141,7 @@ const PasswordReset: React.FC = () => {
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
                   />
-                  {confirmError && <p className={`text-red-500 mt-1 ${textSm}`}>{confirmError}</p>}
+                  {confirmError && <p className={`text-red-500 mt-1 ${textXs}`}>{confirmError}</p>}
                 </div>
                 <button
                   type="submit"
