@@ -21,6 +21,7 @@ const SignUp: React.FC = () => {
   const [confirmError, setConfirmError] = useState('');
   const minLength = 6;
   const maxLength = 20;
+  const textSm = 'text-sm md:text-md font-semibold';
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -132,7 +133,7 @@ const SignUp: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-white text-gray-800 p-6 space-y-4">
-          <h2 className="text-2xl font-bold mb-4">サインアップ</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-4">サインアップ</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -142,7 +143,7 @@ const SignUp: React.FC = () => {
               placeholder="メール"
               required
             />
-            {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
+            {emailError && <p className="text-red-500 text-xs sm:text-sm mt-2">{emailError}</p>}
             <input
               type="text"
               name='username'
@@ -157,7 +158,7 @@ const SignUp: React.FC = () => {
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300 mb-4"
               placeholder="パスワード"
             />
-            {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+            {passwordError && <p className="text-red-500 text-xs sm:text-sm mt-2">{passwordError}</p>}
             <input
               type="password"
               value={confirmPassword}
@@ -165,15 +166,15 @@ const SignUp: React.FC = () => {
               className="w-full text-xs sm:text-sm px-4 py-3 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="パスワードの確認"
             />
-            {confirmError && <p className="text-red-500 mt-2">{confirmError}</p>}
+            {confirmError && <p className="text-red-500 text-xs sm:text-sm mt-2">{confirmError}</p>}
             <button
               type="submit"
-              className="w-full mt-10 py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300"
+              className={`w-full mt-10 py-2 px-4 bg-black ${textSm} text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300`}
             >
               サインアップ
             </button>
             <div className='my-6 text-right'>
-              <IonRouterLink routerLink='/auth/signin' className='text-sm text-blue-300 hover:text-blue-500 hover:cursor-pointer font-bold'>
+              <IonRouterLink routerLink='/auth/signin' className={`${textSm} text-gray-500 hover:cursor-pointer`}>
                 すでにアカウントを持っています
               </IonRouterLink>
             </div>

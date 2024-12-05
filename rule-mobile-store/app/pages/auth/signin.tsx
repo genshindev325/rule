@@ -9,8 +9,8 @@ import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
 
 const SignIn: React.FC = () => {
-  const textXl = 'text-xl sm:text-2xl font-bold';
-  const textSm = 'text-sm md:text-md';
+  const textLg = 'text-lg sm:text-xl font-bold';
+  const textSm = 'text-sm md:text-md font-semibold';
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className="flex flex-col items-center justify-center pb-20 min-h-screen w-screen bg-white text-gray-800 ion-padding space-y-4">
-          <div className={`${textXl} pb-4`}>サインイン</div>
+          <div className={`${textLg} pb-4`}>サインイン</div>
             <input
               type="email"
               value={email}
@@ -91,7 +91,7 @@ const SignIn: React.FC = () => {
               placeholder="パスワード"
               required
             />
-            <h2 className={`${textSm} font-semibold mr-auto pb-4`}>
+            <h2 className={`${textSm} mr-auto pb-4`}>
               <IonRouterLink routerLink='/auth/passwordResetSend' className='text-gray-500'>
                 パスワードをお忘れですか？
               </IonRouterLink>
@@ -104,7 +104,7 @@ const SignIn: React.FC = () => {
               サインイン
             </button>
             <div className='my-6 text-center'>
-              <IonRouterLink routerLink='/auth/signup' className='text-sm text-gray-500 hover:cursor-pointer font-bold'>
+              <IonRouterLink routerLink='/auth/signup' className={`${textSm} text-gray-500 hover:cursor-pointer`}>
                 アカウントを作成する
               </IonRouterLink>
             </div>

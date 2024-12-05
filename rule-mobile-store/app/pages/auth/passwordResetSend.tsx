@@ -8,9 +8,9 @@ import { SERVER_URL } from '@/app/config';
 
 const PasswordResetSend: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textXs = 'text-xs sm:text-sm';
   const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm md:text-md w-full p-3 sm:p-4 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full p-3 sm:p-4 border border-gray-700 rounded-md focus:outline-none';
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [code, setCode] = useState(Array(4).fill(''));
@@ -70,7 +70,7 @@ const PasswordResetSend: React.FC = () => {
         body: JSON.stringify({ email }),
       });
 
-      if (res.ok) {
+      if (res.status === 200) {
         setVerificationSent(true);
         setTimer(120);
         startTimer();
@@ -92,7 +92,7 @@ const PasswordResetSend: React.FC = () => {
     if (value && index < 3) {
       inputRefs.current[index + 1]?.focus();
     }
-    
+
     // Move focus back if the input is empty and the user pressed backspace
     if (!value && index > 0) {
       inputRefs.current[index - 1]?.focus();
@@ -102,64 +102,64 @@ const PasswordResetSend: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white text-gray-800 p-6 space-y-4">
-            <h2 className="text-xl font-bold pb-4">パスワード再設定</h2>
-            {/* before verification email sent */}
-            {!verificationSent && (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <input
-                    type="text"
-                    className={`${input}`}
-                    placeholder="メールアドレスを入力してください"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                {message ? <p>{message}</p> :
-                <p className={`${textXs} text-gray-400`}>
+        <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-white text-gray-800 p-6 space-y-4">
+          <h2 className="text-lg sm:text-xl font-bold pb-4">パスワード再設定</h2>
+          {/* before verification email sent */}
+          {!verificationSent && (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  className={`${input}`}
+                  placeholder="メールアドレスを入力してください"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              {message ? <p>{message}</p> :
+                <p className={`${textXs} text-gray-500`}>
                   登録したメールアドレスに確認コードが送信されます。
                 </p>}
-                <button
-                  type="submit"
-                  className='w-full text-sm py-2 px-4 my-10 bg-black text-white rounded-md focus:outline-none'
-                >
-                  送信する
-                </button>
-                <div className={`text-right text-sm font-semibold`}>
-                  <IonRouterLink routerLink='/auth/signin'>
-                    キャンセル
-                  </IonRouterLink>
-                </div>
-              </form>
-            )}
-            {/* verification code sent */}
-            {verificationSent && (
-              <div className="pb-12 flex flex-col items-center">
-                <h3 className={`${textXs} text-gray-400 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
-                <div className="flex justify-center items-center space-x-4 my-4">
-                  {Array.from({ length: 4 }, (_, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      maxLength={1}
-                      className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-md"
-                      value={code[index]}
-                      onChange={(e) => handleCodeChange(e.target.value, index)}
-                      ref={(el) => (inputRefs.current[index] = el)}
-                    />
-                  ))}
-                </div>
-                <p className={`${textSm} text-gray-600`}>残り時間: {timer}s</p>
-                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-                <button
-                  onClick={verifyCode}
-                  className={`${textSm} ${maleGradient} text-white mt-6 px-8 py-2 rounded-full focus:outline-none`}
-                >
-                  コードを確認する
-                </button>
+              <button
+                type="submit"
+                className={`${textSm} w-full py-2 px-4 my-10 bg-black text-white rounded-md focus:outline-none`}
+              >
+                送信する
+              </button>
+              <div className="text-right">
+                <IonRouterLink routerLink='/auth/signin' className={`${textSm} text-gray-500`}>
+                  キャンセル
+                </IonRouterLink>
               </div>
-            )}
+            </form>
+          )}
+          {/* verification code sent */}
+          {verificationSent && (
+            <div className="pb-12 flex flex-col items-center">
+              <h3 className={`${textXs} text-gray-500 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
+              <div className="flex justify-center items-center space-x-4 my-4">
+                {Array.from({ length: 4 }, (_, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    maxLength={1}
+                    className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-md"
+                    value={code[index]}
+                    onChange={(e) => handleCodeChange(e.target.value, index)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                  />
+                ))}
+              </div>
+              <p className={`${textSm} text-gray-600`}>残り時間: {timer}s</p>
+              {errorMessage && <p className={`${textSm} text-red-500`}>{errorMessage}</p>}
+              <button
+                onClick={verifyCode}
+                className={`${textSm} ${maleGradient} text-white mt-6 px-8 py-2 rounded-full focus:outline-none`}
+              >
+                コードを確認する
+              </button>
+            </div>
+          )}
         </div>
       </IonContent>
     </IonPage>
