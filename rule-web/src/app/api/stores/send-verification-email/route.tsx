@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   try {
     const user = await Store.findOne({ email });
     if (!user) {
-      return NextResponse.json({ success: false, message: 'ユーザーが見つかりません。' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'ストアのメールが見つかりません。' }, { status: 400 });
     }
 
     const code = crypto.randomBytes(2).toString('hex');

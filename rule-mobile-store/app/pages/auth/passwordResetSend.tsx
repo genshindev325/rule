@@ -4,6 +4,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+import { toast } from 'react-toastify'; 
 import { SERVER_URL } from '@/app/config';
 
 const PasswordResetSend: React.FC = () => {
@@ -76,10 +77,25 @@ const PasswordResetSend: React.FC = () => {
         startTimer();
         setMessage('確認コードが送信されました。メールの受信箱を確認してください。');
       } else {
-        setMessage('エラーが発生しました。もう一度お試しください。');
+        const result = await res.json();
+        toast.error(`${result.message}`, {
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          bodyClassName: 'text-xs sm:text-sm',
+        });
+        setMessage(result.message);
       }
     } catch (error) {
-      setMessage('サーバーエラーが発生しました。');
+      toast.error(`${error}`, {
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        bodyClassName: 'text-xs sm:text-sm',
+      });
+      setMessage('サーバーエラーが発生しました。メールの受信箱を確認してください。');
     }
   };
 
@@ -106,7 +122,7 @@ const PasswordResetSend: React.FC = () => {
           <h2 className="text-lg sm:text-xl font-bold pb-4">パスワード再設定</h2>
           {/* before verification email sent */}
           {!verificationSent && (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='w-full'>
               <div className="mb-4">
                 <input
                   type="text"
@@ -116,7 +132,7 @@ const PasswordResetSend: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              {message ? <p>{message}</p> :
+              {message ? <p className={`${textXs} text-red-500`}>{message}</p> :
                 <p className={`${textXs} text-gray-500`}>
                   登録したメールアドレスに確認コードが送信されます。
                 </p>}
@@ -136,7 +152,7 @@ const PasswordResetSend: React.FC = () => {
           {/* verification code sent */}
           {verificationSent && (
             <div className="pb-12 flex flex-col items-center">
-              <h3 className={`${textXs} text-gray-500 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
+              <h3 className={`${textSm} text-gray-500 px-4`}>確認コードは既にあなたのメールに送信されています。メールの受信ボックスを確認し、ここに確認コードを入力してください。確認コードは 120 秒後に期限切れになります。</h3>
               <div className="flex justify-center items-center space-x-4 my-4">
                 {Array.from({ length: 4 }, (_, index) => (
                   <input
@@ -154,7 +170,7 @@ const PasswordResetSend: React.FC = () => {
               {errorMessage && <p className={`${textSm} text-red-500`}>{errorMessage}</p>}
               <button
                 onClick={verifyCode}
-                className={`${textSm} ${maleGradient} text-white mt-6 px-8 py-2 rounded-full focus:outline-none`}
+                className={`${textSm} w-full my-10 py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none`}
               >
                 コードを確認する
               </button>

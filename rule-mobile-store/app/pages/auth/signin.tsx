@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonInput, useIonRouter, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { toast } from 'react-toastify'; 
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
