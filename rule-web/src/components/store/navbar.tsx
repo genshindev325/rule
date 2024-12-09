@@ -16,9 +16,10 @@ const Navbar = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [notificaitonCounts, setNotificationCounts] = useState(0);
   const router = useRouter();
+  const navItem = 'flex flex-col items-center justify-center space-y-1 w-[88px] h-16 rounded-md bg-transparent font-semibold hover:bg-gray-200/10 hover:text-white active:text-blue-500 duration-300';
   
   // Polling interval in milliseconds (e.g., 1000ms * 60 = 1 minute)
-  const POLLING_INTERVAL = 1000 * 60;
+  const POLLING_INTERVAL = 1000 * 5;
 
   useEffect(() => {
     if (profile) {
@@ -72,70 +73,74 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-20 h-full bg-zinc-700 text-white">
-      <div className="flex flex-col sticky top-8 items-center space-y-8">
-        <button className='hover:text-blue-400 active:text-blue-400'>
-          <div className="w-8 h-8 rounded-full bg-gray-200">
-            {avatar && <img src={avatar[0]} className='rounded-full w-8 h-8' />}
+    <div className="flex flex-col items-center w-24 h-full bg-zinc-700 text-white">
+      <div className="flex flex-col sticky top-8 items-center">
+        <button className='hover:text-blue-400 active:text-blue-400 mb-6'>
+          <div className="w-10 h-10 rounded-full bg-gray-200">
+            {avatar && <img src={avatar[0]} className='rounded-full w-10 h-10' />}
           </div>
         </button>
-        <Link href="/store/dashboard">
+        <Link href="/store/dashboard" className='mb-6'>
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'dashboard' ? 'text-blue-400' : ''} duration-500`}
+            className={`${navItem} ${selectedMenu === 'dashboard' ? 'text-blue-500' : 'text-gray-400'}`}
             onClick={() => handleMenuClick('dashboard')}
           >
-            <FaHome className="w-8 h-8" />
+            <FaHome className="w-6 h-6" />
+            <h2 className='text-xs'>ダッシュボード</h2>
           </button>
         </Link>
-        <Link href="/store/events">
+        <Link href="/store/events" className='mb-6'>
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'eventSettings' ? 'text-blue-400' : ''} duration-500`}
+            className={`${navItem} ${selectedMenu === 'eventSettings' ? 'text-blue-500' : 'text-gray-400'}`}
             onClick={() => handleMenuClick('eventSettings')}
           >
-            <FaCalendar className="w-8 h-8" />
+            <FaCalendar className="w-6 h-6" />
+            <h2 className='text-xs'>イベント</h2>
           </button>
         </Link>
-        <Link href="/store/chat">
+        <Link href="/store/chat" className='mb-6'>
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'chat' ? 'text-blue-400' : ''} duration-500`}
+            className={`${navItem} ${selectedMenu === 'chat' ? 'text-blue-500' : 'text-gray-400'}`}
             onClick={() => handleMenuClick('chat')}
           >
-            <FaComments className="w-8 h-8" />
+            <FaComments className="w-6 h-6" />
+            <h2 className='text-xs'>お問い合わせ</h2>
           </button>
         </Link>
-        <Link href="/store/salesManagement">
+        <Link href="/store/salesManagement" className='mb-6'>
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'salesManagement' ? 'text-blue-400' : ''} duration-500`}
+            className={`${navItem} ${selectedMenu === 'salesManagement' ? 'text-blue-500' : 'text-gray-400'}`}
             onClick={() => handleMenuClick('salesManagement')}
           >
-            <FaChartLine className="w-8 h-8" />
+            <FaChartLine className="w-6 h-6" />
+            <h2 className='text-xs'>売上管理</h2>
           </button>
         </Link>
       </div>
-      <div className='flex flex-col sticky bottom-8 space-y-8 mt-auto text-black'>
+      <div className='flex flex-col sticky bottom-8 space-y-6 mt-auto text-black'>
         <Link href="/store/notification">
           <button
-            className={`hover:text-blue-400 ${selectedMenu === 'notifications' ? 'text-blue-400' : ''} duration-500`}
+            className={`hover:text-blue-400 ${selectedMenu === 'notifications' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('notifications')}
           >
-            <FaBell className="relative w-8 h-8" />
+            <FaBell className="relative w-7 h-7" />
             {notificaitonCounts > 0 && <div className='absolute top-0 -right-2 rounded-full w-4 h-4 bg-green-600 border-none text-xs text-white text-center'>{notificaitonCounts}</div>}
           </button>
         </Link>
         <Link href="/store/setting">
           <button
-            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'setting' ? 'text-blue-400' : ''} duration-500`}
+            className={`hover:text-blue-400 active:text-blue-400 ${selectedMenu === 'setting' ? 'text-blue-400' : ''} duration-300`}
             onClick={() => handleMenuClick('setting')}
           >
-            <FaCog className="w-8 h-8" />
+            <FaCog className="w-7 h-7" />
           </button>
         </Link>
         <Link href="/auth/signout">
           <button
-            className={`hover:text-red-500 ${selectedMenu === 'signout' ? 'text-red-400' : ''} duration-500`}
+            className={`hover:text-red-500 ${selectedMenu === 'signout' ? 'text-red-400' : ''} duration-300`}
             onClick={() => handleMenuClick('signout')}
           >
-            <FaSignOutAlt className="w-8 h-8" />
+            <FaSignOutAlt className="w-7 h-7" />
           </button>
         </Link>
       </div>

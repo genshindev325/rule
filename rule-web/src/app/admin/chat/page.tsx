@@ -126,7 +126,7 @@ const ChatPage: React.FC = () => {
   return (
     <AuthWrapper allowedRoles={['admin']}>
       <div className="h-screen min-w-full flex bg-gray-100 text-gray-800">
-        <div className="w-20">
+        <div className="w-24">
           <Navbar />
         </div>
         <ChatList chats={chats} selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
