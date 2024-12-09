@@ -81,7 +81,8 @@ const UserEditModal: React.FC<IUserEdit> = ({ user, isOpen, onClose, onUserStatu
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-gray-800">
       <div ref={modalRef} className="bg-white p-6 rounded shadow-md w-full max-w-xl">
         <h3 className="text-2xl font-bold text-center mb-4">ユーザー認証</h3>
-        <h2 className='text-xs text-center mb-10'>登録ユーザーの情報とユーザーIDカードの結果は次のとおりです。</h2>
+        <h2 className='text-xs text-center'>登録ユーザーの情報とユーザーIDカードの結果は次のとおりです。</h2>
+        <div className='border border-b-2 border-gray-500 border-dashed my-6' />
         <div className='flex flex-row'>
           <div className='w-1/4 text-xs'>
             <img src={`${user?.verification}`} alt='アバターが選択されていません' />
