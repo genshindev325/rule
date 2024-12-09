@@ -105,7 +105,7 @@ const StoreNotification: React.FC = () => {
   return (
     <AuthWrapper allowedRoles={['store']}>
       <div className="min-h-screen w-full flex bg-gray-100 text-gray-800">
-        <div className="w-20">
+        <div className="w-24">
           <Navbar />
         </div>
         <div className="w-full p-10 pb-16">

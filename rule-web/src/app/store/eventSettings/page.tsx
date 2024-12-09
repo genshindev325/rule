@@ -148,7 +148,7 @@ const EventSettings = () => {
   return (
     <AuthWrapper allowedRoles={['store']}>
       <div className="min-h-screen min-w-full flex bg-gray-100 text-gray-800">
-        <div className="w-20">
+        <div className="w-24">
           <Navbar />
         </div>
         <div className="min-h-screen w-auto py-20 mx-auto bg-gray-100">
