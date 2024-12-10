@@ -109,7 +109,7 @@ const ChatList: React.FC = () => {
           <div className='min-h-screen min-w-full flex flex-col bg-white text-gray-800 pb-4 sm:pb-6'>
             {/* Header */}
             <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>

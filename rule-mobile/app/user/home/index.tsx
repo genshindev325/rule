@@ -19,21 +19,41 @@ const Home: React.FC = () => {
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
           <div className="p-12 w-full space-y-8">
-            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
-              <IonRouterLink routerLink='/event/findOnMap' className='font-semibold text-white'>イベントを探す</IonRouterLink>
-            </button>
-            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
-              <IonRouterLink routerLink='/event/eventHistory2' className='font-semibold text-white'>イベント予約履歴</IonRouterLink>
-            </button>
-            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
-              <IonRouterLink routerLink='/chatList' className='font-semibold text-white'>お問い合わせ</IonRouterLink>
-            </button>
-            <button className={`rounded-full ${maleGradient} p-2 border-none w-full`}>
-              <IonRouterLink routerLink='/profile/myPage' className='font-semibold text-white'>マイページ</IonRouterLink>
-            </button>
-            <button className={`rounded-full ${femaleGradient} p-2 border-none w-full`}>
-              <IonRouterLink routerLink='/auth/logout' className='font-semibold text-white'>ログイン</IonRouterLink>
-            </button>
+            <div>
+              <IonRouterLink routerLink='/event/findOnMap'>
+                <button className={`rounded-full ${maleGradient} p-2 border-none w-full font-semibold text-white`}>
+                  イベントを探す
+                </button>
+              </IonRouterLink>
+            </div>
+            <div>
+              <IonRouterLink routerLink='/event/eventHistory2'>
+                <button className={`rounded-full ${maleGradient} p-2 border-none w-full font-semibold text-white`}>
+                  イベント予約履歴
+                </button>
+              </IonRouterLink>
+            </div>
+            <div>
+              <IonRouterLink routerLink='/chatList'>
+                <button className={`rounded-full ${maleGradient} p-2 border-none w-full font-semibold text-white`}>
+                  お問い合わせ
+                </button>
+              </IonRouterLink>
+            </div>
+            <div>
+              <IonRouterLink routerLink='/profile/myPage'>
+                <button className={`rounded-full ${maleGradient} p-2 border-none w-full font-semibold text-white`}>
+                  マイページ
+                </button>
+              </IonRouterLink>
+            </div>
+            <div>
+              <IonRouterLink routerLink='/auth/logout'>
+                <button className={`rounded-full ${femaleGradient} p-2 border-none w-full font-semibold text-white`}>
+                  ログイン
+                </button>
+              </IonRouterLink>
+            </div>
           </div>
         </div>
       </IonContent>

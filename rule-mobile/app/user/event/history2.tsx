@@ -144,7 +144,7 @@ const EventHistory2: React.FC = () => {
           <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
             <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               {/* header */}
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
