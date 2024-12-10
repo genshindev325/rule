@@ -4,7 +4,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { formatDate } from '@/utils/formatDate';
 import SaveConfirmModal from '@/components/utils/SaveConfirmModal';
 
 interface Store {
@@ -80,69 +79,61 @@ const StoreEditModal: React.FC<IStoreEdit> = ({ store, isOpen, onClose, onStoreS
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-gray-800">
       <div ref={modalRef} className="bg-white p-6 rounded shadow-md w-full max-w-xl">
-        <h3 className="text-2xl font-bold mb-4">ユーザー認証</h3>
+        <h3 className="text-2xl font-bold text-center mb-4">ユーザー認証</h3>
         <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>店舗ID</div>
-          <div className='w-3/5 text-md'>{store?.storeID}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>メール</div>
-          <div className='w-3/5 text-md'>{store?.email}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>店名</div>
-          <div className='w-3/5 text-md'>{store?.storeName}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>店舗住所</div>
-          <div className='w-3/5 text-md'>{store?.address}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>店舗ジャンル</div>
-          <div className='w-3/5 text-md'>{store?.storeGenre}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>食べ物のジャンル</div>
-          <div className='w-3/5 text-md'>{store?.foodGenre}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>料理ジャンル</div>
-          <div className='w-3/5 text-md'>{store?.cookingGenre}</div>
-        </div>
-        <div className='flex flex-row'>
-          <div className='w-2/5 text-md font-semibold'>店舗イメージ</div>
-          <div className='w-3/5 text-md'>
-            <img src={`${store?.storeImages[0]}`} alt='アバター' width={60} height={60} />
+          <div className='w-1/4'>
+            <img src={`${store?.storeImages[0]}`} alt='店舗画像はまだありません。' className='text-sm' width={200} height={200} />
+          </div>
+          <div className='flex flex-row w-3/4'>
+            <div className='flex flex-col w-1/2 ml-4'>
+              <div className='text-xs'>店舗ID</div>
+              <div className='text-sm font-bold'>{store?.storeID}</div>
+              <div className='text-xs mt-4'>メール</div>
+              <div className='text-sm font-bold'>{store?.email}</div>
+              <div className='text-xs mt-4'>店名</div>
+              <div className='text-sm font-bold'>{store?.storeName}</div>
+              <div className='text-xs mt-4'>店舗住所</div>
+              <div className='text-sm font-semibold'>{store?.address}</div>
+            </div>
+            <div className='flex flex-col w-1/2 ml-4'>
+              <div className='text-xs'>店舗ジャンル</div>
+              <div className='text-sm font-bold'>{store?.storeGenre}</div>
+              <div className='text-xs mt-4'>食べ物のジャンル</div>
+              <div className='text-sm font-bold'>{store?.foodGenre}</div>
+              <div className='text-xs mt-4'>料理ジャンル</div>
+              <div className='text-sm font-bold'>{store?.cookingGenre}</div>
+              <div className='text-xs mt-4'>アクセス</div>
+              {store?.access && store.access.map((access) => (
+                <div className='text-xs font-semibold'>-{access}</div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className='flex flex-row py-8'>
-          <div className='w-2/5 text-md font-semibold'>状態</div>
-          <div className='flex space-x-4'>
-            <button
-              onClick={() => setSelectedStatus('active')}
-              className={`${
-                selectedStatus === 'active'
-                  ? 'bg-[#26B636] opacity-80 text-white'
-                  : 'text-zinc-850'
-              } p-2 font-semibold focus:outline-none duration-300 rounded-lg text-sm`}
-            >
-              アクティブ
-            </button>
-            <button
-              onClick={() => setSelectedStatus('inactive')}
-              className={`${
-                selectedStatus === 'inactive'
-                  ? 'bg-[#825FD2] opacity-80 text-white'
-                  : 'text-zinc-850'
-              } p-2 font-semibold focus:outline-none duration-300 rounded-lg text-sm`}
-            >
-              非アクティブ
-            </button>
-          </div>
+        <div className='flex flex-row py-6 space-x-4'>
+          <button
+            onClick={() => setSelectedStatus('active')}
+            className={`${
+              selectedStatus === 'active'
+                ? 'bg-[#26B636] opacity-80 text-white'
+                : 'text-zinc-850'
+            } p-1 font-semibold focus:outline-none duration-300 rounded-lg text-xs`}
+          >
+            アクティブ
+          </button>
+          <button
+            onClick={() => setSelectedStatus('inactive')}
+            className={`${
+              selectedStatus === 'inactive'
+                ? 'bg-red-500 opacity-80 text-white'
+                : 'text-zinc-850'
+            } p-1 font-semibold focus:outline-none duration-300 rounded-lg text-xs`}
+          >
+            非アクティブ
+          </button>
         </div>
         <div className='flex flex-row-reverse mt-6'>
-          <button type='button' className='rounded-md px-4 py-1 bg-gray-400 hover:bg-gray-500 text-white font-bold text-md duration-300' onClick={onClose}>キャンセル</button>
-          <button type='button' className='rounded-md px-10 py-1 mx-6 bg-blue-500 hover:bg-blue-600 text-white font-bold text-md duration-300' onClick={() => setIsSaveConfirmModal(true)}>保存</button>
+          <button type='button' className='rounded-md px-4 py-1 bg-gray-400 hover:bg-gray-500 text-white font-semibold text-sm duration-300' onClick={onClose}>キャンセル</button>
+          <button type='button' className='rounded-md px-10 py-1 mx-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm duration-300' onClick={() => setIsSaveConfirmModal(true)}>保存</button>
         </div>
       </div>
       <SaveConfirmModal isVisible={isSaveConfirmModal} onConfirm={handleConfirmSave} onCancel={() => setIsSaveConfirmModal(false)} />
