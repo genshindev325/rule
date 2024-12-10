@@ -91,9 +91,9 @@ const Login: React.FC = () => {
         <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
           <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient}`}>
           <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-20 sm:mt-24 md:mt-28">
-            <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
+            <h2 className="text-lg font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
             <form onSubmit={handleSubmit}>
-              <div className="mb-4 px-3 border-b border-b-blue-700">
+              <div className="mb-4 border-b border-b-blue-700">
                 <IonInput
                   type="email"
                   name='email'
@@ -104,7 +104,7 @@ const Login: React.FC = () => {
                   required
                 />
               </div>
-              <div className="mb-4 px-3 border-b border-b-blue-700">
+              <div className="mb-4 border-b border-b-blue-700">
                 <IonInput
                   type="password"
                   name='password'
@@ -115,8 +115,8 @@ const Login: React.FC = () => {
                   required
                 />
               </div>
-              <div className={`${textXs} text-right text-gray-400`}>
-                <IonRouterLink routerLink={`/auth/passwordResetSend`}>パスワードをお忘れですか？</IonRouterLink>
+              <div className='text-right'>
+                <IonRouterLink routerLink={`/auth/passwordResetSend`} className={`${textXs} text-gray-400 font-semibold`}>パスワードをお忘れですか？</IonRouterLink>
               </div>
               <div className={`${textXs} text-right text-gray-400`}>
                 {/* <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink> */}
@@ -127,8 +127,8 @@ const Login: React.FC = () => {
               >
                 サインイン
               </button>
-              <div className={`${textXs} text-center text-gray-400 pb-10`}>                  
-                <IonRouterLink routerLink='/auth/signup'>アカウントを作成する</IonRouterLink>
+              <div className='text-center pb-10'>                  
+                <IonRouterLink routerLink='/auth/signup' className={`${textXs} text-gray-400 font-semibold`}>アカウントを作成する</IonRouterLink>
               </div>
             </form>
           </div>
