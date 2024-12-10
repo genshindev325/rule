@@ -103,8 +103,8 @@ const StoreEditModal: React.FC<IStoreEdit> = ({ store, isOpen, onClose, onStoreS
               <div className='text-xs mt-4'>料理ジャンル</div>
               <div className='text-sm font-bold'>{store?.cookingGenre}</div>
               <div className='text-xs mt-4'>アクセス</div>
-              {store?.access && store.access.map((access) => (
-                <div className='text-xs font-semibold'>-{access}</div>
+              {store?.access && store.access.map((access, index) => (
+                <div key={index} className='text-xs font-semibold'>-{access}</div>
               ))}
             </div>
           </div>
