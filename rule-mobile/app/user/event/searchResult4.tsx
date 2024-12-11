@@ -31,7 +31,7 @@ interface EventProps {
 const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = ' -mt-24 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
+  const container = ' -mt-24 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[90vw] min-h-[80vh]';
   const textMd = 'text-md sm:text-lg';
 
   // get events from findDetailModal params

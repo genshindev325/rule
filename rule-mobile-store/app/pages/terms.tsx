@@ -21,7 +21,7 @@ const Terms: React.FC = () => {
     <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
       <div className={`h-40 md:h-48 w-full px-4 md:px-8 pt-10 flex flex-row ${maleGradient}`} />
       {/* container */}
-      <div className={`${container} w-5/6`}>
+      <div className={`${container} w-[90vw]`}>
         <h1 className="text-2xl font-bold text-center py-6">利用規約</h1>
         <div className={`bg-white border border-gray-500 rounded-md p-4 ${textMd} overflow-y-auto h-96`}>
           <p className="mb-4">
