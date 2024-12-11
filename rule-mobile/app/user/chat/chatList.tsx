@@ -113,14 +113,14 @@ const ChatList: React.FC = () => {
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
-                <h2 className='grow pr-4'>お問い合わせ</h2>
+                <h2 className='grow pr-6'>お問い合わせ</h2>
               </div>
-              <div className='py-2 px-6 sm:px-7 md:px-8 mt-2'>
+              <div className='py-2 px-4 sm:px-6 mt-2'>
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={handleSearch}
-                  className="w-full py-2 px-4 rounded bg-white focus:outline-none text-sm"
+                  className="w-full py-2 px-4 rounded-lg bg-white focus:outline-none text-xs placeholder:text-center"
                   placeholder="検索"
                 />
               </div>

@@ -148,7 +148,7 @@ const EventHistory2: React.FC = () => {
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
-                <h2 className='grow pr-4'>イベント予約履歴</h2>
+                <h2 className='grow pr-6'>イベント予約履歴</h2>
               </div>
             </div>
             {/* container */}

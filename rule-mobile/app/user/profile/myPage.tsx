@@ -14,7 +14,7 @@ const Profile: React.FC = () => {
   const router = useIonRouter();
   const userInfo = useSelector((state: RootState) => state.auth.profile);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'w-5/6 rounded-xl bg-white -mt-24 px-4 sm:px-5 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
+  const container = 'w-[92vw] rounded-xl bg-white -mt-20 px-4 sm:px-5 md:px-6 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
   const textMd = 'text-sm sm:text-md md:text-lg py-1 sm:py-2 md:py-4 font-semibold text-zinc-800';
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Profile: React.FC = () => {
               <IonRouterLink routerLink={'/home'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-lg font-semibold text-center text-white pr-10'>マイページ</h2>
+              <h2 className='grow text-lg font-semibold text-center text-white pr-6'>マイページ</h2>
             </div>
             {/* container */}
             <div className={`${container}`}>

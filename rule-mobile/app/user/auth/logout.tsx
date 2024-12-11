@@ -37,14 +37,14 @@ const LogOut: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className={`w-full ${textSm} py-2 px-4 bg-red-400 text-white rounded-md hover:bg-red-500 focus:outline-none duration-500`}
+                  className={`w-full ${textSm} py-2 px-4 rounded-2xl border-2 border-solid border-red-500 bg-transparent text-red-500 hover:text-white hover:bg-red-500 focus:outline-none duration-500`}
                 >
                   ログアウト
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className={`w-full ${textSm} py-2 px-4 bg-gray-400 text-white rounded-md hover:bg-gray-500 focus:outline-none duration-500`}
+                  className={`w-full ${textSm} py-2 px-4 rounded-2xl border-2 border-solid border-gray-500 bg-transparent text-gray-500 hover:text-white hover:bg-gray-500 focus:outline-none duration-500`}
                 >
                   キャンセル
                 </button>

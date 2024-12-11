@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className={`flex flex-col items-center min-h-screen w-screen text-gray-800`}>
+        <div className={`flex flex-col items-center min-h-screen w-screen bg-white text-gray-800`}>
           {/* header */}
           <div className={`h-52 sm:h-56 w-full ${maleGradient}`}>
             <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>

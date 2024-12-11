@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
-
+import { FaSearch } from 'react-icons/fa';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import GoogleMapBackground from '@/app/components/utils/googleMap';
 import SearchResultModal from '@/app/components/user/event/SearchResultModal';
@@ -51,8 +51,6 @@ const FindOnMap: React.FC = () => {
   const [searchedEvents, setSearchedEvents] = useState<EventProps[]>([]);
   const [isOpenSearchResultModal, setIsOpenSearchResultModal] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
-  const searchBlackSVG = '/svg/search-black.svg';
-  const settingSVG = '/svg/settings.svg';
   const POLLING_INTERVAL = 1000 * 60;
   
   useEffect(() => {
@@ -123,22 +121,22 @@ const FindOnMap: React.FC = () => {
           <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800">
             {/* Header */}
             <div className={`h-28 sm:h-32 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
                 <IonRouterLink routerLink={'/home'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
-                <h2 className='grow pr-4'>イベントを探す</h2>
+                <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl py-1 pl-2 pr-7 md:pl-4 md:pr-9 mx-12 sm:mx-16 mt-4">
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl pl-2 pr-7 md:pl-4 md:pr-9 mx-4 sm:mx-6 mt-4">
                 {/* <img src={settingSVG} alt="settings" className="w-4" /> */}
-                <button onClick={handleSearch}>
-                  <img src={searchBlackSVG} alt="search" className="w-3" />
+                <button onClick={handleSearch} className='text-[#7D67EE]'>
+                  <FaSearch />
                 </button>
                 <input
                   type='text'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="text-xs w-full mx-2 py-1 sm:py-2 pl-2 text-left placeholder:text-center text-gray-800 focus:outline-none"
+                  className="text-xs w-full py-2 pl-2 text-left placeholder:text-center text-gray-800 focus:outline-none"
                   placeholder='イベントを検索する'
                 />
               </div>
