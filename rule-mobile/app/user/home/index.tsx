@@ -19,7 +19,7 @@ const Home: React.FC = () => {
             <h2 className='text-xl text-center text-white font-bold pt-10'>居酒屋マッチングサービス</h2>
             <h2 className='text-xl text-center text-white font-bold pt-6'>- Rule -</h2>
           </div>
-          <div className="w-full min-h-[calc(100vh-160px)] sm:min-h-[calc(100vh-176px)] rounded-t-3xl -mt-12 p-12 space-y-8 bg-white">
+          <div className="w-full bg-cover bg-no-repeat bg-[url('/image/bg-8.png')] min-h-[calc(100vh-160px)] sm:min-h-[calc(100vh-176px)] rounded-t-3xl -mt-12 p-12 space-y-8 bg-white">
             <div>
               <IonRouterLink routerLink='/event/findOnMap'>
                 <button className='w-full flex flex-row justify-center items-center rounded-full p-2 border-2 border-solid border-violet-500 bg-transparent hover:bg-violet-500 hover:shadow-xl text-violet-500 hover:text-white duration-300'>
