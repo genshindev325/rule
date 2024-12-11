@@ -65,7 +65,7 @@ const Home: React.FC = () => {
                 <button className='w-full flex flex-row justify-center items-center rounded-full p-2 border-2 border-solid border-red-500 bg-transparent hover:bg-red-500 hover:shadow-xl text-red-500 hover:text-white duration-300'>
                   <FaSignOutAlt />
                   <h2 className='w-1/2 text-sm text-center font-semibold'>
-                    ログイン
+                    ログアウト
                   </h2>
                 </button>
               </IonRouterLink>
