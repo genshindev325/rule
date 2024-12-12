@@ -85,7 +85,7 @@ const Login: React.FC = () => {
           <div className="absolute -top-[4vh] left-[2vw] w-[15vw] h-[50vh] bg-cover bg-center bg-[url('/image/lines_left.png')] z-10" />
           <div className="absolute bottom-0 right-[2vw] w-[15vw] h-[50vh] bg-cover bg-center bg-[url('/image/lines_right.png')] z-10" />
           <div className='absolute flex flex-col items-center justify-center m-auto z-20'>
-            <div className="w-[30vw] h-[20vh] bg-contain bg-center bg-[url('/image/ruleText2.png')]" />
+            <div className="w-[30vw] h-[20vh] bg-contain bg-center bg-no-repeat bg-[url('/image/ruleText2.png')]" />
             <h2 className='text-[50px] text-white mt-10 mb-4'>Rule</h2>
             <h2 className='text-2xl text-white mb-20'>居酒屋マッチングサービス</h2>
             <div className='flex flex-row items-center w-[50vw] bg-white border border-gray-300'>
