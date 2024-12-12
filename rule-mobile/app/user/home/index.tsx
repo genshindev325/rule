@@ -14,7 +14,7 @@ const Home: React.FC = () => {
           <div className='flex flex-row-reverse items-center w-[52vh] h-[52vh] bg-white -ml-[26vh] rounded-full'>
             <h2 className='text-3xl text-[#7F92F2] pr-[7vh]'>Rule</h2>
             <div className='w-[11vh]'>
-              <img src={'/image/ruleText1.png'} alt='rule' width={1414} height={2000} />
+              <img src={'/image/ruleText1.png'} alt='rule' />
             </div>
           </div>
           {/* menus */}
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
             {/* find event on map */}
             <div className="flex flex-row ml-[8vh]">
               <div className='w-[7vh] z-50'>
-                <img src='/image/menu1.png' alt='rule' width={1414} height={2000} />
+                <img src='/image/menu1.png' alt='rule' />
               </div>              
               <IonRouterLink routerLink='/event/findOnMap'>
                 <button className='w-[calc(100vw-8vh)] my-[3vh] -ml-[4vh] bg-gradient-to-r from-white to-[#83d5f7] hover:from-violet-500 hover:to-violet-500 text-gray-700 hover:text-white shadow-lg duration-300'>
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
             {/* event history */}
             <div className="flex flex-row ml-[18vh]">
               <div className='w-[7vh] z-50'>
-                <img src='/image/menu2.png' alt='rule' width={1414} height={2000} />
+                <img src='/image/menu2.png' alt='rule' />
               </div>              
               <IonRouterLink routerLink='/event/eventHistory2'>
                 <button className='w-[calc(100vw-18vh)] my-[3vh] -ml-[4vh] bg-gradient-to-r from-white to-[#83d5f7] hover:from-violet-500 hover:to-violet-500 text-gray-700 hover:text-white shadow-lg duration-300'>
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
             {/* user profile setting */}
             <div className="flex flex-row ml-[21vh]">
               <div className='w-[7vh] z-50'>
-                <img src='/image/menu3.png' alt='rule' width={1414} height={2000} />
+                <img src='/image/menu3.png' alt='rule' />
               </div>              
               <IonRouterLink routerLink='/profile/myPage'>
                 <button className='w-[calc(100vw-21vh)] my-[3vh] -ml-[4vh] bg-gradient-to-r from-white to-[#83d5f7] hover:from-violet-500 hover:to-violet-500 text-gray-700 hover:text-white shadow-lg duration-300'>
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
             {/* inquery */}
             <div className="flex flex-row ml-[18vh]">
               <div className='w-[7vh] z-50'>
-                <img src='/image/menu4.png' alt='rule' width={1414} height={2000} />
+                <img src='/image/menu4.png' alt='rule' />
               </div>              
               <IonRouterLink routerLink='/chatList'>
                 <button className='w-[calc(100vw-18vh)] my-[3vh] -ml-[4vh] bg-gradient-to-r from-white to-[#83d5f7] hover:from-violet-500 hover:to-violet-500 text-gray-700 hover:text-white shadow-lg duration-300'>
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
             {/* sign out */}
             <div className="flex flex-row ml-[8vh]">
               <div className='w-[7vh] z-50'>
-                <img src='/image/menu5.png' alt='rule' width={1414} height={2000} />
+                <img src='/image/menu5.png' alt='rule' />
               </div>              
               <IonRouterLink routerLink='/auth/logout'>
                 <button className='w-[calc(100vw-8vh)] my-[3vh] -ml-[4vh] bg-gradient-to-r from-white to-[#83d5f7] hover:from-red-400 hover:to-red-400 text-gray-700 hover:text-white shadow-lg duration-300'>
