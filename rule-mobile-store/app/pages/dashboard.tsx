@@ -199,7 +199,7 @@ const Dashboard = () => {
       <IonPage id='main-content'>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>ダッシュボード</IonTitle>
+            <IonTitle>管理画面</IonTitle>
             <IonButtons slot='start'>
               <IonMenuButton />
             </IonButtons>

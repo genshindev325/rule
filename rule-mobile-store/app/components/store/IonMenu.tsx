@@ -19,7 +19,7 @@ const SideMenu: React.FC = () => {
         <IonList>
           <IonMenuToggle>
             <IonItem button onClick={() => navigateTo('/dashboard')}>
-              ダッシュボード
+              管理画面
             </IonItem>
             <IonItem button onClick={() => navigateTo('/eventSetting')}>
               イベント設定
@@ -37,7 +37,7 @@ const SideMenu: React.FC = () => {
               設定
             </IonItem>
             <IonItem button onClick={() => navigateTo('/auth/signout')} className='font-semibold text-red-400'>
-              ログアウト
+              サインアウト
             </IonItem>
           </IonMenuToggle>
         </IonList>
