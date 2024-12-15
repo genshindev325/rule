@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Navbar from '@/components/admin/navbar';
 import AuthWrapper from '@/components/auth/authWrapper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,7 +12,7 @@ import { markAsRead, setNotifications } from '@/store/features/notification/Noti
 const POLLING_INTERVAL = 1000 * 5;
 
 const StoreNotification: React.FC = () => {
-  let notifications = useSelector((state: RootState) => state.notification.notifications);
+  const notifications = useSelector((state: RootState) => state.notification.notifications);
   const token = useSelector((state: RootState) => state.auth.token);
   const router = useRouter();
   const dispatch = useDispatch();
