@@ -16,9 +16,9 @@ const ChangeName: React.FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const email = useSelector((state: RootState) => state.auth.email);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const textMd = 'text-base sm:text-lg font-semibold';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const input = 'text-xs sm:text-sm md:text-base text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleChangeName = async (name: string) => {
     try {

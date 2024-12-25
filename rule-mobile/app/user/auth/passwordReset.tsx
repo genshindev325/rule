@@ -15,8 +15,8 @@ const PasswordReset: React.FC = () => {
   const [confirmError, setConfirmError] = useState('');
   const [email, setEmail] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textSm = 'text-sm md:text-md';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm md:text-base';
+  const textXs = 'text-xs sm:text-sm md:text-base';
   const input = `text-xs sm:text-sm py-2 w-full px-3 sm:px-4 md:px-6 border border-gray-700 rounded-md focus:outline-none`;
   const minLength = 6;
   const maxLength = 20;

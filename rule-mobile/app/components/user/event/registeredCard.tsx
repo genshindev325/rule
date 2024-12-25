@@ -11,7 +11,7 @@ interface RegisterCardInterface {
 
 const RegisteredCard: React.FC<RegisterCardInterface> = ({ last4, cardSVG, exDate, setDeleteConfirmModalVisible }) => {
   const textXs = 'text-xs sm:text-sm';
-  const textSm = 'text-sm sm:text-md';
+  const textSm = 'text-sm sm:text-base';
 
   return (
     <div className='bg-gray-100 pb-4 text-gray-800'>

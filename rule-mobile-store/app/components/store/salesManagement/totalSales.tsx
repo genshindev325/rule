@@ -11,8 +11,8 @@ interface TotalSalesProps {
 
 const TotalSales: React.FC<TotalSalesProps> = ({ totalSales }) => {
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-bold';
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-base sm:text-lg font-bold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   return (
     <div className="w-40 sm:w-48 md:w-56 bg-white text-gray-800">
       <div className="border-gray-200 border-solid border-2 p-2 rounded-md text-center">

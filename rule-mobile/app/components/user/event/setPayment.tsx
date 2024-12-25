@@ -36,9 +36,9 @@ const masterCardSVG = "/svg/mastercard.svg";
 const visaSVG = "/svg/visa.svg";
 const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
 const container = 'w-[90vw] rounded-xl bg-white -mt-28 flex flex-col shadow-md text-gray-800';
-const textMd = 'text-md sm:text-lg md:text-xl';
-const textXs = 'text-xs sm:text-sm md:text-md';
-const textSm = 'text-sm sm:text-md md:text-lg';
+const textMd = 'text-base sm:text-lg md:text-xl';
+const textXs = 'text-xs sm:text-sm md:text-base';
+const textSm = 'text-sm sm:text-base md:text-lg';
 
 const FormInput: React.FC = () => {
   const stripe = useStripe();

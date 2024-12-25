@@ -13,7 +13,7 @@ import { RootState } from '@/app/store/store';
 import { toast } from 'react-toastify';
 
 const PasswordSetting = () => {
-  const textSm = 'text-sm sm:text-md text-gray-800';
+  const textSm = 'text-sm sm:text-base text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');

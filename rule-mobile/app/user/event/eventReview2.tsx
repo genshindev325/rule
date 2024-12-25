@@ -66,9 +66,9 @@ const EventReview2: React.FC = () => {
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'w-full rounded-2xl -mt-32 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const textSm = 'text-sm sm:text-md md:text-lg';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textMd = 'text-base sm:text-lg md:text-xl';
+  const textSm = 'text-sm sm:text-base md:text-lg';
+  const textXs = 'text-xs sm:text-sm md:text-base';
 
   // get selected event data and current user information
   useEffect(() => {
@@ -211,10 +211,10 @@ const EventReview2: React.FC = () => {
             <div className='px-4'>
               <div className={`${container}`}>
                 {/* title */}
-                <h2 className='text-md sm:text-lg font-semibold'>{selectedEvent?.eventName}</h2>
+                <h2 className='text-base sm:text-lg font-semibold'>{selectedEvent?.eventName}</h2>
                 <h2 className={`${textSm}`}>{selectedEvent && formatDateTime(selectedEvent.eventDate)}</h2>
                 {/* type */}
-                <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
+                <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-4'>
                   {types && types.map((type, index) => (
                     <div key={index} className='rounded-full bg-gray-200 px-3 md:px-4 py-1'>{type}</div>
                   ))}

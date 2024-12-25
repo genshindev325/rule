@@ -41,7 +41,7 @@ interface IProfile {
 }
 
 const StoreProfileSetting = () => {
-  const textSm = 'text-sm sm:text-md text-gray-800';
+  const textSm = 'text-sm sm:text-base text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const router = useIonRouter();
   const [profile, setProfile] = useState<IProfile | null>(useSelector((state: RootState) => state.auth.profile));

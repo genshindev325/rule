@@ -17,10 +17,10 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
   const [emailError, setEmailError] = useState('');
   const [confirmError, setConfirmError] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textXs = 'text-xs sm:text-sm md:text-md';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const textXs = 'text-xs sm:text-sm md:text-base';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const textMd = 'text-base sm:text-lg md:text-xl';
+  const input = 'text-xs sm:text-sm md:text-base text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,8 +67,8 @@ const RegisterEmail: React.FC<RegisterEmailInterface> = ({ isOpen, userEmail, on
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
       <div className="h-40 sm:h-44 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
       <div className="bg-white rounded-2xl shadow-xl px-6 md:px-12 mx-5 sm:mx-6 md:mx-8 mt-16 sm:mt-20 md:mt-24 pb-12 md:pb-20">
-        <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">メールアドレスを</h2>
-        <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">登録してください</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">メールアドレスを</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">登録してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input

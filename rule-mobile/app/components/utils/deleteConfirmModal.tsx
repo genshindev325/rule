@@ -10,9 +10,9 @@ interface DeleteConfirmationModalProps {
 
 const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isVisible, onConfirm, onCancel }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const textXs = 'text-xs sm:text-sm md:text-md';
-  const textSm = 'text-sm sm:text-md md:text-lg';
+  const textMd = 'text-base sm:text-lg md:text-xl';
+  const textXs = 'text-xs sm:text-sm md:text-base';
+  const textSm = 'text-sm sm:text-base md:text-lg';
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

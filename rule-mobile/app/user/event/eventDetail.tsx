@@ -26,8 +26,8 @@ const EventDetail: React.FC = () => {
   const container = 'rounded-2xl bg-white px-4 sm:px-6 md:px-8 py-6 sm:py-12 md:py-20 md:m-6 flex flex-col shadow-lg space-y-1';
   const locationSVG = '/svg/location-black.svg';
 
-  const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-base sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
 
   const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';

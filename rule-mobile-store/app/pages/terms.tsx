@@ -14,8 +14,8 @@ const Terms: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'bg-white rounded-xl -mt-20 py-6 sm:py-10 md:py-14 px-3 sm:px-6 md:px-8 flex flex-col shadow-md';
 
-  const textSm = 'text-center text-sm sm:text-md md:text-lg';
-  const textMd = 'text-md sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
+  const textSm = 'text-center text-sm sm:text-base md:text-lg';
+  const textMd = 'text-base sm:text-xl md:text-3xl py-2 sm:py-4 md:py-6 font-bold';
 
   return (
     <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">

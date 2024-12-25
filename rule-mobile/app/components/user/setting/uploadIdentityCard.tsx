@@ -12,7 +12,7 @@ import { RootState } from '@/app/store/store';
 
 const UploadIdentityCard: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textXs = 'text-xs sm:text-sm md:text-base';
   const [localImage, setImage] = useState('');
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
@@ -166,7 +166,7 @@ const UploadIdentityCard: React.FC = () => {
                                 htmlFor="file-input"
                                 className="w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 flex items-center justify-center border border-gray-500 rounded-md cursor-pointer"
                               >
-                                <span className="text-md text-gray-400 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-400">+</span>
+                                <span className="text-base text-gray-400 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-400">+</span>
                                 <span className={`${textXs} text-gray-400`}>写真を選択</span>
                               </label>
                             </div>

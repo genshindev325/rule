@@ -18,7 +18,7 @@ interface EventHistoryProps {
 }
 
 const EventHistory: React.FC<EventHistoryProps> = ({ events }) => {
-  const textMd = 'text-md sm:text-lg font-bold';
+  const textMd = 'text-base sm:text-lg font-bold';
   const textXs = 'text-xs sm:text-sm';
 
   return (

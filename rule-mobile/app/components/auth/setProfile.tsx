@@ -14,8 +14,8 @@ interface SetProfileInterface {
 
 const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange, onCancel }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textXs = 'text-xs sm:text-sm md:text-md';
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textXs = 'text-xs sm:text-sm md:text-base';
+  const textSm = 'text-sm md:text-base font-semibold';
   const [localAvatar, setAvatar] = useState('');
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,8 +81,8 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
       <div className="h-40 sm:h-44 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
       <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-16 sm:mt-20 md:mt-24 pb-12 md:pb-14">
-        <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">プロフィール画像を</h2>
-        <h2 className="text-md sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">設定してください</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">プロフィール画像を</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold pb-8 sm:pb-10 text-center">設定してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="py-2 md:py-4 flex flex-col items-center justify-center h-full">
             <div className='w-full'>
@@ -97,7 +97,7 @@ const SetProfile: React.FC<SetProfileInterface> = ({ isOpen, onUserAvatarChange,
                 htmlFor="file-input"
                 className="w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 flex items-center justify-center border border-gray-500 rounded-md cursor-pointer"
               >
-                <span className="text-md text-gray-500 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-500">+</span>
+                <span className="text-base text-gray-500 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-500">+</span>
                 <span className={`${textXs} text-gray-500 font-semibold`}>プロフィール画像を選ぶ</span>
               </label>
             </div>

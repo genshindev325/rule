@@ -110,7 +110,7 @@ const ChangeBirthday: React.FC = () => {
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
                 <h2 className={`${textMd} py-8 sm:py-10 text-center`}>生年月日を入力してください</h2>
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
+                  <div className="mb-4 flex flex-row gap-4 text-base md:text-xl">
                     <input
                       type="number"
                       className={`${input}`}

@@ -19,8 +19,8 @@ interface ReviewModalProps {
 const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const textSm = 'text-center text-sm sm:text-md md:text-lg';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-center text-sm sm:text-base md:text-lg';
+  const textXs = 'text-xs sm:text-sm md:text-base';
 
   const modalRef = useRef<HTMLDivElement>(null);
   const [location, setLocation] = useState('');

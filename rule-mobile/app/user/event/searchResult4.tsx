@@ -32,7 +32,7 @@ const SearchResult4: React.FC = () => {
   const [testEvents, setTestEvents] = useState<EventProps[]>([]);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = ' -mt-32 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
-  const textMd = 'text-md sm:text-lg';
+  const textMd = 'text-base sm:text-lg';
 
   // get events from findDetailModal params
   const searchParams = useSearchParams ();
@@ -77,7 +77,7 @@ const SearchResult4: React.FC = () => {
               }
               {testEvents.length === 0 &&
                 <div className='flex flex-row h-full items-center justify-center min-h-[80vh]'>
-                  <h2 className='text-sm sm:text-md md:text-lg font-semibold text-gray-700'>
+                  <h2 className='text-sm sm:text-base md:text-lg font-semibold text-gray-700'>
                     一致するイベントが見つかりません
                   </h2>
                 </div>

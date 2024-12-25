@@ -15,7 +15,7 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
   const [gender, setGender] = useState<'male' | 'female'>(userGender);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textSm = 'text-sm md:text-base font-semibold';
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
       <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient}`}>
       <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-16 sm:mt-20 md:mt-24 pb-12 md:pb-14">
-        <h2 className="text-md sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">性別を選択してください</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">性別を選択してください</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 flex flex-col space-y-4">
             <button
