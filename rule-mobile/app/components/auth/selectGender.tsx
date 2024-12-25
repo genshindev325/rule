@@ -35,21 +35,21 @@ const SelectGender: React.FC<SelectGenderInterface> = ({ userGender, isOpen, onG
             <button
               type="button"
               onClick={() => setGender('male')}
-              className={`px-4 py-2 ${textSm} rounded-full ${gender === 'male' ? maleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700'}`}
+              className={`px-4 py-2 ${textSm} rounded-full ${gender === 'male' ? maleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700 duration-150'}`}
             >
               男性
             </button>
             <button
               type="button"
               onClick={() => setGender('female')}
-              className={`px-4 py-2 ${textSm} rounded-full ${gender === 'female' ? femaleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700'}`}
+              className={`px-4 py-2 ${textSm} rounded-full ${gender === 'female' ? femaleGradient + ' text-white' : 'bg-white border border-solid border-gray-400 text-gray-700 duration-150'}`}
             >
               女性
             </button>
           </div>
           <div className='flex justify-center space-x-4'>
-            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>以前</button>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>次に</button>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>前の</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`}>次に</button>
           </div>
         </form>
       </div>

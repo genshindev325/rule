@@ -138,7 +138,7 @@ const UploadIdentityCard: React.FC = () => {
           <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
             <div className="h-44 sm:h-48 md:h-52 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
               {/* header */}
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <IonRouterLink routerLink={'/profile/setting'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -146,7 +146,7 @@ const UploadIdentityCard: React.FC = () => {
               </div>
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
                 {status === 'active' ?
-                  <h2 className="text-xs sm:text-sm font-semibold pt-8 sm:pt-10 px-4 sm:px-6 text-center">あなたの身元が確認されました。</h2>
+                  <h2 className="text-xs sm:text-sm text-green-600 font-semibold pt-8 sm:pt-10 px-4 sm:px-6 text-center">あなたの身元が確認されました。</h2>
                   :
                   (
                     IdentityCard === '' || IdentityCard === null || IdentityCard === undefined ?

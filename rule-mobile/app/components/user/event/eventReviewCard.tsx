@@ -47,25 +47,21 @@ const EventReviewCard: React.FC<CardProps> = ({
           <div className='flex flex-row space-x-1'>
             <div className={`${maleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>男性</div>
             <h2 className={`${textSm}`}>{maleFee}円 {males}/{maleTotal}</h2>
-            <div className='flex-1 my-auto'>
-              <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-3 sm:h-4 md:h-5 rounded-full rounded-l-none ml-auto">
-                <div
-                  className={`h-3 sm:h-4 md:h-5 ${maleGradient}`} 
-                  style={{ width: `${maleRate * 100}%` }}
-                ></div>
-              </div>
+            <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-2 rounded-xl rounded-l-none my-auto">
+              <div 
+                className={`h-2 ${maleGradient}`} 
+                style={{ width: `${maleRate * 100}%` }}
+              ></div>
             </div>
           </div>
           <div className='flex flex-row space-x-1'>
-            <div className={`${femaleGradient} px-1 rounded-full w-10 text-center ${textSm} text-white my-auto`}>女性</div>
+            <div className={`${femaleGradient} px-1 rounded-full w-10 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
             <h2 className={`${textSm}`}>{femaleFee}円 {females}/{femaleTotal}</h2>
-            <div className='flex-1 my-auto'>
-              <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-3 sm:h-4 md:h-5 rounded-full rounded-l-none ml-auto">
-                <div
-                  className={`h-3 sm:h-4 md:h-5 ${femaleGradient}`} 
-                  style={{ width: `${femaleRate * 100}%` }}
-                ></div>
-              </div>
+            <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-2 rounded-xl rounded-l-none my-auto">
+              <div 
+                className={`h-2 ${femaleGradient}`} 
+                style={{ width: `${femaleRate * 100}%` }}
+              ></div>
             </div>
           </div>
         </div>

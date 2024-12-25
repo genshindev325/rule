@@ -16,7 +16,7 @@ const RegisterID: React.FC<RegisterIDInterface> = ({ Id, isOpen, onUserIDChange,
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textSm = 'text-sm md:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = 'text-xs sm:text-sm py-2 w-full px-3 sm:px-4 md:px-6 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,15 +43,15 @@ const RegisterID: React.FC<RegisterIDInterface> = ({ Id, isOpen, onUserIDChange,
               required
             />
           </div>
-          <p className={`${textXs} text-center text-gray-400`}>
-            半角英数字と(.) (アンダーバー)
+          <p className={`${textXs} text-center text-gray-500 text-semibold`}>
+            半角英数字と.(ドット) (アンダーバー)
           </p>
-          <p className={`${textXs} text-center text-gray-400`}>
+          <p className={`${textXs} text-center text-gray-500 text-semibold`}>
             で入力してください。
           </p>
           <div className='flex justify-center space-x-4'>
-            <button type="button" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>以前</button>
-            <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>次に</button>
+            <button type="button" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>前の</button>
+            <button type="submit" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`}>次に</button>
           </div>
         </form>
       </div>

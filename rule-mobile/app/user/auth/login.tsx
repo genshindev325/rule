@@ -3,16 +3,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonInput, IonRouterLink, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { toast } from 'react-toastify';
+import { FaRegUser, FaUnlockAlt } from 'react-icons/fa';
 import { useAuth } from '@/app/components/auth/authContext';
 import { SERVER_URL } from '@/app/config';
 
 const Login: React.FC = () => {
-  const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
+  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const textSm = 'text-sm md:text-md font-semibold';
   const textXs = 'text-xs sm:text-sm md:text-md';
-  const input = `${textXs} w-full px-3 sm:px-4 md:px-5 border border-gray-700 rounded-md focus:outline-none`;
+  const input = `${textXs} w-full pl-2 sm:px-4 md:px-6 py-2 sm:py-4 focus:outline-none text-gray-800`;
 
   const router = useIonRouter();
   const { signin } = useAuth();
@@ -20,25 +21,20 @@ const Login: React.FC = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle the form submission
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
+  const handleSubmit = async () => {
+    toast.info('しばらくお待ちください。', {
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      bodyClassName: 'text-xs sm:text-sm',
+    });
 
     try {
-      toast.info('しばらくお待ちください。', {
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        bodyClassName: 'text-xs sm:text-sm',
-      });
       const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: emailAddress, password }),
       });
   
       if (response.status === 200) {
@@ -57,10 +53,6 @@ const Login: React.FC = () => {
             pauseOnHover: true,
             draggable: true,
             bodyClassName: 'text-xs sm:text-sm',
-            style: {
-              width: 'auto',
-              maxWidth: '400px',
-            }
           });
           router.push('/home');
         }
@@ -88,50 +80,55 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
-          <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient}`}>
-          <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-20 sm:mt-24 md:mt-28">
-            <h2 className="text-lg font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4 border-b border-b-blue-700">
-                <IonInput
-                  type="email"
-                  name='email'
-                  label='メールアドレス'
-                  labelPlacement='floating'
-                  value={emailAddress}
-                  onIonChange={(e) => setEmailAddress(e.target.value as string)}
-                  required
-                />
+        <div className="relative flex flex-col items-center justify-center min-h-screen w-screen bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+          <div className="w-full min-h-screen bg-cover bg-center bg-[url('/image/circle_gradient.png')]" />
+          <div className="absolute -top-[4vh] left-[2vw] w-[15vw] h-[50vh] bg-cover bg-center bg-[url('/image/lines_left.png')] z-10" />
+          <div className="absolute bottom-0 right-[2vw] w-[15vw] h-[50vh] bg-cover bg-center bg-[url('/image/lines_right.png')] z-10" />
+          <div className='absolute flex flex-col items-center justify-center m-auto z-20'>
+            <div className="w-[30vw] h-[20vh] bg-contain bg-center bg-no-repeat bg-[url('/image/ruleText2.png')]" />
+            <h2 className='text-[50px] text-white mt-10 mb-4'>Rule</h2>
+            <h2 className='text-2xl text-white mb-20'>居酒屋マッチングサービス</h2>
+            <div className='flex flex-row items-center w-[50vw] bg-white border border-gray-300'>
+              <div className='w-[4vw] min-w-8 px-2'>
+                <FaRegUser className='mx-auto text-blue-500' />
               </div>
-              <div className="mb-4 border-b border-b-blue-700">
-                <IonInput
-                  type="password"
-                  name='password'
-                  label='パスワード'
-                  labelPlacement='floating'
-                  value={password}
-                  onIonChange={(e) => setPassword(e.target.value as string)}
-                  required
-                />
+              <input
+                type="address"
+                name='email'
+                className={`${input} grow`}
+                placeholder="メールアドレス"
+                value={emailAddress}
+                onChange={(e) => setEmailAddress(e.target.value)}
+                required
+              />
+            </div>
+            <div className='flex flex-row items-center w-[50vw] bg-white border border-gray-300'>
+              <div className='w-[4vw] min-w-8 px-2'>
+                <FaUnlockAlt className='mx-auto text-blue-500' />
               </div>
-              <div className='text-right'>
-                <IonRouterLink routerLink={`/auth/passwordResetSend`} className={`${textXs} text-gray-400 font-semibold`}>パスワードをお忘れですか？</IonRouterLink>
-              </div>
-              <div className={`${textXs} text-right text-gray-400`}>
-                {/* <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink> */}
-              </div>
-              <button
-                type="submit"
-                className={`w-full py-2 md:py-4 px-4 my-8 sm:my-10 md:my-12 ${textSm} ${maleGradient} text-white rounded-full focus:outline-none`}
-              >
-                サインイン
-              </button>
-              <div className='text-center pb-10'>                  
-                <IonRouterLink routerLink='/auth/signup' className={`${textXs} text-gray-400 font-semibold`}>アカウントを作成する</IonRouterLink>
-              </div>
-            </form>
-          </div>
+              <input
+                type="password"
+                name='password'
+                className={`${input} grow`}
+                placeholder="パスワード"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className={`w-[50vw] ${textXs} text-right mt-2 mb-8`}>
+              <IonRouterLink routerLink={`/auth/passwordResetSend`} className='text-white'>パスワードを忘れた</IonRouterLink>
+            </div>            
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className={`w-[50vw] py-2 md:py-4 px-4 ${textSm} ${femaleGradient} hover:from-red-400 hover:to-red-400 text-white focus:outline-none duration-500`}
+            >
+              ログイン
+            </button>
+            <div className={`${textXs} text-center py-4`}>                  
+              <IonRouterLink routerLink='/auth/signup' className='text-white'>アカウントを新規作成</IonRouterLink>
+            </div>
           </div>
         </div>
       </IonContent>

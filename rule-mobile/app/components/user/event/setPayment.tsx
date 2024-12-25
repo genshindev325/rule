@@ -35,7 +35,7 @@ const jcbSVG = "/svg/jcb.svg";
 const masterCardSVG = "/svg/mastercard.svg";
 const visaSVG = "/svg/visa.svg";
 const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-const container = 'w-11/12 rounded-xl bg-white -mt-28 flex flex-col shadow-md';
+const container = 'w-[90vw] rounded-xl bg-white -mt-28 flex flex-col shadow-md text-gray-800';
 const textMd = 'text-md sm:text-lg md:text-xl';
 const textXs = 'text-xs sm:text-sm md:text-md';
 const textSm = 'text-sm sm:text-md md:text-lg';
@@ -244,7 +244,7 @@ const FormInput: React.FC = () => {
             <label className={`${textSm} block font-bold text-gray-800`}>カード名義</label>
             <input
               type="text"
-              className={`text-xs sm:text-sm py-2 w-full px-3 border rounded-md focus:outline-none`}
+              className={`${textSm} w-full px-3 py-2 border rounded-md focus:outline-none`}
               placeholder="カード名義"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
@@ -262,7 +262,7 @@ const FormInput: React.FC = () => {
         </div>
       </div>
       {/* buttons */}
-      <div className='w-11/12 flex flex-col space-y-4 py-6'>
+      <div className='w-[90vw] flex flex-col space-y-4 py-6'>
         <button type='button' onClick={handleRegister} className={`${maleGradient} rounded-full py-2 text-white ${textSm} py-2 sm:py-4 md:py-6 font-bold`}>
           登録する
         </button>

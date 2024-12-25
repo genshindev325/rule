@@ -183,7 +183,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
         });
 
         if (result.error) {
-          toast.info('カード番号に誤りがあります。', {
+          toast.error('カード番号に誤りがあります。', {
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
@@ -331,8 +331,8 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
   }
 
   return (
-    <div className=' text-gray-800'>
-      <div className='bg-gray-100 pb-4 px-4 sm:px-6 md:px-8'>
+    <div>
+      <div className='bg-gray-100 pb-4 px-4 sm:px-6 md:px-8 text-gray-800'>
         {registeredCard ?
           <RegisteredCard cardSVG={cardSVG} last4={last4} exDate={exDate} setDeleteConfirmModalVisible={() => setDeleteConfirmModalVisible(true)} />
           :

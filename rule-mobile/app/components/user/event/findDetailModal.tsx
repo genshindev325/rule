@@ -1,39 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import locations from "@/app/constants/location.json";
-
-interface EventProps {
-  _id: string;
-  eventName: string;
-  category: string;
-  coverImage: string;
-  description: string;
-  eventDate: string;
-  eventStartTime: string;
-  eventEndTime: string;
-  maleFee: number;
-  maleTotal: number;
-  males: number;
-  femaleFee: number;
-  femaleTotal: number;
-  females: number;
-  store: {
-    storeLat: number;
-    storeLng: number;
-    storeName: string;
-    storeImages: string[];
-    cookingGenre: string;
-    foodGenre: string;
-    storeGenre: string;
-    address: string;
-    access: string[];
-    description: string;
-    status: string;
-  };
-  status: string;
-  createdAt: string;
-}
+import locations from '@/app/constants/location.json';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -98,8 +66,8 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 text-gray-800">
-      <div ref={modalRef} className="bg-white px-4 py-6 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
+      <div ref={modalRef} className="bg-white text-gray-800 px-4 py-6 rounded-2xl shadow-md w-[85%] max-w-2xl mx-4 sm:mx-8">
         <div className="flex mb-3 space-x-2">
           <select
             id="location"
@@ -117,7 +85,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
             type="date"
             name="date"
             onChange={(e) => setDate(e.target.value)}
-            className={`flex-1 px-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
+            className={`flex-1 p-2 bg-transparent rounded-md focus:outline-none border border-solid border-gray-500 ${textXs}`}
             value={date}
             min={new Date().toISOString().split('T')[0]}
           />
@@ -125,16 +93,16 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSearch
         <div className="flex space-x-2">
           <div>
             <button
-              className={`rounded-l-md px-5 py-2 border border-r-0 ${textXs} text-center ${
-                gender === 'male' ? maleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              className={`rounded-l-md px-5 border border-r-0 ${textXs} text-center ${
+                gender === 'male' ? maleGradient + ' text-white border-none py-2' : 'bg-transparent py-[7px] text-black border-solid border-gray-500'
               }`}
               onClick={() => setGender('male')}
             >
               男性
             </button>
             <button
-              className={`rounded-r-md px-5 py-2 border border-l-0 ${textXs} text-center ${
-                gender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'
+              className={`rounded-r-md px-5 border border-l-0 ${textXs} text-center ${
+                gender === 'female' ? femaleGradient + ' text-white border-none py-2' : 'bg-transparent py-[7px] text-black border-solid border-gray-500'
               }`}
               onClick={() => setGender('female')}
             >

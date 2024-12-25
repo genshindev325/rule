@@ -14,7 +14,7 @@ const ChangeAvatar: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-md';
   const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm py-2 w-full px-3 sm:px-4 md:px-6 border border-gray-700 rounded-md focus:outline-none';
+  const textMd = 'text-base sm:text-lg font-semibold';
   const [localAvatar, setAvatar] = useState('');
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);
@@ -142,7 +142,7 @@ const ChangeAvatar: React.FC = () => {
                 <h2 className='grow pr-4'>アバターを変更</h2>
               </div>
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
-                <h2 className="text-md sm:text-lg md:text-xl font-bold pt-8 sm:pt-10 text-center">アバターを選択してください</h2>
+                <h2 className={`${textMd} pt-8 sm:pt-10 pb-6 sm:pb-8 text-center`}>アバターを選択してください</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="py-2 md:py-4 flex flex-col items-center justify-center h-full">
                     <div className='w-full'>
@@ -157,7 +157,7 @@ const ChangeAvatar: React.FC = () => {
                         htmlFor="file-input"
                         className="w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 flex items-center justify-center border border-gray-500 rounded-md cursor-pointer"
                       >
-                        <span className="text-md text-gray-400 mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-400">+</span>
+                        <span className="text-md text-gray-500 font-semibold mr-4 flex items-center justify-center w-5 h-5 md:w-8 md:h-8 md:pb-1 border rounded-full border-gray-400">+</span>
                         <span className={`${textXs} text-gray-400`}>プロフィール画像を選ぶ</span>
                       </label>
                     </div>
@@ -168,7 +168,7 @@ const ChangeAvatar: React.FC = () => {
                     )}
                   </div>
                   <div className='flex justify-center'>
-                    <button type="submit" className={`mt-10 w-24 ${maleGradient} text-white py-2 rounded-full focus:outline-none`}>変更</button>
+                    <button type="submit" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`}>変更</button>
                   </div>
                 </form>
               </div>

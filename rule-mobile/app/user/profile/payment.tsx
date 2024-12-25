@@ -20,7 +20,7 @@ const ProfilePayment: React.FC = () => {
               <IonRouterLink routerLink={'/profile/myPage'}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
               </IonRouterLink>
-              <h2 className='grow text-xl font-semibold text-center text-white pr-10'>マイページ</h2>
+              <h2 className='grow text-lg font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             <SetPayment />
           </div>

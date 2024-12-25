@@ -33,9 +33,6 @@ const LogOut: React.FC = () => {
               <h2 className="mb-8 text-center text-md text-gray-600">
                 本当にログアウトしますか?
               </h2>
-              <div className={`${textXs} text-right text-gray-400`}>
-                {/* <IonRouterLink routerLink='/auth/loginWith'>ソーシャルログイン</IonRouterLink> */}
-              </div>
               <div className='flex flex-row space-x-4 pb-10'>
                 <button
                   type="button"

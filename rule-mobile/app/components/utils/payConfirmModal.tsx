@@ -34,7 +34,7 @@ const PayConfirmationModal: React.FC<PayConfirmationModalProps> = ({ isVisible, 
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div ref={modalRef} className="bg-white p-4 rounded shadow-lg mx-8">
+      <div ref={modalRef} className="bg-white text-gray-800 p-4 rounded shadow-lg mx-8">
         <h3 className={`${textMd} font-bold mb-4`}>お支払いの確認</h3>
         <p className={textSm}>あなたのカードから {totalPrice}円を振り込みます。よろしいですか？</p>
         <div className="mt-4 flex justify-end">

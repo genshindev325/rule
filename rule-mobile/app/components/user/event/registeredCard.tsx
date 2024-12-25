@@ -10,12 +10,12 @@ interface RegisterCardInterface {
 }
 
 const RegisteredCard: React.FC<RegisterCardInterface> = ({ last4, cardSVG, exDate, setDeleteConfirmModalVisible }) => {
-  const textXs = 'text-xs sm:text-sm md:text-md';
-  const textSm = 'text-sm sm:text-md md:text-lg';
+  const textXs = 'text-xs sm:text-sm';
+  const textSm = 'text-sm sm:text-md';
 
   return (
     <div className='bg-gray-100 pb-4 text-gray-800'>
-      <label className={`${textSm} block font-bold text-gray-800 pt-2`}>登録済みカード</label>
+      <label className={`${textSm} block font-semibold text-gray-800 pt-2`}>登録済みカード</label>
       <div className="mt-4 bg-white rounded-md">
         <div className="flex flex-col p-2">
           <h4 className={`${textXs} text-left font-semibold`}>{`****_****_****_${last4}`}</h4>

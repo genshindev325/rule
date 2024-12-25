@@ -103,7 +103,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
               lat: latitude,
               lng: longitude,
             });
-            mapRef.current.setZoom(15); // Optionally, set the zoom level after moving to the location
+            mapRef.current.setZoom(15);
           }
         },
         () => {
@@ -126,7 +126,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
       <div
-        className={`relative -top-[4rem] -left-[27px] w-[54px] h-[54px] p-1 cursor-pointer rounded-md ${maleGradient}`}
+        className={`relative -top-[4rem] -left-[27px] w-[54px] h-[54px] p-1 cursor-pointer rounded-md z-50 ${maleGradient}`}
         onClick={() => setSelectedEvent(event)}
       >
         {/* Event image */}
@@ -206,9 +206,9 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       }}
       mapContainerClassName={`absolute inset-0 ${className}`}
     >
-      {events.map((event) => event.store && renderCustomMarker(event))}      
+      {events.map((event) => event.store && renderCustomMarker(event))}
       {selectedEvent && renderCustomInfoWindow(selectedEvent)}
-      
+
       {/* image carousel and buttons */}
       <div className='absolute bottom-11 left-0 right-0 flex flex-col items-center justify-center'>
         <div className='h-28 w-full shadow bg-white/70'>
