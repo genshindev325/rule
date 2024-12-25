@@ -10,7 +10,7 @@ import { SERVER_URL } from '@/app/config';
 
 const SignIn: React.FC = () => {
   const textLg = 'text-lg sm:text-xl font-bold';
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textSm = 'text-sm md:text-base font-semibold';
 
   const router = useIonRouter();
   const { signin } = useAuth();

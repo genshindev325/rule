@@ -56,7 +56,7 @@ interface PastEventProps {
 }
 
 const EventList: React.FC = () => {
-  const textMd = 'text-md sm:text-lg font-semibold';
+  const textMd = 'text-base sm:text-lg font-semibold';
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming');
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [isShowAllUpcomingEvents, setIsShowAllUpcomingEvents] = useState(false);

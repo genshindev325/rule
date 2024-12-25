@@ -8,7 +8,7 @@ import { FaApple, FaFacebook, FaEnvelope } from 'react-icons/fa';
 import { SiLine } from 'react-icons/si';
 
 const LoginWith: React.FC = () => {
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
 
   const handleLogin = (provider: string) => {
     // Handle the login process for each provider
@@ -21,11 +21,11 @@ const LoginWith: React.FC = () => {
         <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
           <div className="h-40 sm:h-44 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
             <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
-              <h2 className="text-md font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
+              <h2 className="text-base font-bold py-8 sm:py-10 md:py-12 text-center">ログイン</h2>
               <div className="space-y-6 pb-12 md:pb-28">
                 <button
                   onClick={() => handleLogin('LINE')}
-                  className="flex items-center justify-start w-full py-1 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold bg-green-500 text-white rounded-md"
+                  className="flex items-center justify-start w-full py-1 md:py-4 px-4 md:px-8 text-base md:text-2xl font-bold bg-green-500 text-white rounded-md"
                 >
                   <SiLine className="mr-2 h-6 w-6 md:h-10 md:w-10" />
                   <div className={`${textSm} mx-auto`}>
@@ -34,7 +34,7 @@ const LoginWith: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleLogin('Apple')}
-                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold bg-black text-white rounded-md"
+                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-base md:text-2xl font-bold bg-black text-white rounded-md"
                 >
                   <FaApple className="mr-2 h-6 w-6 md:h-10 md:w-10" />
                   <div className={`${textSm} mx-auto`}>
@@ -43,7 +43,7 @@ const LoginWith: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleLogin('Facebook')}
-                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold bg-blue-600 text-white rounded-md"
+                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-base md:text-2xl font-bold bg-blue-600 text-white rounded-md"
                 >
                   <FaFacebook className="mr-2 h-6 w-6 md:h-10 md:w-10" />
                   <div className={`${textSm} mx-auto`}>
@@ -52,7 +52,7 @@ const LoginWith: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleLogin('Email')}
-                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-md md:text-2xl font-bold border border-gray-800 border-solid rounded-md"
+                  className="flex items-center justify-center w-full py-1 md:py-4 px-4 md:px-8 text-base md:text-2xl font-bold border border-gray-800 border-solid rounded-md"
                 >
                   <FaEnvelope className="mr-2 h-6 w-6 md:h-10 md:w-10" />
                   <div className={`${textSm} mx-auto`}>

@@ -16,8 +16,8 @@ const EventSetting = () => {
   const router = useIonRouter();
   const { profile } = useAuth();
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-bold';
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-base sm:text-lg font-bold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
   const token = useSelector((state: RootState) => state.auth.token);
   const [selectedCategory, setSelectedCategory] = useState('');

@@ -11,8 +11,8 @@ interface PayConfirmationModalProps {
 
 const PayConfirmationModal: React.FC<PayConfirmationModalProps> = ({ isVisible, onConfirm, onCancel, totalPrice }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const textSm = 'text-sm sm:text-md md:text-lg';
+  const textMd = 'text-base sm:text-lg md:text-xl';
+  const textSm = 'text-sm sm:text-base md:text-lg';
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

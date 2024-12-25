@@ -21,8 +21,8 @@ const ProfilePassword: React.FC = () => {
   const maxLength = 20;
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'w-full rounded-xl bg-white -mt-24 px-4 sm:px-6 md:px-8 pb-10 sm:pb-8 md:py-10 flex flex-col shadow-md';
-  const textMd = 'text-md sm:text-lg md:text-xl font-semibold';
-  const textSm = 'text-sm sm:text-md md:text-lg font-semibold';
+  const textMd = 'text-base sm:text-lg md:text-xl font-semibold';
+  const textSm = 'text-sm sm:text-base md:text-lg font-semibold';
   const textXs = "text-xs sm:text-sm"
   const userInfo = useSelector((state: RootState) => state.auth.profile);
   const token = useSelector((state: RootState) => state.auth.token);

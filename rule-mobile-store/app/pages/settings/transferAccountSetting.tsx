@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store';
 
 const TransferAccountSetting = () => {
-  const textSm = 'text-sm sm:text-md text-gray-800';
+  const textSm = 'text-sm sm:text-base text-gray-800';
   const textXs = 'text-xs sm:text-sm';
   const router = useIonRouter();
   const token = useSelector((state: RootState) => state.auth.token);

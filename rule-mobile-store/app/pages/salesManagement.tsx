@@ -29,7 +29,7 @@ const getTodayDate = (): string => {
 };
 
 const SalesManagement = () => {
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
   const [loading, setLoading] = useState(true); 
   const [events, setEvents] = useState<EventProps[]>([]);

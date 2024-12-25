@@ -25,7 +25,7 @@ const SignOut = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">ログアウト</h2>
-        <h2 className="mb-8 text-center text-md text-gray-600">
+        <h2 className="mb-8 text-center text-base text-gray-600">
           本当にログアウトしますか?
         </h2>
         <div className='flex flex-row space-x-4'>

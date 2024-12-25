@@ -21,7 +21,7 @@ const SignUp: React.FC = () => {
   const [confirmError, setConfirmError] = useState('');
   const minLength = 6;
   const maxLength = 20;
-  const textSm = 'text-sm md:text-md font-semibold';
+  const textSm = 'text-sm md:text-base font-semibold';
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

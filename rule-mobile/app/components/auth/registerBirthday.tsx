@@ -16,9 +16,9 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
   const [year, setYear] = useState<number>();
   const [error, setError] = useState('');
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textXs = 'text-xs sm:text-sm md:text-md';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const textXs = 'text-xs sm:text-sm md:text-base';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const input = 'text-xs sm:text-sm md:text-base text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
   const bth = `${year}-${month}-${day}`;
 
   const handleChangeYear = (year: number) => {
@@ -46,9 +46,9 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
       <div className="h-40 sm:h-44 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
         <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
-          <h2 className="text-md sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">誕生日を登録してください</h2>
+          <h2 className="text-base sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">誕生日を登録してください</h2>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4 px-4 flex flex-row gap-4 text-md md:text-xl">
+            <div className="mb-4 px-4 flex flex-row gap-4 text-base md:text-xl">
               <input
                 type="number"
                 className={`${input}`}
@@ -77,7 +77,7 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
               />
             </div>
             {error &&
-              <p className={`${textXs} md:text-md text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
+              <p className={`${textXs} md:text-base text-left pl-2 sm:pl-3 md:pl-4 text-red-500`}>{error}</p>
             }
             <div className='flex justify-center space-x-4'>
               <button type="button" className={`mt-10 w-24 ${maleGradient} ${textSm} text-white py-2 rounded-full focus:outline-none`} onClick={onCancel}>前の</button>

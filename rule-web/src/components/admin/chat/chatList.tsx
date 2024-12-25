@@ -73,7 +73,7 @@ const ChatList: React.FC<{
           className={`${tab === 'store' ? 'bg-gray-300' : 'bg-gray-200'} flex-1`}
           onClick={showStores}  
         >
-          <h2 className='hover:bg-gray-400 text-gray-800 text-md font-semibold py-2 w-full text-center duration-200'>
+          <h2 className='hover:bg-gray-400 text-gray-800 text-base font-semibold py-2 w-full text-center duration-200'>
             店舗
           </h2>
         </button>
@@ -82,7 +82,7 @@ const ChatList: React.FC<{
           className={`${tab === 'user' ? 'bg-gray-300' : 'bg-gray-200'} flex-1`}
           onClick={showUsers}
         >
-          <h2 className='hover:bg-gray-400 focus:bg-gray-300 text-gray-800 py-2 text-md font-semibold w-full text-center duration-200'>
+          <h2 className='hover:bg-gray-400 focus:bg-gray-300 text-gray-800 py-2 text-base font-semibold w-full text-center duration-200'>
             ユーザー
           </h2>
         </button>

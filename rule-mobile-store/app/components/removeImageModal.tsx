@@ -32,7 +32,7 @@ const RemoveImageModal: React.FC<RemoveImageModalProps> = ({ isVisible, onConfir
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 text-gray-800">
       <div ref={modalRef} className="bg-white p-4 rounded shadow-lg">
-        <h3 className="text-md font-bold mb-4">画像を削除</h3>
+        <h3 className="text-base font-bold mb-4">画像を削除</h3>
         <p className='text-sm'>選択した画像を削除しますか?</p>
         <div className="mt-4 flex justify-end">
           <button

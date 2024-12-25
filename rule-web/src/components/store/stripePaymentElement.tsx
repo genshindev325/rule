@@ -214,7 +214,7 @@ const FormInput: React.FC = () => {
           <div className='flex flex-col'>
             <h3 className='text-black text-lg'>{`****_****_****_${last4}`}</h3>
             {cardSVG && <img src={`${cardSVG}`} alt="Visa" className="h-10 sm:h-12 mr-auto" />}
-            <h4 className="text-md text-left font-semibold">{exDate}</h4>
+            <h4 className="text-base text-left font-semibold">{exDate}</h4>
           </div>
           <div className='flex flex-row-reverse'>
             <button

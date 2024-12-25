@@ -46,7 +46,7 @@ interface RecentEventsProps {
 
 const RecentEventsModal: React.FC<RecentEventsProps> = ({ recentEvents, isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const textMd = 'text-md sm:text-lg';
+  const textMd = 'text-base sm:text-lg';
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -71,7 +71,7 @@ const RecentEventsModal: React.FC<RecentEventsProps> = ({ recentEvents, isOpen, 
     <div className="fixed inset-0 flex flex-col items-center justify-start pt-32 sm:pt-36 bg-black bg-opacity-50 z-20">
       <div ref={modalRef} className="flex flex-col space-y-4 bg-white text-gray-800 p-4 rounded-2xl shadow-md w-[90vw] min-h-[75vh] max-w-2xl mx-4 sm:mx-8">
         {recentEvents &&
-          <div className='flex flex-row justify-center text-md font-bold text-gray-700'>
+          <div className='flex flex-row justify-center text-base font-bold text-gray-700'>
             今後のイベント
           </div>
         }

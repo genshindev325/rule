@@ -67,9 +67,9 @@ const EventReview2: React.FC = () => {
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'w-full rounded-2xl -mt-24 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
-  const textMd = 'text-md sm:text-lg md:text-xl';
-  const textSm = 'text-sm sm:text-md md:text-lg';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textMd = 'text-base sm:text-lg md:text-xl';
+  const textSm = 'text-sm sm:text-base md:text-lg';
+  const textXs = 'text-xs sm:text-sm md:text-base';
 
   // get selected event data and current user information
   useEffect(() => {
@@ -208,10 +208,10 @@ const EventReview2: React.FC = () => {
             <div className='px-4'>
               <div className={`${container}`}>
                 {/* title */}
-                <h2 className='text-md sm:text-lg font-semibold'>{selectedEvent?.eventName}</h2>
+                <h2 className='text-base sm:text-lg font-semibold'>{selectedEvent?.eventName}</h2>
                 <h2 className={`${textSm}`}>{selectedEvent && formatDateTime(selectedEvent.eventDate)}</h2>
                 {/* type */}
-                <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-md lg:text-lg font-semibold mt-4'>
+                <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-4'>
                   {types && types.map((type, index) => (
                     <div key={index} className='rounded-full bg-gray-200 px-3 md:px-4 py-1'>{type}</div>
                   ))}
@@ -238,7 +238,7 @@ const EventReview2: React.FC = () => {
                 {/* female */}
                 <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
                   <div className='flex flex-row items-center'>
-                    <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-md text-white my-auto`}>女性</div>
+                    <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-base text-white my-auto`}>女性</div>
                     <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>

@@ -13,7 +13,7 @@ interface ReviewModalProps {
 const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit }) => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const textSmall = 'text-center text-sm sm:text-md md:text-lg';
+  const textSmall = 'text-center text-sm sm:text-base md:text-lg';
   const textlg = 'text-center text-lg sm:text-xl md:text-2xl font-bold';
 
   const [review, setReview] = React.useState('');
@@ -63,7 +63,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
           {/*location and date*/}
           <div className="flex mb-4 space-x-2">
             <select id="location" name="location" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">場所を選択</option>
               <option value="location1">場所 1</option>
@@ -71,7 +71,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
               <option value="location3">場所 3</option>
             </select>
             <select id="date" name="date" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-40 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">日付を選択</option>
               <option value="date1">日付 1</option>
@@ -86,7 +86,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
               <button className={`rounded-r-lg py-3 px-6 border-2 border-l-0 ${textSmall} ${selectedGender === 'female' ? femaleGradient + ' text-white border-none' : 'bg-transparent text-black border-solid border-gray-500'}`} onClick={() => setGender('female')}>女性</button>
             </div>
             <select id="age" name="age" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-32 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-32 px-6 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">年齢</option>
               <option value="age1">10</option>
@@ -98,7 +98,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
           {/* category, store, food, genre */}
           <div className='flex flex-col space-y-4 py-4'>
             <select id="category" name="category" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">カテゴリーを選択</option>
               <option value="category1">10</option>
@@ -106,7 +106,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
               <option value="category3">30</option>
             </select>
             <select id="store" name="store" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">店舗ジャンルを選択</option>
               <option value="store1">10</option>
@@ -114,7 +114,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
               <option value="store3">30</option>
             </select>
             <select id="food" name="food" value={selectedLocation} onChange={handleCategoryChange}
-              className="relative w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="relative w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">食ジャンルを選択</option>
               <option value="food1">10</option>
@@ -122,7 +122,7 @@ const FindDetailModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmit
               <option value="food3">30</option>
             </select>
             <select id="genre" name="genre" value={selectedLocation} onChange={handleCategoryChange}
-              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-md md:text-lg"
+              className="block w-full px-2 py-3 bg-transparent border-solid border-2 border-gray-500 rounded-md focus:outline-none text-sm sm:text-base md:text-lg"
             >
               <option value="">料理ジャンルを選択</option>
               <option value="genre1">和食</option>

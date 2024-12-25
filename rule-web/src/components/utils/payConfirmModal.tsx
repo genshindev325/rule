@@ -36,7 +36,7 @@ const PayConfirmationModal: React.FC<PayConfirmationModalProps> = ({ isVisible, 
       <div ref={modalRef} className="bg-white p-4 rounded shadow-lg">
         <h3 className="text-lg font-bold mb-4">削除の確認</h3>
         <p>{payAmount}円を<strong className='underline'>{storeName}</strong>に入金しましたか？</p>
-        <div className="mt-4 flex justify-end text-sm sm:text-md font-semibold space-x-2">
+        <div className="mt-4 flex justify-end text-sm sm:text-base font-semibold space-x-2">
           <button
             className="bg-gray-300 px-4 py-2 rounded duration-300"
             onClick={onCancel}

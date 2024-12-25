@@ -110,9 +110,9 @@ const StoreNotification: React.FC = () => {
                 notification.status === "read" ? 'opacity-0 border-none' : 'opacity-100 border-top-2'
               }`} />
               <div className="relative bg-white p-5 mb-4 rounded-lg shadow flex">
-                <div className='flex-1 text-md font-semibold'>{notification.entityName}</div>
-                <div className='flex-1 text-md font-semibold'>{notification.message}</div>
-                <div className='flex-1 text-md font-semibold'>{formatDateTime(notification.createdAt)}</div>
+                <div className='flex-1 text-base font-semibold'>{notification.entityName}</div>
+                <div className='flex-1 text-base font-semibold'>{notification.message}</div>
+                <div className='flex-1 text-base font-semibold'>{formatDateTime(notification.createdAt)}</div>
                 <div data-id={notification._id} className={`absolute right-4 -top-4 bg-green-500 rounded-lg px-2 py-1 transition-all duration-1000 ${
                   notification.status === "unread" ? "opacity-100 unreadmessage" : "opacity-0 w-0 h-0 p-0"
                 }`}>

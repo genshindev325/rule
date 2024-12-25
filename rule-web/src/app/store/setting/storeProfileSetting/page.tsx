@@ -184,7 +184,7 @@ const StoreProfileSettings = () => {
             <div className="bg-white py-8 px-6 rounded-lg shadow-md w-full max-w-4xl">
               <h2 className="text-lg font-bold mb-6">店舗プロフィール設定</h2>
               <form onSubmit={handleSubmit}>
-                <h3 className='py-2 text-md'>店舗名</h3>
+                <h3 className='py-2 text-base'>店舗名</h3>
                 <div className="mb-4">
                   <input
                     type="name"
@@ -196,7 +196,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='py-2 text-md'>店舗ジャンル</h3>
+                <h3 className='py-2 text-base'>店舗ジャンル</h3>
                 <div className="mb-4">
                   <select
                     id="storeGenre"
@@ -218,7 +218,7 @@ const StoreProfileSettings = () => {
                     <option value="その他">その他 ...</option>
                   </select>
                 </div>
-                <h3 className='py-2 text-md'>食材ジャンル</h3>
+                <h3 className='py-2 text-base'>食材ジャンル</h3>
                 <div className="mb-4">
                   <select
                     id="foodGenre"
@@ -235,7 +235,7 @@ const StoreProfileSettings = () => {
                     <option value="その他">その他 ...</option>
                   </select>
                 </div>
-                <h3 className='py-2 text-md'>料理ジャンル</h3>
+                <h3 className='py-2 text-base'>料理ジャンル</h3>
                 <div className="mb-4">
                   <select
                     id="cookingGenre"
@@ -264,7 +264,7 @@ const StoreProfileSettings = () => {
                     <option value="その他">その他 ...</option>
                   </select>
                 </div>
-                <h3 className='py-2 text-md'>住所</h3>
+                <h3 className='py-2 text-base'>住所</h3>
                 <div className="mb-4">
                   <input
                     type="address"
@@ -276,7 +276,7 @@ const StoreProfileSettings = () => {
                     required
                   />
                 </div>
-                <h3 className='py-2 text-md'>アクセス</h3>
+                <h3 className='py-2 text-base'>アクセス</h3>
                 {profile.access.map((value, index) => (
                   <div className="relative mb-1" key={index}>
                     <input
@@ -316,7 +316,7 @@ const StoreProfileSettings = () => {
                   <ImageCarousel initImages={profile.storeImages} onAddImage={handleAddImage} onDeleteImage={handleDeleteImage} />
                 </div>
                 <div className="mb-4">
-                  <h3 className='py-2 text-md'>説明文</h3>
+                  <h3 className='py-2 text-base'>説明文</h3>
                   <textarea
                     name='description'
                     className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100"

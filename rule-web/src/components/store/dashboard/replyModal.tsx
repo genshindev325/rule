@@ -115,7 +115,7 @@ const ReplyModal: React.FC<ReviewModalProps> = ({ isOpen, review, onClose, notic
           <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} className="w-full p-3 mt-3 bg-gray-100 rounded-md focus:outline-none"
             placeholder="本文" rows={12} />
         </div>
-        <div className='flex flex-row justify-end space-x-4 mt-4 text-md font-semibold'>
+        <div className='flex flex-row justify-end space-x-4 mt-4 text-base font-semibold'>
           <button type='button' onClick={onClose} className='bg-gray-200 p-2 rounded-md border-none hover:bg-gray-300 hover:font-bold duration-300'>
             キャンセル
           </button>

@@ -20,10 +20,10 @@ const ChangeBirthday: React.FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const email = useSelector((state: RootState) => state.auth.email);
   const textXs = 'text-xs sm:text-sm';
-  const textSm = 'text-sm sm:text-md font-semibold';
-  const textMd = 'text-md sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
+  const textMd = 'text-base sm:text-lg font-semibold';
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm md:text-base text-left placeholder:text-center w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
 
   const handleChangeYear = (year: number) => {
     const curDateTime = new Date();
@@ -110,7 +110,7 @@ const ChangeBirthday: React.FC = () => {
               <div className="bg-white rounded-lg shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-8 sm:mt-10 md:mt-12 pb-12 md:pb-14">
                 <h2 className={`${textMd} py-8 sm:py-10 text-center`}>生年月日を入力してください</h2>
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-4 flex flex-row gap-4 text-md md:text-xl">
+                  <div className="mb-4 flex flex-row gap-4 text-base md:text-xl">
                     <input
                       type="number"
                       className={`${input}`}

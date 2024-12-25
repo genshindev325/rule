@@ -112,9 +112,9 @@ const StoreNotification: React.FC = () => {
           <h1 className="text-2xl font-bold mb-5">通知</h1>
           {notifications.map((notification, index) => (
             <div key={index} className="bg-white p-5 mb-4 rounded-lg shadow flex">
-              <div className='flex-1 text-md font-semibold'>{notification.entityName}</div>
-              <div className='flex-1 text-md font-semibold'>{notification.message}</div>
-              <div className='flex-1 text-md font-semibold'>{formatDateTime(notification.createdAt)}</div>
+              <div className='flex-1 text-base font-semibold'>{notification.entityName}</div>
+              <div className='flex-1 text-base font-semibold'>{notification.message}</div>
+              <div className='flex-1 text-base font-semibold'>{formatDateTime(notification.createdAt)}</div>
             </div>
           ))}
         </div>

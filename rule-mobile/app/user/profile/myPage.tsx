@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.auth.profile);
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'w-[90vw] rounded-xl bg-white -mt-20 px-6 sm:px-8 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
-  const textMd = 'text-sm sm:text-md md:text-lg py-1 sm:py-2 md:py-4 font-semibold text-zinc-800';
+  const textMd = 'text-sm sm:text-base md:text-lg py-1 sm:py-2 md:py-4 font-semibold text-zinc-800';
 
   useEffect(() => {
     if (userInfo) {

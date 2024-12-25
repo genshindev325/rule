@@ -170,7 +170,7 @@ const EventSettings = () => {
                 <input
                   type="name"
                   name='eventName'
-                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                   placeholder="イベント名"
                   required
                 />
@@ -180,7 +180,7 @@ const EventSettings = () => {
                 <select
                   id="category"
                   name="category"
-                  className="block w-full p-2 bg-gray-100 rounded-md focus:outline-none text-sm sm:text-md"
+                  className="block w-full p-2 bg-gray-100 rounded-md focus:outline-none text-sm sm:text-base"
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                   required
@@ -216,7 +216,7 @@ const EventSettings = () => {
               <div className="mb-4">
                 <textarea
                   name='description'
-                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                  className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                   placeholder="説明文"
                   rows={5}
                   required
@@ -231,7 +231,7 @@ const EventSettings = () => {
                       type="date"
                       name='schedule'
                       onChange={(e) => setEventDate(e.target.value)}
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       value={eventDate}
                       min={new Date().toISOString().split('T')[0]}
                       required
@@ -242,7 +242,7 @@ const EventSettings = () => {
                     <input
                       type="time"
                       name='startTime'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="17:00"
                       required
                     />
@@ -252,7 +252,7 @@ const EventSettings = () => {
                     <input
                       type="time"
                       name='endTime'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="21:00"
                       required
                     />
@@ -267,7 +267,7 @@ const EventSettings = () => {
                     <input
                       type="number"
                       name='maleTotal'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="男性の募集人数"
                       required
                     />
@@ -277,7 +277,7 @@ const EventSettings = () => {
                     <input
                       type="number"
                       name='femaleTotal'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="女性の募集人数"
                       required
                     />
@@ -292,7 +292,7 @@ const EventSettings = () => {
                     <input
                       type="number"
                       name='maleFee'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="男性料金"
                       required
                     />
@@ -302,7 +302,7 @@ const EventSettings = () => {
                     <input
                       type="number"
                       name='femaleFee'
-                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                      className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                       placeholder="女性料金"
                       required
                     />

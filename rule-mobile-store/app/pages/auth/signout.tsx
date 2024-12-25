@@ -10,7 +10,7 @@ const SignOut: React.FC = () => {
   const router = useIonRouter();
   const { signout } = useAuth();
   const textXl = 'text-xl sm:text-2xl font-bold';
-  const textSm = 'text-sm md:text-md';
+  const textSm = 'text-sm md:text-base';
 
   const handleSignOut = () => {
     signout();
@@ -26,7 +26,7 @@ const SignOut: React.FC = () => {
       <IonContent fullscreen>
         <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-white text-gray-800 p-6 space-y-4">
           <div className={`${textXl} pb-4`}>サインアウト</div>
-          <h2 className="mb-8 text-center text-md text-gray-600">
+          <h2 className="mb-8 text-center text-base text-gray-600">
             本当にログアウトしますか?
           </h2>
           <div className='flex flex-row w-full px-auto space-x-4'>

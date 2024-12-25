@@ -11,8 +11,8 @@ import { SERVER_URL } from '@/app/config';
 
 const Login: React.FC = () => {
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const textXs = 'text-xs sm:text-sm md:text-base';
   const input = `${textXs} w-full pl-2 sm:px-4 md:px-6 py-2 sm:py-4 focus:outline-none text-gray-800`;
 
   const router = useIonRouter();

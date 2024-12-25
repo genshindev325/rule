@@ -201,29 +201,29 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
           <h2 className="text-lg font-bold mb-2">イベント設定</h2>
           <form onSubmit={handleSubmit}>
             {/* Event settings */}
-            <h3 className='py-1 text-sm sm:text-md'>イベント名</h3>
+            <h3 className='py-1 text-sm sm:text-base'>イベント名</h3>
             <div className="mb-2">
               <input
                 type="name"
                 name='eventName'
                 value={eventName}
                 onChange={(e) => setEventName(e.target.value)}
-                className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                 placeholder="イベント名"
                 required
               />
             </div>
-            <h3 className='py-1 text-sm sm:text-md'>カテゴリ</h3>
+            <h3 className='py-1 text-sm sm:text-base'>カテゴリ</h3>
             <div className="mb-2"> {/*will be modified*/}
               <select
                 id="category"
                 name="category"
-                className="block w-full p-2 bg-gray-100 rounded-md focus:outline-none text-sm sm:text-md"
+                className="block w-full p-2 bg-gray-100 rounded-md focus:outline-none text-sm sm:text-base"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 required
               >
-                <option value="text-sm sm:text-md">選択してください</option>
+                <option value="text-sm sm:text-base">選択してください</option>
                 <option value="ランチ">ランチ</option>
                 <option value="ディナー">ディナー</option>
                 <option value="合コン">合コン</option>
@@ -232,7 +232,7 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
                 <option value="その他">その他 ...</option>
               </select>
             </div>
-            <h3 className='py-1 text-sm sm:text-md'>表紙画像</h3>
+            <h3 className='py-1 text-sm sm:text-base'>表紙画像</h3>
             <div className='mb-2'>
               <input
                 type="file"
@@ -250,13 +250,13 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
                 </div>
               )}
             </div>
-            <h3 className='py-1 text-sm sm:text-md'>説明文</h3>
+            <h3 className='py-1 text-sm sm:text-base'>説明文</h3>
             <div className="mb-2">
               <textarea
                 name='description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                 placeholder="説明文"
                 rows={2}
                 required
@@ -266,37 +266,37 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
             <div className='mb-2'>
               <div className='flex gap-4'>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>日程</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>日程</h3>
                   <input
                     type="date"
                     name='schedule'
                     onChange={(e) => setEventDate(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     value={eventDate}
                     min={new Date().toISOString().split('T')[0]}
                     required
                   />
                 </div>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>開始時間</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>開始時間</h3>
                   <input
                     type="time"
                     name='startTime'
                     value={eventStartTime}
                     onChange={(e) => setEventStartTime(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="17:00"
                     required
                   />
                 </div>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>終了時間</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>終了時間</h3>
                   <input
                     type="time"
                     name='endTime'
                     value={eventEndTime}
                     onChange={(e) => setEventEndTime(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="21:00"
                     required
                   />
@@ -307,25 +307,25 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
             <div className='mb-2'>
               <div className='flex gap-4'>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>男性の募集人数</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>男性の募集人数</h3>
                   <input
                     type="number"
                     name='maleTotal'
                     value={maleTotal}
                     onChange={(e) => setMaleTotal(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="男性の募集人数"
                     required
                   />
                 </div>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>女性の募集人数</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>女性の募集人数</h3>
                   <input
                     type="number"
                     name='femaleTotal'
                     value={femaleTotal}
                     onChange={(e) => setFemaleTotal(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="女性の募集人数"
                     required
                   />
@@ -336,25 +336,25 @@ const EventSettingModal: React.FC<IEventSetting> = ({ isVisible, eventID, onCanc
             <div className='mb-2'>
               <div className='flex gap-4'>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>男性の料金</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>男性の料金</h3>
                   <input
                     type="number"
                     name='maleFee'
                     value={maleFee}
                     onChange={(e) => setMaleFee(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="男性料金"
                     required
                   />
                 </div>
                 <div className='flex-1'>
-                  <h3 className='py-1 text-sm sm:text-md'>女性の料金</h3>
+                  <h3 className='py-1 text-sm sm:text-base'>女性の料金</h3>
                   <input
                     type="number"
                     name='femaleFee'
                     value={femaleFee}
                     onChange={(e) => setFemaleFee(e.target.value)}
-                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-md"
+                    className="w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:border-blue-100 text-sm sm:text-base"
                     placeholder="女性料金"
                     required
                   />

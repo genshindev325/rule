@@ -58,7 +58,7 @@ interface MainPanelProps {
 };
 
 const Dashboard = () => {
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   const [mainPanelData, setMainPanelData] = useState<MainPanelProps>({
     lastMonthSales: 0,
     thisMonthSales: 0,

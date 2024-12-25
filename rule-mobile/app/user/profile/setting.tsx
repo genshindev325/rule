@@ -10,8 +10,8 @@ const ProfileSetting: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'w-[90vw] rounded-xl bg-white -mt-24 px-6 sm:px-8 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
   const textLg = 'text-center text-lg sm:text-xl md:text-2xl font-bold';
-  const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-md';
+  const textMd = 'text-base sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-base';
 
   return (
     <IonPage>

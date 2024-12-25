@@ -76,8 +76,8 @@ const EventHistory2: React.FC = () => {
   const container = 'rounded-2xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4 w-[90vw]';
 
   const textLg = 'text-lg sm:text-xl font-bold';
-  const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-base sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
 
   useEffect(() => {
     const fetchEventData = async () => {

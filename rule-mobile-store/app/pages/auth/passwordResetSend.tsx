@@ -10,8 +10,8 @@ import { SERVER_URL } from '@/app/config';
 const PasswordResetSend: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const input = 'text-xs sm:text-sm md:text-md text-left placeholder:text-center w-full p-3 sm:p-4 border border-gray-700 rounded-md focus:outline-none';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const input = 'text-xs sm:text-sm md:text-base text-left placeholder:text-center w-full p-3 sm:p-4 border border-gray-700 rounded-md focus:outline-none';
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [code, setCode] = useState(Array(4).fill(''));
@@ -159,7 +159,7 @@ const PasswordResetSend: React.FC = () => {
                     key={index}
                     type="text"
                     maxLength={1}
-                    className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-md"
+                    className="border rounded-lg bg-gray-100 w-10 p-2 text-center text-sm sm:text-base"
                     value={code[index]}
                     onChange={(e) => handleCodeChange(e.target.value, index)}
                     ref={(el) => (inputRefs.current[index] = el)}

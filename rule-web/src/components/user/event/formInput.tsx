@@ -13,7 +13,7 @@ const FormInput: React.FC = () => {
     <div className='px-4 md:px-8 bg-gray-100 pb-8 text-gray-800'>
       <label className="block font-bold text-gray-800 pt-8">カード登録</label>
       <div className="mt-4 bg-white rounded-md">
-        <h4 className="text-md text-center font-semibold py-2">対応ブランド</h4>
+        <h4 className="text-base text-center font-semibold py-2">対応ブランド</h4>
         <div className="flex justify-around pb-4">
           <img src={`${visaSVG}`} alt="Visa" className="h-12" />
           <img src={`${masterCardSVG}`} alt="MasterCard" className="h-12" />

@@ -157,7 +157,7 @@ const StorePaymentsPage: React.FC = () => {
           <div className="w-full mb-4 flex justify-start bg-white shadow-md rounded-md p-4">
             {/* Store name search input */}
             <div className='flex flex-col space-y-2'>
-              <h2 className='text-sm md:text-md font-bold text-gray-700'>
+              <h2 className='text-sm md:text-base font-bold text-gray-700'>
                 店名
               </h2>
               <input
@@ -170,7 +170,7 @@ const StorePaymentsPage: React.FC = () => {
             </div>
             {/* Payment status search dropdown */}
             <div className='flex flex-col space-y-2 ml-4'>
-              <h2 className='text-sm md:text-md font-bold text-gray-700'>
+              <h2 className='text-sm md:text-base font-bold text-gray-700'>
                 決済ステータス
               </h2>
               <select
@@ -211,7 +211,7 @@ const StorePaymentsPage: React.FC = () => {
                     <td className='py-2 px-4 text-left'>{formatNumber(storePayment.paymentAmount)}</td>
                     <td className='py-2 px-4 text-left'>
                       {storePayment.status === '未払い' &&
-                        <button className='text-red-600 text-sm sm:text-md' onClick={() => handlePay(storePayment._id, storePayment.storeName, storePayment.paymentAmount)}>
+                        <button className='text-red-600 text-sm sm:text-base' onClick={() => handlePay(storePayment._id, storePayment.storeName, storePayment.paymentAmount)}>
                           入金
                         </button>
                       }

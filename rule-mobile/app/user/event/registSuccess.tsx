@@ -13,8 +13,8 @@ import { formatReturnTime } from '@/app/components/utils/returnTime';
 const RegistSuccess: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const completedImage = '/svg/checked_outline.svg';
-  const textSm = 'text-sm sm:text-md md:text-lg';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm sm:text-base md:text-lg';
+  const textXs = 'text-xs sm:text-sm md:text-base';
   
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
   const handle20Over = () => {};

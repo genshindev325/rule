@@ -12,8 +12,8 @@ import { formatNumber } from '@/app/components/utils/formatNumber';
 
 const EventPayment: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textMd = 'text-md sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-md font-semibold';
+  const textMd = 'text-base sm:text-lg font-semibold';
+  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
 
   // Redux state selectors

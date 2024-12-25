@@ -36,8 +36,8 @@ const americanExpressSVG = "/svg/american_express.svg";
 const jcbSVG = "/svg/jcb.svg";
 const stripeGet = new Stripe(STRIPE_SECRET_KEY);
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
-const textXs = 'text-xs sm:text-sm md:text-md';
-const textSm = 'text-sm sm:text-md md:text-lg';
+const textXs = 'text-xs sm:text-sm md:text-base';
+const textSm = 'text-sm sm:text-base md:text-lg';
 
 const FormInput = () => {
   const stripe = useStripe();

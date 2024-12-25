@@ -8,8 +8,8 @@ import { useAuth } from '@/app/components/auth/authContext';
 
 const LogOut: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const textSm = 'text-sm md:text-md font-semibold';
-  const textXs = 'text-xs sm:text-sm md:text-md';
+  const textSm = 'text-sm md:text-base font-semibold';
+  const textXs = 'text-xs sm:text-sm md:text-base';
 
   const router = useIonRouter();
   const { signout } = useAuth();

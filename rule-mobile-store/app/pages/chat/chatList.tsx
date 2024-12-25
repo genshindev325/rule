@@ -124,7 +124,7 @@ const ChatList: React.FC = () => {
             {/* admin contact */}
             {adminContact.length > 0 &&
               <div className="flex items-center justify-center pt-2">
-                <span className="w-40 text-center text-md font-semibold text-gray-400 border-b border-gray-300">管理者</span>
+                <span className="w-40 text-center text-base font-semibold text-gray-400 border-b border-gray-300">管理者</span>
               </div>
             }
             {adminContact.length > 0 &&
@@ -155,7 +155,7 @@ const ChatList: React.FC = () => {
             }
             {chats.length > 1 &&
               <div className="flex items-center justify-center pt-2">
-                <span className="w-40 text-center text-md font-semibold text-gray-400 border-b border-gray-300">ユーザー</span>
+                <span className="w-40 text-center text-base font-semibold text-gray-400 border-b border-gray-300">ユーザー</span>
               </div>
             }
             {/* Chat List */}

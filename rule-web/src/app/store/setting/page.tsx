@@ -17,7 +17,7 @@ const Setting = () => {
         </div>
         <div className="w-full p-10">
           <h1 className="text-3xl font-bold mb-6">設定</h1>
-          <div className='flex flex-row gap-6 text-md font-bold'>
+          <div className='flex flex-row gap-6 text-base font-bold'>
             <Link href="/store/setting/storeProfileSetting">
               <div className="rounded-lg underline underline-offset-4 border-2 w-40 sm:w-48 md:w-56 h-28 sm:h-32 md:h-36 bg-white hover:bg-gray-200 text-center flex flex-col justify-center">
                 店舗プロフィール設定
