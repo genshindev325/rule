@@ -19,9 +19,13 @@ import PasswordSetting from "@/app/pages/settings/passwordSetting";
 import CreditCardSetting from "@/app/pages/settings/creditCardSetting";
 import TransferAccountSetting from "@/app/pages/settings/transferAccountSetting";
 import Unauthorized from "@/app/pages/auth/unauthorized";
+import { useAuth } from "@/app/components/auth/authContext";
 
 const Tabs = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
+    <IonTabs>
       <IonRouterOutlet>
         <Route path="/auth/signup" render={() => <SignUp />} exact={true} />
         <Route path="/auth/signin" render={() => <SignIn />} exact={true} />
@@ -42,6 +46,25 @@ const Tabs = () => {
         <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
         <Route path="" render={() => <Redirect to={'/auth/signin'} />} exact={true} />
       </IonRouterOutlet>
+      {isAuthenticated ?
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="tab1" href="/dashboard">
+            <IonIcon icon={home} />
+            <IonLabel>ダッシュボード</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab2" href="/eventSetting">
+            <IonIcon icon={list} />
+            <IonLabel>イベント</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/settings">
+            <IonIcon icon={cog} />
+            <IonLabel>設定</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+        :
+        <IonTabBar /> 
+      }
+    </IonTabs>
   );
 };
 

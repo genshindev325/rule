@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
 /* Core CSS required for Ionic components to work properly */
@@ -26,6 +26,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Rule-store",
   description: "Rule mobile store",
+};
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  maximumScale: 1,
+  width: 'device-width',
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
