@@ -111,7 +111,7 @@ const FindOnMap: React.FC = () => {
   }
 
   if (loading) {
-    return <div className='w-screen h-screen flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
+    return <div className='w-screen h-[calc(100vh-56px)] flex items-center justify-center text-gray-800 text-3xl font-bold'>読み込み中...</div>;
   }
 
   return (

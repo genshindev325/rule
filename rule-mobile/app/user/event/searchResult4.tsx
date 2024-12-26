@@ -41,7 +41,6 @@ const SearchResult4: React.FC = () => {
   useEffect(() => {
     if (resultEvents) {
       setTestEvents(JSON.parse(resultEvents));
-      console.log("length: " + testEvents.length)
     }
   }, [resultEvents]);
 
@@ -49,10 +48,10 @@ const SearchResult4: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
+          <div className="flex flex-col items-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             {/* header */}
             <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-xl text-center text-white font-bold pt-16 sm:pt-20 md:pt-24 px-4'>                
+              <div className='flex flex-row text-lg text-center text-white font-semibold pt-16 sm:pt-20 md:pt-24 px-4'>                
                 <IonRouterLink routerLink={'/event/findOnMap'}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </IonRouterLink>
@@ -76,9 +75,9 @@ const SearchResult4: React.FC = () => {
                 </div>
               }
               {testEvents.length === 0 &&
-                <div className='flex flex-row h-full items-center justify-center min-h-[80vh]'>
-                  <h2 className='text-sm sm:text-base md:text-lg font-semibold text-gray-700'>
-                    一致するイベントが見つかりません
+                <div className='flex flex-row items-center justify-center w-full min-h-[80vh]'>
+                  <h2 className='text-sm font-semibold text-gray-700'>
+                    一致するイベントが見つかりません。
                   </h2>
                 </div>
               }

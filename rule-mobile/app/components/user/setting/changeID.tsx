@@ -80,7 +80,7 @@ const ChangeID: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
+          <div className="flex items-start justify-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             <div className="h-44 sm:h-48 md:h-52 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
               {/* header */}
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>

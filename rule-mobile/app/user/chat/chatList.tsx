@@ -37,6 +37,7 @@ const ChatList: React.FC = () => {
   const router = useIonRouter();
   const dispatch = useDispatch();
   const POLLING_INTERVAL = 1000 * 60;
+
   // Function to handle search input
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -45,6 +46,7 @@ const ChatList: React.FC = () => {
   const adminContact = chats.filter(chat =>
     chat.id.includes('123456789012345678901234')
   );
+
   // Filter chats based on search input
   const filteredChats = chats.filter(chat =>
     chat.name.toLowerCase().includes(searchTerm.toLowerCase()) && !chat.id.includes('123456789012345678901234')
@@ -104,7 +106,7 @@ const ChatList: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className='min-h-screen min-w-full flex flex-col bg-white pb-4 sm:pb-6 text-gray-800'>
+          <div className='h-[calc(100vh-56px)] min-w-full flex flex-col bg-white text-gray-800 pb-4 sm:pb-6'>
             {/* Header */}
             <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>

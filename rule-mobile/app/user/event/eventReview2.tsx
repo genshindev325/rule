@@ -3,11 +3,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import FullCarousel from '@/app/components/user/search/fullCarousel';
+import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import StarRating from '@/app/components/utils/starRating';
 import { RootState } from '@/app/store/store';
@@ -167,6 +168,7 @@ const EventReview2: React.FC = () => {
         const storeReviewText = reviewStore;
         const storeRating = ratingStore;
         const createdBy = userId;
+        const eventName = selectedEvent?.eventName;
         // send store review
         const response = await fetch(`${SERVER_URL}/api/reviews/store`, {
           method: 'POST',
@@ -174,7 +176,7 @@ const EventReview2: React.FC = () => {
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy }),
+          body: JSON.stringify({ storeId, storeReviewText, storeRating, createdBy, eventName }),
         });
         if (response.status === 201) {
           console.log("Sending store review success.");
@@ -191,13 +193,13 @@ const EventReview2: React.FC = () => {
     }
   };
 
-  if (loading) return <div className='w-screen h-screen flex items-center justify-center text-3xl font-bold text-gray-800'>読み込み中...</div>;
+  if (loading) return <div className='w-screen h-[calc(100vh-56px)] flex items-center justify-center text-3xl text-gray-800 font-bold'>読み込み中...</div>;
 
   return (
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-screen w-screen bg-white space-y-1 text-gray-800">
+          <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
             <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
               <div className='flex flex-row text-xl font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
@@ -223,17 +225,15 @@ const EventReview2: React.FC = () => {
                 {/* male */}
                 <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
                   <div className='flex flex-row items-center'>
-                    <div className={`${maleGradient} px-1 rounded-full w-10 sm:w-12 md:w-14 text-center ${textXs} text-white my-auto`}>男性</div>
+                    <div className={`${maleGradient} px-2 py-1 rounded-full w-10 sm:w-12 text-center ${textXs} text-white my-auto`}>男性</div>
                     <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.males}/{selectedEvent?.maleTotal}</h2>
-                    <div className='flex-1 my-auto'>
-                      <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-3 sm:h-4 md:h-5 rounded-full rounded-l-none ml-4">
-                        <div
-                          className={`h-3 sm:h-4 md:h-5 ${maleGradient}`} 
-                          style={{ width: `${selectedEvent ? selectedEvent.males/selectedEvent.maleTotal * 100 : 0}%` }}
-                        ></div>
-                      </div>
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
+                      <div 
+                        className={`h-3 md:h-6 ${maleGradient}`} 
+                        style={{ width: `${selectedEvent ? selectedEvent.males/selectedEvent.maleTotal * 100 : 0}%` }}
+                      ></div>
                     </div>
                   </div>
                   <div className='flex flex-row-reverse'>
@@ -243,17 +243,15 @@ const EventReview2: React.FC = () => {
                 {/* female */}
                 <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
                   <div className='flex flex-row items-center'>
-                    <div className={`${femaleGradient} px-1 rounded-full w-10 sm:w-12 md:w-14 text-center ${textXs} text-white my-auto`}>女性</div>
+                    <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-base text-white my-auto`}>女性</div>
                     <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>
-                    <div className='flex-1 my-auto'>
-                      <div className="w-16 sm:w-20 md:w-24 bg-gray-300 h-3 sm:h-4 md:h-5 rounded-full rounded-l-none ml-4">
-                        <div
-                          className={`h-3 sm:h-4 md:h-5 ${femaleGradient}`} 
-                          style={{ width: `${selectedEvent ? selectedEvent.females/selectedEvent.femaleTotal * 100 : 0}%` }}
-                        ></div>
-                      </div>
+                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
+                      <div 
+                        className={`h-3 md:h-6 ${femaleGradient}`} 
+                        style={{ width: `${selectedEvent ? selectedEvent.females/selectedEvent.femaleTotal * 100 : 0}%` }}
+                      ></div>
                     </div>
                   </div>
                   <div className='flex flex-row-reverse'>
@@ -268,23 +266,22 @@ const EventReview2: React.FC = () => {
               </div>
             </div>
             {/* send review about event */}
-            <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
+            {/* <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
               <div className='flex flex-row'>
                 <h2 className={`${textSm} font-semibold`}>イベントを評価:</h2>
-                {/* event star rating */}
                 <div className='space-x-1 flex ml-auto'>
                   <StarRating rate={ratingEvent} onRateChange={handleRateEventChange} />
                 </div>
               </div>
               <textarea
                 value={reviewEvent}
-                onChange={(e) => setReviewEvent(e.target.value as string)}
-                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm`}
+                onChange={(e) => setReviewEvent(e.target.value)}
+                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none ${textSm}`}
                 placeholder="イベントのレビューを書く"
                 rows={6}          
               />
               <button id="btn_event" onClick={handleSubmitEventReview} className={`grow bg-gray-800 rounded-full text-white font-semibold py-1 ${textSm}`}>送信する</button>
-            </div>
+            </div> */}
             {/* location button with gradient */}
             <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
               <button className={`grow ${maleGradient} rounded-xl py-1 text-white font-semibold ${textSm}`}>開催場所</button>
@@ -326,7 +323,7 @@ const EventReview2: React.FC = () => {
                   <textarea
                     value={reviewStore}
                     onChange={(e) => setReviewStore(e.target.value)}
-                    className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none text-xs sm:text-sm"
+                    className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none"
                     placeholder="お店のレビューを書く"
                     rows={6}
                   />
@@ -338,7 +335,7 @@ const EventReview2: React.FC = () => {
                   <h2 className={`${textXs} font-semibold p-2 rounded-lg border shadow-lg`}>{storeReplyText}</h2>
                 </>
               }
-              {!storeReplyText && 
+              {!storeReplyText &&
                 <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>
                   送信する
                 </button>

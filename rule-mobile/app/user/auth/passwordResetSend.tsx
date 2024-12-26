@@ -10,7 +10,7 @@ const PasswordResetSend: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const textXs = 'text-xs sm:text-sm md:text-base';
   const textSm = 'text-sm md:text-base font-semibold';
-  const input = 'text-xs sm:text-sm py-2 w-full px-3 sm:px-4 md:px-6 border border-gray-700 rounded-md focus:outline-none';
+  const input = 'text-xs sm:text-sm md:text-base w-full px-3 sm:px-4 md:px-6 py-2 sm:py-4 border border-gray-700 rounded-md focus:outline-none';
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [code, setCode] = useState(Array(4).fill(''));
@@ -50,7 +50,7 @@ const PasswordResetSend: React.FC = () => {
       body: JSON.stringify({ email, code: verificationCode }),
     });
 
-    if (res.ok) {
+    if (res.status === 200) {
       setCodeVerified(true);
       setCode(Array(4).fill(''));
       setErrorMessage('');

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { GoogleMap, OverlayView } from '@react-google-maps/api';
 import { useIonRouter } from '@ionic/react';
 import { formatDateTime } from './datetime';
@@ -59,7 +59,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
   const searchSVG = '/svg/search.svg';
   const detailSVG = '/svg/detail.svg';
   const locationSVG = '/svg/location.svg';
-  
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   }
