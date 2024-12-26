@@ -202,12 +202,7 @@ const EventReview2: React.FC = () => {
           <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
             <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-xl font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
-                <IonRouterLink routerLink={'/event/eventHistory2'}>
-                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
-                <h2 className='grow pr-4'>イベントレビュー</h2>
-              </div>
+              <h2 className='text-lg font-semibold text-center text-white pt-6'>イベントレビュー</h2>
             </div>
             {/* container */}
             <div className='px-4'>
