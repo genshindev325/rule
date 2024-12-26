@@ -88,7 +88,7 @@ const EventDetail: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-screen w-screen bg-white text-gray-800 space-y-1">
+          <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
             <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>

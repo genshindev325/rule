@@ -81,7 +81,7 @@ const EventPayment: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
+          <div className="flex items-start justify-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               {/* Header Section */}
               <div className="py-4 sm:py-5 md:py-6 px-4 md:px-8 flex flex-row text-white font-semibold text-lg text-center">
