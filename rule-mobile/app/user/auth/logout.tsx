@@ -26,7 +26,7 @@ const LogOut: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
+        <div className="flex items-start justify-center h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
           <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
             <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
               <h2 className="text-lg font-semibold py-8 sm:py-10 md:py-12 text-center">Sign Out</h2>

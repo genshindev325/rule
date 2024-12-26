@@ -106,7 +106,7 @@ const ChatList: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className='min-h-screen min-w-full flex flex-col bg-white text-gray-800 pb-4 sm:pb-6'>
+          <div className='h-[calc(100vh-56px)] min-w-full flex flex-col bg-white text-gray-800 pb-4 sm:pb-6'>
             {/* Header */}
             <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>

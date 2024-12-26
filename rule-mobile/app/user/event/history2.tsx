@@ -141,7 +141,7 @@ const EventHistory2: React.FC = () => {
     <IonPage>
       <IonContent>      
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col items-center min-h-screen w-screen bg-white text-gray-800">
+          <div className="flex flex-col items-center h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
               {/* header */}
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
