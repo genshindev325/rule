@@ -29,7 +29,7 @@ const LogOut: React.FC = () => {
         <div className="flex items-start justify-center h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
           <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
             <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16">
-              <h2 className="text-lg font-semibold py-8 sm:py-10 md:py-12 text-center">Sign Out</h2>
+              <h2 className="text-lg font-semibold py-8 sm:py-10 md:py-12 text-center">ログアウト</h2>
               <h2 className="mb-8 text-center text-sm text-gray-600">
                 本当にログアウトしますか?
               </h2>
@@ -39,7 +39,7 @@ const LogOut: React.FC = () => {
                   onClick={handleSignOut}
                   className={`w-full ${textSm} py-2 px-4 rounded-2xl border-2 border-solid border-red-500 bg-transparent text-red-500 hover:text-white hover:bg-red-500 focus:outline-none duration-500`}
                 >
-                  サインアウト
+                  ログアウト
                 </button>
                 <button
                   type="button"
