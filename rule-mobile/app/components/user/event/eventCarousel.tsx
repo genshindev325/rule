@@ -40,7 +40,6 @@ interface EventCarouselProps {
 
 const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   const settings = {
-    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -51,7 +50,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     // <div className="bg-gray-100">
       <Slider {...settings}>
         {events.map((event, index) => (
-          <div key={index} className="px-4 my-2">
+          <div key={index} className="px-4 my-1">
             <IonRouterLink routerLink={`/event/eventDetail?event=${encodeURIComponent(JSON.stringify(event))}`} className='text-black'>
               <EventCard {...event} />
             </IonRouterLink>

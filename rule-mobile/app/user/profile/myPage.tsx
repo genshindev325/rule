@@ -33,10 +33,9 @@ const Profile: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center h-[calc(100vh-56px)] w-screen bg-white text-gray-700">
             <div className={`h-40 sm:h-44 w-full px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-row ${maleGradient}`}>
-              {/* header */}
-              <IonRouterLink routerLink={'/home'}>
+              <button onClick={() => router.goBack()}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-              </IonRouterLink>
+              </button>
               <h2 className='grow text-lg font-semibold text-center text-white pr-6'>マイページ</h2>
             </div>
             {/* container */}

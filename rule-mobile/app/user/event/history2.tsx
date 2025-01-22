@@ -21,6 +21,10 @@ interface UpcomingEventProps {
   femaleFee: number;
   femaleTotal: number;
   females: number;
+  store: {
+    storeName: string;
+    address: string;
+  }
 }
 
 interface PastEventProps {
@@ -73,10 +77,8 @@ const EventHistory2: React.FC = () => {
   }, [userProfile])
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
-  const container = 'rounded-2xl bg-white -mt-20 px-3 sm:px-4 md:px-6 py-6 sm:py-12 md:py-20 flex flex-col shadow-md space-y-4 w-[90vw]';
+  const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
 
-  const textLg = 'text-lg sm:text-xl font-bold';
-  const textMd = 'text-base sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-base font-semibold';
 
   useEffect(() => {
@@ -142,39 +144,41 @@ const EventHistory2: React.FC = () => {
       <IonContent>      
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
-            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
+            <div className={`h-20 sm:h-24 w-full ${maleGradient}`}>
               {/* header */}
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
-                <IonRouterLink routerLink={'/home'}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 sm:pt-4 px-4 sm:px-6 md:px-8'>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>イベント予約履歴</h2>
               </div>
-            </div>
-            {/* container */}
-            <div className={`${container}`}>
               {/* tab */}
-              <div className='flex flex-row px-2 sm:px-4 md:px-6 lg:px-10 justify-evenly'>
+              <div className='flex flex-row px-2 sm:px-4 md:px-6 pt-2 sm:pt-4 justify-evenly'>
                 <button
                   type='button'
-                  className={`${tab === 'upcoming' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
+                  className={`${tab === 'upcoming' ? femaleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
                   onClick={showUpcomingEvents}
                 >
                   今後のイベント
                 </button>
                 <button
                   type='button'
-                  className={`${tab === 'past' ? maleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
+                  className={`${tab === 'past' ? femaleGradient + ' text-white' : 'bg-white'} rounded-full ${textSm} py-1 sm:py-2 px-3 duration-300`}
                   onClick={showPastEvents}
                 >
                   過去のイベント
                 </button>
               </div>
+            </div>
+            {/* container */}
+            <div className='pt-4 px-4 sm:px-6 w-full'>
               {/* upcoming events */}
               <div className={`${tab === 'upcoming' ? '' : 'hidden'} space-y-4`}>
                 {upcomingEvents.map((event, index) => (          
                   <div key={index}>
-                    <EventCard { ...event } />
+                    <IonRouterLink routerLink={`/event/eventCancel?event=${encodeURIComponent(JSON.stringify(event))}`}>
+                      <EventCard { ...event } />
+                    </IonRouterLink>
                   </div>
                 ))}
               </div>

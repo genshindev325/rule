@@ -108,14 +108,14 @@ const ChatList: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className='h-[calc(100vh-56px)] min-w-full flex flex-col bg-white text-gray-800 pb-4 sm:pb-6'>
             {/* Header */}
-            <div className={`h-28 md:h-32 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
-                <IonRouterLink routerLink={'/home'}>
+            <div className={`h-20 sm:h-24 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 sm:pt-4 px-4 sm:px-6 md:px-8'>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>お問い合わせ</h2>
               </div>
-              <div className='py-2 px-4 sm:px-6 mt-2'>
+              <div className='px-10 sm:px-12 mt-2'>
                 <input
                   type="text"
                   value={searchTerm}

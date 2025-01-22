@@ -40,9 +40,9 @@ const StarRating: React.FC<StarRatingProps> = ({ rate, onRateChange }) => {
             onMouseLeave={handleMouseLeave}
           >
             {isFilled ? (
-              <StarSolid className="w-5 h-5 bg-transparent text-blue-300" />
+              <StarSolid className="w-3 h-3 bg-transparent text-blue-300" />
             ) : (
-              <StarOutline className="w-5 h-5 text-gray-400" />
+              <StarOutline className="w-3 h-3 text-gray-400" />
             )}
           </div>
         );

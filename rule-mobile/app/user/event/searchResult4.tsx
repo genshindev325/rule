@@ -9,23 +9,19 @@ import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
-  _id: string,
-  eventName: string,
-  category: string,
-  coverImage: string,
-  description: string,
-  eventDate: string,
-  eventStartTime: string,
-  eventEndTime: string,
-  maleFee: number,
-  maleTotal: number,
-  males: number,
-  femaleFee: number,
-  femaleTotal: number,
-  females: number,
-  store: string;
-  status: string,
-  createdAt: string
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
+  store: {
+    storeName: string;
+    address: string;
+  }
 }
 
 const SearchResult4: React.FC = () => {
@@ -33,8 +29,7 @@ const SearchResult4: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = ' -mt-24 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[90vw] min-h-[80vh]';
   const textMd = 'text-base sm:text-lg';
-
-  // get events from findDetailModal params
+  const router = useIonRouter();
   const searchParams = useSearchParams ();
   const resultEvents = searchParams.get('events');
 
@@ -51,10 +46,10 @@ const SearchResult4: React.FC = () => {
           <div className="flex flex-col items-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             {/* header */}
             <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-lg text-center text-white font-semibold pt-6 px-4'>                
-                <IonRouterLink routerLink={'/event/findOnMap'}>
+              <div className='flex flex-row text-lg text-center text-white font-semibold pt-6 px-4'>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
             </div>

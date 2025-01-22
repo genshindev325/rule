@@ -1,48 +1,59 @@
-import React, { useCallback, useRef } from 'react';
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import React, { useEffect, useRef } from 'react';
 
-interface GoogleMapComponentProps {
+interface GoogleMapLocationProps {
   lat: number;
   lng: number;
 }
 
-const mapContainerStyle = {
-  width: '100%',
-  height: '200px',
-};
+const GoogleMapLocation: React.FC<GoogleMapLocationProps> = ({ lat, lng }) => {
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
-const GoogleMapLocation: React.FC<GoogleMapComponentProps> = ({ lat, lng }) => {
-  const mapRef = useRef<google.maps.Map | null>(null);
+  useEffect(() => {    
+    const initializeMap = async () => {
+      if (!mapRef.current) return;
+      
+      try {
+        const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
-  // Load the map and optionally geocode the address
-  const handleMapLoad = useCallback(
-    (map: google.maps.Map) => {
-      mapRef.current = map;      
-      // Set center of the map using lat/lng if no address is provided
-      const center = { lat, lng };
-      map.setCenter(center);
-    },
-    [lat, lng]
-  );
+        const map = new Map(mapRef.current, {
+          center: { lat, lng },
+          zoom: 16,
+          mapId: 'abcd1234efgh5678',
+          zoomControl: false,
+          scrollwheel: true,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false
+        });
+    
+        const marker = new AdvancedMarkerElement({
+          map,
+          position: { lat, lng },
+          title: "Event Location",
+        });
+
+        return () => {
+          marker.map = null;
+        };
+      } catch (error) {
+        console.log('Failed to initialize Google Map:', error)
+      }
+    }
+
+    initializeMap();
+  }, [lat, lng]);
 
   return (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      zoom={14}
-      onLoad={handleMapLoad}
-      options={{
-        scrollwheel: true,
-        draggable: true,
-        zoomControl: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        fullscreenControl: false,
+    <div
+      ref={mapRef}
+      style={{
+        height: '150px',
+        width: '100%',
+        borderRadius: '10px',
+        overflow: 'hidden',
       }}
-      mapContainerClassName={`relative `}
-    >
-      {/* Add marker at the center of the map */}
-      <Marker position={{ lat, lng, }} />
-    </GoogleMap>
+    />
   );
 };
 

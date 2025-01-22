@@ -208,7 +208,7 @@ const FormInput: React.FC<FormInputInterface> = ({ totalPrice, eventId, fee, eve
               },
               body: JSON.stringify({ userId, eventId, totalPrice, fee, paymentDate, storeId, storeName }),
             });
-      
+
             if (response.status === 201) {
               toast.success('参加成功!', {
                 hideProgressBar: true,

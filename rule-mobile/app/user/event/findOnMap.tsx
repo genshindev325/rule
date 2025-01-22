@@ -120,14 +120,14 @@ const FindOnMap: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             {/* Header */}
-            <div className={`h-28 sm:h-32 w-full ${maleGradient} z-10`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-6 sm:pt-8 px-4 sm:px-6 md:px-8'>
-                <IonRouterLink routerLink={'/home'}>
+            <div className={`h-20 sm:h-24 w-full ${maleGradient} z-10`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 sm:pt-4 px-4 sm:px-6 md:px-8'>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
-              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl pl-2 pr-7 md:pl-4 md:pr-9 mx-4 sm:mx-6 mt-4">
+              <div className="flex flex-row items-center bg-white rounded-lg shadow-xl pl-2 pr-7 md:pl-4 md:pr-9 mx-10 sm:mx-12 mt-2 sm:mt-4">
                 {/* <img src={settingSVG} alt="settings" className="w-4" /> */}
                 <button onClick={handleSearch} className='text-[#7D67EE]'>
                   <FaSearch />
@@ -141,7 +141,7 @@ const FindOnMap: React.FC = () => {
                 />
               </div>
             </div>
-            {/* Google Map Background */}
+            {/* Google Map background */}
             <GoogleMapBackground events={upcomingEvents} address="Osaka, Japan" className="w-full" />
             <SearchResultModal isOpen={isOpenSearchResultModal} resultEvents={searchedEvents} onClose={handleCloseSearchResultModal} />
           </div>

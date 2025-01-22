@@ -17,7 +17,6 @@ const RegistSuccess: React.FC = () => {
   const textXs = 'text-xs sm:text-sm md:text-base';
   
   const selectedEvent = useSelector((state: RootState) => state.event.selectedEvent);
-  const handle20Over = () => {};
 
   if (!selectedEvent) {
     console.log("Missing user information or event data.");
@@ -39,11 +38,6 @@ const RegistSuccess: React.FC = () => {
             <div className='rounded-2xl bg-white p-4 px-6 sm:px-7 md:px-8 mb-4 flex flex-col items-start space-y-1'>
               <h2 className={`${textSm} font-semibold`}>{selectedEvent.eventName}</h2>
               <h2 className={textSm}>{formatDateTime(selectedEvent.eventStartTime)}~{formatReturnTime(selectedEvent.eventEndTime)}</h2>
-              <div className={`${textSm} flex flex-row space-x-2`}>
-                <button className={`${textXs} rounded-full bg-[#e6e6e6] px-2 py-1`} onClick={handle20Over}>20代以上</button>
-                <button className={`${textXs} rounded-full bg-[#e6e6e6] px-2 py-1`} onClick={handle20Over}>大学生Only</button>
-                <button className={`${textXs} rounded-full bg-[#e6e6e6] px-2 py-1`} onClick={handle20Over}>アニメ好き</button>
-              </div>
               <img src={selectedEvent.coverImage} alt={`event-profile`} width={350} height={70} className="py-1" />
               <button className={`${textSm} bg-transparent border-solid border-2 rounded-lg border-black text-black font-semibold py-1 w-full`}>イベント概要</button>
               <h2 className={`${textSm} py-1`}>{selectedEvent.description}</h2>

@@ -3,13 +3,13 @@
 'use client';
 
 import React from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 const ProfileSetting: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = 'w-[90vw] rounded-xl bg-white -mt-24 px-6 sm:px-8 pb-6 sm:pb-8 md:py-10 flex flex-col shadow-md';
-  const textLg = 'text-center text-lg sm:text-xl md:text-2xl font-bold';
+  const router = useIonRouter();
   const textMd = 'text-base sm:text-lg font-semibold';
   const textSm = 'text-sm sm:text-base';
 
@@ -19,10 +19,9 @@ const ProfileSetting: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             <div className={`h-40 sm:h-44 w-full px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-row ${maleGradient}`}>
-              {/* header */}
-              <IonRouterLink routerLink={'/profile/myPage'}>
+              <button onClick={() => router.goBack()}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-              </IonRouterLink>
+              </button>
               <h2 className='grow text-lg font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}

@@ -266,7 +266,7 @@ const FormInput: React.FC = () => {
         <button type='button' onClick={handleRegister} className={`${maleGradient} rounded-full py-2 text-white ${textSm} py-2 sm:py-4 md:py-6 font-bold`}>
           登録する
         </button>
-        <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white font-bold text-center ${textSm}`}>
+        <button type='button' onClick={() => router.goBack()} className={`bg-gray-400 rounded-full py-2 text-white font-bold text-center ${textSm}`}>
           キャンセル
         </button>
       </div>

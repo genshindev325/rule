@@ -3,12 +3,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import FullCarousel from '@/app/components/user/search/fullCarousel';
-import Star from '@/app/components/user/event/starSVG';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import StarRating from '@/app/components/utils/starRating';
 import { RootState } from '@/app/store/store';
@@ -65,7 +64,7 @@ const EventReview2: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'w-full rounded-2xl -mt-24 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
+  const container = 'w-full rounded-2xl -mt-10 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
   const textMd = 'text-base sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-base md:text-lg';
@@ -201,8 +200,13 @@ const EventReview2: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800 space-y-1">
             {/* header */}
-            <div className={`h-40 sm:h-44 w-full ${maleGradient}`}>
-              <h2 className='text-lg font-semibold text-center text-white pt-6'>イベントレビュー</h2>
+            <div className={`h-20 sm:h-24 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 sm:pt-4 px-4 sm:px-6 md:px-8'>
+                <button onClick={() => router.goBack()}>
+                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
+                </button>
+                <h2 className='grow pr-6'>イベントレビュー</h2>
+              </div>
             </div>
             {/* container */}
             <div className='px-4'>
@@ -216,15 +220,15 @@ const EventReview2: React.FC = () => {
                     <div key={index} className='rounded-full bg-gray-200 px-3 md:px-4 py-1'>{type}</div>
                   ))}
                 </div>
-                <img src={`${selectedEvent?.coverImage}`} />
+                <img src={`${selectedEvent?.coverImage}`} className='w-[90vw] max-h-48'/>
                 {/* male */}
-                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
+                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 mt-2 flex flex-col'>
                   <div className='flex flex-row items-center'>
                     <div className={`${maleGradient} px-2 py-1 rounded-full w-10 sm:w-12 text-center ${textXs} text-white my-auto`}>男性</div>
                     <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.males}/{selectedEvent?.maleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
+                    <div className="w-20 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${maleGradient}`} 
                         style={{ width: `${selectedEvent ? selectedEvent.males/selectedEvent.maleTotal * 100 : 0}%` }}
@@ -232,17 +236,17 @@ const EventReview2: React.FC = () => {
                     </div>
                   </div>
                   <div className='flex flex-row-reverse'>
-                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-lg'>{selectedEvent?.maleFee}</strong>円(税込)</h2>
+                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-sm'>{selectedEvent?.maleFee}</strong>円(税込)</h2>
                   </div>
                 </div>
                 {/* female */}
-                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
+                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 mt-2 flex flex-col'>
                   <div className='flex flex-row items-center'>
                     <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-base text-white my-auto`}>女性</div>
                     <h2 className={`${textXs} pl-2`}>募集人数</h2>
                     <h2 className={`${textSm} pl-2`}>|</h2>
                     <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
+                    <div className="w-20 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
                       <div 
                         className={`h-3 md:h-6 ${femaleGradient}`} 
                         style={{ width: `${selectedEvent ? selectedEvent.females/selectedEvent.femaleTotal * 100 : 0}%` }}
@@ -250,7 +254,7 @@ const EventReview2: React.FC = () => {
                     </div>
                   </div>
                   <div className='flex flex-row-reverse'>
-                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-lg'>{selectedEvent?.femaleFee}</strong>円(税込)</h2>
+                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-sm'>{selectedEvent?.femaleFee}</strong>円(税込)</h2>
                   </div>
                 </div>
                 {/* button */}
@@ -336,7 +340,7 @@ const EventReview2: React.FC = () => {
                 </button>
               }
               <div className={`pb-6 pt-2 flex w-full`}>
-                <button onClick={() => router.back()} className={`grow bg-gray-400 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
+                <button onClick={() => router.goBack()} className={`grow bg-gray-400 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
               </div>
             </div>
           </div>
