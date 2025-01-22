@@ -47,6 +47,10 @@ interface PastEventProps {
     description: string;
     storeImages: string;
     storeName: string;
+    storeGenre: string;
+    cookingGenre: string;
+    storeLat: number;
+    storeLng: number;
   };
 }
 

@@ -63,9 +63,9 @@ const Tabs = () => {
         <Route path="/setting/uploadIdentityCard" component={UploadIdentityCard} />
         {/* user/auth */}
         <Route path="/auth/signup" component={SignUp} />
-        <Route path="/auth/login" component={Login} />
+        <Route path="/auth/login" render={() => <Login />} exact={true} />
         <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
-        <Route path="/auth/logout" component={LogOut} />
+        <Route path="/auth/logout" render={() => <LogOut />} exact={true} />
         <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
         <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
         <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />

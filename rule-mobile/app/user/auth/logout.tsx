@@ -20,7 +20,7 @@ const LogOut: React.FC = () => {
   };
 
   const handleCancel = () => {
-    router.push('/home');
+    router.goBack();
   }
 
   return (
