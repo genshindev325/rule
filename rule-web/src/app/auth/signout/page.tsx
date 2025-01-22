@@ -16,7 +16,7 @@ const SignOut = () => {
   }
 
   const handleCancel = () => {
-    router.goBack();
+    router.back();
     const previewMenu = sessionStorage.getItem('previewMenu');
     previewMenu && sessionStorage.setItem('selectedMenu', previewMenu);
   }
