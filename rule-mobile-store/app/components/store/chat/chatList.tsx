@@ -32,7 +32,7 @@ const ChatList: React.FC = () => {
   };
 
   return (
-    <div className="w-1/4 py-4 bg-gray-100 border-gray-300 border-r-2 border-solid text-gray-800">
+    <div className="w-1/4 py-4 bg-gray-100 border-gray-300 text-gray-800 border-r-2 border-solid">
       <h2 className="text-2xl font-bold mb-4 ml-6">お問い合わせ</h2>
       <input
         type="text"

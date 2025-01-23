@@ -32,17 +32,17 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isVis
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 text-gray-800">
       <div ref={modalRef} className="bg-white p-4 rounded shadow-lg">
-        <h3 className="text-base font-bold mb-4">削除の確認</h3>
-        <p>本当にこのアイテムを削除しますか？</p>
+        <h3 className="text-base font-semibold mb-4">削除の確認</h3>
+        <p className='text-sm sm:text-base'>本当にこのアイテムを削除しますか？</p>
         <div className="mt-4 flex justify-end">
           <button
-            className="bg-red-500 text-white text-sm sm: text-base px-4 py-2 rounded mr-2 duration-300"
+            className="bg-red-500 text-white text-sm sm:text-base font-semibold px-4 py-2 rounded mr-2 duration-300"
             onClick={onConfirm}
           >
             削除
           </button>
           <button
-            className="bg-gray-500 text-white text-sm sm: text-base px-4 py-2 rounded duration-300"
+            className="bg-gray-500 text-white text-sm sm:text-base font-semibold px-4 py-2 rounded duration-300"
             onClick={onCancel}
           >
             キャンセル

@@ -25,7 +25,7 @@ const EventCard: React.FC<CardProps> = ({
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
 
   return (
-    <div className="flex flex-row space-x-2 bg-white rounded-xl p-2 text-gray-800">
+    <div className="flex flex-row space-x-2 bg-white text-gray-800 rounded-xl p-2">
       <img src={coverImage} alt={`event-profile`} className="rounded-md rounded-br-none w-24 sm:w-36 h-20 sm:h-24" />
       <div className='flex flex-col space-y-1'>
         <h2 className="text-xs sm:text-sm md:text-base font-bold">{eventName}</h2>
