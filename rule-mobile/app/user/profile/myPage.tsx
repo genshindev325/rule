@@ -31,12 +31,11 @@ const Profile: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col items-center h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
+          <div className="flex flex-col items-center h-[calc(100vh-56px)] w-screen bg-white text-gray-700">
             <div className={`h-56 sm:h-60 md:h-64 w-full px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 pt-16 sm:pt-20 md:pt-24 flex flex-row ${maleGradient}`}>
-              {/* header */}
-              <IonRouterLink routerLink={'/home'}>
+              <button onClick={() => router.goBack()}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-              </IonRouterLink>
+              </button>
               <h2 className='grow text-lg font-semibold text-center text-white pr-6'>マイページ</h2>
             </div>
             {/* container */}

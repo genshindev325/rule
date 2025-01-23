@@ -129,10 +129,9 @@ const ProfilePassword: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col items-center min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800">
             <div className={`h-56 sm:h-60 md:h-72 w-full px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 pt-16 sm:pt-20 md:pt-24 flex flex-row ${maleGradient}`}>
-              {/* header */}
-              <IonRouterLink routerLink={'/profile/myPage'}>
+              <button onClick={() => router.goBack()}>
                 <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-              </IonRouterLink>
+              </button>
               <h2 className='grow text-lg font-semibold text-center text-white pr-10'>マイページ</h2>
             </div>
             {/* container */}
@@ -162,7 +161,7 @@ const ProfilePassword: React.FC = () => {
               {/* buttons */}
               <div className='flex flex-col space-y-4 py-10 w-full'>
                 <button type='submit' className={`${maleGradient} rounded-full py-2 text-white ${textSm}`}>登録する</button>
-                <button type='button' onClick={() => router.back()} className={`bg-gray-400 rounded-full py-2 text-white text-center ${textSm}`}>キャンセル</button>
+                <button type='button' onClick={() => router.goBack()} className={`bg-gray-400 rounded-full py-2 text-white text-center ${textSm}`}>キャンセル</button>
               </div>
             </form>
           </div>

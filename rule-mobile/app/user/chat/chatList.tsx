@@ -110,12 +110,12 @@ const ChatList: React.FC = () => {
             {/* Header */}
             <div className={`h-40 sm:h-44 md:h-48 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
-                <IonRouterLink routerLink={'/home'}>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>お問い合わせ</h2>
               </div>
-              <div className='py-2 px-4 sm:px-6 mt-2'>
+              <div className='px-10 sm:px-12 mt-2'>
                 <input
                   type="text"
                   value={searchTerm}

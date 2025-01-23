@@ -163,9 +163,9 @@ const ChatMessages: React.FC = () => {
             {/* Header */}
             <div className={`h-14 sm:h-16 md:h-20 w-full ${maleGradient} z-10`}>
               <div className='flex flex-row text-lg font-semibold text-center text-white pt-4 px-4'>
-                <IonRouterLink routerLink={'/chatList'}>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-4'>{chatName}</h2>
               </div>
             </div>

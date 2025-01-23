@@ -44,8 +44,8 @@ const RegisterBirthday: React.FC<RegisterBirthdayInterface> = ({ isOpen, onUserB
 
   return (
     <div className="flex items-start justify-center min-h-screen w-screen bg-white text-gray-800">
-      <div className="h-32 md:h-48 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
-        <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-12 sm:mt-14 md:mt-16 pb-12 md:pb-14">
+      <div className="h-40 sm:h-44 w-full bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]">
+        <div className="bg-white rounded-2xl shadow-xl px-4 sm:px-6 md:px-8 mx-5 sm:mx-6 md:mx-8 mt-16 sm:mt-20 md:mt-24 pb-12 md:pb-14">
           <h2 className="text-base sm:text-lg md:text-xl font-bold py-8 sm:py-10 text-center">誕生日を登録してください</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4 px-4 flex flex-row gap-4 text-base md:text-xl">

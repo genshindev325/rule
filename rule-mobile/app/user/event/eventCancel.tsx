@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { IoAlertCircle } from 'react-icons/io5';
-import FullCarousel from '@/app/components/user/search/fullCarousel';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +16,14 @@ import GoogleMapLocation from '@/app/components/utils/googleMapLocate';
 import CautionModal from '@/app/components/user/event/cautionModal';
 import { SERVER_URL } from '@/app/config';
 import { toast } from 'react-toastify';
+import EventCancelModal from '@/app/components/user/event/eventCancelModal';
+import EventCancelledModal from '@/app/components/user/event/eventCancelledModal';
+import { getPaymentDate } from '@/app/components/utils/getPaymentDate';
 
-const EventDetail: React.FC = () => {
+const EventCancel: React.FC = () => {
   const [isCaution, setIsCaution] = useState(false);
+  const [isEventCancelModalOpen, setIsEventCancelModalOpen] = useState(false);
+  const [isEventCancelledModalOpen, setIsEventCancelledModalOpen] = useState(false);
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const eventString = searchParams.get('event');
@@ -27,11 +31,8 @@ const EventDetail: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
   const container = 'flex flex-col p-4 sm:p-6 space-y-1 bg-white rounded-2xl shadow-lg z-50';
-
   const textMd = 'text-base sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
-
   const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';
   
   // Redux state selectors
@@ -53,29 +54,39 @@ const EventDetail: React.FC = () => {
   if (!userInfo || !selectedEvent) {
     console.log("Missing user information or event data.");
     return;
-  };
+  }
 
-  const checkParticipation = async () => {
-    // check whether user already participate into the event...
+  // Derived states
+  const paymentDate = selectedEvent ? getPaymentDate(selectedEvent.eventDate) : '';
+  const userId = userInfo._id;
+  const gender = userInfo.gender;
+  const eventId = selectedEvent._id;
+  const maleFee = selectedEvent.maleFee;
+  const femaleFee = selectedEvent.femaleFee;
+  const eventPrice = gender === 'male' ? maleFee : femaleFee;
+  const totalPrice = Math.ceil(eventPrice * 1.05);
+  const fee = totalPrice - eventPrice;
+
+  const confirmCancelParticipation = async () => {
     if (!token) {
       router.push('/auth/login');
     } else {
-      const response = await fetch(`${SERVER_URL}/api/events/participate/check`, {
-        method: 'POST',
+      const response = await fetch(`${SERVER_URL}/api/events/participate`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ 
-          userId: userInfo._id,
-          eventId: selectedEvent._id,
-          gender: userInfo.gender }),
+        body: JSON.stringify({ userId, eventId, paymentDate, totalPrice, fee }),
       });
-      if (response.status === 200) {
-        router.push('/event/payment');
+
+      if (response.status === 201) {
+        setIsEventCancelModalOpen(false);
+        setIsEventCancelledModalOpen(true);
       } else {
+        setIsEventCancelModalOpen(false);
         const result = await response.json();
-        toast.info('このイベントにはすでに参加しています。', {
+        toast.info(`イベント参加のキャンセル中にエラーが発生しました。もう一度お試しください。エラー: ${result.message}`, {
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
@@ -92,12 +103,12 @@ const EventDetail: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-zinc-700 space-y-1">
             {/* header */}
-            <div className={`h-36 sm:h-40 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
+            <div className={`h-20 sm:h-24 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 px-4'>
                 <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </button>
-                <h2 className='grow pr-4'>イベント情報</h2>
+                <h2 className='grow pr-4'>参加イベント情報</h2>
               </div>
             </div>
             {/* container */}
@@ -115,7 +126,7 @@ const EventDetail: React.FC = () => {
                   <h2 className={`pl-2 my-auto`} style={{ fontSize: '0.65rem' }}>募集人数</h2>
                   <h2 className={`pl-3 my-auto`} style={{ fontSize: '0.65rem' }}>{selectedEvent.males}/{selectedEvent.maleTotal}</h2>
                   <div className="w-16 sm:w-20 bg-gray-200 h-2 rounded-full my-auto ml-1">
-                    <div 
+                    <div
                       className={`h-2 ${maleGradient} rounded-full`} 
                       style={{ width: `${selectedEvent.males / selectedEvent.maleTotal * 100}%` }}
                     ></div>
@@ -172,18 +183,20 @@ const EventDetail: React.FC = () => {
                 </div>
                 {/* buttons */}
                 <div className={`flex w-2/3 mx-auto pt-4 pb-2`}>
-                  <button className={`grow ${maleGradient} text-sm rounded-full py-1 sm:py-2 text-white`} onClick={checkParticipation}>
-                    決済して参加する
+                  <button className={`grow ${femaleGradient} text-sm rounded-full py-1 sm:py-2 text-white`} onClick={() => setIsEventCancelModalOpen(true)}>
+                    参加予約をキャンセル
                   </button>
                 </div>
                 <div className={`flex w-2/3 mx-auto pb-4`}>
-                  <button onClick={() => router.goBack()} className={`grow bg-gray-400 text-sm rounded-full py-1 sm:py-2`}>
+                  <button onClick={() => router.goBack()} className={`grow bg-gray-400 text-sm text-white rounded-full py-1 sm:py-2`}>
                     戻る
                   </button>
                 </div>
               </div>
             </div>
             <CautionModal isOpen={isCaution} caution={caution} onClose={() => setIsCaution(false)} />
+            <EventCancelModal isOpen={isEventCancelModalOpen} onClose={() => setIsEventCancelModalOpen(false)} onConfirmCancel={confirmCancelParticipation} />
+            <EventCancelledModal isOpen={isEventCancelledModalOpen} onClose={() => setIsEventCancelledModalOpen(false)} />
           </div>
         </AuthWrapper>
       </IonContent>
@@ -191,4 +204,4 @@ const EventDetail: React.FC = () => {
   );
 };
 
-export default EventDetail;
+export default EventCancel;

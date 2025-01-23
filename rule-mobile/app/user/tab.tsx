@@ -34,6 +34,7 @@ import EventPayment from "@/app/user/event/payment";
 import RegistSuccess from "@/app/user/event/registSuccess";
 import EventDetail from "@/app/user/event/eventDetail";
 import SearchResult4 from "@/app/user/event/searchResult4";
+import EventCancel from "@/app/user/event/eventCancel";
 
 // Chat
 import ChatList from "@/app/user/chat/chatList";
@@ -62,9 +63,9 @@ const Tabs = () => {
         <Route path="/setting/uploadIdentityCard" component={UploadIdentityCard} />
         {/* user/auth */}
         <Route path="/auth/signup" component={SignUp} />
-        <Route path="/auth/login" component={Login} />
+        <Route path="/auth/login" render={() => <Login />} exact={true} />
         <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
-        <Route path="/auth/logout" component={LogOut} />
+        <Route path="/auth/logout" render={() => <LogOut />} exact={true} />
         <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
         <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
         <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
@@ -76,6 +77,7 @@ const Tabs = () => {
         <Route path="/event/eventPayment" render={() => <EventPayment />} exact={true} />
         <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
         <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
+        <Route path="/event/eventCancel" render={() => <EventCancel />} exact={true} />
         {/* chat */}
         <Route path="/chatList" render={() => <ChatList />} exact={true} />
         <Route path="/chatMessages" render={() => <ChatMessages />} exact={true} />

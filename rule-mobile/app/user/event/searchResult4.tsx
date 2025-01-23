@@ -9,23 +9,19 @@ import EventCard from '@/app/components/user/event/eventCard';
 import AuthWrapper from '@/app/components/auth/authWrapper';
 
 interface EventProps {
-  _id: string,
-  eventName: string,
-  category: string,
-  coverImage: string,
-  description: string,
-  eventDate: string,
-  eventStartTime: string,
-  eventEndTime: string,
-  maleFee: number,
-  maleTotal: number,
-  males: number,
-  femaleFee: number,
-  femaleTotal: number,
-  females: number,
-  store: string;
-  status: string,
-  createdAt: string
+  eventName: string;
+  eventDate: string;
+  coverImage: string;
+  maleFee: number;
+  maleTotal: number;
+  males: number;
+  femaleFee: number;
+  femaleTotal: number;
+  females: number;
+  store: {
+    storeName: string;
+    address: string;
+  }
 }
 
 const SearchResult4: React.FC = () => {
@@ -33,8 +29,7 @@ const SearchResult4: React.FC = () => {
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const container = ' -mt-32 rounded-2xl bg-white px-3 sm:px-12 md:px-14 ld:px-16 py-6 sm:py-12 md:py-16 flex flex-col shadow-md space-y-4 w-[92vw] min-h-[80vh]';
   const textMd = 'text-base sm:text-lg';
-
-  // get events from findDetailModal params
+  const router = useIonRouter();
   const searchParams = useSearchParams ();
   const resultEvents = searchParams.get('events');
 
@@ -52,9 +47,9 @@ const SearchResult4: React.FC = () => {
             {/* header */}
             <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
               <div className='flex flex-row text-lg text-center text-white font-semibold pt-16 sm:pt-20 md:pt-24 px-4'>                
-                <IonRouterLink routerLink={'/event/findOnMap'}>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-6'>イベントを探す</h2>
               </div>
             </div>

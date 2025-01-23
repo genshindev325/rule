@@ -210,18 +210,18 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ events, address
       {selectedEvent && renderCustomInfoWindow(selectedEvent)}
 
       {/* image carousel and buttons */}
-      <div className='absolute bottom-11 left-0 right-0 flex flex-col items-center justify-center'>
-        <div className='h-28 w-full shadow bg-white/70'>
+      <div className='absolute bottom-4 left-0 right-0 flex flex-col items-center justify-center'>
+        <div className='h-24 w-full shadow bg-white/70'>
           <EventCarousel events={events}/>
         </div>
-        <div className='flex flex-row justify-center items-center space-x-12 md:space-x-36 pt-6 z-10'>
-          <button className={`rounded-md w-10 h-10 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-1000`} onClick={handleOpenModal}>
+        <div className='flex flex-row justify-center items-center space-x-12 pt-4 z-10'>
+          <button className={`rounded-md w-8 h-8 ${!isModalOpen ? maleGradient : 'bg-gray-800'} fill-white duration-1000`} onClick={handleOpenModal}>
             <img src={searchSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
-          <button className={`rounded-md w-10 h-10 ${!isRecentEventsOpen ? maleGradient : 'bg-gray-800'} text-white duration-1000`} onClick={handleOpenRecentEventModal}>
+          <button className={`rounded-md w-8 h-8 ${!isRecentEventsOpen ? maleGradient : 'bg-gray-800'} text-white duration-1000`} onClick={handleOpenRecentEventModal}>
             <img src={detailSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
-          <button className={`rounded-md w-10 h-10 ${maleGradient} text-white`} onClick={panToCurrentLocation}>
+          <button className={`rounded-md w-8 h-8 ${maleGradient} text-white`} onClick={panToCurrentLocation}>
             <img src={locationSVG} className="rounded-md mx-auto w-4 fill-white" />
           </button>
         </div>

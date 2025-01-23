@@ -22,6 +22,7 @@ interface EventProps {
     storeImages: string[],
     address: string;
     access: string[],
+    storeGenre: string;
     cookingGenre: string;
     description: string;
     storeLat: number;

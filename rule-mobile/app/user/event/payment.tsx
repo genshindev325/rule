@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IonPage, IonContent, IonRouterLink } from '@ionic/react';
+import { IonPage, IonContent, IonRouterLink, useIonRouter } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
 import { setSelectedEvent } from '@/app/store/features/event/EventSlice';
@@ -22,6 +22,7 @@ const EventPayment: React.FC = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const eventString = searchParams.get('event');
+  const router = useIonRouter();
 
   useEffect(() => {
     if (eventString) {
@@ -85,9 +86,9 @@ const EventPayment: React.FC = () => {
             <div className={`h-44 sm:h-48 md:h-52 w-full ${maleGradient}`}>
               {/* Header Section */}
               <div className="pb-4 sm:pb-5 md:pb-6 pt-16 sm:pt-20 md:pt-24 px-4 md:px-8 flex flex-row text-white font-semibold text-lg text-center">
-                <IonRouterLink routerLink={'/event/findOnMap'}>
+                <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
-                </IonRouterLink>
+                </button>
                 <h2 className='grow pr-4'>イベントに参加</h2>
               </div>
               {/* Event Details */}

@@ -3,14 +3,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter, IonRouterLink } from '@ionic/react';
 import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
-
-import FullCarousel from '@/app/components/user/search/fullCarousel';
-import Star from '@/app/components/user/event/starSVG';
+import { FaPaperPlane } from 'react-icons/fa';
+import GoogleMapLocation from '@/app/components/utils/googleMapLocate';
 import AuthWrapper from '@/app/components/auth/authWrapper';
-import StarRating from '@/app/components/utils/starRating';
+import SendReviewModal from '@/app/components/user/event/sendReviewModal';
+import SentReviewModal from '@/app/components/user/event/sentReviewModal';
 import { RootState } from '@/app/store/store';
 import { formatDateTime } from '@/app/components/utils/datetime';
 import { SERVER_URL } from '@/app/config';
@@ -40,6 +40,10 @@ interface EventProps {
     description: string;
     storeImages: string[];
     storeName: string;
+    storeGenre: string;
+    cookingGenre: string;
+    storeLat: number;
+    storeLng: number;
   };
   status: string,
   createdAt: string
@@ -47,8 +51,8 @@ interface EventProps {
 
 const EventReview2: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [map, setMap] = useState(''); // will be changed
-  const [types, setTypes] = useState<string[]>([]); // will be changed
+  const [IsSendReviewModalOpen, setIsSendReviewModalOpen] = useState(false);
+  const [IsSentReviewModalOpen, setIsSentReviewModalOpen] = useState(false);
   const [userId ,setUserId] = useState('');
   const [storeId, setStoreId] = useState('');
   const [reviewEvent, setReviewEvent] = useState('');
@@ -65,7 +69,7 @@ const EventReview2: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'w-full rounded-2xl -mt-32 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
+  const container = 'w-full rounded-2xl -mt-10 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
   const locationSVG = '/svg/location.svg';
   const textMd = 'text-base sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-base md:text-lg';
@@ -112,6 +116,11 @@ const EventReview2: React.FC = () => {
       fetchReply();
     }
   }, [storeId])
+
+  if (!selectedEvent) {
+    console.log("Missing user information or event data.");
+    return;
+  }
 
   // set event rate
   const handleRateEventChange = (newRate: number) => {
@@ -182,6 +191,7 @@ const EventReview2: React.FC = () => {
           console.log("Sending store review success.");
           const result = await response.json();
           console.log(result.data);
+          setIsSentReviewModalOpen(true);
         } else {
           console.log(response.status);
           console.log("Sending store review failed.");
@@ -199,146 +209,116 @@ const EventReview2: React.FC = () => {
     <IonPage>
       <IonContent>
         <AuthWrapper allowedRoles={['user']}>
-          <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-gray-800 space-y-1">
+          <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-zinc-700 space-y-1">
             {/* header */}
-            <div className={`h-56 sm:h-60 md:h-64 w-full ${maleGradient}`}>
-              <h2 className='text-lg font-semibold text-center text-white pt-6'>イベントレビュー</h2>
+            <div className={`h-36 sm:h-40 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 px-4'>
+                <button onClick={() => router.goBack()}>
+                  <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
+                </button>
+                <h2 className='grow pr-4'>参加イベント情報</h2>
+              </div>
             </div>
             {/* container */}
-            <div className='px-4'>
+            <div className='absolute top-10 px-8 w-full h-48 rounded-2xl'>
+              <img src={selectedEvent.coverImage} className='w-full rounded-2xl h-48' />
+            </div>
+            <div className='absolute top-48 px-8 pb-6 w-full'>
               <div className={`${container}`}>
                 {/* title */}
-                <h2 className='text-base sm:text-lg font-semibold'>{selectedEvent?.eventName}</h2>
-                <h2 className={`${textSm}`}>{selectedEvent && formatDateTime(selectedEvent.eventDate)}</h2>
-                {/* type */}
-                <div className='flex flex-row space-x-2 text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-4'>
-                  {types && types.map((type, index) => (
-                    <div key={index} className='rounded-full bg-gray-200 px-3 md:px-4 py-1'>{type}</div>
-                  ))}
-                </div>
-                <img src={`${selectedEvent?.coverImage}`} />
+                <h2 className={`${textMd} font-semibold`}>{selectedEvent.eventName}</h2>
+                <h2 className='text-xs sm:text-sm'>{formatDateTime(selectedEvent.eventDate)}</h2>
                 {/* male */}
-                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
-                  <div className='flex flex-row items-center'>
-                    <div className={`${maleGradient} px-2 py-1 rounded-full w-10 sm:w-12 text-center ${textXs} text-white my-auto`}>男性</div>
-                    <h2 className={`${textXs} pl-2`}>募集人数</h2>
-                    <h2 className={`${textSm} pl-2`}>|</h2>
-                    <h2 className={`${textSm} pl-2`}>{selectedEvent?.males}/{selectedEvent?.maleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
-                      <div 
-                        className={`h-3 md:h-6 ${maleGradient}`} 
-                        style={{ width: `${selectedEvent ? selectedEvent.males/selectedEvent.maleTotal * 100 : 0}%` }}
-                      ></div>
-                    </div>
+                <div className='flex flex-row'>
+                  <div className={`${maleGradient} rounded-full w-10 sm:w-12 text-center text-white my-auto`} style={{ fontSize: '0.65rem' }}>男性</div>
+                  <h2 className={`pl-2 my-auto`} style={{ fontSize: '0.65rem' }}>募集人数</h2>
+                  <h2 className={`pl-3 my-auto`} style={{ fontSize: '0.65rem' }}>{selectedEvent.males}/{selectedEvent.maleTotal}</h2>
+                  <div className="w-16 sm:w-20 bg-gray-200 h-2 rounded-full my-auto ml-1">
+                    <div
+                      className={`h-2 ${maleGradient} rounded-full`} 
+                      style={{ width: `${selectedEvent.males / selectedEvent.maleTotal * 100}%` }}
+                    ></div>
                   </div>
-                  <div className='flex flex-row-reverse'>
-                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-lg'>{selectedEvent?.maleFee}</strong>円(税込)</h2>
-                  </div>
+                  <h2 className='ml-auto my-auto' style={{ fontSize: '0.65rem' }}>料金  <strong>{selectedEvent.maleFee}</strong>円&nbsp;&nbsp;税込</h2>
                 </div>
                 {/* female */}
-                <div className='rounded-lg bg-gray-100 p-2 sm:p-3 flex flex-col'>
-                  <div className='flex flex-row items-center'>
-                    <div className={`${femaleGradient} px-2 py-1 rounded-full w-10 sm:w-20 text-center text-xs sm:text-sm md:text-base text-white my-auto`}>女性</div>
-                    <h2 className={`${textXs} pl-2`}>募集人数</h2>
-                    <h2 className={`${textSm} pl-2`}>|</h2>
-                    <h2 className={`${textSm} pl-2`}>{selectedEvent?.females}/{selectedEvent?.femaleTotal}</h2>
-                    <div className="w-24 md:w-40 bg-white h-3 md:h-6 rounded-full my-auto ml-2">
-                      <div 
-                        className={`h-3 md:h-6 ${femaleGradient}`} 
-                        style={{ width: `${selectedEvent ? selectedEvent.females/selectedEvent.femaleTotal * 100 : 0}%` }}
-                      ></div>
-                    </div>
+                <div className='flex flex-row pt-2'>
+                  <div className={`${femaleGradient} rounded-full w-10 sm:w-12 text-center text-white my-auto`} style={{ fontSize: '0.65rem' }}>女性</div>
+                  <h2 className={`pl-2 my-auto`} style={{ fontSize: '0.65rem' }}>募集人数</h2>
+                  <h2 className={`pl-3 my-auto`} style={{ fontSize: '0.65rem' }}>{selectedEvent.females}/{selectedEvent.femaleTotal}</h2>
+                  <div className="w-16 sm:w-20 bg-gray-200 h-2 rounded-full my-auto ml-1">
+                    <div
+                      className={`h-2 ${femaleGradient} rounded-full`}
+                      style={{ width: `${selectedEvent.females / selectedEvent.femaleTotal * 100}%` }}
+                    ></div>
                   </div>
-                  <div className='flex flex-row-reverse'>
-                    <h2 className={`${textSm} pl-2`}>料金  <strong className='text-lg'>{selectedEvent?.femaleFee}</strong>円(税込)</h2>
+                  <h2 className='ml-auto my-auto' style={{ fontSize: '0.65rem' }}>料金  <strong>{selectedEvent.femaleFee}</strong>円&nbsp;&nbsp;税込</h2>
+                </div>
+                {/* description and caution */}
+                <div className='flex flex-row pt-6'>
+                  <h2 className={`text-base font-semibold text-gray-800`}>イベント概要</h2>
+                </div>
+                <h2 className={`${textXs}`}>{selectedEvent.description}</h2>
+                {/* store name */}
+                <div className='flex flex-row pt-6'>
+                  <h2 className={`text-base font-semibold text-gray-800`}>{selectedEvent.store.storeName}</h2>
+                  <div className='flex flex-row ml-auto text-blue-500 items-center'>
+                    <h2 className={`${textXs} pr-2`}>
+                      <IonRouterLink routerLink={`/chatMessages?storeId=${selectedEvent.store._id}&storeName=${selectedEvent.store.storeName}&eventId=${selectedEvent._id}&eventName=${selectedEvent.eventName}`}>
+                        店舗への問い合わせ
+                      </IonRouterLink>
+                    </h2>
+                    <FaPaperPlane className='w-4 h-4' />
                   </div>
                 </div>
-                {/* button */}
-                <div className='py-2 flex'>
-                  <button type='submit' className={`grow rounded-lg border-solid border py-1 sm:py-2 md:py-3 border-gray-500 ${textXs}`}>イベント概要</button>
-                </div>
-                <h2 className={`${textXs}`}>{selectedEvent?.description}</h2>
-              </div>
-            </div>
-            {/* send review about event */}
-            {/* <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 pt-8'>
-              <div className='flex flex-row'>
-                <h2 className={`${textSm} font-semibold`}>イベントを評価:</h2>
-                <div className='space-x-1 flex ml-auto'>
-                  <StarRating rate={ratingEvent} onRateChange={handleRateEventChange} />
-                </div>
-              </div>
-              <textarea
-                value={reviewEvent}
-                onChange={(e) => setReviewEvent(e.target.value)}
-                className={`w-full mt-2 p-2 bg-gray-100 rounded-md focus:outline-none ${textSm}`}
-                placeholder="イベントのレビューを書く"
-                rows={6}          
-              />
-              <button id="btn_event" onClick={handleSubmitEventReview} className={`grow bg-gray-800 rounded-full text-white font-semibold py-1 ${textSm}`}>送信する</button>
-            </div> */}
-            {/* location button with gradient */}
-            <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
-              <button className={`grow ${maleGradient} rounded-xl py-1 text-white font-semibold ${textSm}`}>開催場所</button>
-            </div>
-            {/* store info */}
-            <div className='px-4 sm:px-6 md:px-8'>
-              <h2 className={`${textMd}`}>{selectedEvent?.store.storeName}</h2>
-              <h2 className={`${textSm} font-semibold`}>料理ジャンル: 居酒屋、海鮮、日本酒バー</h2>
-              <div className='pt-3'>
-                {selectedEvent?.store.storeImages && 
-                <FullCarousel items={selectedEvent?.store.storeImages} />}
-              </div>
-              <h2 className={`${textSm}`}>{selectedEvent?.store.description}</h2>
-            </div>
-            {/* Access */}
-            <div className='px-4 sm:px-6 md:px-8 flex flex-col space-y-1'>
-              <h2 className={`${textMd} font-semibold flex`}><img src={`${locationSVG}`} className='w-6 h-6 mr-4'/>アクセス</h2>
-              <h2 className={`${textSm} border-b-2 border-solid border-gray-300`}>{selectedEvent?.store.address}</h2>
-              {selectedEvent?.store.access.map((access, index) => (
-                <h2 key={index} className={`${textSm}`}>{access}</h2>
-              ))}
-              <img src={`${map}`} className='py-2' />
-              <div className={`p-4 sm:px-6 md:px-8 flex w-full`}>
-                <button className={`grow rounded-xl border-2 border-solid border-gray-800 ${textMd}`}>注意事項</button>
-              </div>
-              <h2 className={`${textSm}`}>{selectedEvent?.store.description}</h2>
-            </div>
-            {/* send review about store */}
-            <div className='flex flex-col px-4 sm:px-6 md:px-8 space-y-4 py-8'>
-              {!storeReplyText &&
-                <>
-                  <div className='flex flex-row'>
-                    <h2 className={`${textMd} font-semibold`}>お店を評価:</h2>
-                    {/* event star rating */}
-                    <div className='space-x-1 flex ml-auto'>
-                      <StarRating rate={ratingStore} onRateChange={handleRateStoreChange} />
-                    </div>
+                <h2 className={`${textXs}`}>店舗ジャンル: {selectedEvent.store.storeGenre}, {selectedEvent.store.cookingGenre}</h2>
+                <h2 className={`${textXs}`}>{selectedEvent.store.storeName}</h2>
+                {/* Access */}
+                <div className='flex flex-col space-y-1 w-full pt-6'>
+                  <h2 className='text-base font-semibold text-gray-800'>住所</h2>
+                  <h2 className={`${textXs}`}>{selectedEvent.store.address}</h2>
+                  <h2 className={`${textXs}`}>アクセス:</h2>
+                  {selectedEvent.store.access && selectedEvent.store.access.map((acc, index) => (
+                    <h2 key={index} className={`${textXs}`}>{acc}</h2>
+                  ))}
+                  <div className='py-1'>
+                    <GoogleMapLocation lat={selectedEvent.store.storeLat} lng={selectedEvent.store.storeLng} />
                   </div>
-                  <textarea
-                    value={reviewStore}
-                    onChange={(e) => setReviewStore(e.target.value)}
-                    className="w-full mt-3 p-2 bg-gray-100 rounded-md focus:outline-none"
-                    placeholder="お店のレビューを書く"
-                    rows={6}
-                  />
-                </>
-              }
-              {storeReplyText &&
-                <>
-                  <h2 className={`${textSm} font-semibold text-blue-600`}>店舗の対応</h2>
-                  <h2 className={`${textXs} font-semibold p-2 rounded-lg border shadow-lg`}>{storeReplyText}</h2>
-                </>
-              }
-              {!storeReplyText &&
-                <button id="btn_event" onClick={handleSubmitStoreReview} className={`grow bg-gray-800 rounded-full py-2 text-white ${textMd}`}>
-                  送信する
-                </button>
-              }
-              <div className={`pb-6 pt-2 flex w-full`}>
-                <button onClick={() => router.back()} className={`grow bg-gray-400 rounded-full py-1 text-white ${textMd}`}>TOPにもどる</button>
+                </div>
+                {storeReplyText &&
+                  <>
+                    <h2 className={`${textSm} font-semibold text-blue-600 my-2`}>店舗の対応</h2>
+                    <h2 className={`${textXs} font-semibold p-2 rounded-lg border shadow-lg mb-4`}>{storeReplyText}</h2>
+                  </>
+                }
+                {/* buttons */}
+                {!storeReplyText && <div className={`flex w-2/3 mx-auto pt-4 pb-2`}>
+                  <button className={`grow ${maleGradient} text-sm rounded-full py-1 sm:py-2 text-white`} onClick={() => setIsSendReviewModalOpen(true)}>
+                    レビューをする
+                  </button>
+                </div>}
+                <div className={`flex w-2/3 mx-auto pb-4`}>
+                  <button onClick={() => router.goBack()} className={`grow bg-gray-400 text-sm text-white rounded-full py-1 sm:py-2`}>
+                    戻る
+                  </button>
+                </div>
               </div>
             </div>
+            <SendReviewModal
+              isOpen={IsSendReviewModalOpen}
+              onClose={() => setIsSendReviewModalOpen(false)}
+              onConfirmSendReview={() => handleSubmitStoreReview()}
+              ratingStore={ratingStore}
+              handleRateStoreChange={(newStoreRate) => handleRateStoreChange(newStoreRate)}
+              ratingEvent={ratingEvent}
+              handleRateEventChange={(newEventRate) => handleRateEventChange(newEventRate)}
+              reviewStore={reviewStore}
+              setReviewStore={(newReview) => setReviewStore(newReview)}
+            />
+            <SentReviewModal
+              isOpen={IsSentReviewModalOpen}
+              onClose={() => setIsSentReviewModalOpen(false)}
+            />
           </div>
         </AuthWrapper>
       </IonContent>
