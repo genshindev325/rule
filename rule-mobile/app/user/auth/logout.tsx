@@ -14,9 +14,9 @@ const LogOut: React.FC = () => {
   const router = useIonRouter();
   const { signout } = useAuth();
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await signout();
     router.push('/auth/login');
-    signout();
   };
 
   const handleCancel = () => {

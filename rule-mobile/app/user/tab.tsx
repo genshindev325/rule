@@ -1,11 +1,9 @@
-import { IonRouterOutlet, IonTabButton, IonTabBar, IonTabs, IonIcon, IonLabel } from "@ionic/react";
+'use client';
+
+import { IonRouterOutlet, IonTabButton, IonTabBar, IonTabs } from "@ionic/react";
 import { Redirect, Route, useLocation } from "react-router-dom";
-import { cog, home, list } from 'ionicons/icons';
 
-// Home
 import Home from '@/app/user/home';
-
-// profile
 import MyPage from '@/app/user/profile/myPage';
 import Password from '@/app/user/profile/password';
 import Payment from '@/app/user/profile/payment';
@@ -15,8 +13,6 @@ import ChangeName from "@/app/components/user/setting/changeName";
 import ChangeID from '@/app/components/user/setting/changeID';
 import ChangeBirthday from "@/app/components/user/setting/changeBirthday";
 import UploadIdentityCard from "@/app/components/user/setting/uploadIdentityCard";
-
-// Auth
 import Login from "@/app/user/auth/login";
 import LoginWith from "@/app/user/auth/loginWith";
 import LogOut from "@/app/user/auth/logout";
@@ -25,8 +21,6 @@ import PasswordResetSend from "@/app/user/auth/passwordResetSend";
 import Unauthorized from "@/app/user/auth/unauthorized";
 import SignUp from "@/app/user/auth/signup";
 import { useAuth } from "@/app/components/auth/authContext";
-
-// Event
 import EventReview2 from "@/app/user/event/eventReview2";
 import FindOnMap from "@/app/user/event/findOnMap";
 import EventHistory2 from "@/app/user/event/history2";
@@ -35,8 +29,6 @@ import RegistSuccess from "@/app/user/event/registSuccess";
 import EventDetail from "@/app/user/event/eventDetail";
 import SearchResult4 from "@/app/user/event/searchResult4";
 import EventCancel from "@/app/user/event/eventCancel";
-
-// Chat
 import ChatList from "@/app/user/chat/chatList";
 import ChatMessages from "@/app/user/chat/chatMessages";
 
@@ -49,9 +41,7 @@ const Tabs = () => {
     <IonTabs>
       <IonRouterOutlet>
         <Route path="/event" render={() => <EventPayment />} />
-        {/* home */}
         <Route path="/home" component={Home} />
-        {/* my page */}
         <Route path="/profile/myPage" component={MyPage} />
         <Route path="/profile/password" component={Password} />
         <Route path="/profile/payment" component={Payment} />
@@ -61,7 +51,6 @@ const Tabs = () => {
         <Route path="/setting/changeID" component={ChangeID} />
         <Route path="/setting/changeBirthday" component={ChangeBirthday} />
         <Route path="/setting/uploadIdentityCard" component={UploadIdentityCard} />
-        {/* user/auth */}
         <Route path="/auth/signup" component={SignUp} />
         <Route path="/auth/login" render={() => <Login />} exact={true} />
         <Route path="/auth/loginWith" render={() => <LoginWith />} exact={true} />
@@ -69,7 +58,6 @@ const Tabs = () => {
         <Route path="/auth/passwordReset" render={() => <PasswordReset />} exact={true} />
         <Route path="/auth/passwordResetSend" render={() => <PasswordResetSend />} exact={true} />
         <Route path="/auth/unauthorized" render={() => <Unauthorized />} exact={true} />
-        {/* user/event */}
         <Route path="/participate" render={() => <RegistSuccess />} exact={true} />
         <Route path="/event/findOnMap" render={() => <FindOnMap />} exact={true} />
         <Route path="/event/eventReview2" render={() => <EventReview2 />} exact={true} />
@@ -78,7 +66,6 @@ const Tabs = () => {
         <Route path="/event/eventDetail" render={() => <EventDetail />} exact={true} />
         <Route path="/event/eventResult4" render={() => <SearchResult4 />} exact={true} />
         <Route path="/event/eventCancel" render={() => <EventCancel />} exact={true} />
-        {/* chat */}
         <Route path="/chatList" render={() => <ChatList />} exact={true} />
         <Route path="/chatMessages" render={() => <ChatMessages />} exact={true} />
         <Route
