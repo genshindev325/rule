@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
           eventDate: { $lt: new Date() },
         }).populate({
           path: 'store',
-          select: 'rating address access description storeImages storeName'
+          select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
         })
       } else {
         query.where("eventDate").lt(new Date().getTime());
         query.populate({
           path: 'store',
-          select: 'rating address access description storeImages storeName'
+          select: 'storeLat storeLng storeName storeImages address access description status cookingGenre foodGenre storeGenre'
         })
       }
     }
