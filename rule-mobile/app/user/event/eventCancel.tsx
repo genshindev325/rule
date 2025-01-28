@@ -103,16 +103,16 @@ const EventCancel: React.FC = () => {
         <AuthWrapper allowedRoles={['user']}>
           <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-zinc-700 space-y-1">
             {/* header */}
-            <div className={`h-20 sm:h-24 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 px-4'>
+            <div className={`h-36 sm:h-40 w-full ${maleGradient}`}>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </button>
-                <h2 className='grow pr-4'>参加イベント情報</h2>
+                <h2 className='grow pr-6'>参加イベント情報</h2>
               </div>
             </div>
             {/* container */}
-            <div className='absolute top-10 px-8 w-full h-48 rounded-2xl'>
+            <div className='absolute top-24 px-8 w-full h-48 rounded-2xl'>
               <img src={selectedEvent.coverImage} className='w-full rounded-2xl h-48' />
             </div>
             <div className='absolute top-48 px-8 pb-6 w-full'>

@@ -122,6 +122,7 @@ const EventHistory2: React.FC = () => {
             const result_events: PastEventProps[] = result.data;
             const filterEvents = result_events.filter(event => event && event.store !== null);
             setPastEvents(filterEvents);
+            console.log(JSON.stringify(filterEvents))
           } else {
             console.log(response_pastEvents.status);
             console.log("Getting past events failed.")

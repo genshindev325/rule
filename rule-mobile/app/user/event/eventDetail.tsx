@@ -29,7 +29,6 @@ const EventDetail: React.FC = () => {
   const container = 'flex flex-col p-4 sm:p-6 space-y-1 bg-white rounded-2xl shadow-lg z-50';
 
   const textMd = 'text-base sm:text-lg font-semibold';
-  const textSm = 'text-sm sm:text-base font-semibold';
   const textXs = 'text-xs sm:text-sm';
 
   const caution = '注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。注意事項。';
@@ -97,11 +96,11 @@ const EventDetail: React.FC = () => {
                 <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </button>
-                <h2 className='grow pr-4'>イベント情報</h2>
+                <h2 className='grow pr-6'>イベント情報</h2>
               </div>
             </div>
             {/* container */}
-            <div className='absolute top-10 px-8 w-full h-48 rounded-2xl'>
+            <div className='absolute top-24 px-8 w-full h-48 rounded-2xl'>
               <img src={selectedEvent.coverImage} className='w-full rounded-2xl h-48' />
             </div>
             <div className='absolute top-48 px-8 pb-6 w-full'>

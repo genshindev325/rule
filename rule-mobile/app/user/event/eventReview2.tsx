@@ -69,8 +69,7 @@ const EventReview2: React.FC = () => {
 
   const maleGradient = 'bg-gradient-to-r from-[#7c5ded] to-[#83d5f7]';
   const femaleGradient = 'bg-gradient-to-r from-[#fb298e] to-[#ff9dc7]';
-  const container = 'w-full rounded-2xl -mt-10 bg-white p-4 sm:p-6 md:p-8 flex flex-col shadow-md';
-  const locationSVG = '/svg/location.svg';
+  const container = 'flex flex-col p-4 sm:p-6 space-y-1 bg-white rounded-2xl shadow-lg z-50';
   const textMd = 'text-base sm:text-lg md:text-xl';
   const textSm = 'text-sm sm:text-base md:text-lg';
   const textXs = 'text-xs sm:text-sm md:text-base';
@@ -212,15 +211,15 @@ const EventReview2: React.FC = () => {
           <div className="flex flex-col min-h-[calc(100vh-56px)] w-screen bg-white text-zinc-700 space-y-1">
             {/* header */}
             <div className={`h-36 sm:h-40 w-full ${maleGradient}`}>
-              <div className='flex flex-row text-lg font-semibold text-center text-white pt-2 px-4'>
+              <div className='flex flex-row text-lg font-semibold text-center text-white pt-16 sm:pt-20 md:pt-24 px-4'>
                 <button onClick={() => router.goBack()}>
                   <img src='/svg/arrow-left-white.svg' className='w-6 h-6' />
                 </button>
-                <h2 className='grow pr-4'>参加イベント情報</h2>
+                <h2 className='grow pr-6'>参加イベント情報</h2>
               </div>
             </div>
             {/* container */}
-            <div className='absolute top-10 px-8 w-full h-48 rounded-2xl'>
+            <div className='absolute top-24 px-8 w-full h-48 rounded-2xl'>
               <img src={selectedEvent.coverImage} className='w-full rounded-2xl h-48' />
             </div>
             <div className='absolute top-48 px-8 pb-6 w-full'>
@@ -297,7 +296,7 @@ const EventReview2: React.FC = () => {
                     レビューをする
                   </button>
                 </div>}
-                <div className={`flex w-2/3 mx-auto pb-4`}>
+                <div className={`flex w-2/3 mx-auto py-4`}>
                   <button onClick={() => router.goBack()} className={`grow bg-gray-400 text-sm text-white rounded-full py-1 sm:py-2`}>
                     戻る
                   </button>
